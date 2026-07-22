@@ -52,6 +52,29 @@ def main():
           "thrust collar boss",
           f"boss {P['collar_boss_d']} rides inside the {P['bearing_inner_shoulder_d']} inner shoulder")
 
+    # --- uplift retainer: second plain collar under the bottom bearing,
+    #     boss up with running clearance; loaded only when something
+    #     unloads the rotor (wave slam, gust), and then only through the
+    #     bottom bearing's races ---
+    check(ok, 0.5 <= P["retainer_gap"] <= 2, "retainer running clearance",
+          f"{P['retainer_gap']} mm between boss and bottom inner race"
+          " (0.5 .. 2: never loaded in normal running, catches early)")
+    retainer_bottom = (P["pocket_recess"] - P["retainer_gap"]
+                       - P["collar_boss_h"] - P["collar_w"])
+    tip_proud = retainer_bottom + P["shaft_tip_drop"]
+    check(ok, tip_proud >= 1, "retainer grip on the shaft",
+          f"tip stands {tip_proud:.1f} mm proud below the collar"
+          " (>= 1: the full clamp width is on the rod)")
+    check(ok, P["plank_hole_d"] >= P["collar_od"] + 4, "plank hole width",
+          f"hole {P['plank_hole_d']} around collar {P['collar_od']}"
+          " (>= 4 mm total clearance, nothing rotating touches wood)")
+    check(ok, P["plank_min_t"] >= P["shaft_tip_drop"] + 2, "plank thickness",
+          f"{P['plank_min_t']} mm holds the {P['shaft_tip_drop']} mm tip drop"
+          " inside the hole (>= 2 mm spare)")
+    wood = (P["screw_circle_d"] - P["plank_hole_d"]) / 2
+    check(ok, wood >= 15, "plank hole clears the wood screws",
+          f"{wood:.1f} mm of wood between hole edge and screw circle (>= 15)")
+
     # --- hub walls around the grooves (clamshell: plain round grooves,
     #     printed open-face-up, so no teardrop crown anywhere here) ---
     web = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_shaft_socket"]
@@ -93,7 +116,7 @@ def main():
           " rods not plastic (0.4 .. 2)")
 
     # --- vertical stack: shaft, collar working room, vane ground clearance ---
-    shaft_top = P["shaft_bottom_gap"] + P["shaft_length"]
+    shaft_top = P["shaft_length"] - P["shaft_tip_drop"]
     hub_bottom = shaft_top - P["hub_shaft_socket"]
     arm_z = hub_bottom + P["hub_arm_z"]
     collar_room = hub_bottom - (P["tower_h"] - P["pocket_recess"]

@@ -17,9 +17,11 @@
 // 8 mm rod is chosen to match the 608 bearing bore, so the shaft and
 // both arms cut from the same stock.
 rod_d        = 8;
-shaft_length = 150;  // vertical shaft; sets how high the rotor rides.
+shaft_length = 172;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
-                     // plank — geometry_check.py gates the clearance.
+                     // plank (geometry_check.py gates the clearance)
+                     // and that the tip reaches down through the
+                     // uplift retainer collar below the bottom bearing.
 arm_length   = 600;  // each horizontal arm (two of them)
 
 // --- 608 skateboard bearing (bought, TWO of them) ---
@@ -105,7 +107,7 @@ vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
                         // wedge impact every pass
 vane_width      = 200; // panel size along the arm; wide-and-short so the
 vane_drop       = 100; // panel (sleeve AXIS to bottom edge) keeps its area
-                       // while clearing the plank under the 150 mm shaft
+                       // while clearing the plank under the shaft
 vane_t          = 3;
 vane_rim_w      = 4;   // stiffening rim around the panel
 vane_rim_h      = 6;
@@ -127,15 +129,29 @@ stop_wedge_ri  = 4.5;  // inner radius: clears the rod
 stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the
                        // carrier faces (geometry_check.py verifies all)
 
-// --- Clamp collars (ONE plain on the shaft as thrust support; the arm
-//     collars in arm_collar.scad add the inboard stop wedge). Wide
-//     dual-bolt slit clamps, like the cap. ---
+// --- Clamp collars (TWO plain on the shaft: thrust support riding the
+//     top bearing's inner race, and the uplift retainer hanging under
+//     the bottom bearing's inner race with retainer_gap of running
+//     clearance; the arm collars in arm_collar.scad add the inboard
+//     stop wedge). Wide dual-bolt slit clamps, like the cap. ---
 collar_od     = 24;
 collar_w      = 16;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end
 collar_boss_h = 2;
 collar_slit   = 2;
 
+// --- Uplift retainer (second plain collar, boss up under the bottom
+//     bearing; carries nothing in normal running, catches the inner
+//     race if a wave or gust unloads the rotor, and keeps the bottom
+//     bearing captive; lives in a clearance hole in the plank) ---
+retainer_gap   = 1;    // running clearance between boss and inner race
+plank_hole_d   = 30;   // through hole in the plank under the tower
+plank_min_t    = 25;   // plank at least this thick so tip and retainer
+                       // stay inside the hole
+
 // --- Assembly stations / sanity limits ---
-shaft_bottom_gap = 2;   // shaft tip hovers this far above the plank
+shaft_tip_drop   = 20;  // shaft tip protrudes this far below the base
+                        // bottom; at mounting the base stands on blocks
+                        // this tall (the printed end caps are exactly
+                        // cap_t = 20) with the tip on the bench
 printer_bed      = 210; // largest printable footprint, gates part sizes

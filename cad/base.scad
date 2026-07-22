@@ -4,10 +4,12 @@
 //   Prints flange-down, no supports. A flange with countersunk wood-screw
 //   holes, a central tower, and gussets between them. The tower holds TWO
 //   608 bearings: the top pocket opens up, the bottom pocket opens down
-//   (that bearing goes in from underneath before the base is screwed on,
-//   and the plank then keeps it captive). Between the pockets the bore
-//   narrows to tower_bore_d, which shoulders the OUTER races only — the
-//   12 mm inner-race shoulders spin free of it.
+//   (that bearing goes in from underneath before the base is screwed on;
+//   the uplift retainer collar on the shaft keeps it captive — the plank
+//   has a plank_hole_d clearance hole under the tower, so the plank no
+//   longer does). Between the pockets the bore narrows to tower_bore_d,
+//   which shoulders the OUTER races only — the 12 mm inner-race
+//   shoulders spin free of it.
 //
 //   Both bearings sit pocket_recess below their tower face, so the
 //   rotating inner races never rub the plank (bottom) or the thrust
@@ -15,6 +17,9 @@
 //
 //   Load path: rotor weight -> shaft collar -> top bearing inner race ->
 //   balls -> outer race -> the upward-facing pocket shoulder -> tower.
+//   Uplift (a wave or gust unloading the rotor) reverses it: retainer
+//   collar -> bottom inner race -> balls -> outer race -> the bridged
+//   pocket ceiling -> tower.
 //
 //   Print note: the bottom pocket's shoulder is a 1.5 mm ring bridged
 //   over the pocket at z=7.5 — it droops a little, which only softens

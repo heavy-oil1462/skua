@@ -1,18 +1,23 @@
 // ==============================================================================
-//   THRUST COLLAR — print ONE (the arms use arm_collar.scad, which is
+//   PLAIN COLLAR — print TWO (the arms use arm_collar.scad, which is
 //   this part plus the inboard stop wedge).
 //
-//   Goes on the shaft: boss down, riding the top bearing's INNER race.
-//   This is the rotor's thrust bearing seat — the whole rotating mass
-//   hangs on it. The boss stays inside bearing_inner_shoulder_d so it
-//   never touches the static outer race.
+//   Both go on the shaft. The THRUST collar sits boss down, riding the
+//   top bearing's INNER race: the rotor's thrust bearing seat, the
+//   whole rotating mass hangs on it. The UPLIFT RETAINER sits boss up
+//   under the bottom bearing's inner race with retainer_gap of running
+//   clearance: it carries nothing in normal running, but catches the
+//   inner race if a wave or gust unloads the rotor, and it keeps the
+//   bottom bearing captive. Either way the boss stays inside
+//   bearing_inner_shoulder_d so it never touches the static outer race.
 //
 //   A WIDE DUAL-BOLT slit clamp: 16 mm of grip on the rod, closed by
 //   two M3 bolts crossing the slit, each with a nyloc in a flat-up hex
 //   pocket. Friction, not a drilled lock — the trade for a machine
 //   with no drilled rods and every joint re-adjustable. Grip fades as
 //   printed plastic relaxes, so re-torque the clamp bolts seasonally;
-//   if this one ever slips the rotor just settles onto the plank.
+//   if the thrust collar ever slips, the retainer catches the rotor
+//   after a millimeter of drop.
 //
 //   Prints ring-face down (boss up), slit vertical, the bolt bores
 //   lying horizontal as teardrops.

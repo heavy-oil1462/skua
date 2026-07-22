@@ -54,6 +54,11 @@ NON_PARTS = {"main_assembly", "design_params", "bearing_608", "hub"}
 VERSION_FILE = ROOT / "stl" / "openscad_version.txt"
 # docs/assembly.md's images: main_assembly.scad rendered at each step
 ASSEMBLY_STEPS = range(1, 6)
+# Per-step camera overrides (render_scad skips --viewall/--autocenter when
+# a --camera is passed). Step 3 is a close-up under the flange: the base
+# stands on blocks and the uplift retainer is clamped below the bottom
+# bearing, none of which reads from the default whole-rotor view.
+STEP_CAMERAS = {3: ["--camera=0,0,15,78,0,25,520"]}
 
 
 def parts():
@@ -129,7 +134,7 @@ def main(argv):
             for n in ASSEMBLY_STEPS:
                 committed = ROOT / "docs" / "assembly" / f"step{n}.png"
                 ok &= run_one(assembly, *target(committed),
-                              extra=["-D", f"step={n}"])
+                              extra=["-D", f"step={n}"] + STEP_CAMERAS.get(n, []))
 
     if check and not only:
         expected = {f"{p.stem}.stl" for p in parts()}
