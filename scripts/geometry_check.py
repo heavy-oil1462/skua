@@ -52,12 +52,13 @@ def main():
           "thrust collar boss",
           f"boss {P['collar_boss_d']} rides inside the {P['bearing_inner_shoulder_d']} inner shoulder")
 
-    # --- hub walls around the bores ---
+    # --- hub walls around the grooves (clamshell: plain round grooves,
+    #     printed open-face-up, so no teardrop crown anywhere here) ---
     web = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_shaft_socket"]
     check(ok, web >= 3, "hub shaft/arm web", f"{web:.1f} mm between the sockets (>= 3)")
-    peak = P["hub_arm_z"] + P["rod_snug_d"] / 2 * math.sqrt(2)  # teardrop crown
+    peak = P["hub_arm_z"] + P["rod_snug_d"] / 2
     check(ok, P["hub_h"] - peak >= 2, "hub top wall",
-          f"{P['hub_h'] - peak:.1f} mm above the arm bore crown (>= 2)")
+          f"{P['hub_h'] - peak:.1f} mm above the arm groove (>= 2)")
     check(ok, P["hub_len"] - 2 * P["hub_arm_socket"] >= 8, "hub center web",
           f"{P['hub_len'] - 2 * P['hub_arm_socket']:.1f} mm between the arm sockets (>= 8)")
     beam_wall = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_beam_z"]
@@ -66,6 +67,30 @@ def main():
     stem_wall = (P["hub_stem_w"] - P["rod_snug_d"]) / 2
     check(ok, stem_wall >= 4, "hub T stem around the shaft socket",
           f"{stem_wall:.1f} mm wall each side (>= 4)")
+
+    # --- hub clamshell: every M5 clamp bolt and peg keeps its walls ---
+    r = P["m5_clear_d"] / 2
+    center_web = P["hub_len"] / 2 - P["hub_arm_socket"] - r
+    check(ok, center_web >= 2, "hub center bolt clears the arm grooves",
+          f"{center_web:.1f} mm to each socket end (>= 2)")
+    stem_in = P["hub_bolt_stem_x"] - r - P["rod_snug_d"] / 2
+    stem_out = P["hub_stem_w"] / 2 - P["hub_bolt_stem_x"] - r
+    check(ok, min(stem_in, stem_out) >= 2, "hub stem bolts",
+          f"{stem_in:.1f} mm to the shaft groove, {stem_out:.1f} mm to the"
+          " stem edge (>= 2)")
+    beam_up = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - (P["hub_bolt_beam_z"] + r)
+    beam_dn = (P["hub_bolt_beam_z"] - r) - P["hub_beam_z"]
+    check(ok, min(beam_up, beam_dn) >= 2, "hub beam bolts",
+          f"{beam_up:.1f} mm to the arm groove, {beam_dn:.1f} mm to the"
+          " beam underside (>= 2)")
+    peg_up = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - (P["hub_peg_z"] + P["hub_peg_d"] / 2)
+    peg_out = P["hub_len"] / 2 - P["hub_peg_x"] - P["hub_peg_d"] / 2
+    check(ok, min(peg_up, peg_out) >= 1.5, "hub registration pegs",
+          f"{peg_up:.1f} mm to the arm groove, {peg_out:.1f} mm to the end"
+          " face (>= 1.5)")
+    check(ok, 0.4 <= P["hub_clamp_gap"] <= 2, "hub clamp gap",
+          f"{P['hub_clamp_gap']} mm total: rods stand proud, bolts clamp"
+          " rods not plastic (0.4 .. 2)")
 
     # --- vertical stack: shaft, collar working room, vane ground clearance ---
     shaft_top = P["shaft_bottom_gap"] + P["shaft_length"]
@@ -87,9 +112,10 @@ def main():
     sleeve_start = sleeve_end - P["vane_sleeve_len"]
     collar_start = sleeve_start - P["collar_boss_h"] - P["collar_w"]
     check(ok, cap_engage >= 5, "cap grip on the rod", f"{cap_engage:.1f} mm (>= 5)")
-    bolt_edge = P["cap_bore_depth"] / 2 - 2
-    check(ok, bolt_edge >= 2.5, "cap through-bolt edge distance",
-          f"bolt sits {bolt_edge:.1f} mm from the rod end (>= 2.5)")
+    check(ok, P["collar_w"] >= 14 and P["cap_bore_depth"] >= 14,
+          "tip clamps stay wide",
+          f"collar {P['collar_w']} mm, cap bore {P['cap_bore_depth']} mm of"
+          " grip (>= 14: friction-only joints live on grip length)")
     check(ok, collar_start >= P["hub_len"] / 2 + 5, "arm length",
           f"collar starts {collar_start:.0f} mm out, hub face at {P['hub_len'] / 2:.0f}"
           " (5 mm room to slide)")

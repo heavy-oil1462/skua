@@ -46,10 +46,10 @@ Notes (learned in earlier projects — do not rediscover):
 
 - **`cad/design_params.scad` is the single source of truth** for every dimension two parts share (rod and bearing sizes, the three calibrated fits, socket depths, stop-wedge geometry, stations). Parts `include` it; `check_params.py` FAILS if any file re-declares one of its names. Never fix a mismatch locally — change the shared value.
 - **The three fits are calibrated, not designed**: bearing_press_d, rod_snug_d, rod_free_d come from the gauges in `cad/calibration/`. A part needing a different fit of the same stock is a smell.
-- **Horizontal rod holes go through `lib/bores.scad` (teardrop)** and parts are modeled in their print orientation — a plain horizontal cylinder bore is a finding.
+- **Horizontal rod holes go through `lib/bores.scad` (teardrop)** and parts are modeled in their print orientation — a plain horizontal cylinder bore is a finding. Exception: the hub clamshell's grooves and bolt bores are plain rounds, because its halves print split-face-up (channels open upward, bolt bores vertical).
 - **Rotating never rubs static**: bosses that ride a bearing must stay inside bearing_inner_shoulder_d; static shoulders (tower_bore_d) must stay outside it; bearings sit pocket_recess below their faces. The rotor's weight path is shaft collar -> top bearing inner race only.
 - **The swing-stop mechanism is load-bearing design**: each vane must swing vane_swing_deg freely and hit a hard stop (a stop wedge on the end cap and the arm collar, each in a sleeve notch). Changes to sleeve, cap, collar, or wedge must keep `geometry_check.py`'s wedge checks meaningful — never widen the notch to "fix" a stop collision.
-- **Assembly is slide-and-bolt**: every rod joint is an M3 through-bolt crossing part and rod (the part doubles as the drill jig) — a new part gripping a rod by friction alone is a finding. No feature may require a rod cut to better than a couple of millimeters (the cap bore leaves slack for this).
+- **Assembly is slide-and-clamp, nothing is drilled**: the hub is a clamshell (hub_clamp_gap must stay nonzero so preload lands on the rods), every other rod joint is a WIDE dual-bolt slit clamp (geometry_check gates the grip length). A single set screw, a narrow friction ring, or a feature requiring a hole in a rod is a finding. No feature may require a rod cut to better than a couple of millimeters (the cap bore leaves slack for this).
 
 ## Report
 

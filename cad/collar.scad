@@ -7,15 +7,15 @@
 //   hangs on it. The boss stays inside bearing_inner_shoulder_d so it
 //   never touches the static outer race.
 //
-//   Held by an M3 THROUGH-BOLT crossing collar and rod: at assembly the
-//   collar is positioned on its snug bore, the rod is drilled through
-//   the printed hole (the collar is its own drill jig), and the bolt
-//   goes through with a nyloc nut in the side pocket. No friction grip
-//   on smooth aluminum — printed clamps creep loose over the years,
-//   a bolt through the rod cannot.
+//   A WIDE DUAL-BOLT slit clamp: 16 mm of grip on the rod, closed by
+//   two M3 bolts crossing the slit, each with a nyloc in a flat-up hex
+//   pocket. Friction, not a drilled lock — the trade for a machine
+//   with no drilled rods and every joint re-adjustable. Grip fades as
+//   printed plastic relaxes, so re-torque the clamp bolts seasonally;
+//   if this one ever slips the rotor just settles onto the plank.
 //
-//   Prints ring-face down (boss up), the bolt hole lying horizontal as
-//   a teardrop.
+//   Prints ring-face down (boss up), slit vertical, the bolt bores
+//   lying horizontal as teardrops.
 // ==============================================================================
 
 include <design_params.scad>
@@ -30,30 +30,35 @@ module collar() {
             translate([0, 0, collar_w])
                 cylinder(h = collar_boss_h, d = collar_boss_d);
         }
-        // bore — snug, so the collar holds position while drilling
+        // bore — snug, so the collar holds position while positioning
         translate([0, 0, -0.5])
             cylinder(h = collar_w + collar_boss_h + 1, d = rod_snug_d);
-        bolt_pocket(collar_od);
+        // slit, along +x
+        translate([0, -collar_slit / 2, -0.5])
+            cube([collar_od / 2 + 1, collar_slit,
+                  collar_w + collar_boss_h + 1]);
+        // two clamp bolts crossing the slit
+        for (z = [0.28, 0.72]) clamp_bolt(z * collar_w, collar_od);
     }
 }
 
-// The through-bolt cut, shared with arm_collar via this file: teardrop
-// clearance bore across the given diameter at mid ring height, a
-// teardrop head seat on the -Y side, a nyloc pocket (one flat up) on
-// the +Y side.
-module bolt_pocket(od) {
-    translate([0, 0, collar_w / 2]) {
+// One clamp bolt cut, shared with end_cap.scad: teardrop clearance
+// bore across the part at mid-wall of the +x side (crossing the slit),
+// a teardrop head seat from -y, and a nyloc pocket (one flat up) whose
+// floor sits just clear of the rod bore. z is the bolt height, od the
+// part's outer diameter.
+module clamp_bolt(z, od) {
+    x = (rod_snug_d / 2 + od / 2) / 2;
+    translate([x, 0, z]) {
         translate([0, -od / 2 - 1, 0])
-            rotate([0, 0, 90])
+            rotate([0, 0, 90]) {
                 rod_bore(m3_clear_d, od + 2);
-        translate([0, -od / 2 - 1, 0])
-            rotate([0, 0, 90])
-                rod_bore(m3_head_d + 0.6, 2.5);
-        translate([0, od / 2 - m3_locknut_t, 0])
+                rod_bore(m3_head_d + 0.6, od / 2 - 4);  // head seat
+            }
+        translate([0, rod_snug_d / 2 + 0.4, 0])
             rotate([-90, 0, 0])
                 rotate([0, 0, 30])
-                    cylinder(h = m3_locknut_t + 1,
-                             d = m3_nut_af / cos(30), $fn = 6);
+                    cylinder(h = od, d = m3_nut_af / cos(30), $fn = 6);
     }
 }
 

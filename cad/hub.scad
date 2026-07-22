@@ -1,37 +1,65 @@
 // ==============================================================================
 //   HUB — clamps the top of the vertical shaft and carries both arm rods.
 //
-//   T-shaped in the arm/shaft plane: a full-length beam wraps the arm
-//   sockets, a center stem wraps the shaft socket, and the unloaded
-//   lower corners of the bounding box are gone (the arm rods flex long
-//   before this block would). The beam undersides slope at 45 degrees
-//   so it still prints flat on its bottom face with no supports: the
-//   shaft socket is a clean vertical bore, the two arm sockets are
-//   horizontal teardrop bores (lib/bores.scad), and the bolt bores are
-//   horizontal teardrops.
+//   A CLAMSHELL split on the vertical plane through all three rod axes:
+//   lay the shaft and both arms into one half's grooves, close the
+//   other half over them, and five M5 through-bolts with wide washers
+//   clamp every joint at once. The grip is friction, but the contact
+//   area is enormous compared to any set screw, and no rod gets a hole
+//   drilled where its bending load peaks. The halves NEVER touch:
+//   each split face is recessed by hub_clamp_gap/2, so the rods stand
+//   proud of their grooves and the full bolt preload lands on them.
 //
-//   Each of the three rods is held by an M3 THROUGH-BOLT crossing the
-//   hub and the rod: seat the rod, drill it through the printed hole
-//   (the hub is its own drill jig), and bolt through with a nyloc in
-//   the pocket on the +Y face. Set screws pressing on smooth aluminum
-//   creep and work loose; a bolt through the rod cannot slip or pull
-//   out. All three heads sit on the same side face (-Y).
+//   Two printed parts (hub_front.scad with the registration pegs,
+//   hub_back.scad with their sockets); the back half is the same shape
+//   rotated 180 degrees at assembly, so both print in the same
+//   orientation: split face UP, grooves as open channels, bolt bores
+//   vertical. No supports, and no teardrops needed anywhere.
 //
-//   The arm sockets are blind: the center web between them doubles as
-//   the depth stop, so both arms end up at the same reach by
-//   construction. The shaft socket is blind from below; hub weight and
-//   rotor thrust are carried by the shaft COLLAR on the top bearing, not
-//   by this clamp — the set screws only transmit torque.
+//   T-shaped in the arm/shaft plane, as before: a full-length beam
+//   wraps the arm grooves, a center stem wraps the shaft groove, 45
+//   degree chamfers between them.
+//
+//   This file is the shared library (and renders the closed pair for
+//   viewing); regen_all treats it as a non-part.
 // ==============================================================================
 
 include <design_params.scad>
-use <lib/bores.scad>
 
 $fn = 80;
 
+// The complete hub as assembled, halves gapped on the rods.
 module hub() {
+    hub_half(pegs = true);
+    rotate([0, 0, 180]) hub_half(pegs = false);
+}
+
+// One half (the y < 0 side), split face toward +y, recessed by half
+// the clamp gap. The peg half carries pins proud of its face; the
+// other half gets matching sockets.
+module hub_half(pegs) {
     difference() {
-        // rounded-corner body, cut to the T profile
+        intersection() {
+            hub_solid();
+            translate([-500, -1000 - hub_clamp_gap / 2, -500]) cube(1000);
+        }
+        if (!pegs)
+            for (s = [1, -1])
+                translate([s * hub_peg_x, -hub_clamp_gap / 2 + 0.1, hub_peg_z])
+                    rotate([90, 0, 0])
+                        cylinder(h = 4.6, d = hub_peg_d + 0.4);
+    }
+    if (pegs)
+        for (s = [1, -1])
+            translate([s * hub_peg_x, -hub_clamp_gap / 2 - 0.1, hub_peg_z])
+                rotate([-90, 0, 0])
+                    cylinder(h = 4 + hub_clamp_gap / 2 + 0.1, d = hub_peg_d);
+}
+
+// The hub as one solid: T body minus rod grooves and bolt bores. The
+// halving above turns the plain round bores into open half-grooves.
+module hub_solid() {
+    difference() {
         intersection() {
             linear_extrude(height = hub_h)
                 offset(r = hub_corner_r)
@@ -40,27 +68,36 @@ module hub() {
             t_profile();
         }
 
-        // shaft socket, blind, from the bottom
+        // shaft groove, blind, from the bottom
         translate([0, 0, -0.1])
             cylinder(h = hub_shaft_socket + 0.1, d = rod_snug_d);
 
-        // arm sockets, blind, from each end
+        // arm grooves, blind, from each end
         for (m = [0, 1]) mirror([m, 0, 0])
             translate([hub_len / 2 - hub_arm_socket, 0, hub_arm_z])
-                rod_bore(rod_snug_d, hub_arm_socket + 1);
+                rotate([0, 90, 0])
+                    cylinder(h = hub_arm_socket + 1, d = rod_snug_d);
 
-        // through-bolts: arms at their socket midpoints, shaft mid-socket
-        through_bolt([ (hub_len - hub_arm_socket) / 2, hub_arm_z]);
-        through_bolt([-(hub_len - hub_arm_socket) / 2, hub_arm_z]);
-        through_bolt([0, hub_shaft_socket / 2]);
+        // clamp bolt bores: through the center web, flanking the shaft,
+        // under the beam (positions gated by geometry_check.py)
+        bolt_bore([0, hub_arm_z]);
+        for (s = [1, -1]) {
+            bolt_bore([s * hub_bolt_stem_x, hub_shaft_socket / 2]);
+            bolt_bore([s * hub_bolt_beam_x, hub_bolt_beam_z]);
+        }
     }
 }
 
+module bolt_bore(pos) {
+    translate([pos[0], 0, pos[1]])
+        rotate([90, 0, 0])
+            cylinder(h = hub_w + 2, d = m5_clear_d, center = true);
+}
+
 // The T profile in the arm/shaft plane, extruded across the hub width:
-// a full-width beam above hub_beam_z wrapping the arm sockets, a stem
-// of hub_stem_w wrapping the shaft socket, and 45 degree chamfers
-// between them so the beam prints support-free in the flat-on-bottom
-// orientation. Oversized in x and y; the intersection trims it.
+// a full-width beam above hub_beam_z wrapping the arm grooves, a stem
+// of hub_stem_w wrapping the shaft groove, and 45 degree chamfers
+// between them. Oversized in x and y; the intersection trims it.
 module t_profile() {
     s = hub_stem_w / 2;
     rotate([90, 0, 0])
@@ -73,26 +110,6 @@ module t_profile() {
                      [-hub_len / 2 - 1, hub_beam_z],
                      [-s - hub_beam_z, hub_beam_z],
                      [-s, 0]]);
-}
-
-// One M3 through-bolt: teardrop clearance bore across the full width,
-// crossing the rod socket, with a teardrop head seat in the -Y face
-// and a nyloc pocket (one flat up) in the +Y face. pos = [x, z] of the
-// bolt axis.
-module through_bolt(pos) {
-    translate([pos[0], 0, pos[1]]) {
-        translate([0, -hub_w / 2 - 1, 0])
-            rotate([0, 0, 90])
-                rod_bore(m3_clear_d, hub_w + 2);
-        translate([0, -hub_w / 2 - 1, 0])
-            rotate([0, 0, 90])
-                rod_bore(m3_head_d + 0.6, 3);
-        translate([0, hub_w / 2 - m3_locknut_t, 0])
-            rotate([-90, 0, 0])
-                rotate([0, 0, 30])
-                    cylinder(h = m3_locknut_t + 1,
-                             d = m3_nut_af / cos(30), $fn = 6);
-    }
 }
 
 hub();

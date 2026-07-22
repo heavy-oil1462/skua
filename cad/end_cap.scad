@@ -6,19 +6,21 @@
 //   wedge on the open face rides in the vane sleeve's outboard stop
 //   notch (the arm collar's wedge takes the inboard notch, sharing the
 //   impact) — rotate the cap to set where the vane's driven stop sits
-//   (just past hanging-vertical, see README), then drill the rod
-//   through the printed hole and fit the M3 through-bolt with a nyloc:
-//   a positive lock for angle and axial position, where a screw
-//   pressing on smooth aluminum would work loose under the stop
-//   impacts.
+//   (just past hanging-vertical, see README), then close the clamp.
+//
+//   A WIDE DUAL-BOLT slit clamp, like the collars: 16 mm of rod inside
+//   the bore, the slit opposite the wedge so the wedge base stays
+//   solid, two M3 bolts crossing the slit. Friction, not a drilled
+//   lock — the stop angle stays re-adjustable, and the price is a
+//   seasonal re-torque of the clamp bolts (see CLAUDE.md).
 //
 //   Prints closed-end-down: the wedge is a small vertical prism, the
-//   rod bore a clean blind vertical hole, the bolt bore a horizontal
-//   teardrop.
+//   rod bore a clean blind vertical hole, the bolt bores horizontal
+//   teardrops (clamp_bolt comes from collar.scad).
 // ==============================================================================
 
 include <design_params.scad>
-use <lib/bores.scad>
+use <collar.scad>
 use <lib/stop_wedge.scad>
 
 $fn = 80;
@@ -35,21 +37,13 @@ module end_cap() {
         // blind rod bore from the open face
         translate([0, 0, cap_t - cap_bore_depth])
             cylinder(h = cap_bore_depth + 0.1, d = rod_snug_d);
-        // M3 through-bolt crossing cap and rod at mid bore: teardrop
-        // clearance bore, head seat -Y, nyloc pocket +Y (one flat up)
-        translate([0, 0, cap_t - cap_bore_depth / 2]) {
-            translate([0, -cap_d / 2 - 1, 0])
-                rotate([0, 0, 90])
-                    rod_bore(m3_clear_d, cap_d + 2);
-            translate([0, -cap_d / 2 - 1, 0])
-                rotate([0, 0, 90])
-                    rod_bore(m3_head_d + 0.6, 2.5);
-            translate([0, cap_d / 2 - m3_locknut_t, 0])
-                rotate([-90, 0, 0])
-                    rotate([0, 0, 30])
-                        cylinder(h = m3_locknut_t + 1,
-                                 d = m3_nut_af / cos(30), $fn = 6);
-        }
+        // slit, along -x (opposite the wedge), bore region only so the
+        // closed end stays a solid disc
+        translate([-cap_d / 2 - 1, -collar_slit / 2, cap_t - cap_bore_depth])
+            cube([cap_d / 2 + 1, collar_slit, cap_bore_depth + 1]);
+        // two clamp bolts crossing the slit
+        for (z = [cap_t - cap_bore_depth + 4, cap_t - 4])
+            mirror([1, 0, 0]) clamp_bolt(z, cap_d);
     }
 }
 
