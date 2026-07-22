@@ -18,6 +18,9 @@ Pipeline:
 2. `scripts/geometry_check.py` — assembly stack-up: clearances, engagements, stop-wedge geometry, bed fit (FAIL gates too)
 3. every part in `cad/` + `cad/calibration/` → `stl/<name>.stl`
 4. `cad/main_assembly.scad` → `main_assembly.png` (the README image)
+5. `cad/main_assembly.scad -D step=N` → `docs/assembly/step<N>.png`
+   (the assembly guide images; docs/assembly.md's text is hand-written,
+   its images are build products)
 
 ## Rules
 

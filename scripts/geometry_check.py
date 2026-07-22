@@ -87,6 +87,9 @@ def main():
     sleeve_start = sleeve_end - P["vane_sleeve_len"]
     collar_start = sleeve_start - P["collar_boss_h"] - P["collar_w"]
     check(ok, cap_engage >= 5, "cap grip on the rod", f"{cap_engage:.1f} mm (>= 5)")
+    bolt_edge = P["cap_bore_depth"] / 2 - 2
+    check(ok, bolt_edge >= 2.5, "cap through-bolt edge distance",
+          f"bolt sits {bolt_edge:.1f} mm from the rod end (>= 2.5)")
     check(ok, collar_start >= P["hub_len"] / 2 + 5, "arm length",
           f"collar starts {collar_start:.0f} mm out, hub face at {P['hub_len'] / 2:.0f}"
           " (5 mm room to slide)")
