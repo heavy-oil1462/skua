@@ -52,3 +52,9 @@ What it checks, in order:
   diff without checking the recorded version first.
 - Running without nix: set OPENSCAD=/path/to/openscad and all scripts
   use that binary as-is. The scripts are stdlib-only Python.
+- CI (.github/workflows/verify.yml) runs exactly this command with the
+  OpenSCAD snapshot AppImage via $OPENSCAD; the byte comparison
+  self-skips there when the AppImage version drifts from the recorded
+  one. The sandbox PAT cannot push workflow files (no workflow scope),
+  so changes to verify.yml are committed locally and pushed by the
+  user.
