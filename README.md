@@ -50,11 +50,11 @@ Printers and filaments vary; the three fits are measured, not guessed:
 ## Assembly
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
-The short version: base and bearings onto the plank, shaft and thrust
-collar, hub and arms, vane hardware, set the stops, and every rod
-joint is fixed by drilling the rod through the part's own bolt hole
-and fitting an M3 through-bolt with a nyloc. Stops are set before
-their holes are drilled.
+The short version: base and bearings onto the plank; hub, shaft, and
+arms drilled and bolted in the vise; collar and stop positions set on
+the machine, then the rotor lifted out and drilled at the bench. Every
+rod joint is an M3 through-bolt through the part's own printed hole
+with a nyloc nut; nothing is ever drilled on the mounted machine.
 
 ## Working on the design
 

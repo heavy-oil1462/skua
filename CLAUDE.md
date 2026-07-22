@@ -27,12 +27,14 @@ hardware. No electronics — the wind does everything.
   joint transmits torque only, and no rotating face may touch a static
   one — recesses (pocket_recess) and bosses exist to keep rubbing rings
   small and on the right races.
-- **Every rod joint is a through-bolt, drilled at assembly**: slide the
-  part to position (stop angles set first), drill the rod through the
-  part's own bolt hole, bolt through with a nyloc. Friction clamps and
-  set screws on smooth aluminum creep loose over years; a bolt through
-  the rod cannot. No dimension chain depends on cutting rods to
-  sub-millimeter length.
+- **Every rod joint is a through-bolt, drilled at the bench**: slide
+  the part to position, drill the rod through the part's own bolt
+  hole, bolt through with a nyloc. Friction clamps and set screws on
+  smooth aluminum creep loose over years; a bolt through the rod
+  cannot. Positions that only exist on the machine (thrust collar,
+  stop angles) are set or marked there, then the rotor lifts out of
+  the bearings and everything is drilled in a vise. No dimension chain
+  depends on cutting rods to sub-millimeter length.
 
 ## Layout
 

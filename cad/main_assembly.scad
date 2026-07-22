@@ -9,9 +9,11 @@
 //   rods, bearings) render in wood/metal colors, printed parts in solids.
 //
 //   The step variable drives the docs/assembly step images (regen_all
-//   renders -D step=1..5): each step adds the parts that assembly step
-//   installs, step 4 shows the arm hardware slid apart on the rod, and
-//   the default 99 is the complete mid-action scene above.
+//   renders -D step=1..5), following the bench-first build order:
+//   1 the base on its plank, 2 the rotor core ALONE as it is drilled
+//   at the bench (no base), 3 the rotor mounted, 4 the arm hardware
+//   slid apart on the rod, 5 everything seated at rest. The default 99
+//   is the complete mid-action scene above.
 // ==============================================================================
 
 step = 99;
@@ -42,13 +44,13 @@ sleeve_end   = cap_face - 1;                  // 1 mm running gap to the wedge f
 sleeve_start = sleeve_end - vane_sleeve_len;
 collar_x     = sleeve_start - collar_boss_h;  // boss touches the sleeve end
 
-// --- the plank (bought lumber, whatever is on the boat) ---
-color("BurlyWood") translate([-160, -70, -21]) cube([320, 140, 21]);
-
-// --- printed base + its two press-fit bearings ---
-color("Tomato") base();
-translate([0, 0, pocket_recess]) bearing_608();
-translate([0, 0, tower_h - bearing_w - pocket_recess]) bearing_608();
+// --- plank, base, bearings (hidden in the bench-only step 2) ---
+if (step == 1 || step >= 3) {
+    color("BurlyWood") translate([-160, -70, -21]) cube([320, 140, 21]);
+    color("Tomato") base();
+    translate([0, 0, pocket_recess]) bearing_608();
+    translate([0, 0, tower_h - bearing_w - pocket_recess]) bearing_608();
+}
 
 // --- step 2: shaft through both inner races, thrust collar on top ---
 if (step >= 2) {
@@ -61,8 +63,8 @@ if (step >= 2) {
                 collar();
 }
 
-// --- step 3: hub, through-bolted at the shaft top ---
-if (step >= 3)
+// --- step 2: hub, through-bolted at the shaft top on the bench ---
+if (step >= 2)
     color("SteelBlue") translate([0, 0, hub_bottom]) hub();
 
 // --- arms: right vane driving (hanging on its stop); the left vane
@@ -80,8 +82,8 @@ module arm_side(swing) {
     wedge_set = vane_swing_deg / 2 - 90;
     e = step == 4 ? 18 : 0;   // step 4: hardware slid apart on the rod
 
-    // step 3: arm rod seated in the hub
-    if (step >= 3)
+    // step 2: arm rod seated in the hub on the bench
+    if (step >= 2)
         color("DarkGray")
             translate([arm_root, 0, arm_z])
                 rotate([0, 90, 0])
