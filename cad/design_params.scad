@@ -68,12 +68,14 @@ hub_beam_z       = 28;  // T profile: below this only the stem and its 45
 hub_stem_w       = 30;  // degree chamfers remain — the lower corners of
                         // the old box carried no load and cost print time
 
-// --- M3 hardware (set screws and the collar clamp) ---
-m3_thread_d = 2.9;  // screw forms its own thread (end cap set screw)
-m3_clear_d  = 3.4;
-m3_nut_af   = 5.8;  // nut across flats, incl. pocket clearance
-m3_nut_t    = 2.6;
-m3_head_d   = 6.4;
+// --- M3 hardware (every rod joint is a through-bolt: the M3 passes
+//     through the printed part AND a hole drilled in the rod at
+//     assembly, using the part as the drill jig — a positive lock,
+//     where any friction clamp on smooth aluminum creeps loose) ---
+m3_clear_d    = 3.4;
+m3_nut_af     = 5.8;  // nut across flats, incl. pocket clearance
+m3_locknut_t  = 4.4;  // nyloc nut height, incl. pocket clearance
+m3_head_d     = 6.4;
 
 // --- Vane (the flapping flag; TWO of them) ---
 vane_sleeve_len = 70;
@@ -108,7 +110,6 @@ collar_od     = 24;
 collar_w      = 10;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end
 collar_boss_h = 2;
-collar_slit   = 2;
 
 // --- Assembly stations / sanity limits ---
 shaft_bottom_gap = 2;   // shaft tip hovers this far above the plank

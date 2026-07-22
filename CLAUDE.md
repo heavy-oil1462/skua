@@ -21,14 +21,17 @@ hardware. No electronics — the wind does everything.
   stops is part of the product.
 - **One rod stock.** Shaft and arms are all 8 mm aluminum rod (the 608
   bore). No second diameter may creep in.
-- **Rotor weight hangs on the thrust collar,** clamped to the shaft and
+- **Rotor weight hangs on the thrust collar,** through-bolted to the shaft and
   riding the top bearing's INNER race (boss stays inside
   bearing_inner_shoulder_d). Nothing else may take axial load: the hub
-  clamp transmits torque only, and no rotating face may touch a static
+  joint transmits torque only, and no rotating face may touch a static
   one — recesses (pocket_recess) and bosses exist to keep rubbing rings
   small and on the right races.
-- **Everything is set at assembly by sliding and clamping** (collars,
-  hub, cap angles) — no dimension chain depends on cutting rods to
+- **Every rod joint is a through-bolt, drilled at assembly**: slide the
+  part to position (stop angles set first), drill the rod through the
+  part's own bolt hole, bolt through with a nyloc. Friction clamps and
+  set screws on smooth aluminum creep loose over years; a bolt through
+  the rod cannot. No dimension chain depends on cutting rods to
   sub-millimeter length.
 
 ## Layout
@@ -78,7 +81,7 @@ Conventions:
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
 - 8 mm aluminum rod: one 150 mm shaft + two 600 mm arms
-- 6x M3x16 screws + nuts (hub set screws use the top-entry nut slots,
-  the three collars clamp with the cross screw), 2x M3x10 self-tappers
-  for the end caps
+- 8x M3 bolts + nyloc nuts (3x M3x35 hub, 5x M3x25 collars and caps):
+  every rod joint is through-bolted, the rod drilled 3 mm at assembly
+  through the part's own printed hole
 - 4x 4.2 mm wood screws for the plank

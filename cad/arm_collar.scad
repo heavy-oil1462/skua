@@ -1,15 +1,16 @@
 // ==============================================================================
-//   ARM COLLAR — inboard clamp on each arm rod (print TWO).
+//   ARM COLLAR — inboard stop on each arm rod (print TWO).
 //
-//   The plain clamp collar (collar.scad) plus the inboard stop wedge:
-//   it rides in the vane sleeve's inboard notch, mirroring the end
-//   cap's wedge in the outboard notch, so every stop impact is shared
-//   by two flat faces instead of hammering one. At assembly both are
-//   set to the same angle before clamping (see README).
+//   The thrust collar (collar.scad) plus the inboard stop wedge: it
+//   rides in the vane sleeve's inboard notch, mirroring the end cap's
+//   wedge in the outboard notch, so every stop impact is shared by two
+//   flat faces instead of hammering one. At assembly both are set to
+//   the same angle before drilling the rod for the through-bolts
+//   (README).
 //
-//   The wedge sits opposite the clamp slit, so the clamp opening and
-//   the screw never weaken its base. It clears the boss face by
-//   stop_wedge_len, matching the cap wedge's engagement.
+//   The wedge sits at 90 degrees to the through-bolt, so the bolt bore
+//   never weakens its base. It clears the boss face by stop_wedge_len,
+//   matching the cap wedge's engagement.
 //
 //   Prints like the collar: ring face down, boss and wedge up.
 // ==============================================================================

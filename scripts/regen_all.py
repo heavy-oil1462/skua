@@ -8,6 +8,8 @@ Pipeline:
   1. scripts/check_params.py          — interface dimensions must agree
   2. every part in cad/ + cad/calibration/  -> stl/<name>.stl
   3. cad/main_assembly.scad           -> main_assembly.png (README image)
+  4. cad/main_assembly.scad -D step=N -> docs/assembly/step<N>.png
+                                         (the assembly guide images)
 
 STLs are committed build products (print-ready). A part whose STL gains a
 second volume or errors out is a finding, not something to ignore.
@@ -49,6 +51,8 @@ NON_PARTS = {"main_assembly", "design_params", "bearing_608"}
 # holds within one build, so --check compares bytes only when the running
 # version matches this file.
 VERSION_FILE = ROOT / "stl" / "openscad_version.txt"
+# docs/assembly.md's images: main_assembly.scad rendered at each step
+ASSEMBLY_STEPS = range(1, 6)
 
 
 def parts():
@@ -58,11 +62,12 @@ def parts():
                 yield p
 
 
-def run_one(scad: Path, out: Path, expect: Path = None, shown: Path = None) -> bool:
+def run_one(scad: Path, out: Path, expect: Path = None, shown: Path = None,
+            extra=None) -> bool:
     """Render scad -> out; with expect set (check mode), also byte-compare
     the fresh render against the committed artifact. shown is the path to
     print (the committed one when out is a temp file)."""
-    proc = render(str(scad), str(out))
+    proc = render(str(scad), str(out), extra)
     warnings = sorted({l.strip() for l in proc.stderr.splitlines() if "WARNING" in l or "ERROR" in l})
     # Manifold backend reports geometry health as "Status: NoError"
     geom = re.search(r"Status:\s+(\w+)", proc.stderr)
@@ -116,8 +121,14 @@ def main(argv):
             ok &= run_one(scad, *target(ROOT / "stl" / f"{scad.stem}.stl"))
 
         if not stl_only and (not only or "main_assembly" in only):
-            ok &= run_one(ROOT / "cad" / "main_assembly.scad",
-                          *target(ROOT / "main_assembly.png"))
+            assembly = ROOT / "cad" / "main_assembly.scad"
+            ok &= run_one(assembly, *target(ROOT / "main_assembly.png"))
+            if not check:
+                (ROOT / "docs" / "assembly").mkdir(parents=True, exist_ok=True)
+            for n in ASSEMBLY_STEPS:
+                committed = ROOT / "docs" / "assembly" / f"step{n}.png"
+                ok &= run_one(assembly, *target(committed),
+                              extra=["-D", f"step={n}"])
 
     if check and not only:
         expected = {f"{p.stem}.stl" for p in parts()}
