@@ -27,14 +27,20 @@ hardware. No electronics — the wind does everything.
   joint transmits torque only, and no rotating face may touch a static
   one — recesses (pocket_recess) and bosses exist to keep rubbing rings
   small and on the right races.
-- **Every rod joint is a through-bolt, drilled at the bench**: slide
-  the part to position, drill the rod through the part's own bolt
-  hole, bolt through with a nyloc. Friction clamps and set screws on
-  smooth aluminum creep loose over years; a bolt through the rod
-  cannot. Positions that only exist on the machine (thrust collar,
-  stop angles) are set or marked there, then the rotor lifts out of
-  the bearings and everything is drilled in a vise. No dimension chain
-  depends on cutting rods to sub-millimeter length.
+- **No rod is ever drilled; every joint is a clamp.** The hub is a
+  clamshell split on the plane containing all three rod axes: lay in
+  the rods, bolt the halves with M5s and wide washers; the halves must
+  never close solid (hub_clamp_gap keeps preload on the rods, never
+  fix a "gap" by shrinking it to zero). The collars and end caps are
+  WIDE dual-bolt slit clamps: friction-only joints live on grip
+  length and bolt count, so a single set screw or a narrow ring is a
+  design error here (geometry_check enforces the width). The price of
+  an all-friction, fully re-adjustable, drill-free machine is that
+  printed clamps relax: re-torque every clamp bolt at the start of
+  each season. Known open question: whether the tip clamps hold the
+  stop angle against years of stop impacts — candidate upgrades
+  (knurl-transfer, rod flats, dimpled grubs) deliberately deferred.
+  No dimension chain depends on cutting rods to sub-millimeter length.
 
 ## Layout
 
@@ -83,7 +89,7 @@ Conventions:
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
 - 8 mm aluminum rod: one 150 mm shaft + two 600 mm arms
-- 8x M3 bolts + nyloc nuts (3x M3x35 hub, 5x M3x25 collars and caps):
-  every rod joint is through-bolted, the rod drilled 3 mm at assembly
-  through the part's own printed hole
+- 5x M5x40 with wide washers (hub clamshell) and 10x M3x16 (dual-bolt
+  collar and cap clamps), all with nyloc nuts; no drill needed
+  anywhere
 - 4x 4.2 mm wood screws for the plank

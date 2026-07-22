@@ -57,25 +57,47 @@ gusset_reach   = 25;    // how far a gusset runs out from the tower wall
 gusset_h       = 55;
 
 // --- Hub (clamps the shaft top, carries both arms) ---
+// A CLAMSHELL: split on the vertical plane that contains all three rod
+// axes, so the two halves close over the rods like a pillow block and
+// five M3 bolts with wide washers clamp everything at once. No hole is
+// drilled in any rod at the hub, which is where rod bending is worst.
 hub_len          = 80;  // along the arms
 hub_w            = 32;
-hub_h            = 48;
-hub_arm_z        = 38;  // arm bore axis above the hub bottom face
+hub_h            = 54;
+hub_arm_z        = 44;  // arm bore axis above the hub bottom face
 hub_shaft_socket = 30;  // blind shaft socket depth, from the bottom
 hub_arm_socket   = 35;  // blind arm socket depth, from each end
 hub_corner_r     = 6;
 hub_beam_z       = 28;  // T profile: below this only the stem and its 45
-hub_stem_w       = 30;  // degree chamfers remain — the lower corners of
+hub_stem_w       = 34;  // degree chamfers remain — the lower corners of
                         // the old box carried no load and cost print time
+hub_clamp_gap    = 0.8; // total gap between the closed halves: the rods
+                        // stand proud of their grooves by this much, so
+                        // bolt preload lands on the rods, never on
+                        // face-to-face plastic
+hub_bolt_stem_x  = 10;  // M5 clamp bolts: two flanking the shaft groove
+hub_bolt_beam_x  = 25;  // ... two under the beam, outboard ...
+hub_bolt_beam_z  = 34;  // ... plus one through the center web at arm
+                        // height; geometry_check verifies every wall
+hub_peg_x        = 33;  // registration pegs, so the bolts never carry
+hub_peg_z        = 32;  // the job of aligning the halves
+hub_peg_d        = 4;
 
-// --- M3 hardware (every rod joint is a through-bolt: the M3 passes
-//     through the printed part AND a hole drilled in the rod at
-//     assembly, using the part as the drill jig — a positive lock,
-//     where any friction clamp on smooth aluminum creeps loose) ---
+// --- M3 hardware (collar and cap clamps: each is a wide slit clamp
+//     closed by TWO bolts crossing the slit — friction on the rod, but
+//     spread over a long grip and generous bolt preload; nothing is
+//     drilled into any rod, and every joint stays re-adjustable.
+//     Tradeoff: printed clamps relax over time, re-torque seasonally) ---
 m3_clear_d    = 3.4;
 m3_nut_af     = 5.8;  // nut across flats, incl. pocket clearance
 m3_locknut_t  = 4.4;  // nyloc nut height, incl. pocket clearance
 m3_head_d     = 6.4;
+
+// --- M5 hardware (hub clamshell only: the clamp preload lives or dies
+//     on washer bearing area and survivable hand-torque, and M5 wins
+//     both; heads and nylocs sit on the flat faces with wide washers,
+//     so only the clearance bore is modeled) ---
+m5_clear_d    = 5.5;
 
 // --- Vane (the flapping flag; TWO of them) ---
 vane_sleeve_len = 70;
@@ -89,10 +111,11 @@ vane_rim_w      = 4;   // stiffening rim around the panel
 vane_rim_h      = 6;
 vane_swing_deg  = 120; // free swing between the two stops
 
-// --- Stop cap (arm tip: retains the vane, carries the outboard stop wedge) ---
+// --- Stop cap (arm tip: retains the vane, carries the outboard stop
+//     wedge; a wide dual-bolt slit clamp on the rod end) ---
 cap_d          = 24;
-cap_t          = 12;
-cap_bore_depth = 10;
+cap_t          = 20;
+cap_bore_depth = 18;
 
 // --- Stop wedges (SHARED: one on the end cap, one on the arm collar;
 //     each rides a notch in its end of the vane sleeve so the stop
@@ -105,11 +128,13 @@ stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the
                        // carrier faces (geometry_check.py verifies all)
 
 // --- Clamp collars (ONE plain on the shaft as thrust support; the arm
-//     collars in arm_collar.scad add the inboard stop wedge) ---
+//     collars in arm_collar.scad add the inboard stop wedge). Wide
+//     dual-bolt slit clamps, like the cap. ---
 collar_od     = 24;
-collar_w      = 10;
+collar_w      = 16;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end
 collar_boss_h = 2;
+collar_slit   = 2;
 
 // --- Assembly stations / sanity limits ---
 shaft_bottom_gap = 2;   // shaft tip hovers this far above the plank

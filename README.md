@@ -26,14 +26,14 @@ collar clamped to the shaft, resting on the top bearing's inner race.
 
 ## Bill of materials
 
-- printed: 1 base, 1 hub, 2 vanes, 2 end caps, 2 arm collars, 1 plain
-  collar (see `stl/`)
+- printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
+  2 end caps, 2 arm collars, 1 plain collar (see `stl/`)
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 150 mm (shaft), 2x 600 mm (arms)
-- 3x M3x35 bolt (hub) and 5x M3x25 bolt (collars, end caps), all with
-  nyloc nuts: every rod joint is a through-bolt, drilled at assembly
+- 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
+  drilling there)
+- 10x M3x16 bolt + nyloc (the dual-bolt clamps: 3 collars, 2 caps)
 - 4x 4.2 mm wood screws, and a plank to screw the base onto
-- a 3 mm drill bit: each printed part is its own drill jig
 
 ## Calibration before printing the real parts
 
@@ -50,11 +50,13 @@ Printers and filaments vary; the three fits are measured, not guessed:
 ## Assembly
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
-The short version: base and bearings onto the plank; hub, shaft, and
-arms drilled and bolted in the vise; collar and stop positions set on
-the machine, then the rotor lifted out and drilled at the bench. Every
-rod joint is an M3 through-bolt through the part's own printed hole
-with a nyloc nut; nothing is ever drilled on the mounted machine.
+The short version: base and bearings onto the plank; shaft and arms
+laid into the hub clamshell and bolted; thrust collar and vane
+hardware slid to position and clamped. No rod is ever drilled and no
+joint is permanent: the hub is a clamshell, everything else is a wide
+dual-bolt slit clamp, so every position and stop angle can be reset
+by loosening two bolts. Re-torque the clamps at the start of each
+season, printed plastic relaxes.
 
 ## Working on the design
 

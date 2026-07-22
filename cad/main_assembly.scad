@@ -63,7 +63,7 @@ if (step >= 2) {
                 collar();
 }
 
-// --- step 2: hub, through-bolted at the shaft top on the bench ---
+// --- step 2: hub, clamped at the shaft top on the bench ---
 if (step >= 2)
     color("SteelBlue") translate([0, 0, hub_bottom]) hub();
 
