@@ -17,7 +17,7 @@
 // 8 mm rod is chosen to match the 608 bearing bore, so the shaft and
 // both arms cut from the same stock.
 rod_d        = 8;
-shaft_length = 300;  // vertical shaft; sets how high the rotor rides.
+shaft_length = 150;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
                      // plank — geometry_check.py gates the clearance.
 arm_length   = 600;  // each horizontal arm (two of them)
@@ -42,28 +42,31 @@ rod_free_d      = 8.6;  // bores that must SPIN on the rod (vane sleeve) — sam
 fit_tol         = 0.2;  // clearance for printed slots/pockets
 
 // --- Base (screwed to the plank) ---
-base_d         = 110;
-base_t         = 6;
+base_d         = 120;
+base_t         = 8;
 screw_hole_d   = 4.5;   // 4.2 mm wood screws
 screw_head_d   = 9.5;   // countersink cone top diameter
-screw_circle_d = 90;
+screw_circle_d = 95;
 screw_count    = 4;
-tower_od       = 32;
-tower_h        = 60;    // bearing pockets at top and bottom of this
+tower_od       = 40;    // 9 mm wall around the bearing pockets
+tower_h        = 70;    // bearing pockets at top and bottom of this
 tower_bore_d   = 19;    // between the pockets: retains the outer races,
                         // clears the 12 mm inner-race shoulders
-gusset_t       = 4;
-gusset_reach   = 16;    // how far a gusset runs out from the tower wall
-gusset_h       = 35;
+gusset_t       = 6;
+gusset_reach   = 25;    // how far a gusset runs out from the tower wall
+gusset_h       = 55;
 
 // --- Hub (clamps the shaft top, carries both arms) ---
-hub_len          = 70;  // along the arms
-hub_w            = 26;
-hub_h            = 38;
-hub_arm_z        = 30;  // arm bore axis above the hub bottom face
-hub_shaft_socket = 22;  // blind shaft socket depth, from the bottom
-hub_arm_socket   = 30;  // blind arm socket depth, from each end
+hub_len          = 80;  // along the arms
+hub_w            = 32;
+hub_h            = 48;
+hub_arm_z        = 38;  // arm bore axis above the hub bottom face
+hub_shaft_socket = 30;  // blind shaft socket depth, from the bottom
+hub_arm_socket   = 35;  // blind arm socket depth, from each end
 hub_corner_r     = 6;
+hub_beam_z       = 28;  // T profile: below this only the stem and its 45
+hub_stem_w       = 30;  // degree chamfers remain — the lower corners of
+                        // the old box carried no load and cost print time
 
 // --- M3 hardware (set screws and the collar clamp) ---
 m3_thread_d = 2.9;  // screw forms its own thread (end cap set screw)
@@ -74,26 +77,35 @@ m3_head_d   = 6.4;
 
 // --- Vane (the flapping flag; TWO of them) ---
 vane_sleeve_len = 70;
-vane_sleeve_od  = 16;
-vane_width      = 150; // panel size along the arm
-vane_drop       = 150; // sleeve AXIS to the panel bottom edge
-vane_t          = 2;
-vane_rim_w      = 3;   // stiffening rim around the panel
-vane_rim_h      = 5;
+vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
+                        // wedge impact every pass
+vane_width      = 200; // panel size along the arm; wide-and-short so the
+vane_drop       = 100; // panel (sleeve AXIS to bottom edge) keeps its area
+                       // while clearing the plank under the 150 mm shaft
+vane_t          = 3;
+vane_rim_w      = 4;   // stiffening rim around the panel
+vane_rim_h      = 6;
 vane_swing_deg  = 120; // free swing between the two stops
 
-// --- Stop cap (arm tip: retains the vane, carries the stop pin) ---
-cap_d          = 20;
-cap_t          = 10;
-cap_bore_depth = 8;
-cap_pin_d      = 3.5;
-cap_pin_len    = 5;
-cap_pin_r      = 6.4;  // pin center radius: clears the rod, lands on the
-                       // vane sleeve wall (geometry_check.py verifies both)
+// --- Stop cap (arm tip: retains the vane, carries the outboard stop wedge) ---
+cap_d          = 24;
+cap_t          = 12;
+cap_bore_depth = 10;
 
-// --- Clamp collar (THREE: shaft thrust support + one per arm) ---
-collar_od     = 20;
-collar_w      = 8;
+// --- Stop wedges (SHARED: one on the end cap, one on the arm collar;
+//     each rides a notch in its end of the vane sleeve so the stop
+//     impact is carried by two, and their flat radial faces land flush
+//     on the notch walls — lib/stop_wedge.scad) ---
+stop_wedge_deg = 40;   // angular thickness; the notch arc grows by this
+stop_wedge_len = 6;    // proud of the carrier face, riding in the notch
+stop_wedge_ri  = 4.5;  // inner radius: clears the rod
+stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the
+                       // carrier faces (geometry_check.py verifies all)
+
+// --- Clamp collars (ONE plain on the shaft as thrust support; the arm
+//     collars in arm_collar.scad add the inboard stop wedge) ---
+collar_od     = 24;
+collar_w      = 10;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end
 collar_boss_h = 2;
 collar_slit   = 2;

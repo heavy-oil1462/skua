@@ -9,10 +9,11 @@ parameter edit that silently sinks the vanes into the plank or starves
 a socket of engagement cannot merge.
 
 The rotor works by swing asymmetry: each vane swings vane_swing_deg
-between the end cap's pin and its stop notch, folding flat one way and
-presenting its full face the other. The checks keep that mechanism
-real: the pin must actually reach the notch, and the notch must not eat
-the whole sleeve wall.
+between the stop wedges and their notches (end cap wedge outboard, arm
+collar wedge inboard, sharing the impact on flat faces), folding flat
+one way and presenting its full face the other. The checks keep that
+mechanism real: the wedges must actually reach the notches, and the
+notch must not eat the whole sleeve wall.
 
 Exit 1 on any failure.
 """
@@ -59,6 +60,12 @@ def main():
           f"{P['hub_h'] - peak:.1f} mm above the arm bore crown (>= 2)")
     check(ok, P["hub_len"] - 2 * P["hub_arm_socket"] >= 8, "hub center web",
           f"{P['hub_len'] - 2 * P['hub_arm_socket']:.1f} mm between the arm sockets (>= 8)")
+    beam_wall = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_beam_z"]
+    check(ok, beam_wall >= 3, "hub T beam under the arm bores",
+          f"{beam_wall:.1f} mm of beam below the bore (>= 3)")
+    stem_wall = (P["hub_stem_w"] - P["rod_snug_d"]) / 2
+    check(ok, stem_wall >= 4, "hub T stem around the shaft socket",
+          f"{stem_wall:.1f} mm wall each side (>= 4)")
 
     # --- vertical stack: shaft, collar working room, vane ground clearance ---
     shaft_top = P["shaft_bottom_gap"] + P["shaft_length"]
@@ -84,21 +91,28 @@ def main():
           f"collar starts {collar_start:.0f} mm out, hub face at {P['hub_len'] / 2:.0f}"
           " (5 mm room to slide)")
 
-    # --- the swing stop: pin inside the sleeve wall, notch leaves a stop ---
-    pin_in = P["cap_pin_r"] - P["cap_pin_d"] / 2
-    pin_out = P["cap_pin_r"] + P["cap_pin_d"] / 2
-    check(ok, pin_in >= P["rod_d"] / 2 + 0.2, "stop pin clears the rod",
-          f"pin inner edge r {pin_in:.2f} vs rod r {P['rod_d'] / 2} + 0.2")
-    overlap = (min(P["vane_sleeve_od"] / 2, pin_out)
-               - max(P["rod_free_d"] / 2, pin_in))
-    check(ok, overlap >= 1.5, "stop pin meets the sleeve wall",
+    # --- the swing stops: wedges inside the sleeve wall, notch leaves a
+    #     stop, and both carriers (cap face, collar face) contain them ---
+    check(ok, P["stop_wedge_ri"] >= P["rod_d"] / 2 + 0.2,
+          "stop wedge clears the rod",
+          f"inner radius {P['stop_wedge_ri']} vs rod r {P['rod_d'] / 2} + 0.2")
+    overlap = (min(P["vane_sleeve_od"] / 2, P["stop_wedge_ro"])
+               - max(P["rod_free_d"] / 2, P["stop_wedge_ri"]))
+    check(ok, overlap >= 1.5, "stop wedge meets the sleeve wall",
           f"{overlap:.2f} mm radial overlap with the notch shoulders (>= 1.5)")
-    pin_arc = 2 * math.degrees(math.asin(P["cap_pin_d"] / 2 / P["cap_pin_r"]))
-    notch = P["vane_swing_deg"] + pin_arc
+    carrier = min(P["cap_d"], P["collar_od"]) / 2
+    check(ok, P["stop_wedge_ro"] <= carrier, "stop wedge fits its carriers",
+          f"outer radius {P['stop_wedge_ro']} inside cap r {P['cap_d'] / 2}"
+          f" and collar r {P['collar_od'] / 2}")
+    notch = P["vane_swing_deg"] + P["stop_wedge_deg"]
     check(ok, notch <= 200, "stop notch",
           f"{notch:.0f} deg cut from the sleeve end (<= 200, the rest is the stop)")
-    check(ok, P["cap_pin_len"] - 1 >= 3, "pin engagement",
-          f"{P['cap_pin_len'] - 1:.1f} mm of pin inside the notch (>= 3)")
+    engage = P["stop_wedge_len"] - 1
+    check(ok, engage >= 3, "wedge engagement",
+          f"{engage:.1f} mm of wedge inside each notch (>= 3)")
+    face = overlap * engage
+    print(f"[info] each stop face contact: {overlap:.1f} x {engage:.1f} mm"
+          f" = {face:.0f} mm2, two faces per stop")
 
     # --- printability ---
     for name, size in (("base", P["base_d"]),

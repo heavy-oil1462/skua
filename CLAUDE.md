@@ -9,7 +9,10 @@ hardware. No electronics — the wind does everything.
 
 - **The rotor is driven by swing asymmetry, not by airfoils.** Each vane
   pivots on its arm like a flag: free through vane_swing_deg one way,
-  hard stop the other (end-cap pin in the vane sleeve's notch). Pushed
+  hard stop the other (a stop wedge on the end cap and one on the arm
+  collar, each riding a notch in its end of the sleeve; the flat faces
+  land flush on the notch walls and share the impact; set both to the
+  same angle at assembly). Pushed
   toward the stop it presents its full face and drags the rotor; pushed
   the other way it folds flat and slips through. Both stops are set in
   the same rotational sense so the torques add. A vane that is fixed
@@ -59,7 +62,7 @@ hatch: set `OPENSCAD=/path/to/openscad`; the scripts are stdlib-only Python.
   self-skips when the running OpenSCAD differs from `stl/openscad_version.txt`.
 - `python3 scripts/check_params.py` — no file may shadow a design_params name.
 - `python3 scripts/geometry_check.py` — recomputes the assembly stack-up
-  (clearances, engagements, the stop-pin geometry, bed fit) from the shared
+  (clearances, engagements, the stop-wedge geometry, bed fit) from the shared
   params and fails on any violation. Run after ANY parameter change.
 - `python3 scripts/render_scad.py <file.scad> <out.png|stl> [args]` —
   one-off headless renders (see the `openscad-review` skill).
@@ -74,7 +77,8 @@ Conventions:
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
-- 8 mm aluminum rod: one 300 mm shaft + two 600 mm arms
-- 3x M3x12-16 screws + nuts (hub set screws use the top-entry nut slots,
-  collar clamps the cross screw), 2x M3x8 self-tappers for the end caps
+- 8 mm aluminum rod: one 150 mm shaft + two 600 mm arms
+- 6x M3x16 screws + nuts (hub set screws use the top-entry nut slots,
+  the three collars clamp with the cross screw), 2x M3x10 self-tappers
+  for the end caps
 - 4x 4.2 mm wood screws for the plank

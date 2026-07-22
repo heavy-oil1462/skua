@@ -5,16 +5,20 @@
 //   hanging from it. The wind mechanism needs ASYMMETRY: a vane that
 //   could swing all the way around would just weathervane and the rotor
 //   would never start. So the sleeve's end faces carry a pie-shaped stop
-//   notch; the end cap's pin rides in it and limits the swing to
+//   notch; a stop wedge rides in each (end cap outboard, arm collar
+//   inboard, sharing the impact) and limits the swing to
 //   vane_swing_deg. Pushed one way the vane folds flat and slips through
 //   the wind; pushed the other way it hits the stop, presents its full
 //   face, and drags the rotor around. Both vanes stop in the same
 //   rotational sense, so their torques add. The bang against the stop is
 //   free gull-scaring percussion.
 //
-//   The notch is cut into BOTH ends, so one part fits either arm with
-//   either end outboard. The stop positions are set at assembly by
-//   rotating the end cap before its set screw bites (see README).
+//   The notch is cut into BOTH ends: the cap wedge and the collar wedge
+//   each get one, and the part fits either arm with either end
+//   outboard. Its radial walls match the wedge's flat side faces, so
+//   the stop is a face contact. The stop positions are set at assembly
+//   by rotating cap and collar to the same angle before clamping (see
+//   README).
 //
 //   Prints flat on the panel, no supports: the sleeve lies on the bed
 //   and its bore is a teardrop (lib/bores.scad).
@@ -25,9 +29,9 @@ use <lib/bores.scad>
 
 $fn = 80;
 
-// pin arc: how much of the notch the pin's own width eats
-notch_deg   = vane_swing_deg + 2 * asin(cap_pin_d / 2 / cap_pin_r);
-notch_depth = cap_pin_len + 1;
+// the stop wedge's own width eats stop_wedge_deg of the notch arc
+notch_deg   = vane_swing_deg + stop_wedge_deg;
+notch_depth = stop_wedge_len + 1;
 
 module vane() {
     sleeve_r = vane_sleeve_od / 2;
@@ -70,8 +74,12 @@ module vane() {
 }
 
 // 2D pie wedge of the given radius/angle. Drawn centered on the -X
-// direction of the extrusion plane, which lands on the panel side after
-// the rotate([0, 90, 0]) above.
+// direction of the extrusion plane, which after the rotate([0, 90, 0])
+// above points straight up in print orientation — the panel plane's
+// NORMAL, not the panel side. Mechanically the notch's angular position
+// is arbitrary (the stop angle is set at assembly by rotating cap and
+// collar), but main_assembly.scad's wedge_set is derived from this
+// reference, so move both together.
 module pie(r, deg) {
     polygon(concat([[0, 0]],
         [for (a = [-deg / 2 : 5 : deg / 2]) [-r * cos(a), r * sin(a)]],

@@ -15,7 +15,7 @@ python3 scripts/regen_all.py --stl-only # all printable STLs, skip the assembly 
 
 Pipeline:
 1. `scripts/check_params.py` — no file may shadow a design_params.scad name (FAIL gates the commit)
-2. `scripts/geometry_check.py` — assembly stack-up: clearances, engagements, stop-pin geometry, bed fit (FAIL gates too)
+2. `scripts/geometry_check.py` — assembly stack-up: clearances, engagements, stop-wedge geometry, bed fit (FAIL gates too)
 3. every part in `cad/` + `cad/calibration/` → `stl/<name>.stl`
 4. `cad/main_assembly.scad` → `main_assembly.png` (the README image)
 

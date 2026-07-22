@@ -1,10 +1,14 @@
 // ==============================================================================
 //   HUB — clamps the top of the vertical shaft and carries both arm rods.
 //
-//   Prints flat on its bottom face, no supports: the shaft socket is a
-//   clean vertical bore, the two arm sockets are horizontal teardrop
-//   bores (lib/bores.scad), and the set-screw nut slots drop in from the
-//   top face.
+//   T-shaped in the arm/shaft plane: a full-length beam wraps the arm
+//   sockets, a center stem wraps the shaft socket, and the unloaded
+//   lower corners of the bounding box are gone (the arm rods flex long
+//   before this block would). The beam undersides slope at 45 degrees
+//   so it still prints flat on its bottom face with no supports: the
+//   shaft socket is a clean vertical bore, the two arm sockets are
+//   horizontal teardrop bores (lib/bores.scad), and the set-screw nut
+//   slots drop in from the top face.
 //
 //   Each of the three rods is held by an M3 set screw threading through
 //   a nut in a top-entry slot. The nut sits BEHIND 5 mm of wall relative
@@ -25,11 +29,14 @@ $fn = 80;
 
 module hub() {
     difference() {
-        // rounded-corner body
-        linear_extrude(height = hub_h)
-            offset(r = hub_corner_r)
-                square([hub_len - 2 * hub_corner_r, hub_w - 2 * hub_corner_r],
-                       center = true);
+        // rounded-corner body, cut to the T profile
+        intersection() {
+            linear_extrude(height = hub_h)
+                offset(r = hub_corner_r)
+                    square([hub_len - 2 * hub_corner_r,
+                            hub_w - 2 * hub_corner_r], center = true);
+            t_profile();
+        }
 
         // shaft socket, blind, from the bottom
         translate([0, 0, -0.1])
@@ -45,6 +52,25 @@ module hub() {
         set_screw([-(hub_len - hub_arm_socket) / 2, hub_arm_z]);
         set_screw([0, hub_shaft_socket / 2]);
     }
+}
+
+// The T profile in the arm/shaft plane, extruded across the hub width:
+// a full-width beam above hub_beam_z wrapping the arm sockets, a stem
+// of hub_stem_w wrapping the shaft socket, and 45 degree chamfers
+// between them so the beam prints support-free in the flat-on-bottom
+// orientation. Oversized in x and y; the intersection trims it.
+module t_profile() {
+    s = hub_stem_w / 2;
+    rotate([90, 0, 0])
+        linear_extrude(height = hub_w + 2, center = true)
+            polygon([[-s, -1], [s, -1], [s, 0],
+                     [s + hub_beam_z, hub_beam_z],
+                     [hub_len / 2 + 1, hub_beam_z],
+                     [hub_len / 2 + 1, hub_h + 1],
+                     [-hub_len / 2 - 1, hub_h + 1],
+                     [-hub_len / 2 - 1, hub_beam_z],
+                     [-s - hub_beam_z, hub_beam_z],
+                     [-s, 0]]);
 }
 
 // One M3 set screw: horizontal clearance hole from the -Y face to the

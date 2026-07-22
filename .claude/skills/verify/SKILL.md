@@ -15,7 +15,7 @@ Read-only: nothing in the working tree is touched. Every line must be
 What it checks, in order:
 
 1. `check_params.py` — no file shadows a design_params.scad name
-2. `geometry_check.py` — clearances, engagements, stop-pin geometry,
+2. `geometry_check.py` — clearances, engagements, stop-wedge geometry,
    bed fit, recomputed from the shared params
 3. every printable part renders warning-free with manifold status NoError,
    AND the fresh render is byte-identical to the committed `stl/<name>.stl`

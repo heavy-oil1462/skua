@@ -44,11 +44,11 @@ Notes (learned in earlier projects — do not rediscover):
 
 ## Skua interface rules to verify
 
-- **`cad/design_params.scad` is the single source of truth** for every dimension two parts share (rod and bearing sizes, the three calibrated fits, socket depths, stop-pin geometry, stations). Parts `include` it; `check_params.py` FAILS if any file re-declares one of its names. Never fix a mismatch locally — change the shared value.
+- **`cad/design_params.scad` is the single source of truth** for every dimension two parts share (rod and bearing sizes, the three calibrated fits, socket depths, stop-wedge geometry, stations). Parts `include` it; `check_params.py` FAILS if any file re-declares one of its names. Never fix a mismatch locally — change the shared value.
 - **The three fits are calibrated, not designed**: bearing_press_d, rod_snug_d, rod_free_d come from the gauges in `cad/calibration/`. A part needing a different fit of the same stock is a smell.
 - **Horizontal rod holes go through `lib/bores.scad` (teardrop)** and parts are modeled in their print orientation — a plain horizontal cylinder bore is a finding.
 - **Rotating never rubs static**: bosses that ride a bearing must stay inside bearing_inner_shoulder_d; static shoulders (tower_bore_d) must stay outside it; bearings sit pocket_recess below their faces. The rotor's weight path is shaft collar -> top bearing inner race only.
-- **The swing-stop mechanism is load-bearing design**: each vane must swing vane_swing_deg freely and hit a hard stop (cap pin in sleeve notch). Changes to sleeve, cap, or pin must keep `geometry_check.py`'s pin checks meaningful — never widen the notch to "fix" a stop collision.
+- **The swing-stop mechanism is load-bearing design**: each vane must swing vane_swing_deg freely and hit a hard stop (a stop wedge on the end cap and the arm collar, each in a sleeve notch). Changes to sleeve, cap, collar, or wedge must keep `geometry_check.py`'s wedge checks meaningful — never widen the notch to "fix" a stop collision.
 - **Assembly is slide-and-clamp**: no feature may require a rod cut to better than a couple of millimeters (the cap bore leaves slack for this).
 
 ## Report

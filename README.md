@@ -10,9 +10,11 @@ No electronics, no motor — wind only.
 ## How it works
 
 Each vane hangs from its arm on a free-spinning sleeve, like a flag on a
-pole. The end cap's pin rides in a notch in the sleeve, so the vane
-swings freely through about 120 degrees one way and hits a hard stop the
-other way. Wind pushing a vane toward its stop gets the full panel face
+pole. A stop wedge on each side of the sleeve (one on the end cap, one
+on the arm collar) rides in a notch in its end of the sleeve, so the
+vane swings freely through about 120 degrees one way and hits a hard
+stop the other way, the impact landing flat on the notch walls and
+shared by both wedges. Wind pushing a vane toward its stop gets the full panel face
 and drags the rotor around; wind pushing the other vane (coming back
 upwind) just folds it flat. Both stops point the same way around, so the
 torques add and the rotor self-starts in any wind direction. Every pass
@@ -24,10 +26,12 @@ collar clamped to the shaft, resting on the top bearing's inner race.
 
 ## Bill of materials
 
-- printed: 1 base, 1 hub, 2 vanes, 2 end caps, 3 collars (see `stl/`)
+- printed: 1 base, 1 hub, 2 vanes, 2 end caps, 2 arm collars, 1 plain
+  collar (see `stl/`)
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
-- 8 mm aluminum rod: 1x 300 mm (shaft), 2x 600 mm (arms)
-- 3x M3x12 screw + nut, 2x M3x8 screw (end caps, self-tapping)
+- 8 mm aluminum rod: 1x 150 mm (shaft), 2x 600 mm (arms)
+- 6x M3x16 screw + nut (3 hub set screws, 3 collar clamps), 2x M3x10
+  screw (end caps, self-tapping)
 - 4x 4.2 mm wood screws, and a plank to screw the base onto
 
 ## Calibration before printing the real parts
@@ -47,21 +51,25 @@ Printers and filaments vary; the three fits are measured, not guessed:
 1. Press one bearing into the top of the tower and one into the pocket
    underneath. Screw the base to the plank (the plank keeps the bottom
    bearing captive).
-2. Drop the shaft through both bearings. Clamp a collar onto it, boss
-   DOWN, so the boss rests on the top bearing's inner race and the shaft
-   tip hovers just above the plank.
+2. Drop the shaft through both bearings. Clamp the plain collar onto
+   it, boss DOWN, so the boss rests on the top bearing's inner race and
+   the shaft tip hovers just above the plank.
 3. Clamp the hub onto the shaft top (set screw against the rod; the nut
    drops into the slot in the hub's top face). Seat both arms fully in
    their sockets — they bottom out on the center web — and clamp them.
-4. On each arm: slide on a collar (boss outboard), then the vane sleeve,
-   then the end cap, pin inboard, engaging the sleeve notch. Leave the
-   vane about a millimeter of sideways play.
-5. Set the stops: hold the vane hanging straight down, rotate each cap
-   so its pin just touches the notch wall on the SAME rotational side of
-   the rotor for both vanes (viewed from outside the arm tip, one cap is
-   set clockwise, the other counterclockwise), then tighten the cap
-   screws. Each vane must swing freely one way and stop at hanging the
-   other way.
+4. On each arm: slide on an arm collar (boss and wedge outboard, the
+   wedge entering the sleeve's inboard notch), then the vane sleeve,
+   then the end cap, wedge inboard, engaging the outboard notch. Leave
+   the vane about a millimeter of sideways play.
+5. Set the stops: hold the vane hanging straight down, rotate the end
+   cap so its wedge face just touches the notch wall on the driven
+   side, then rotate the arm collar until its wedge touches the
+   matching wall of the inboard notch, and tighten both. Both wedges
+   must land together, that is what shares the impact; if one lands
+   first the other is dead weight. The two arms are set on the SAME rotational side of the
+   rotor (viewed from outside the arm tip, one side reads clockwise,
+   the other counterclockwise). Each vane must swing freely one way and
+   stop at hanging the other way.
 6. Spin it by hand: it should coast freely and the vanes should clack
    against their stops. Then let the wind take over.
 

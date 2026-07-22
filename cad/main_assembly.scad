@@ -14,6 +14,7 @@ use <hub.scad>
 use <vane.scad>
 use <end_cap.scad>
 use <collar.scad>
+use <arm_collar.scad>
 use <bearing_608.scad>
 include <design_params.scad>
 
@@ -27,10 +28,10 @@ arm_root   = hub_len / 2 - hub_arm_socket;    // rod start (inside the hub)
 arm_tip    = arm_root + arm_length;
 
 // Stations along one arm, from geometry_check.py's model:
-// [collar | boss][sleeve ......][gap][pin face | cap, closed end out]
+// [arm collar | boss+wedge][sleeve ......][gap][wedge face | cap, closed end out]
 cap_face     = arm_tip + 4 - cap_t;           // rod ends 2 mm shy of the cap
                                               // bore floor: slack for rod cut length
-sleeve_end   = cap_face - 1;                  // 1 mm running gap to the pin face
+sleeve_end   = cap_face - 1;                  // 1 mm running gap to the wedge face
 sleeve_start = sleeve_end - vane_sleeve_len;
 collar_x     = sleeve_start - collar_boss_h;  // boss touches the sleeve end
 
@@ -61,17 +62,26 @@ arm_side(swing = 0);
 mirror([1, 0, 0]) arm_side(swing = 75);
 
 module arm_side(swing) {
+    // Cap and collar are clamped at the stop-set angle (README step 5):
+    // with the vane hanging (swing = 0) the wedge rests flush on its
+    // notch wall, leaving the full vane_swing_deg free the other way.
+    // The notch is centered on the vane panel's normal, so that angle
+    // is vane_swing_deg/2 - 90 off vertical.
+    wedge_set = vane_swing_deg / 2 - 90;
+
     // arm rod
     color("DarkGray")
         translate([arm_root, 0, arm_z])
             rotate([0, 90, 0])
                 cylinder(h = arm_length, d = rod_d);
 
-    // inboard collar, boss outboard against the vane sleeve
+    // inboard arm collar, boss and stop wedge outboard into the sleeve's
+    // inboard notch (its wedge lands at the same angle as the cap's)
     color("SteelBlue")
         translate([collar_x - collar_w, 0, arm_z])
-            rotate([0, 90, 0])
-                collar();
+            rotate([wedge_set, 0, 0])
+                rotate([0, 90, 0])
+                    arm_collar();
 
     // vane, swung about the arm axis; 0 = hanging straight down
     color("Gold")
@@ -81,9 +91,10 @@ module arm_side(swing) {
                     rotate([-90, 0, 0])
                         vane();
 
-    // end cap, closed end outboard, pin toward the sleeve notch
+    // end cap, closed end outboard, wedge toward the sleeve notch
     color("SteelBlue")
         translate([cap_face + cap_t, 0, arm_z])
-            rotate([0, -90, 0])
-                end_cap();
+            rotate([wedge_set, 0, 0])
+                rotate([0, -90, 0])
+                    end_cap();
 }

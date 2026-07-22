@@ -1,13 +1,11 @@
 // ==============================================================================
-//   CLAMP COLLAR — print THREE.
+//   CLAMP COLLAR — print ONE (the arms use arm_collar.scad, which is
+//   this part plus the inboard stop wedge).
 //
-//   One on the shaft: boss down, riding the top bearing's INNER race.
+//   Goes on the shaft: boss down, riding the top bearing's INNER race.
 //   This is the rotor's thrust bearing seat — the whole rotating mass
 //   hangs on it. The boss stays inside bearing_inner_shoulder_d so it
 //   never touches the static outer race.
-//
-//   One on each arm, boss outboard: the inboard end stop for the vane
-//   sleeve, boss-to-sleeve so the rubbing contact ring stays small.
 //
 //   A slit ring closed by an M3 screw and nut across the gap — a plain
 //   set screw would slide on smooth aluminum under sustained load, a
