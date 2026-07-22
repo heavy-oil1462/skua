@@ -68,9 +68,9 @@ gentle: the shaft settles onto the plank and the rotor stops.
 
 On each arm, slide on in this order: the arm collar (boss and wedge
 facing outboard), then the vane sleeve, then the end cap with its
-wedge facing inboard so it enters the sleeve's outboard notch. Nothing
-is drilled yet; everything must stay free to slide and rotate for the
-stop setting.
+wedge facing inboard so it enters the sleeve's outboard notch. Leave
+every clamp bolt loose; everything must stay free to slide and rotate
+for the stop setting.
 
 ![step 4](assembly/step4.png)
 
