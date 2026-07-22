@@ -7,7 +7,14 @@
 //   hanging flat and dragging the rotor around; the left vane has folded
 //   toward its free stop, slipping through the wind. Bought parts (plank,
 //   rods, bearings) render in wood/metal colors, printed parts in solids.
+//
+//   The step variable drives the docs/assembly step images (regen_all
+//   renders -D step=1..5): each step adds the parts that assembly step
+//   installs, step 4 shows the arm hardware slid apart on the rod, and
+//   the default 99 is the complete mid-action scene above.
 // ==============================================================================
+
+step = 99;
 
 use <base.scad>
 use <hub.scad>
@@ -43,23 +50,26 @@ color("Tomato") base();
 translate([0, 0, pocket_recess]) bearing_608();
 translate([0, 0, tower_h - bearing_w - pocket_recess]) bearing_608();
 
-// --- shaft: aluminum rod through both inner races ---
-color("DarkGray")
-    translate([0, 0, shaft_bottom_gap])
-        cylinder(h = shaft_length, d = rod_d);
+// --- step 2: shaft through both inner races, thrust collar on top ---
+if (step >= 2) {
+    color("DarkGray")
+        translate([0, 0, shaft_bottom_gap])
+            cylinder(h = shaft_length, d = rod_d);
+    color("SteelBlue")
+        translate([0, 0, tower_h - pocket_recess + collar_w + collar_boss_h])
+            rotate([180, 0, 0])
+                collar();
+}
 
-// --- thrust collar: boss down, riding the top bearing's inner race ---
-color("SteelBlue")
-    translate([0, 0, tower_h - pocket_recess + collar_w + collar_boss_h])
-        rotate([180, 0, 0])
-            collar();
+// --- step 3: hub, through-bolted at the shaft top ---
+if (step >= 3)
+    color("SteelBlue") translate([0, 0, hub_bottom]) hub();
 
-// --- hub, clamped at the shaft top ---
-color("SteelBlue") translate([0, 0, hub_bottom]) hub();
-
-// --- arms: right vane driving (hanging on its stop), left vane folded ---
+// --- arms: right vane driving (hanging on its stop); the left vane
+//     hangs too in every step image, folded only in the complete
+//     mid-action scene ---
 arm_side(swing = 0);
-mirror([1, 0, 0]) arm_side(swing = 75);
+mirror([1, 0, 0]) arm_side(swing = step > 5 ? 75 : 0);
 
 module arm_side(swing) {
     // Cap and collar are clamped at the stop-set angle (README step 5):
@@ -68,33 +78,37 @@ module arm_side(swing) {
     // The notch is centered on the vane panel's normal, so that angle
     // is vane_swing_deg/2 - 90 off vertical.
     wedge_set = vane_swing_deg / 2 - 90;
+    e = step == 4 ? 18 : 0;   // step 4: hardware slid apart on the rod
 
-    // arm rod
-    color("DarkGray")
-        translate([arm_root, 0, arm_z])
-            rotate([0, 90, 0])
-                cylinder(h = arm_length, d = rod_d);
-
-    // inboard arm collar, boss and stop wedge outboard into the sleeve's
-    // inboard notch (its wedge lands at the same angle as the cap's)
-    color("SteelBlue")
-        translate([collar_x - collar_w, 0, arm_z])
-            rotate([wedge_set, 0, 0])
+    // step 3: arm rod seated in the hub
+    if (step >= 3)
+        color("DarkGray")
+            translate([arm_root, 0, arm_z])
                 rotate([0, 90, 0])
-                    arm_collar();
+                    cylinder(h = arm_length, d = rod_d);
 
-    // vane, swung about the arm axis; 0 = hanging straight down
-    color("Gold")
-        translate([(sleeve_start + sleeve_end) / 2, 0, arm_z])
-            rotate([swing, 0, 0])
-                translate([0, -vane_sleeve_od / 2, 0])
-                    rotate([-90, 0, 0])
-                        vane();
+    if (step >= 4) {
+        // inboard arm collar, boss and stop wedge outboard into the
+        // sleeve's inboard notch (same angle as the cap's wedge)
+        color("SteelBlue")
+            translate([collar_x - collar_w - 2 * e, 0, arm_z])
+                rotate([wedge_set, 0, 0])
+                    rotate([0, 90, 0])
+                        arm_collar();
 
-    // end cap, closed end outboard, wedge toward the sleeve notch
-    color("SteelBlue")
-        translate([cap_face + cap_t, 0, arm_z])
-            rotate([wedge_set, 0, 0])
-                rotate([0, -90, 0])
-                    end_cap();
+        // vane, swung about the arm axis; 0 = hanging straight down
+        color("Gold")
+            translate([(sleeve_start + sleeve_end) / 2 - e, 0, arm_z])
+                rotate([swing, 0, 0])
+                    translate([0, -vane_sleeve_od / 2, 0])
+                        rotate([-90, 0, 0])
+                            vane();
+
+        // end cap, closed end outboard, wedge toward the sleeve notch
+        color("SteelBlue")
+            translate([cap_face + cap_t + 2 * e, 0, arm_z])
+                rotate([wedge_set, 0, 0])
+                    rotate([0, -90, 0])
+                        end_cap();
+    }
 }

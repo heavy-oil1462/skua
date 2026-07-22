@@ -30,9 +30,10 @@ collar clamped to the shaft, resting on the top bearing's inner race.
   collar (see `stl/`)
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 150 mm (shaft), 2x 600 mm (arms)
-- 6x M3x16 screw + nut (3 hub set screws, 3 collar clamps), 2x M3x10
-  screw (end caps, self-tapping)
+- 3x M3x35 bolt (hub) and 5x M3x25 bolt (collars, end caps), all with
+  nyloc nuts: every rod joint is a through-bolt, drilled at assembly
 - 4x 4.2 mm wood screws, and a plank to screw the base onto
+- a 3 mm drill bit: each printed part is its own drill jig
 
 ## Calibration before printing the real parts
 
@@ -48,30 +49,12 @@ Printers and filaments vary; the three fits are measured, not guessed:
 
 ## Assembly
 
-1. Press one bearing into the top of the tower and one into the pocket
-   underneath. Screw the base to the plank (the plank keeps the bottom
-   bearing captive).
-2. Drop the shaft through both bearings. Clamp the plain collar onto
-   it, boss DOWN, so the boss rests on the top bearing's inner race and
-   the shaft tip hovers just above the plank.
-3. Clamp the hub onto the shaft top (set screw against the rod; the nut
-   drops into the slot in the hub's top face). Seat both arms fully in
-   their sockets — they bottom out on the center web — and clamp them.
-4. On each arm: slide on an arm collar (boss and wedge outboard, the
-   wedge entering the sleeve's inboard notch), then the vane sleeve,
-   then the end cap, wedge inboard, engaging the outboard notch. Leave
-   the vane about a millimeter of sideways play.
-5. Set the stops: hold the vane hanging straight down, rotate the end
-   cap so its wedge face just touches the notch wall on the driven
-   side, then rotate the arm collar until its wedge touches the
-   matching wall of the inboard notch, and tighten both. Both wedges
-   must land together, that is what shares the impact; if one lands
-   first the other is dead weight. The two arms are set on the SAME rotational side of the
-   rotor (viewed from outside the arm tip, one side reads clockwise,
-   the other counterclockwise). Each vane must swing freely one way and
-   stop at hanging the other way.
-6. Spin it by hand: it should coast freely and the vanes should clack
-   against their stops. Then let the wind take over.
+Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
+The short version: base and bearings onto the plank, shaft and thrust
+collar, hub and arms, vane hardware, set the stops, and every rod
+joint is fixed by drilling the rod through the part's own bolt hole
+and fitting an M3 through-bolt with a nyloc. Stops are set before
+their holes are drilled.
 
 ## Working on the design
 

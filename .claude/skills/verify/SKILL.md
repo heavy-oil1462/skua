@@ -19,8 +19,9 @@ What it checks, in order:
    bed fit, recomputed from the shared params
 3. every printable part renders warning-free with manifold status NoError,
    AND the fresh render is byte-identical to the committed `stl/<name>.stl`
-4. `main_assembly.png` byte-matches a fresh assembly render (this is the
-   README image — a stale one ships a wrong picture of the machine)
+4. `main_assembly.png` and `docs/assembly/step*.png` byte-match fresh
+   assembly renders (README and assembly-guide images — a stale one
+   ships a wrong picture of the machine)
 5. no orphaned files in `stl/` that lack a source part
 
 ## When it fails
