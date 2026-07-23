@@ -23,6 +23,9 @@ shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // and that the tip reaches down through the
                      // uplift retainer inside the base cavity.
 arm_length   = 600;  // each horizontal arm (two of them)
+stub_length  = 130;  // the vertical hinge rod at each arm tip (two of
+                     // them, same stock): clamped through the tip
+                     // bracket, carrying collar, vane sleeve and cap
 
 // --- 608 skateboard bearing (bought, TWO of them) ---
 // Two bearings spaced apart in the base tower instead of one: a single
@@ -102,23 +105,40 @@ m3_head_d     = 6.4;
 //     so only the clearance bore is modeled) ---
 m5_clear_d    = 5.5;
 
-// --- Vane (the flapping flag; TWO of them) ---
+// --- Vane (the flapping flag; TWO of them). The sleeve rides a
+//     VERTICAL stub rod at the arm tip, so folding never fights
+//     gravity: a hanging panel only folds when wind pressure beats
+//     its weight (~7 m/s for printed plastic), and below that a
+//     horizontal-hinge rotor just rocks in place. On a vertical
+//     hinge the free vane weathervanes at a whisper, the stopped
+//     vane presents its face, and the rotor self-starts in near-calm ---
 vane_sleeve_len = 70;
 vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
                         // wedge impact every pass
-vane_width      = 200; // panel size along the arm; wide-and-short so the
-vane_drop       = 100; // panel (sleeve AXIS to bottom edge) keeps its area
-                       // while clearing the plank under the shaft
+vane_width      = 140; // panel length ALONG the sleeve axis, so vertical
+                       // in use; spans the sleeve and overhangs its top
+vane_reach      = 150; // hinge axis to the panel's outer vertical edge,
+                       // horizontal in use
 vane_t          = 3;
 vane_rim_w      = 4;   // stiffening rim around the panel
 vane_rim_h      = 6;
 vane_swing_deg  = 120; // free swing between the two stops
 
-// --- Stop cap (arm tip: retains the vane, carries the outboard stop
+// --- Stop cap (stub tip: retains the vane, carries the upper stop
 //     wedge; a wide dual-bolt slit clamp on the rod end) ---
 cap_d          = 24;
 cap_t          = 20;
 cap_bore_depth = 18;
+
+// --- Tip bracket (the knuckle at each arm tip that turns the hinge
+//     vertical; print TWO, the same part serves both arms rotated
+//     180 about the stub). Two wide dual-bolt slit clamps in one
+//     block: a horizontal blind socket on the arm end, a vertical
+//     through bore for the stub ---
+bracket_w        = 24;  // square section; also each clamp's grip length
+bracket_len      = 48;  // along the arm
+bracket_arm_grip = 22;  // blind arm socket depth
+bracket_stub_x   = 36;  // stub axis from the bracket's inboard face
 
 // --- Stop wedges (SHARED: one on the end cap, one on the arm collar;
 //     each rides a notch in its end of the vane sleeve so the stop

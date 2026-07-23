@@ -1,8 +1,8 @@
 # Assembly guide
 
 What you need at the bench: the printed parts (see the BOM in the
-README), the two 608 bearings, the three rod pieces (1x 145 mm, 2x
-600 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
+README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
+600 mm, 2x 130 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
 keys to suit, and, only if you fit the optional retainer, something
 about 1 mm thick and no wider than about 15 mm (a strip of folded
@@ -121,34 +121,44 @@ retainer are visible; yours is in one piece.
 
 ![step 3](assembly/step3.png)
 
-## 4. Vane hardware on each arm
+## 4. Tip brackets, stubs, vane hardware
 
-On each arm, slide on in this order: the arm collar (boss and wedge
-facing outboard), then the vane sleeve, then the end cap with its
-wedge facing inboard so it enters the sleeve's outboard notch. Leave
-every clamp bolt loose; everything must stay free to slide and rotate
-for the stop setting.
+Clamp a tip bracket onto each arm end: slide the arm into the
+horizontal socket until it bottoms out, then tighten the two bolts
+over the socket. Stand a 130 mm stub rod through the vertical bore,
+flush with the bracket's underside, and tighten its two bolts as
+well. The stub is the vane's hinge, and vertical is the point: a
+hinge gravity cannot fight is what lets the rotor start in light
+wind.
+
+Up each stub, slide on in this order: the arm collar, boss and wedge
+UP, pushed down against the bracket top; then the vane sleeve, which
+rests its lower face on the collar's boss (that small ring is the
+vane's whole thrust bearing, so it spins freely); then the end cap,
+open face and wedge DOWN. Leave the collar's and the cap's clamp
+bolts loose; their angles are the stops and get set in step 5.
 
 ![step 4](assembly/step4.png)
 
 ## 5. Set the stops, then clamp them
 
-Set the stops with the rotor mounted, because hanging is defined by
-gravity. Push the parts together at each arm tip: cap on the rod end,
-about a millimeter of sideways play for the vane, arm collar boss
-against the sleeve. Hold the vane hanging straight down, rotate the
-end cap until its wedge face just touches the notch wall on the driven
-side, and rotate the arm collar until its wedge touches the matching
-wall of the inboard notch. Both wedges must land together, that is
-what shares the impact; if one lands first the other is dead weight.
-Tighten each part's two clamp bolts while holding its angle.
+The stop reference is sighted, not gravity: hold the vane so its
+panel points straight out along the arm, past the tip, like a
+continuation of the arm. That is the driven stop, the pose in which
+the flag presents its face and drags the rotor. Rotate the end cap
+until its wedge face just touches the notch wall on that side, and
+rotate the arm collar until its wedge touches the matching wall of
+the lower notch. Both wedges must land together, that is what shares
+the impact; if one lands first the other is dead weight. Push the
+cap down to leave the sleeve about a millimeter of vertical play,
+then tighten each part's two clamp bolts while holding its angle.
 
-The two arms are set on the SAME rotational side of the rotor: viewed
-from outside the arm tip, one reads clockwise and the other
-counterclockwise. When both are done, each vane swings freely about
-120 degrees one way and stops exactly at hanging the other way. If an
-angle ends up wrong, loosen two bolts and set it again, nothing is
-permanent.
+Both vanes are set in the SAME rotational sense seen from above:
+stand over the rotor, and if one vane's free swing goes clockwise,
+the other's must too. When both are done, each vane swings freely
+about 120 degrees toward trailing and stops exactly at
+panel-along-the-arm the other way. If an angle ends up wrong, loosen
+two bolts and set it again, nothing is permanent.
 
 ![step 5](assembly/step5.png)
 

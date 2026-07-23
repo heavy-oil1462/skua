@@ -9,16 +9,26 @@ No electronics, no motor — wind only.
 
 ## How it works
 
-Each vane hangs from its arm on a free-spinning sleeve, like a flag on a
-pole. A stop wedge on each side of the sleeve (one on the end cap, one
-on the arm collar) rides in a notch in its end of the sleeve, so the
-vane swings freely through about 120 degrees one way and hits a hard
-stop the other way, the impact landing flat on the notch walls and
-shared by both wedges. Wind pushing a vane toward its stop gets the full panel face
-and drags the rotor around; wind pushing the other vane (coming back
-upwind) just folds it flat. Both stops point the same way around, so the
-torques add and the rotor self-starts in any wind direction. Every pass
-the driving vane bangs against its stop — free percussion.
+Each vane is a flag on a VERTICAL hinge: a sleeve spinning on a short
+vertical stub rod, held at the arm tip by a printed knuckle bracket,
+with the panel reaching out sideways like a door. A stop wedge on each
+end of the sleeve (one on the end cap above, one on the arm collar
+below) rides in a notch, so the vane swings freely through about 120
+degrees one way and hits a hard stop the other way, the impact landing
+flat on the notch walls and shared by both wedges. Wind pushing a vane
+onto its stop gets the full panel face and drags the rotor around;
+wind pushing the other vane (coming back upwind) just weathervanes it
+flat. Both stops point the same way around seen from above, so the
+torques add and the rotor self-starts in any wind direction. Every
+pass the driving vane bangs against its stop — free percussion.
+
+The hinge being vertical is what makes it start in light wind: folding
+never lifts any weight. A vane hanging from a horizontal hinge only
+folds when wind pressure beats its weight, roughly a moderate breeze
+for printed plastic, and below that both vanes present the same face
+and the rotor just rocks. On vertical hinges the returning flag
+weathervanes at a whisper, so the asymmetry, and the spin, are there
+from the first puff.
 
 The rotor rides on two 608 skateboard bearings spaced 45 mm apart in the
 base tower, so the 1.2 m span runs true. All rotating weight hangs on a
@@ -38,17 +48,19 @@ cavity later if the mooring proves rough (see the assembly guide).
 ## Bill of materials
 
 - printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
-  2 end caps, 2 arm collars, 1 thrust collar, and optionally 1
-  retainer collar (see `stl/`)
+  2 tip brackets, 2 end caps, 2 arm collars, 1 thrust collar, and
+  optionally 1 retainer collar (see `stl/`)
 - filament: something UV-stable (ASA) for a machine that lives on a
   boat; PLA is fine for prototyping and fit checks but creeps under
   clamp preload and degrades in the sun
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
-- 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms)
+- 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 130 mm
+  (the vertical hinge stubs)
 - 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
-- 10x M3x16 bolt + nyloc (two each for the dual-bolt clamps: 3 collars,
-  2 caps), plus one more if the retainer is fitted
+- 18x M3x16 bolt + nyloc (two each for the dual-bolt clamps: 3
+  collars, 2 caps, and both clamps of each tip bracket), plus one
+  more if the retainer is fitted
 - 4x 4.2 mm wood screws, and a plank to screw the base onto (any
   thickness, no hole: nothing reaches below the base)
 
@@ -77,8 +89,9 @@ laid into the hub clamshell and bolted, the retainer clamped flush
 with the shaft tip; the base slid onto the shaft from the tip end
 until its bottom race rests on the retainer, the thrust collar
 gauged a millimeter off the top race and clamped, then everything
-flipped upright and the base screwed down; vane hardware slid to
-position and clamped. Nothing is drilled anywhere, not the rods, not
+flipped upright and the base screwed down; tip brackets and stubs
+clamped, the vane hardware slid up the stubs, and the stops set by
+sight along each arm. Nothing is drilled anywhere, not the rods, not
 the printed parts, not even the plank, and no joint is permanent: the
 hub is a clamshell, everything else is a slit clamp, so every
 position and stop angle can be reset by loosening a bolt or two.

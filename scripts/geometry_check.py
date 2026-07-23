@@ -122,7 +122,7 @@ def main():
           f"{P['hub_clamp_gap']} mm total: rods stand proud, bolts clamp"
           " rods not plastic (0.4 .. 2)")
 
-    # --- vertical stack: shaft, collar working room, vane ground clearance ---
+    # --- vertical stack: shaft and collar working room ---
     shaft_top = P["shaft_tip_h"] + P["shaft_length"]
     hub_bottom = shaft_top - P["hub_shaft_socket"]
     arm_z = hub_bottom + P["hub_arm_z"]
@@ -130,25 +130,52 @@ def main():
                                 + P["collar_w"] + P["collar_boss_h"])
     check(ok, collar_room >= 5, "shaft length",
           f"{collar_room:.1f} mm open shaft between thrust collar and hub (>= 5)")
-    ground = arm_z - P["vane_drop"]
-    check(ok, ground >= 50, "vane ground clearance",
-          f"hanging vane bottom {ground:.1f} mm above the plank (>= 50)")
 
-    # --- along the arm: hub socket, collar, sleeve, gap, cap all fit ---
+    # --- along the arm: hub socket, clear span, tip bracket ---
     arm_tip = P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
-    cap_face = arm_tip + 4 - P["cap_t"]          # rod 2 mm shy of the bore floor
-    cap_engage = P["cap_bore_depth"] - 2
-    sleeve_end = cap_face - 1
-    sleeve_start = sleeve_end - P["vane_sleeve_len"]
-    collar_start = sleeve_start - P["collar_boss_h"] - P["collar_w"]
-    check(ok, cap_engage >= 5, "cap grip on the rod", f"{cap_engage:.1f} mm (>= 5)")
-    check(ok, P["collar_w"] >= 14 and P["cap_bore_depth"] >= 14,
-          "tip clamps stay wide",
-          f"collar {P['collar_w']} mm, cap bore {P['cap_bore_depth']} mm of"
-          " grip (>= 14: friction-only joints live on grip length)")
-    check(ok, collar_start >= P["hub_len"] / 2 + 5, "arm length",
-          f"collar starts {collar_start:.0f} mm out, hub face at {P['hub_len'] / 2:.0f}"
-          " (5 mm room to slide)")
+    bracket_x = arm_tip - P["bracket_arm_grip"]  # bracket inboard face
+    stub_x = bracket_x + P["bracket_stub_x"]     # hinge axis radius
+    check(ok, P["bracket_arm_grip"] >= 14 and P["bracket_w"] >= 14,
+          "bracket clamps stay wide",
+          f"arm socket {P['bracket_arm_grip']} mm, stub grip"
+          f" {P['bracket_w']} mm (>= 14: friction-only joints live on"
+          " grip length)")
+    arm_wall = ((P["bracket_stub_x"] - P["rod_snug_d"] / 2)
+                - P["bracket_arm_grip"])
+    stub_wall = P["bracket_len"] - (P["bracket_stub_x"] + P["rod_snug_d"] / 2)
+    check(ok, arm_wall >= 4 and stub_wall >= 3, "bracket bore walls",
+          f"{arm_wall:.1f} mm between arm socket and stub bore,"
+          f" {stub_wall:.1f} mm outboard of the stub (>= 4 / >= 3)")
+
+    # --- up the stub: bracket, collar, sleeve, play, cap all fit ---
+    collar_top = P["bracket_w"] / 2 + P["collar_w"] + P["collar_boss_h"]
+    sleeve_top = collar_top + P["vane_sleeve_len"]  # heights above arm axis
+    cap_face_z = sleeve_top + 1                     # 1 mm running play
+    stub_tip = P["stub_length"] - P["bracket_w"] / 2
+    cap_slack = (cap_face_z + P["cap_bore_depth"]) - stub_tip
+    check(ok, 1 <= cap_slack <= 3, "stub length",
+          f"tip stops {cap_slack:.1f} mm shy of the cap bore floor"
+          " (1 .. 3: no chain depends on the rod cut)")
+    cap_engage = stub_tip - cap_face_z
+    check(ok, cap_engage >= 14, "cap grip on the stub",
+          f"{cap_engage:.1f} mm (>= 14: friction-only joints live on"
+          " grip length; the cap also retains the vane)")
+    check(ok, P["collar_w"] >= 14, "arm collar stays wide",
+          f"{P['collar_w']} mm of grip (>= 14)")
+    edge = math.hypot(P["vane_sleeve_od"] / 2,
+                      P["vane_sleeve_od"] / 2 - P["vane_t"])
+    check(ok, edge >= P["cap_d"] / 2 + 1, "panel clears cap and collar",
+          f"panel near edge {edge:.1f} mm off the hinge axis, cap and"
+          f" collar reach {P['cap_d'] / 2} (>= 1 mm air)")
+    panel_bottom = collar_top - P["bracket_w"] / 2  # above the bracket top
+    check(ok, panel_bottom >= 2, "panel clears the bracket",
+          f"panel bottom edge {panel_bottom:.1f} mm above the bracket"
+          " top (>= 2: the swinging flag passes over arm and bracket)")
+    check(ok, P["vane_width"] > P["vane_sleeve_len"] + P["cap_t"],
+          "panel overhangs the cap",
+          f"panel {P['vane_width']} mm tall on a {P['vane_sleeve_len']} mm"
+          f" sleeve (> {P['vane_sleeve_len'] + P['cap_t']}: the flag, not"
+          " the hardware, is the face)")
 
     # --- the swing stops: wedges inside the sleeve wall, notch leaves a
     #     stop, and both carriers (cap face, collar face) contain them ---
@@ -175,15 +202,18 @@ def main():
 
     # --- printability ---
     for name, size in (("base", P["base_d"]),
-                       ("vane width", P["vane_width"]),
-                       ("vane height", P["vane_drop"] + P["vane_sleeve_od"] / 2)):
+                       ("vane panel", P["vane_width"]),
+                       ("vane reach", P["vane_reach"] + P["vane_sleeve_od"] / 2)):
         check(ok, size <= P["printer_bed"], f"{name} fits the bed",
               f"{size:.0f} mm <= {P['printer_bed']} mm")
 
     width = P["hub_len"] + 2 * (P["arm_length"] - P["hub_arm_socket"])
+    sweep = 2 * (stub_x + P["vane_reach"])
     print(f"[info] rotor width across the arms: {width:.0f} mm"
-          f" ({width / 10:.0f} cm); vane tips sweep {2 * (arm_tip + 4):.0f} mm")
-    print(f"[info] arm axis rides {arm_z:.0f} mm above the plank")
+          f" ({width / 10:.0f} cm); flags at the driven stop sweep"
+          f" {sweep:.0f} mm")
+    print(f"[info] arm axis rides {arm_z:.0f} mm above the plank; flag"
+          f" tops reach {arm_z + collar_top + P['vane_width']:.0f} mm")
 
     return 0 if all(ok) else 1
 
