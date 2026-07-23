@@ -67,7 +67,6 @@ if (step == 1 || step >= 3) {
             base();
     translate([0, 0, base_cavity_h + pocket_recess]) bearing_608();
     translate([0, 0, tower_h - bearing_w - pocket_recess]) bearing_608();
-
 }
 
 // --- step 2: shaft through both inner races, thrust collar on top ---

@@ -37,8 +37,12 @@ hardware. No electronics — the wind does everything.
   retainer boss, so no cavity access is ever needed. It carries nothing
   until an uplift event and only ever loads the bottom bearing's races
   — never a static face. It also keeps the bottom bearing captive.
-  Never "simplify" the gap to zero (that preloads the bearings) and
-  never delete the retainer.
+  Fitting it is OPTIONAL at build time (rotor weight alone keeps the
+  shaft seated in ordinary conditions, and field testing agrees); the
+  shaft length is the same either way and the part can be retrofitted
+  through the open cavity with the base unscrewed. But it stays in the
+  DESIGN: never delete the part, the cavity, or their checks, and
+  never "simplify" the gap to zero (that preloads the bearings).
 - **No rod is ever drilled; every joint is a clamp.** The hub is a
   clamshell split on the plane containing all three rod axes: lay in
   the rods, bolt the halves with M5s and wide washers; the halves must
@@ -96,15 +100,18 @@ Conventions:
 - Review CAD by rendering and looking at the PNG, never from source alone.
 - Keep top-level `name = value;` parameters parseable (plain numbers).
 - The three fit values (bearing_press_d, rod_snug_d, rod_free_d) are
-  MEASURED via the calibration gauges, never tuned by eye.
+  MEASURED via the calibration gauges, never tuned by eye. They are
+  printer + profile + FILAMENT specific: a material switch (the PLA
+  prototype vs the ASA the real build is printed in) means re-running
+  the gauges in that material with the production profile.
 
 ## Key off-the-shelf parts
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
 - 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms
-- 5x M5x40 with wide washers (hub clamshell) and 11x M3x16 (dual-bolt
-  collar and cap clamps, one for the retainer), all with nyloc nuts;
-  no rod or printed part is ever drilled
+- 5x M5x40 with wide washers (hub clamshell) and 10x M3x16 (dual-bolt
+  collar and cap clamps; one more if the optional retainer is
+  fitted), all with nyloc nuts; no rod or printed part is ever drilled
 - 4x 4.2 mm wood screws, and any plank to screw the base onto (no
   hole: the shaft tip and retainer stay inside the base cavity)

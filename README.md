@@ -22,33 +22,44 @@ the driving vane bangs against its stop — free percussion.
 
 The rotor rides on two 608 skateboard bearings spaced 45 mm apart in the
 base tower, so the 1.2 m span runs true. All rotating weight hangs on a
-collar clamped to the shaft, resting on the top bearing's inner race. A
-smaller single-bolt collar clamped under the bottom bearing, a
-millimeter clear of its inner race, is the uplift retainer: it lives in
-a cavity inside the base tower and carries nothing while the rotor
-runs, but a wave slam or a gust that unloads the rotor cannot lift the
-shaft out of its bearings. It is clamped to the shaft at the bench,
-flush with the tip, and the running clearance is gauged at the thrust
-collar during mounting, so the base needs no access holes at all. It
-keeps the bottom bearing captive too.
+collar clamped to the shaft, resting on the top bearing's inner race.
+
+There is also an OPTIONAL uplift retainer: a smaller single-bolt collar
+clamped under the bottom bearing, a millimeter clear of its inner race,
+living in a cavity inside the base tower. It carries nothing while the
+rotor runs, but a wave slam or a gust that unloads the rotor cannot
+lift the shaft out of its bearings, and it keeps the bottom bearing
+captive. In practice the rotor's weight alone keeps the shaft seated
+in all ordinary conditions, so most builds can leave the retainer out;
+the shaft is the same length either way, the tip just rides loose in
+the cavity, and one can be printed and retrofitted through the open
+cavity later if the mooring proves rough (see the assembly guide).
 
 ## Bill of materials
 
 - printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
-  2 end caps, 2 arm collars, 1 thrust collar, 1 retainer collar (see
-  `stl/`)
+  2 end caps, 2 arm collars, 1 thrust collar, and optionally 1
+  retainer collar (see `stl/`)
+- filament: something UV-stable (ASA) for a machine that lives on a
+  boat; PLA is fine for prototyping and fit checks but creeps under
+  clamp preload and degrades in the sun
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms)
 - 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
-- 11x M3x16 bolt + nyloc (two each for the dual-bolt clamps: 3 collars,
-  2 caps; one for the retainer)
+- 10x M3x16 bolt + nyloc (two each for the dual-bolt clamps: 3 collars,
+  2 caps), plus one more if the retainer is fitted
 - 4x 4.2 mm wood screws, and a plank to screw the base onto (any
   thickness, no hole: nothing reaches below the base)
 
 ## Calibration before printing the real parts
 
-Printers and filaments vary; the three fits are measured, not guessed:
+Printers and filaments vary; the three fits are measured, not guessed.
+They are specific to the printer, the slicing profile, AND the
+filament: gauges sliced with a different nozzle profile or printed in
+a different material do not transfer, so prototyping in PLA and then
+building the real machine in ASA means running the gauges again in
+ASA with the production profile.
 
 1. Print `stl/bearing_pocket_gauge.stl`, press a bearing into each ring,
    put the number of the firm-but-not-brutal one into `bearing_press_d`

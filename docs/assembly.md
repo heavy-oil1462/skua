@@ -4,10 +4,11 @@ What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the three rod pieces (1x 145 mm, 2x
 600 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
-keys to suit, and something about 1 mm thick and no wider than about
-15 mm (a strip of folded business card, a feeler gauge) for gauging
-the thrust collar. Nothing is drilled in the whole build: not the
-rods, not the printed parts, and not the plank either.
+keys to suit, and, only if you fit the optional retainer, something
+about 1 mm thick and no wider than about 15 mm (a strip of folded
+business card, a feeler gauge) for gauging the thrust collar. Nothing
+is drilled in the whole build: not the rods, not the printed parts,
+and not the plank either.
 
 Two joint types cover the whole build, and both are clamps. The hub
 is a clamshell: lay the rods into the grooves and bolt the halves
@@ -59,12 +60,16 @@ between the faces so all the bolt force squeezes the rods. An even
 gap all around means the rods are gripped; faces touching anywhere
 means something is not seated.
 
-Last, the retainer: slide the small single-bolt collar onto the
-shaft tip, boss first (boss toward the hub), and push it flush with
-the tip. Easiest is to stand the tip on the bench so tip and collar
-press flat against the same surface, then tighten the bolt. Flush is
-the whole trick: it needs no measuring, and it is the reference that
-makes the next step work.
+Last, the retainer, and this one is OPTIONAL: the rotor's weight
+alone keeps the shaft seated in its bearings in all ordinary
+conditions, so most builds skip it and add it later only if the
+mooring proves rough (how, at the end of step 3). The shaft is the
+same length either way. To fit it now: slide the small single-bolt
+collar onto the shaft tip, boss first (boss toward the hub), and
+push it flush with the tip. Easiest is to stand the tip on the bench
+so tip and collar press flat against the same surface, then tighten
+the bolt. Flush is the whole trick: it needs no measuring, and it is
+the reference that makes the next step work.
 
 ![step 2](assembly/step2.png)
 
@@ -95,6 +100,21 @@ The shaft can never lift out and the bottom bearing is captive. To
 re-torque the retainer bolt at season start, take out the four wood
 screws and reach into the open cavity from below; every other bolt
 is in the open.
+
+Building WITHOUT the retainer: same upside-down mating, but there is
+nothing for the base to rest on and no gap to gauge. Lower the base
+until the tip sits a few millimeters down inside the cavity (the
+cavity mouth faces up in this pose, so you can see the tip in it),
+hold the base there, seat the thrust collar directly on the top race
+with no card, and clamp. Flip, screw down, done; the tip just rides
+loose in the cavity.
+
+Adding the retainer later: print one, take out the four wood screws,
+and lay the whole machine on its side. Slide the retainer through
+the open cavity mouth onto the tip, boss toward the bearing, push it
+to 1 mm short of the bottom race with the card strip between boss
+and race, and tighten its bolt through the mouth. Stand it up and
+screw it back down.
 
 The image below shows the base cut open so the collars and the
 retainer are visible; yours is in one piece.
