@@ -9,8 +9,9 @@
 //   face. The wind mechanism still needs ASYMMETRY: a vane that could
 //   swing all the way around would just weathervane and the rotor
 //   would never start. So the sleeve's end faces carry a pie-shaped
-//   stop notch; a stop wedge rides in each (end cap on top, arm
-//   collar underneath, sharing the impact) and limits the swing to
+//   stop notch; a stop wedge rides in each (end cap on top, the tip
+//   bracket's printed wedge underneath, sharing the impact) and
+//   limits the swing to
 //   vane_swing_deg. Pushed one way the vane trails flat and slips
 //   through the wind; pushed the other way it hits the stop, presents
 //   its full face, and drags the rotor around. Both vanes stop in the
@@ -21,8 +22,8 @@
 //   vane_width - vane_sleeve_len (in use: past the end cap, which the
 //   panel's near edge clears; geometry_check gates it), so the sleeve
 //   sits toward the bottom of the flag. The sleeve's lower end face
-//   rests on the arm collar's boss, a small ring, so the vane spins
-//   with little friction and no printed face rubs a large one.
+//   rests on the tip bracket's boss ring, so the vane spins with
+//   little friction and no printed face rubs a large one.
 //
 //   The notch is cut into BOTH ends: the cap wedge and the collar
 //   wedge each get one. Its radial walls match the wedge's flat side

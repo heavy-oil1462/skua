@@ -1,4 +1,4 @@
-// Annular-sector stop wedge, shared by end_cap.scad and arm_collar.scad.
+// Annular-sector stop wedge, shared by end_cap.scad and tip_bracket.scad.
 // Sits on z = 0, extends +z, centered on the +x direction. Its flat
 // radial side faces land flush on the vane sleeve notch's walls (cut by
 // the same kind of radial plane in vane.scad), so the stop impact is a

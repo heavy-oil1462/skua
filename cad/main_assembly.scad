@@ -28,7 +28,6 @@ use <vane.scad>
 use <end_cap.scad>
 use <collar.scad>
 use <retainer.scad>
-use <arm_collar.scad>
 use <tip_bracket.scad>
 use <bearing_608.scad>
 include <design_params.scad>
@@ -47,12 +46,11 @@ arm_tip    = arm_root + arm_length;
 
 // Stations at the arm tip, from geometry_check.py's model: the
 // bracket clamps the arm's last bracket_arm_grip, the stub stands
-// through it, and collar, sleeve and cap stack up the stub
+// through it, and the sleeve rides the bracket's boss under the cap
 bracket_x  = arm_tip - bracket_arm_grip;      // bracket inboard face
 stub_x     = bracket_x + bracket_stub_x;      // the vertical hinge axis
-collar_z   = arm_z + bracket_w / 2;           // arm collar body bottom
-sleeve_bot = collar_z + collar_w + collar_boss_h;  // rests on the boss
-cap_face_z = sleeve_bot + vane_sleeve_len + 1;     // 1 mm running play
+sleeve_bot = arm_z + bracket_h / 2 + collar_boss_h;  // on the bracket boss
+cap_face_z = sleeve_bot + vane_sleeve_len + 1;       // 1 mm running play
 
 // --- base, bearings, plank (hidden in the bench-only step 2). In
 //     step 3 the base is drawn half cut away so the collars and the
@@ -103,11 +101,12 @@ mirror([1, 0, 0]) arm_side(swing = step > 5 ? 75 : 0);
 module arm_side(swing) {
     // The vane's driven stop points the panel straight out along the
     // arm (+x here, before the mirror): panel normal tangential, max
-    // torque. `swing` folds it toward trailing. Cap and collar are
-    // clamped at the stop-set angle: the notch arc is centered on the
-    // panel's normal (+y at the stop), so each wedge center sits
-    // vane_swing_deg/2 off that, flush on the notch wall at swing 0
-    // and leaving the full free arc the other way.
+    // torque. `swing` folds it toward trailing. The lower stop wedge
+    // is printed into the bracket at that angle; the cap is clamped
+    // to match: the notch arc is centered on the panel's normal (+y
+    // at the stop), so each wedge center sits vane_swing_deg/2 off
+    // that, flush on the notch wall at swing 0 and leaving the free
+    // arc the other way.
     vane_ang = -90 - swing;
     e = step == 4 ? 22 : 0;   // step 4: hardware slid apart up the stub
 
@@ -119,20 +118,14 @@ module arm_side(swing) {
                     cylinder(h = arm_length, d = rod_d);
 
     if (step >= 4) {
-        // tip bracket on the arm end, stub rod standing through it
+        // tip bracket on the arm end (its top face carries the boss
+        // seat and the lower stop wedge), stub rod standing through
         color("SteelBlue")
-            translate([bracket_x, 0, arm_z - bracket_w / 2])
+            translate([bracket_x, 0, arm_z - bracket_h / 2])
                 tip_bracket();
         color("DarkGray")
-            translate([stub_x, 0, arm_z - bracket_w / 2])
+            translate([stub_x, 0, arm_z - bracket_h / 2])
                 cylinder(h = stub_length, d = rod_d);
-
-        // arm collar on the stub, boss and wedge UP: the sleeve's
-        // thrust seat and the lower stop (wedge is at 180 internally)
-        color("SteelBlue")
-            translate([stub_x, 0, collar_z])
-                rotate([0, 0, 90 - vane_swing_deg / 2 - 180])
-                    arm_collar();
 
         // vane on the stub: panel out along the arm at the stop
         color("Gold")

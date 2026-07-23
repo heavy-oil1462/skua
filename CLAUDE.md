@@ -10,13 +10,14 @@ hardware. No electronics — the wind does everything.
 - **The rotor is driven by swing asymmetry, not by airfoils.** Each vane
   pivots like a door on a VERTICAL stub rod at the arm tip (held by
   the tip bracket): free through vane_swing_deg one way, hard stop
-  the other (a stop wedge on the end cap above and one on the arm
-  collar below, each riding a notch in its end of the sleeve; the
-  flat faces land flush on the notch walls and share the impact; set
-  both to the same angle at assembly). Pushed toward the stop it
-  presents its full face and drags the rotor; pushed the other way it
-  weathervanes flat and slips through. Both stops are set in the same
-  rotational sense seen from above, so the torques add. A vane that
+  the other (a stop wedge on the end cap above and one PRINTED INTO
+  the tip bracket below at the fixed driven-stop angle, each riding a
+  notch in its end of the sleeve; the flat faces land flush on the
+  notch walls and share the impact; only the cap is set at assembly,
+  to match the bracket's wedge). Pushed toward the stop it presents
+  its full face and drags the rotor; pushed the other way it
+  weathervanes flat and slips through. The brackets bake both arms
+  into the same rotational sense, so the torques add. A vane that
   is fixed rigidly, or that can swing all the way around, produces no
   net torque — never "simplify" the stop away. The clack of the vanes
   hitting the stops is part of the product.
@@ -25,7 +26,7 @@ hardware. No electronics — the wind does everything.
   needs a moderate breeze to fold, and below that the rotor only
   rocks in place. Never tilt the hinge or hang mass on the vane in a
   way that gives the free swing a gravity slope; the sleeve's weight
-  rides the arm collar's small boss ring so spin friction stays low.
+  rides the tip bracket's small boss ring so spin friction stays low.
 - **One rod stock.** Shaft, arms and the two vertical hinge stubs are
   all 8 mm aluminum rod (the 608 bore). No second diameter may creep
   in.
@@ -51,11 +52,12 @@ hardware. No electronics — the wind does everything.
   through the open cavity with the base unscrewed. But it stays in the
   DESIGN: never delete the part, the cavity, or their checks, and
   never "simplify" the gap to zero (that preloads the bearings).
-- **No rod is ever drilled; every joint is a clamp.** The hub is a
-  clamshell split on the plane containing all three rod axes: lay in
-  the rods, bolt the halves with M5s and wide washers; the halves must
-  never close solid (hub_clamp_gap keeps preload on the rods, never
-  fix a "gap" by shrinking it to zero). The collars and end caps are
+- **No rod is ever drilled; every joint is a clamp.** The hub and
+  the tip brackets are clamshells split on the plane containing their
+  rod axes: lay in the rods, bolt the halves with M5s and wide
+  washers; the halves must never close solid (hub_clamp_gap and
+  bracket_clamp_gap keep preload on the rods, never fix a "gap" by
+  shrinking it to zero). The collars and end caps are
   WIDE dual-bolt slit clamps: friction-only joints live on grip
   length and bolt count, so a single set screw or a narrow ring is a
   design error here (geometry_check enforces the width; the one
@@ -117,11 +119,11 @@ Conventions:
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
-- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 130 mm
+- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 120 mm
   hinge stubs
-- 5x M5x40 with wide washers (hub clamshell) and 18x M3x16 (dual-bolt
-  collar, cap and bracket clamps; one more if the optional retainer
-  is fitted), all with nyloc nuts; no rod or printed part is ever
-  drilled
+- 13x M5x40 with wide washers (hub and tip bracket clamshells) and
+  6x M3x16 (dual-bolt thrust collar and cap clamps; one more if the
+  optional retainer is fitted), all with nyloc nuts; no rod or
+  printed part is ever drilled
 - 4x 4.2 mm wood screws, and any plank to screw the base onto (no
   hole: the shaft tip and retainer stay inside the base cavity)
