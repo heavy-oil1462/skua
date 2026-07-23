@@ -23,7 +23,7 @@ shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // and that the tip reaches down through the
                      // uplift retainer inside the base cavity.
 arm_length   = 600;  // each horizontal arm (two of them)
-stub_length  = 120;  // the vertical hinge rod at each arm tip (two of
+stub_length  = 113;  // the vertical hinge rod at each arm tip (two of
                      // them, same stock): clamped through the tip
                      // bracket, carrying the vane sleeve and its cap
 
@@ -135,21 +135,26 @@ cap_bore_depth = 18;
 //     PEG half and the PLAIN half with the sockets. The assembled
 //     bracket rotated 180 about the stub serves the other arm). Both
 //     rod axes lie in the split plane, so the halves close over arm
-//     and stub like the hub closes over its rods, bolted with M5x40s
-//     and wide washers, and they trap the stop ring's D foot in the
+//     and stub like the hub closes over its rods, bolted with M3x30s
+//     and small washers, and they trap the stop ring's D foot in the
 //     pocket on top the same way, so the stub stack is just the
-//     ring, the sleeve and the end cap ---
+//     ring, the sleeve and the end cap. The joint rides 620 mm out
+//     on the arm, so it is sized for weight: M3 preload is plenty
+//     for a clamp whose only friction duty is gust torsion, and the
+//     width stays 24 only because the ring pocket needs side walls;
+//     the slimming is in height and length ---
 bracket_w        = 24;  // clamshell thickness across the split
-bracket_h        = 30;  // height; also the stub clamp's grip length
-bracket_len      = 52;  // along the arm
+bracket_h        = 24;  // height; also the stub clamp's grip length
+bracket_len      = 50;  // along the arm
 bracket_arm_grip = 22;  // blind arm groove depth
 bracket_stub_x   = 36;  // stub axis from the bracket's inboard face
-bracket_bolt_dz  = 9.5; // arm-clamp M5s at mid-grip, this far above
+bracket_bolt_dz  = 8;   // arm-clamp M3s at mid-grip, this far above
                         // and below the arm axis
-bracket_bolt_dx  = 9;   // stub-clamp M5s at mid-height, this far
+bracket_bolt_dx  = 8;   // stub-clamp M3s at mid-height, this far
                         // inboard and outboard of the stub axis
-bracket_peg_x    = 28;  // the two registration pegs (peg half),
-bracket_peg_dz   = 8;   // this far above and below the arm axis
+bracket_peg_x    = 18;  // the two registration pegs (peg half), this
+bracket_peg_dz   = 8;   // far above and below the arm axis, inboard
+                        // of the ring pocket
 bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
                          // rule: bolt preload lands on the rods,
                          // never on face-to-face plastic

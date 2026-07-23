@@ -12,7 +12,8 @@ and not the plank either.
 
 Two joint types cover the whole build, and both are clamps. The hub
 and the tip brackets are clamshells: lay the rods into the grooves
-and bolt the halves together with M5s and washers. The collars and
+and bolt the halves together with washered bolts (M5 at the hub, M3
+at the light tip brackets). The collars and
 end caps are wide slit clamps, each closed
 by two M3 bolts crossing the slit: slide to position, set the angle,
 tighten both bolts. Every joint stays re-adjustable by loosening two
@@ -128,12 +129,12 @@ Each tip bracket is two printed halves that close over the arm and
 the stub the way the hub closes over its rods: the PEG half and the
 PLAIN half (the peg sockets). Lay the peg half groove side up, set
 the arm end into the long groove until it bottoms out, and lay a
-120 mm stub into the cross groove, flush with the half's far face.
+113 mm stub into the cross groove, flush with the half's far face.
 Slide the stop ring down the stub, D flat toward the arm tip, and
 seat its foot in the round pocket; the flat only fits one way, and
 that keyed angle is the driven stop, so it cannot be assembled
 wrong and both flags get the same rotational sense for free. Fit
-the plain half over the pegs, add the four M5x40s with a wide
+the plain half over the pegs, add the four M3x30s with a small
 washer under each head and each nyloc, and tighten evenly. Same
 rule as the hub: the halves must NOT touch; an even gap all around
 means the rods, not the plastic, carry the preload. Before the

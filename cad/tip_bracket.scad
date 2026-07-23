@@ -9,9 +9,12 @@
 //   Turns the vane hinge VERTICAL: the arm ends in a blind groove and
 //   the stub rod stands in a through groove. Both rod axes lie in the
 //   split plane, so like the hub the two halves close over arm and
-//   stub as a pillow block, and four M5x40s with wide washers clamp
-//   both rods at once. No teardrops and no press fits: with the ASA
-//   snug a true 8.0 the rods LAY IN and the bolts do the gripping.
+//   stub as a pillow block, and four M3x30s with small washers clamp
+//   both rods at once: this joint rides 620 mm out on the arm, so it
+//   is sized for weight, and M3 preload is plenty for a clamp whose
+//   only friction duty is gust torsion about the arm. No teardrops
+//   and no press fits: with the ASA snug a true 8.0 the rods LAY IN
+//   and the bolts do the gripping.
 //
 //   The pocket on top traps the STOP RING's D foot (stop_ring.scad)
 //   exactly the way the grooves trap the rods: lay it in with the
@@ -109,7 +112,7 @@ module bracket_solid() {
 module bolt_bore(pos) {
     translate([pos[0], 0, pos[1]])
         rotate([90, 0, 0])
-            cylinder(h = bracket_w + 2, d = m5_clear_d, center = true);
+            cylinder(h = bracket_w + 2, d = m3_clear_d, center = true);
 }
 
 tip_bracket();

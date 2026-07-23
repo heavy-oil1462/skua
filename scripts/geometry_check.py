@@ -147,28 +147,27 @@ def main():
           f"{arm_wall:.1f} mm between arm groove and stub groove,"
           f" {stub_wall:.1f} mm outboard of the stub (>= 4 / >= 3)")
 
-    # --- bracket clamshell: M5 bolts and the peg keep their walls,
+    # --- bracket clamshell: M3 bolts and the pegs keep their walls,
     #     the halves keep their gap (hub rules) ---
-    m5r = P["m5_clear_d"] / 2
+    m3r = P["m3_clear_d"] / 2
     zc = P["bracket_h"] / 2
-    bolt_edge = zc - P["bracket_bolt_dz"] - m5r
-    bolt_groove = P["bracket_bolt_dz"] - m5r - P["rod_snug_d"] / 2
+    bolt_edge = zc - P["bracket_bolt_dz"] - m3r
+    bolt_groove = P["bracket_bolt_dz"] - m3r - P["rod_snug_d"] / 2
     check(ok, min(bolt_edge, bolt_groove) >= 2, "bracket arm bolts",
           f"{bolt_edge:.2f} mm to the faces, {bolt_groove:.2f} mm to"
           " the arm groove (>= 2)")
-    sb_groove = P["bracket_bolt_dx"] - m5r - P["rod_snug_d"] / 2
-    sb_socket = (P["bracket_stub_x"] - P["bracket_bolt_dx"] - m5r
+    sb_groove = P["bracket_bolt_dx"] - m3r - P["rod_snug_d"] / 2
+    sb_socket = (P["bracket_stub_x"] - P["bracket_bolt_dx"] - m3r
                  - P["bracket_arm_grip"])
     sb_end = (P["bracket_len"] - P["bracket_stub_x"]
-              - P["bracket_bolt_dx"] - m5r)
+              - P["bracket_bolt_dx"] - m3r)
     check(ok, min(sb_groove, sb_socket, sb_end) >= 2, "bracket stub bolts",
           f"{sb_groove:.2f} mm to the stub groove, {sb_socket:.2f} mm to"
           f" the arm groove end, {sb_end:.2f} mm to the end face (>= 2)")
-    peg_stub = (P["bracket_stub_x"] - P["rod_snug_d"] / 2
-                - P["bracket_peg_x"] - 2)
+    peg_groove = P["bracket_peg_dz"] - P["rod_snug_d"] / 2 - 2
     peg_edge = zc - P["bracket_peg_dz"] - 2
-    check(ok, min(peg_stub, peg_edge) >= 1.5, "bracket peg",
-          f"{peg_stub:.1f} mm to the stub groove, {peg_edge:.1f} mm to"
+    check(ok, min(peg_groove, peg_edge) >= 1.5, "bracket pegs",
+          f"{peg_groove:.1f} mm to the arm groove, {peg_edge:.1f} mm to"
           " the faces (>= 1.5)")
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
@@ -188,10 +187,10 @@ def main():
     groove_top = P["bracket_h"] / 2 + P["rod_snug_d"] / 2
     check(ok, pocket_floor - groove_top >= 3, "ring pocket floor",
           f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
-    peg_top = P["bracket_h"] / 2 + P["bracket_peg_dz"] + 2
-    check(ok, pocket_floor - peg_top >= 1.5, "pegs clear the pocket",
-          f"{pocket_floor - peg_top:.1f} mm between top peg and pocket"
-          " floor (>= 1.5)")
+    check(ok, P["bracket_stub_x"] - pocket_r
+              - (P["bracket_peg_x"] + 2) >= 1.5, "pegs clear the pocket",
+          f"{P['bracket_stub_x'] - pocket_r - P['bracket_peg_x'] - 2:.1f}"
+          " mm between the pegs and the pocket wall (>= 1.5)")
     check(ok, 2 <= P["ring_flat_x"] <= P["ring_foot_d"] / 2 - 2,
           "ring D flat keys",
           f"flat at {P['ring_flat_x']} mm, foot radius"

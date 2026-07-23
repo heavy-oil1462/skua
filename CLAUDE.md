@@ -59,10 +59,11 @@ hardware. No electronics — the wind does everything.
   never "simplify" the gap to zero (that preloads the bearings).
 - **No rod is ever drilled; every joint is a clamp.** The hub and
   the tip brackets are clamshells split on the plane containing their
-  rod axes: lay in the rods, bolt the halves with M5s and wide
-  washers; the halves must never close solid (hub_clamp_gap and
-  bracket_clamp_gap keep preload on the rods, never fix a "gap" by
-  shrinking it to zero). The collars and end caps are
+  rod axes: lay in the rods, bolt the halves with washered bolts
+  (M5 at the hub, M3 at the tip brackets, which ride 620 mm out and
+  are sized for weight); the halves must never close solid
+  (hub_clamp_gap and bracket_clamp_gap keep preload on the rods,
+  never fix a "gap" by shrinking it to zero). The collars and end caps are
   WIDE dual-bolt slit clamps: friction-only joints live on grip
   length and bolt count, so a single set screw or a narrow ring is a
   design error here (geometry_check enforces the width; the one
@@ -124,11 +125,12 @@ Conventions:
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
-- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 120 mm
+- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 113 mm
   hinge stubs
-- 13x M5x40 with wide washers (hub and tip bracket clamshells) and
-  6x M3x16 (dual-bolt thrust collar and cap clamps; one more if the
-  optional retainer is fitted), all with nyloc nuts; no rod or
+- 5x M5x40 with wide washers (hub clamshell), 8x M3x30 with small
+  washers (tip bracket clamshells, kept light out at the arm tips)
+  and 6x M3x16 (dual-bolt thrust collar and cap clamps; one more if
+  the optional retainer is fitted), all with nyloc nuts; no rod or
   printed part is ever drilled
 - 4x 4.2 mm wood screws, and any plank to screw the base onto (no
   hole: the shaft tip and retainer stay inside the base cavity)
