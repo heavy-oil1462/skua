@@ -173,11 +173,33 @@ def main():
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
           " clamp rods not plastic (0.4 .. 2)")
-    check(ok, P["bracket_wedge_deg"] >= 45, "bracket fin prints clean",
-          f"far flank leans {90 - P['bracket_wedge_deg']} deg from"
-          " vertical (fin >= 45 deg wide; the contact flank lies in"
-          " the split plane, the print's top surface, and the outer"
-          " arc is faceted at 45 where it would curl past the lean)")
+    # --- stop ring: D foot trapped in the bracket pocket, keyed by
+    #     the flat; the fin and boss print as vertical prisms on the
+    #     ring's own back, so nothing here needs support ---
+    pocket_r = P["ring_foot_d"] / 2 + P["fit_tol"]
+    check(ok, P["bracket_w"] / 2 - pocket_r >= 1.5, "ring pocket side walls",
+          f"{P['bracket_w'] / 2 - pocket_r:.1f} mm outside the pocket"
+          " (>= 1.5)")
+    check(ok, P["bracket_len"] - P["bracket_stub_x"] - pocket_r >= 2,
+          "ring pocket end wall",
+          f"{P['bracket_len'] - P['bracket_stub_x'] - pocket_r:.1f} mm to"
+          " the outboard face (>= 2)")
+    pocket_floor = P["bracket_h"] - P["ring_foot_t"]
+    groove_top = P["bracket_h"] / 2 + P["rod_snug_d"] / 2
+    check(ok, pocket_floor - groove_top >= 3, "ring pocket floor",
+          f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
+    peg_top = P["bracket_h"] / 2 + P["bracket_peg_dz"] + 2
+    check(ok, pocket_floor - peg_top >= 1.5, "pegs clear the pocket",
+          f"{pocket_floor - peg_top:.1f} mm between top peg and pocket"
+          " floor (>= 1.5)")
+    check(ok, 2 <= P["ring_flat_x"] <= P["ring_foot_d"] / 2 - 2,
+          "ring D flat keys",
+          f"flat at {P['ring_flat_x']} mm, foot radius"
+          f" {P['ring_foot_d'] / 2} (a real flat, one orientation only)")
+    check(ok, P["stop_wedge_ro"] - P["ring_foot_d"] / 2 <= 1,
+          "ring fin sits on its foot",
+          f"fin overhangs the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
+          " (<= 1: lands on the bracket top, flush with the foot)")
 
     # --- up the stub: bracket boss, sleeve, play, cap all fit ---
     boss_top = P["bracket_h"] / 2 + P["collar_boss_h"]
@@ -217,10 +239,10 @@ def main():
           f"{overlap:.2f} mm radial overlap with the notch shoulders (>= 1.5)")
     check(ok, P["stop_wedge_ro"] <= P["cap_d"] / 2, "stop wedge fits the cap",
           f"outer radius {P['stop_wedge_ro']} inside cap r {P['cap_d'] / 2}")
-    notch = P["vane_swing_deg"] + P["bracket_wedge_deg"]
+    notch = P["vane_swing_deg"] + P["ring_wedge_deg"]
     check(ok, notch <= 200, "stop notch",
           f"{notch:.0f} deg cut from the sleeve end, sized for the"
-          " bracket fin (<= 200, the rest is the stop); the full"
+          " stop ring's fin (<= 200, the rest is the stop); the full"
           f" {P['vane_swing_deg']} deg of swing stays free")
     engage = P["stop_wedge_len"] - 1
     check(ok, engage >= 3, "wedge engagement",

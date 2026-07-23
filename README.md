@@ -48,9 +48,9 @@ cavity later if the mooring proves rough (see the assembly guide).
 ## Bill of materials
 
 - printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
-  2 tip bracket fin halves + 2 plain halves (each arm tip clamps
-  between one of each), 2 end caps, 1 thrust collar, and optionally
-  1 retainer collar (see `stl/`)
+  2 tip bracket peg halves + 2 plain halves (each arm tip clamps
+  between one of each), 2 stop rings, 2 end caps, 1 thrust collar,
+  and optionally 1 retainer collar (see `stl/`)
 - filament: something UV-stable (ASA) for a machine that lives on a
   boat; PLA is fine for prototyping and fit checks but creeps under
   clamp preload and degrades in the sun

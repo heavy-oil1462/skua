@@ -41,10 +41,10 @@ use <lib/bores.scad>
 
 $fn = 80;
 
-// the notch is sized for the WIDER of its two wedges, the bracket's
-// lower stop fin, so the full vane_swing_deg stays free; the cap's
+// the notch is sized for the WIDER of its two wedges, the stop
+// ring's fin, so the full vane_swing_deg stays free; the cap's
 // narrower wedge just enjoys extra room
-notch_deg   = vane_swing_deg + bracket_wedge_deg;
+notch_deg   = vane_swing_deg + ring_wedge_deg;
 notch_depth = stop_wedge_len + 1;
 
 module vane() {

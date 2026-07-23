@@ -29,6 +29,7 @@ use <end_cap.scad>
 use <collar.scad>
 use <retainer.scad>
 use <tip_bracket.scad>
+use <stop_ring.scad>
 use <bearing_608.scad>
 include <design_params.scad>
 
@@ -99,13 +100,12 @@ arm_side(swing = 0);
 mirror([1, 0, 0]) arm_side(swing = step > 5 ? 75 : 0);
 
 module arm_side(swing) {
-    // At the driven stop the notch's contact wall lies on the
-    // bracket fin's split-plane flank (angle 0 past outboard), which
-    // puts the panel a few degrees past straight-out-along-the-arm:
-    // notch center at notch_deg/2, panel 90 short of that. `swing`
-    // folds it toward trailing. The cap's wedge is clamped to land
-    // together with the fin on the same wall.
-    vane_ang = (vane_swing_deg + bracket_wedge_deg) / 2 - 180 - swing;
+    // At the driven stop the notch's contact wall lies on the stop
+    // ring's fin, whose keyed angle is chosen so the panel points
+    // exactly straight out along the arm. `swing` folds it toward
+    // trailing. The cap's wedge is clamped to land together with the
+    // fin on the same wall.
+    vane_ang = -90 - swing;
     e = step == 4 ? 22 : 0;   // step 4: hardware slid apart up the stub
 
     // step 2: arm rod seated in the hub on the bench
@@ -116,14 +116,17 @@ module arm_side(swing) {
                     cylinder(h = arm_length, d = rod_d);
 
     if (step >= 4) {
-        // tip bracket on the arm end (its top face carries the boss
-        // seat and the lower stop wedge), stub rod standing through
+        // tip bracket on the arm end, stub rod standing through,
+        // and the keyed stop ring trapped in the bracket's pocket
         color("SteelBlue")
             translate([bracket_x, 0, arm_z - bracket_h / 2])
                 tip_bracket();
         color("DarkGray")
             translate([stub_x, 0, arm_z - bracket_h / 2])
                 cylinder(h = stub_length, d = rod_d);
+        color("SteelBlue")
+            translate([stub_x, 0, arm_z + bracket_h / 2 - ring_foot_t])
+                stop_ring();
 
         // vane on the stub: panel out along the arm at the stop
         color("Gold")
@@ -137,7 +140,8 @@ module arm_side(swing) {
         // sleeve's upper notch, wedge centered to share the fin's wall
         color("SteelBlue")
             translate([stub_x, 0, cap_face_z + cap_t + 2 * e])
-                rotate([0, 0, stop_wedge_deg / 2])
+                rotate([0, 0, 90 - (vane_swing_deg + ring_wedge_deg) / 2
+                               + stop_wedge_deg / 2])
                     rotate([180, 0, 0])
                         end_cap();
     }
