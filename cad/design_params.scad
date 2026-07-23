@@ -42,8 +42,8 @@ pocket_recess = 0.5;  // bearings sit this far below the tower faces so
 
 // --- Calibrated fits (print the gauges, type the winners in here) ---
 bearing_press_d = 21.95; // pocket that grips the outer race — cad/calibration/bearing_pocket_gauge.scad
-rod_snug_d      = 8.2;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
-rod_free_d      = 8.4;  // bores that must SPIN on the rod (vane sleeve) — same gauge
+rod_snug_d      = 8.0;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
+rod_free_d      = 8.2;  // bores that must SPIN on the rod (vane sleeve) — same gauge
 fit_tol         = 0.2;  // clearance for printed slots/pockets
 
 // --- Base (screwed to the plank) ---
