@@ -71,16 +71,26 @@ module bracket_plain_half() {
 
 // The fin half (y > 0): pegs, its boss arc, and the lower stop fin
 // spanning 0 to bracket_wedge_deg past outboard, contact flank flush
-// with the split plane.
+// with the split plane. Printed outer face down, the split face is
+// the top surface, so the fin lies flush at the top; the 45-degree
+// facet below shaves the only spot where its outer arc would curl
+// past the printable lean, so every under-surface is self-supporting.
 module bracket_fin_half() {
     intersection() {
         union() {
             bracket_solid();
             boss_ring();
             translate([bracket_stub_x, 0, bracket_h])
-                rotate([0, 0, bracket_wedge_deg / 2])
-                    stop_wedge(stop_wedge_ri, stop_wedge_ro,
-                               bracket_wedge_deg, fin_h);
+                difference() {
+                    rotate([0, 0, bracket_wedge_deg / 2])
+                        stop_wedge(stop_wedge_ri, stop_wedge_ro,
+                                   bracket_wedge_deg, fin_h);
+                    // facet: the tangent plane at 45 degrees off the
+                    // split, where the arc would exceed the print lean
+                    rotate([0, 0, 45])
+                        translate([stop_wedge_ro, -500, -1])
+                            cube(1000);
+                }
         }
         translate([-500, bracket_clamp_gap / 2, -500]) cube(1000);
     }

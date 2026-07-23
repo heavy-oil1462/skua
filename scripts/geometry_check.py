@@ -176,7 +176,8 @@ def main():
     check(ok, P["bracket_wedge_deg"] >= 45, "bracket fin prints clean",
           f"far flank leans {90 - P['bracket_wedge_deg']} deg from"
           " vertical (fin >= 45 deg wide; the contact flank lies in"
-          " the split plane, the print's top surface)")
+          " the split plane, the print's top surface, and the outer"
+          " arc is faceted at 45 where it would curl past the lean)")
 
     # --- up the stub: bracket boss, sleeve, play, cap all fit ---
     boss_top = P["bracket_h"] / 2 + P["collar_boss_h"]
