@@ -131,12 +131,13 @@ cap_t          = 20;
 cap_bore_depth = 18;
 
 // --- Tip bracket (the clamshell knuckle at each arm tip that turns
-//     the hinge vertical; ONE half design, print FOUR, two per
-//     bracket, and the assembled bracket rotated 180 about the stub
+//     the hinge vertical; TWO half designs, print two of each: the
+//     FIN half carries the lower stop, the PLAIN half the pegs'
+//     sockets, and the assembled bracket rotated 180 about the stub
 //     serves the other arm). Both rod axes lie in the split plane,
 //     so the halves close over arm and stub like the hub closes over
 //     its rods, bolted with M5x40s and wide washers. The bracket also
-//     carries the sleeve's boss seat and the LOWER stop wedge on its
+//     carries the sleeve's boss seat and the LOWER stop fin on its
 //     top face, baked at the driven-stop angle, so the stub stack is
 //     just sleeve and end cap ---
 bracket_w        = 24;  // clamshell thickness across the split
@@ -148,12 +149,18 @@ bracket_bolt_dz  = 9.5; // arm-clamp M5s at mid-grip, this far above
                         // and below the arm axis
 bracket_bolt_dx  = 9;   // stub-clamp M5s at mid-height, this far
                         // inboard and outboard of the stub axis
-bracket_peg_x    = 28;  // ONE peg and ONE socket per half, placed
-bracket_peg_dz   = 10;  // symmetrically about the arm axis, so the
-                        // half mates with a copy of itself
+bracket_peg_x    = 28;  // the two registration pegs (fin half),
+bracket_peg_dz   = 10;  // this far above and below the arm axis
 bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
                          // rule: bolt preload lands on the rods,
                          // never on face-to-face plastic
+bracket_wedge_deg = 50; // the lower stop fin's arc. One flank lies
+                        // exactly IN the split plane, which is the
+                        // print's top surface, so it prints clean
+                        // with no ramp; the other flank then leans
+                        // 90 - this from vertical, so keep >= 45.
+                        // The sleeve notch grows to match, keeping
+                        // the full vane_swing_deg of free swing ---
 
 // --- Stop wedges (SHARED: one on the end cap, set at assembly, and
 //     one printed into the tip bracket's top face at the fixed

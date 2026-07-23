@@ -10,11 +10,14 @@ hardware. No electronics — the wind does everything.
 - **The rotor is driven by swing asymmetry, not by airfoils.** Each vane
   pivots like a door on a VERTICAL stub rod at the arm tip (held by
   the tip bracket): free through vane_swing_deg one way, hard stop
-  the other (a stop wedge on the end cap above and one PRINTED INTO
-  the tip bracket below at the fixed driven-stop angle, each riding a
-  notch in its end of the sleeve; the flat faces land flush on the
-  notch walls and share the impact; only the cap is set at assembly,
-  to match the bracket's wedge). Pushed toward the stop it presents
+  the other (a stop wedge on the end cap above and the stop FIN
+  printed into the tip bracket below at the fixed driven-stop angle,
+  each riding a notch in its end of the sleeve; the flat faces land
+  flush on the notch walls and share the impact; only the cap is set
+  at assembly, to land together with the fin. The fin's contact
+  flank lies IN the clamshell's split plane, which is what makes it
+  print clean, and the notch is sized for the fin's width so the
+  full swing stays free). Pushed toward the stop it presents
   its full face and drags the rotor; pushed the other way it
   weathervanes flat and slips through. The brackets bake both arms
   into the same rotational sense, so the torques add. A vane that

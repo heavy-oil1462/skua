@@ -99,15 +99,13 @@ arm_side(swing = 0);
 mirror([1, 0, 0]) arm_side(swing = step > 5 ? 75 : 0);
 
 module arm_side(swing) {
-    // The vane's driven stop points the panel straight out along the
-    // arm (+x here, before the mirror): panel normal tangential, max
-    // torque. `swing` folds it toward trailing. The lower stop wedge
-    // is printed into the bracket at that angle; the cap is clamped
-    // to match: the notch arc is centered on the panel's normal (+y
-    // at the stop), so each wedge center sits vane_swing_deg/2 off
-    // that, flush on the notch wall at swing 0 and leaving the free
-    // arc the other way.
-    vane_ang = -90 - swing;
+    // At the driven stop the notch's contact wall lies on the
+    // bracket fin's split-plane flank (angle 0 past outboard), which
+    // puts the panel a few degrees past straight-out-along-the-arm:
+    // notch center at notch_deg/2, panel 90 short of that. `swing`
+    // folds it toward trailing. The cap's wedge is clamped to land
+    // together with the fin on the same wall.
+    vane_ang = (vane_swing_deg + bracket_wedge_deg) / 2 - 180 - swing;
     e = step == 4 ? 22 : 0;   // step 4: hardware slid apart up the stub
 
     // step 2: arm rod seated in the hub on the bench
@@ -136,10 +134,10 @@ module arm_side(swing) {
                             vane();
 
         // end cap on the stub tip, open face and wedge DOWN into the
-        // sleeve's upper notch
+        // sleeve's upper notch, wedge centered to share the fin's wall
         color("SteelBlue")
             translate([stub_x, 0, cap_face_z + cap_t + 2 * e])
-                rotate([0, 0, 90 - vane_swing_deg / 2])
+                rotate([0, 0, stop_wedge_deg / 2])
                     rotate([180, 0, 0])
                         end_cap();
     }

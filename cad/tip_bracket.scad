@@ -1,43 +1,39 @@
 // ==============================================================================
-//   TIP BRACKET — the clamshell knuckle at each arm tip. FOUR halves
-//   of the ONE design below make the two brackets; the printable part
-//   is bracket_half.scad, this file is the shared library (and renders
-//   the closed pair for viewing); regen_all treats it as a non-part.
+//   TIP BRACKET — the clamshell knuckle at each arm tip. Each bracket
+//   is a FIN half plus a PLAIN half (print two of each; the printable
+//   parts are bracket_fin_half.scad and bracket_plain_half.scad, this
+//   file is the shared library and renders the closed pair; regen_all
+//   treats it as a non-part). The assembled bracket rotated 180 about
+//   the stub serves the other arm.
 //
 //   Turns the vane hinge VERTICAL: the arm ends in a blind groove and
 //   the stub rod stands in a through groove. Both rod axes lie in the
 //   split plane, so like the hub the two halves close over arm and
 //   stub as a pillow block, and four M5x40s with wide washers clamp
 //   both rods at once. No teardrops and no press fits: with the ASA
-//   snug at a true 8.0 the rods LAY IN and the bolts do the gripping.
+//   snug a true 8.0 the rods LAY IN and the bolts do the gripping.
 //
-//   The bracket is also the vane's lower bearing and lower stop: its
-//   top face carries the boss ring the sleeve rests on (small ring,
-//   low friction, collar_boss_* sizes) and the LOWER STOP WEDGE,
-//   printed at the driven-stop angle: wedge center 90 minus
-//   vane_swing_deg/2 past the outboard arm direction, so the flag
-//   stops exactly at panel-along-the-arm and both arms automatically
-//   stop in the same rotational sense. Only the end cap's wedge is
-//   set at assembly. The wedge's print ramp (below) doubles as a
-//   soft cushion near the free-swing end, so the loud clack stays on
-//   the driven stop.
+//   The bracket is also the vane's lower bearing and lower stop. Each
+//   half's top face carries its half of the 45-degree flared boss
+//   ring the sleeve rests on (small ring, low friction, collar_boss_*
+//   sizes). The fin half adds the LOWER STOP FIN: an annular sector
+//   rising beside the boss whose contact flank lies exactly IN the
+//   split plane. That placement is what integrates it: in the fin
+//   half's print the split face is the top surface, so the fin lies
+//   flush at the top with its far flank leaning a printable
+//   90 - bracket_wedge_deg from vertical, no support, no ramp. The
+//   sleeve's notch is cut bracket_wedge_deg + vane_swing_deg wide, so
+//   the wider fin costs no swing.
 //
-//   Self-mating trick: the half is z-symmetric about the arm axis
-//   where it must be (grooves, bolts) and carries ONE peg and ONE
-//   socket placed symmetrically, so a half rotated 180 about the arm
-//   axis mates with an unrotated one. The rotated half's boss arc
-//   completes the top ring, and its wedge lands underneath as a
-//   harmless vestige; one printed design is front, back, left arm
-//   and right arm.
-//
-//   Prints split face up (see bracket_half.scad). The boss arcs and
-//   the wedge protrude from faces that print as vertical walls, so
-//   the bosses flare at 45 degrees and the wedge grows a 45-degree
-//   ramp toward the bed: everything self-supporting.
+//   The fin fixes the driven stop: the flag stops a few degrees past
+//   panel-along-the-arm (the notch wall lands on the split-plane
+//   flank), and both arms get the same rotational sense by
+//   construction. Only the end cap's wedge is set at assembly, to
+//   land together with the fin.
 //
 //   Hub rules apply: the halves NEVER touch (bracket_clamp_gap keeps
 //   the bolt preload on the rods; an even gap all around means the
-//   rods are gripped), and the peg, not the bolts, does alignment.
+//   rods are gripped), and the pegs, not the bolts, do alignment.
 // ==============================================================================
 
 include <design_params.scad>
@@ -45,49 +41,67 @@ use <lib/stop_wedge.scad>
 
 $fn = 80;
 
-peg_d     = 4;               // registration peg, same size as the hub's
-zc        = bracket_h / 2;   // the arm axis height in the half
-wedge_h   = collar_boss_h + stop_wedge_len;  // proud of the top face
-wedge_ang = 90 - vane_swing_deg / 2;         // driven-stop wedge center,
-                                             // past +x (outboard)
+peg_d = 4;               // registration pegs, same size as the hub's
+zc    = bracket_h / 2;   // the arm axis height
+fin_h = collar_boss_h + stop_wedge_len;  // fin, proud of the top face
 
 // The assembled clamshell, halves gapped on the rods (for the scene;
-// print bracket_half.scad four times).
+// the halves are modeled in place, fin half on +y).
 module tip_bracket() {
-    bracket_half();
-    translate([0, 0, zc])
-        rotate([180, 0, 0])
-            translate([0, 0, -zc])
-                bracket_half();
+    bracket_plain_half();
+    bracket_fin_half();
 }
 
-// One half (the y < 0 side), split face toward +y, recessed by half
-// the clamp gap; one peg proud of the face, one socket opposite, on
-// the z-symmetric positions that make the part mate with itself.
-module bracket_half() {
+// The plain half (y < 0), split face toward +y, recessed by half the
+// clamp gap; carries the peg sockets and its boss arc.
+module bracket_plain_half() {
     difference() {
         intersection() {
-            union() {
-                bracket_solid();
-                boss_arcs_and_wedge();
-            }
-            half_slab();
+            union() { bracket_solid(); boss_ring(); }
+            translate([-500, -1000 - bracket_clamp_gap / 2, -500])
+                cube(1000);
         }
-        translate([bracket_peg_x, -bracket_clamp_gap / 2 + 0.1,
-                   zc + bracket_peg_dz])
-            rotate([90, 0, 0])
-                cylinder(h = 4.6, d = peg_d + 0.4);
+        for (dz = [-1, 1])
+            translate([bracket_peg_x, -bracket_clamp_gap / 2 + 0.1,
+                       zc + dz * bracket_peg_dz])
+                rotate([90, 0, 0])
+                    cylinder(h = 4.6, d = peg_d + 0.4);
     }
-    translate([bracket_peg_x, -bracket_clamp_gap / 2 - 0.1,
-               zc - bracket_peg_dz])
-        rotate([-90, 0, 0])
-            cylinder(h = 4 + bracket_clamp_gap / 2 + 0.1, d = peg_d);
 }
 
-// this half's world: outer face to just shy of the split plane
-module half_slab() {
-    translate([-500, -500 - bracket_w / 2, -500])
-        cube([1000, 500 + bracket_w / 2 - bracket_clamp_gap / 2, 1000]);
+// The fin half (y > 0): pegs, its boss arc, and the lower stop fin
+// spanning 0 to bracket_wedge_deg past outboard, contact flank flush
+// with the split plane.
+module bracket_fin_half() {
+    intersection() {
+        union() {
+            bracket_solid();
+            boss_ring();
+            translate([bracket_stub_x, 0, bracket_h])
+                rotate([0, 0, bracket_wedge_deg / 2])
+                    stop_wedge(stop_wedge_ri, stop_wedge_ro,
+                               bracket_wedge_deg, fin_h);
+        }
+        translate([-500, bracket_clamp_gap / 2, -500]) cube(1000);
+    }
+    for (dz = [-1, 1])
+        translate([bracket_peg_x, bracket_clamp_gap / 2 + 0.1,
+                   zc + dz * bracket_peg_dz])
+            rotate([90, 0, 0])
+                cylinder(h = 4 + bracket_clamp_gap / 2 + 0.1, d = peg_d);
+}
+
+// The sleeve's seat: a 45-degree flared boss cone around the stub
+// groove on the top face (each half keeps its own arc of it).
+module boss_ring() {
+    translate([bracket_stub_x, 0, bracket_h])
+        difference() {
+            cylinder(h = collar_boss_h,
+                     d1 = collar_boss_d + 2 * collar_boss_h,
+                     d2 = collar_boss_d);
+            translate([0, 0, -0.1])
+                cylinder(h = collar_boss_h + 0.2, d = rod_snug_d);
+        }
 }
 
 // The bracket as one solid: block minus rod grooves and M5 bores.
@@ -116,38 +130,6 @@ module bracket_solid() {
         for (dx = [-1, 1])
             bolt_bore([bracket_stub_x + dx * bracket_bolt_dx, zc]);
     }
-}
-
-// This half's share of the sleeve seat and the lower stop: a boss
-// arc on top AND bottom (the mate's bottom arc completes the top
-// ring), and the wedge hanging BELOW, at the mirrored angle that the
-// mating rotation carries to 10..50 degrees past outboard on the
-// assembled top. Bosses flare 45 degrees; the wedge gets a 45-degree
-// ramp toward this half's outer face (the print bed).
-module boss_arcs_and_wedge() {
-    flare = collar_boss_d + 2 * collar_boss_h;
-    for (p = [[bracket_h, flare, collar_boss_d],
-              [-collar_boss_h, collar_boss_d, flare]])
-        translate([bracket_stub_x, 0, p[0]])
-            difference() {
-                cylinder(h = collar_boss_h, d1 = p[1], d2 = p[2]);
-                translate([0, 0, -0.1])
-                    cylinder(h = collar_boss_h + 0.2, d = rod_snug_d);
-            }
-    translate([bracket_stub_x, 0, 0]) {
-        hull() {
-            hanging_wedge();
-            translate([0, -wedge_h, 0])
-                scale([1, 1, 0.02]) hanging_wedge();
-        }
-    }
-}
-
-module hanging_wedge() {
-    rotate([0, 0, -wedge_ang])
-        rotate([180, 0, 0])
-            stop_wedge(stop_wedge_ri, stop_wedge_ro,
-                       stop_wedge_deg, wedge_h);
 }
 
 module bolt_bore(pos) {

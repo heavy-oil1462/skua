@@ -124,29 +124,25 @@ retainer are visible; yours is in one piece.
 
 ## 4. Tip bracket clamshells, stubs, vanes
 
-Each tip bracket is two identical printed halves that close over the
-arm and the stub the way the hub closes over its rods. Lay one half
-groove side up, set the arm end into the long groove until it
-bottoms out, and lay a 120 mm stub into the cross groove, flush with
-the half's far face. Fit the second half over the peg, add the four
-M5x40s with a wide washer under each head and each nyloc, and
-tighten evenly. Same rule as the hub: the halves must NOT touch; an
-even gap all around means the rods, not the plastic, carry the
-preload. Before the final tighten, roll the bracket on the arm until
-the stub points straight up.
-
-Mind which way up: the bracket's top face carries the working boss
-ring and the printed lower stop wedge; the matching pair underneath
-is a harmless vestige of the one-design clamshell. Both brackets
-must be the SAME way up (hold them side by side, arm grooves
-parallel: the top wedges sit at matching corners), which is also
-what guarantees both flags stop in the same rotational sense.
+Each tip bracket is two printed halves that close over the arm and
+the stub the way the hub closes over its rods: the FIN half (pegs,
+and the printed lower stop fin beside the boss) and the PLAIN half
+(the peg sockets). Lay the fin half groove side up, set the arm end
+into the long groove until it bottoms out, and lay a 120 mm stub
+into the cross groove, flush with the half's far face. Fit the plain
+half over the pegs, add the four M5x40s with a wide washer under
+each head and each nyloc, and tighten evenly. Same rule as the hub:
+the halves must NOT touch; an even gap all around means the rods,
+not the plastic, carry the preload. Before the final tighten, roll
+the bracket on the arm until the stub points straight up, boss and
+fin on top. Build both brackets the same way; the fin's fixed angle
+is what gives both flags the same rotational sense.
 
 The stub is the vane's hinge, and vertical is the point: a hinge
 gravity cannot fight is what lets the rotor start in light wind.
 Drop the vane sleeve over each stub; its lower end rests on the
 bracket's boss ring (that small ring is the vane's whole thrust
-bearing, so it spins freely) with the bracket's wedge inside its
+bearing, so it spins freely) with the bracket's fin inside its
 lower notch. Then the end cap, open face and wedge DOWN, bolts
 loose; it gets set in step 5.
 
@@ -155,7 +151,7 @@ loose; it gets set in step 5.
 ## 5. Set the caps, then clamp them
 
 The lower stop needs no setting: it is printed into each bracket at
-the driven angle, so the flag stops exactly at panel-along-the-arm.
+the driven angle, so the flag stops a hair past panel-along-the-arm.
 Only the cap's wedge is set, to land together with the bracket's,
 because two faces sharing the impact is what the stop design counts
 on.

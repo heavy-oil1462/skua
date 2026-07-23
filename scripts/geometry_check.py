@@ -173,12 +173,10 @@ def main():
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
           " clamp rods not plastic (0.4 .. 2)")
-    wedge_lo = 90 - P["vane_swing_deg"] / 2 - P["stop_wedge_deg"] / 2
-    wedge_y = P["stop_wedge_ri"] * math.sin(math.radians(wedge_lo))
-    check(ok, wedge_y >= P["bracket_clamp_gap"] / 2 + 0.3,
-          "bracket wedge stays in one half",
-          f"wedge base {wedge_y:.2f} mm past the split plane"
-          " (>= gap/2 + 0.3: the lower stop is printed whole)")
+    check(ok, P["bracket_wedge_deg"] >= 45, "bracket fin prints clean",
+          f"far flank leans {90 - P['bracket_wedge_deg']} deg from"
+          " vertical (fin >= 45 deg wide; the contact flank lies in"
+          " the split plane, the print's top surface)")
 
     # --- up the stub: bracket boss, sleeve, play, cap all fit ---
     boss_top = P["bracket_h"] / 2 + P["collar_boss_h"]
@@ -216,13 +214,13 @@ def main():
                - max(P["rod_free_d"] / 2, P["stop_wedge_ri"]))
     check(ok, overlap >= 1.5, "stop wedge meets the sleeve wall",
           f"{overlap:.2f} mm radial overlap with the notch shoulders (>= 1.5)")
-    carrier = min(P["cap_d"], P["collar_od"]) / 2
-    check(ok, P["stop_wedge_ro"] <= carrier, "stop wedge fits its carriers",
-          f"outer radius {P['stop_wedge_ro']} inside cap r {P['cap_d'] / 2}"
-          f" and collar r {P['collar_od'] / 2}")
-    notch = P["vane_swing_deg"] + P["stop_wedge_deg"]
+    check(ok, P["stop_wedge_ro"] <= P["cap_d"] / 2, "stop wedge fits the cap",
+          f"outer radius {P['stop_wedge_ro']} inside cap r {P['cap_d'] / 2}")
+    notch = P["vane_swing_deg"] + P["bracket_wedge_deg"]
     check(ok, notch <= 200, "stop notch",
-          f"{notch:.0f} deg cut from the sleeve end (<= 200, the rest is the stop)")
+          f"{notch:.0f} deg cut from the sleeve end, sized for the"
+          " bracket fin (<= 200, the rest is the stop); the full"
+          f" {P['vane_swing_deg']} deg of swing stays free")
     engage = P["stop_wedge_len"] - 1
     check(ok, engage >= 3, "wedge engagement",
           f"{engage:.1f} mm of wedge inside each notch (>= 3)")
