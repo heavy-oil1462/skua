@@ -1,7 +1,10 @@
 // ==============================================================================
-//   UPLIFT RETAINER — print ONE. A single-bolt slit collar clamped to
-//   the shaft boss UP under the bottom bearing's inner race, inside
-//   the base cavity, with retainer_gap of running clearance. It
+//   UPLIFT RETAINER — OPTIONAL, print ONE if the mooring calls for it
+//   (rotor weight alone keeps the shaft seated in ordinary conditions,
+//   and it can be retrofitted through the open cavity later). A
+//   single-bolt slit collar clamped to the shaft boss UP under the
+//   bottom bearing's inner race, inside the base cavity, with
+//   retainer_gap of running clearance. It
 //   carries nothing while the rotor runs; its job is to catch the
 //   inner race if a wave or gust unloads the rotor, so the shaft can
 //   never lift out of its bearings, and it keeps the bottom bearing
