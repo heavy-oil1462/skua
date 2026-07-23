@@ -23,9 +23,9 @@ shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // and that the tip reaches down through the
                      // uplift retainer inside the base cavity.
 arm_length   = 600;  // each horizontal arm (two of them)
-stub_length  = 130;  // the vertical hinge rod at each arm tip (two of
+stub_length  = 120;  // the vertical hinge rod at each arm tip (two of
                      // them, same stock): clamped through the tip
-                     // bracket, carrying collar, vane sleeve and cap
+                     // bracket, carrying the vane sleeve and its cap
 
 // --- 608 skateboard bearing (bought, TWO of them) ---
 // Two bearings spaced apart in the base tower instead of one: a single
@@ -42,8 +42,8 @@ pocket_recess = 0.5;  // bearings sit this far below the tower faces so
 
 // --- Calibrated fits (print the gauges, type the winners in here) ---
 bearing_press_d = 21.95; // pocket that grips the outer race — cad/calibration/bearing_pocket_gauge.scad
-rod_snug_d      = 8.2;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
-rod_free_d      = 8.4;  // bores that must SPIN on the rod (vane sleeve) — same gauge
+rod_snug_d      = 8.0;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
+rod_free_d      = 8.2;  // bores that must SPIN on the rod (vane sleeve) — same gauge
 fit_tol         = 0.2;  // clearance for printed slots/pockets
 
 // --- Base (screwed to the plank) ---
@@ -130,20 +130,49 @@ cap_d          = 24;
 cap_t          = 20;
 cap_bore_depth = 18;
 
-// --- Tip bracket (the knuckle at each arm tip that turns the hinge
-//     vertical; print TWO, the same part serves both arms rotated
-//     180 about the stub). Two wide dual-bolt slit clamps in one
-//     block: a horizontal blind socket on the arm end, a vertical
-//     through bore for the stub ---
-bracket_w        = 24;  // square section; also each clamp's grip length
-bracket_len      = 48;  // along the arm
-bracket_arm_grip = 22;  // blind arm socket depth
+// --- Tip bracket (the clamshell knuckle at each arm tip that turns
+//     the hinge vertical; TWO half designs, print two of each: the
+//     PEG half and the PLAIN half with the sockets. The assembled
+//     bracket rotated 180 about the stub serves the other arm). Both
+//     rod axes lie in the split plane, so the halves close over arm
+//     and stub like the hub closes over its rods, bolted with M5x40s
+//     and wide washers, and they trap the stop ring's D foot in the
+//     pocket on top the same way, so the stub stack is just the
+//     ring, the sleeve and the end cap ---
+bracket_w        = 24;  // clamshell thickness across the split
+bracket_h        = 30;  // height; also the stub clamp's grip length
+bracket_len      = 52;  // along the arm
+bracket_arm_grip = 22;  // blind arm groove depth
 bracket_stub_x   = 36;  // stub axis from the bracket's inboard face
+bracket_bolt_dz  = 9.5; // arm-clamp M5s at mid-grip, this far above
+                        // and below the arm axis
+bracket_bolt_dx  = 9;   // stub-clamp M5s at mid-height, this far
+                        // inboard and outboard of the stub axis
+bracket_peg_x    = 28;  // the two registration pegs (peg half),
+bracket_peg_dz   = 8;   // this far above and below the arm axis
+bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
+                         // rule: bolt preload lands on the rods,
+                         // never on face-to-face plastic
 
-// --- Stop wedges (SHARED: one on the end cap, one on the arm collar;
-//     each rides a notch in its end of the vane sleeve so the stop
-//     impact is carried by two, and their flat radial faces land flush
-//     on the notch walls — lib/stop_wedge.scad) ---
+// --- Stop ring (print TWO; the vane's lower stop and thrust seat).
+//     A D-footed disc trapped in a matching pocket when the bracket
+//     clamshell closes, the same way the rods are trapped: the D flat
+//     keys the angle, so the driven stop and the rotor's rotational
+//     sense are set by geometry, and a worn stop is replaced by
+//     reprinting one small part. Prints on its back: foot, boss and
+//     fin are plain vertical prisms, no overhangs at all ---
+ring_wedge_deg = 50;   // the stop fin's arc, wider than the cap's
+                       // wedge; the sleeve notch is sized swing +
+                       // this, so the full free swing survives
+ring_foot_d    = 20;   // the D foot the clamshell traps
+ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
+ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
+
+// --- Stop wedges (SHARED: one on the end cap, set at assembly, and
+//     one printed into the tip bracket's top face at the fixed
+//     driven-stop angle; each rides a notch in its end of the vane
+//     sleeve so the stop impact is carried by two, and their flat
+//     radial faces land flush on the notch walls — lib/stop_wedge.scad) ---
 stop_wedge_deg = 40;   // angular thickness; the notch arc grows by this
 stop_wedge_len = 6;    // proud of the carrier face, riding in the notch
 stop_wedge_ri  = 4.5;  // inner radius: clears the rod
@@ -151,10 +180,10 @@ stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the
                        // carrier faces (geometry_check.py verifies all)
 
 // --- Clamp collars (the plain thrust collar rides the top bearing's
-//     inner race and carries the rotor; the arm collars in
-//     arm_collar.scad add the inboard stop wedge; the uplift retainer
-//     in retainer.scad shares these diameters with its own narrower
-//     width). Wide dual-bolt slit clamps, like the cap. ---
+//     inner race and carries the rotor; the uplift retainer in
+//     retainer.scad shares these diameters with its own narrower
+//     width; the boss diameters also size the tip bracket's sleeve
+//     seat). Wide dual-bolt slit clamps, like the cap. ---
 collar_od     = 24;
 collar_w      = 16;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end

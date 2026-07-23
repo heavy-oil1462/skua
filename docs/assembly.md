@@ -2,7 +2,7 @@
 
 What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
-600 mm, 2x 130 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
+600 mm, 2x 120 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
 keys to suit, and, only if you fit the optional retainer, something
 about 1 mm thick and no wider than about 15 mm (a strip of folded
@@ -11,8 +11,9 @@ is drilled in the whole build: not the rods, not the printed parts,
 and not the plank either.
 
 Two joint types cover the whole build, and both are clamps. The hub
-is a clamshell: lay the rods into the grooves and bolt the halves
-together. The collars and end caps are wide slit clamps, each closed
+and the tip brackets are clamshells: lay the rods into the grooves
+and bolt the halves together with M5s and washers. The collars and
+end caps are wide slit clamps, each closed
 by two M3 bolts crossing the slit: slide to position, set the angle,
 tighten both bolts. Every joint stays re-adjustable by loosening two
 bolts, and the flip side of friction everywhere is maintenance:
@@ -121,44 +122,57 @@ retainer are visible; yours is in one piece.
 
 ![step 3](assembly/step3.png)
 
-## 4. Tip brackets, stubs, vane hardware
+## 4. Tip bracket clamshells, stubs, vanes
 
-Clamp a tip bracket onto each arm end: slide the arm into the
-horizontal socket until it bottoms out, then tighten the two bolts
-over the socket. Stand a 130 mm stub rod through the vertical bore,
-flush with the bracket's underside, and tighten its two bolts as
-well. The stub is the vane's hinge, and vertical is the point: a
-hinge gravity cannot fight is what lets the rotor start in light
-wind.
+Each tip bracket is two printed halves that close over the arm and
+the stub the way the hub closes over its rods: the PEG half and the
+PLAIN half (the peg sockets). Lay the peg half groove side up, set
+the arm end into the long groove until it bottoms out, and lay a
+120 mm stub into the cross groove, flush with the half's far face.
+Slide the stop ring down the stub, D flat toward the arm tip, and
+seat its foot in the round pocket; the flat only fits one way, and
+that keyed angle is the driven stop, so it cannot be assembled
+wrong and both flags get the same rotational sense for free. Fit
+the plain half over the pegs, add the four M5x40s with a wide
+washer under each head and each nyloc, and tighten evenly. Same
+rule as the hub: the halves must NOT touch; an even gap all around
+means the rods, not the plastic, carry the preload. Before the
+final tighten, roll the bracket on the arm until the stub points
+straight up, ring on top.
 
-Up each stub, slide on in this order: the arm collar, boss and wedge
-UP, pushed down against the bracket top; then the vane sleeve, which
-rests its lower face on the collar's boss (that small ring is the
-vane's whole thrust bearing, so it spins freely); then the end cap,
-open face and wedge DOWN. Leave the collar's and the cap's clamp
-bolts loose; their angles are the stops and get set in step 5.
+The stub is the vane's hinge, and vertical is the point: a hinge
+gravity cannot fight is what lets the rotor start in light wind.
+Drop the vane sleeve over each stub; its lower end rests on the
+stop ring's boss (that small ring is the vane's whole thrust
+bearing, so it spins freely) with the ring's fin inside its lower
+notch. Then the end cap, open face and wedge DOWN, bolts loose; it
+gets set in step 5. Stop faces take every clack; if one ever wears,
+open the clamshell and drop in a freshly printed ring.
 
 ![step 4](assembly/step4.png)
 
-## 5. Set the stops, then clamp them
+## 5. Set the caps, then clamp them
 
-The stop reference is sighted, not gravity: hold the vane so its
-panel points straight out along the arm, past the tip, like a
-continuation of the arm. That is the driven stop, the pose in which
-the flag presents its face and drags the rotor. Rotate the end cap
-until its wedge face just touches the notch wall on that side, and
-rotate the arm collar until its wedge touches the matching wall of
-the lower notch. Both wedges must land together, that is what shares
-the impact; if one lands first the other is dead weight. Push the
-cap down to leave the sleeve about a millimeter of vertical play,
-then tighten each part's two clamp bolts while holding its angle.
+The lower stop needs no setting: the keyed stop ring fixes it at
+the driven angle, so the flag stops exactly at panel-along-the-arm.
+Only the cap's wedge is set, to land together with the bracket's,
+because two faces sharing the impact is what the stop design counts
+on.
 
-Both vanes are set in the SAME rotational sense seen from above:
-stand over the rotor, and if one vane's free swing goes clockwise,
-the other's must too. When both are done, each vane swings freely
-about 120 degrees toward trailing and stops exactly at
-panel-along-the-arm the other way. If an angle ends up wrong, loosen
-two bolts and set it again, nothing is permanent.
+Swing the vane against the printed stop and hold it there. Push the
+end cap down to leave the sleeve about a millimeter of vertical
+play, rotate it until its wedge face just touches the upper notch
+wall on the stopped side, and tighten its two clamp bolts while
+holding the angle.
+
+When both are done, each flag swings freely about 120 degrees
+toward trailing (the last few degrees land softly on the bracket
+wedge's print ramp; that cushion is intentional) and stops hard at
+panel-along-the-arm the other way. Both flags stop in the same
+rotational sense automatically, courtesy of the brackets; if one
+seems mirrored, its bracket is upside down (step 4). If a cap angle
+ends up wrong, loosen two bolts and set it again, nothing is
+permanent.
 
 ![step 5](assembly/step5.png)
 

@@ -1,7 +1,6 @@
 // ==============================================================================
-//   PLAIN COLLAR — print ONE (the arms use arm_collar.scad, which is
-//   this part plus the inboard stop wedge; the bottom of the shaft
-//   gets retainer.scad, its narrow single-bolt cousin).
+//   PLAIN COLLAR — print ONE (the bottom of the shaft gets
+//   retainer.scad, its narrow single-bolt cousin).
 //
 //   The rotor's THRUST collar: sits on the shaft boss down, riding the
 //   top bearing's INNER race, and the whole rotating mass hangs on it.
