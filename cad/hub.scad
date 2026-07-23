@@ -61,10 +61,11 @@ module hub_half(pegs) {
 module hub_solid() {
     difference() {
         intersection() {
+            // plain square outline: the halves print lying down, and a
+            // rounded corner here turns into a bed-side overhang curling
+            // under both ends of the beam
             linear_extrude(height = hub_h)
-                offset(r = hub_corner_r)
-                    square([hub_len - 2 * hub_corner_r,
-                            hub_w - 2 * hub_corner_r], center = true);
+                square([hub_len, hub_w], center = true);
             t_profile();
         }
 

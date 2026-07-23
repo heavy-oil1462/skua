@@ -69,7 +69,6 @@ hub_h            = 54;
 hub_arm_z        = 44;  // arm bore axis above the hub bottom face
 hub_shaft_socket = 30;  // blind shaft socket depth, from the bottom
 hub_arm_socket   = 35;  // blind arm socket depth, from each end
-hub_corner_r     = 6;
 hub_beam_z       = 28;  // T profile: below this only the stem and its 45
 hub_stem_w       = 34;  // degree chamfers remain — the lower corners of
                         // the old box carried no load and cost print time
