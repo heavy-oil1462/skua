@@ -17,11 +17,11 @@
 // 8 mm rod is chosen to match the 608 bearing bore, so the shaft and
 // both arms cut from the same stock.
 rod_d        = 8;
-shaft_length = 172;  // vertical shaft; sets how high the rotor rides.
+shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
                      // plank (geometry_check.py gates the clearance)
                      // and that the tip reaches down through the
-                     // uplift retainer collar below the bottom bearing.
+                     // uplift retainer inside the base cavity.
 arm_length   = 600;  // each horizontal arm (two of them)
 
 // --- 608 skateboard bearing (bought, TWO of them) ---
@@ -51,7 +51,9 @@ screw_head_d   = 9.5;   // countersink cone top diameter
 screw_circle_d = 95;
 screw_count    = 4;
 tower_od       = 40;    // 9 mm wall around the bearing pockets
-tower_h        = 70;    // bearing pockets at top and bottom of this
+tower_h        = 80;    // top bearing pocket at the top; the bottom
+                        // pocket sits base_cavity_h up, above the
+                        // retainer cavity, keeping the races 45 mm apart
 tower_bore_d   = 19;    // between the pockets: retains the outer races,
                         // clears the 12 mm inner-race shoulders
 gusset_t       = 6;
@@ -128,29 +130,37 @@ stop_wedge_ri  = 4.5;  // inner radius: clears the rod
 stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the
                        // carrier faces (geometry_check.py verifies all)
 
-// --- Clamp collars (TWO plain on the shaft: thrust support riding the
-//     top bearing's inner race, and the uplift retainer hanging under
-//     the bottom bearing's inner race with retainer_gap of running
-//     clearance; the arm collars in arm_collar.scad add the inboard
-//     stop wedge). Wide dual-bolt slit clamps, like the cap. ---
+// --- Clamp collars (the plain thrust collar rides the top bearing's
+//     inner race and carries the rotor; the arm collars in
+//     arm_collar.scad add the inboard stop wedge; the uplift retainer
+//     in retainer.scad shares these diameters with its own narrower
+//     width). Wide dual-bolt slit clamps, like the cap. ---
 collar_od     = 24;
 collar_w      = 16;
 collar_boss_d = 12;    // rides the bearing inner race / vane sleeve end
 collar_boss_h = 2;
 collar_slit   = 2;
 
-// --- Uplift retainer (second plain collar, boss up under the bottom
-//     bearing; carries nothing in normal running, catches the inner
-//     race if a wave or gust unloads the rotor, and keeps the bottom
-//     bearing captive; lives in a clearance hole in the plank) ---
+// --- Uplift retainer (single-bolt collar, boss up under the bottom
+//     bearing inside the base cavity; carries nothing in normal
+//     running, catches the inner race if a wave or gust unloads the
+//     rotor, and keeps the bottom bearing captive) ---
+retainer_w     = 8;    // narrower than the dual-bolt clamps: it sees no
+                       // load in normal running, so one M3 across the
+                       // slit is enough (the one sanctioned narrow clamp)
 retainer_gap   = 1;    // running clearance between boss and inner race
-plank_hole_d   = 30;   // through hole in the plank under the tower
-plank_min_t    = 25;   // plank at least this thick so tip and retainer
-                       // stay inside the hole
+
+// --- Base cavity and windows (the space under the bottom bearing that
+//     the retainer lives in, and the two openings in the tower wall
+//     used to slide it up and reach its bolt; the retainer is dropped
+//     in from below BEFORE the base is screwed down, the windows are
+//     deliberately too narrow to pass it) ---
+base_cavity_d  = 30;   // clears the spinning retainer all round
+base_cavity_h  = 20;   // plank top to the bottom bearing pocket
+base_window_w  = 22;   // window width, between the gussets
 
 // --- Assembly stations / sanity limits ---
-shaft_tip_drop   = 20;  // shaft tip protrudes this far below the base
-                        // bottom; at mounting the base stands on blocks
-                        // this tall (the printed end caps are exactly
-                        // cap_t = 20) with the tip on the bench
+shaft_tip_h      = 7;   // shaft tip rides this far above the plank,
+                        // inside the base cavity; nothing protrudes
+                        // below the base
 printer_bed      = 210; // largest printable footprint, gates part sizes

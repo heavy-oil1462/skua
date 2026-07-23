@@ -54,11 +54,12 @@ NON_PARTS = {"main_assembly", "design_params", "bearing_608", "hub"}
 VERSION_FILE = ROOT / "stl" / "openscad_version.txt"
 # docs/assembly.md's images: main_assembly.scad rendered at each step
 ASSEMBLY_STEPS = range(1, 6)
-# Per-step camera overrides (render_scad skips --viewall/--autocenter when
-# a --camera is passed). Step 3 is a close-up under the flange: the base
-# stands on blocks and the uplift retainer is clamped below the bottom
-# bearing, none of which reads from the default whole-rotor view.
-STEP_CAMERAS = {3: ["--camera=0,0,15,78,0,25,520"]}
+# Per-step extra args (render_scad skips --viewall/--autocenter when a
+# --camera is passed). Step 3 is a close-up of the tower with the base
+# half cut away so the collars, bearings and retainer cavity read;
+# --render because the OpenCSG preview draws the section cube wrong
+# (the flange sections, the tower stays whole).
+STEP_CAMERAS = {3: ["--render", "--camera=0,0,50,70,0,0,420"]}
 
 
 def parts():

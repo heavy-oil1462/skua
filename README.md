@@ -23,24 +23,26 @@ the driving vane bangs against its stop — free percussion.
 The rotor rides on two 608 skateboard bearings spaced 45 mm apart in the
 base tower, so the 1.2 m span runs true. All rotating weight hangs on a
 collar clamped to the shaft, resting on the top bearing's inner race. A
-second collar clamped under the bottom bearing, a millimeter clear of
-its inner race, is the uplift retainer: it carries nothing while the
-rotor runs, but a wave slam or a gust that unloads the rotor cannot
-lift the shaft out of its bearings.
+smaller single-bolt collar clamped under the bottom bearing, a
+millimeter clear of its inner race, is the uplift retainer: it lives in
+a cavity inside the base tower and carries nothing while the rotor
+runs, but a wave slam or a gust that unloads the rotor cannot lift the
+shaft out of its bearings. Two windows in the tower wall give access
+to set it, and it keeps the bottom bearing captive too.
 
 ## Bill of materials
 
 - printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
-  2 end caps, 2 arm collars, 2 plain collars (thrust and uplift
-  retainer, the same part; see `stl/`)
+  2 end caps, 2 arm collars, 1 thrust collar, 1 retainer collar (see
+  `stl/`)
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
-- 8 mm aluminum rod: 1x 172 mm (shaft), 2x 600 mm (arms)
+- 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms)
 - 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
-- 12x M3x16 bolt + nyloc (the dual-bolt clamps: 4 collars, 2 caps)
-- 4x 4.2 mm wood screws, and a plank to screw the base onto: at least
-  25 mm thick, with a 30 mm hole under the tower where the shaft tip
-  and the retainer collar hang
+- 11x M3x16 bolt + nyloc (two each for the dual-bolt clamps: 3 collars,
+  2 caps; one for the retainer)
+- 4x 4.2 mm wood screws, and a plank to screw the base onto (any
+  thickness, no hole: nothing reaches below the base)
 
 ## Calibration before printing the real parts
 
@@ -57,14 +59,15 @@ Printers and filaments vary; the three fits are measured, not guessed:
 ## Assembly
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
-The short version: bearings into the base and a 30 mm hole in the
-plank; shaft and arms laid into the hub clamshell and bolted; thrust
-and retainer collars clamped with the base on blocks, then the base
-screwed down; vane hardware slid to position and clamped. That plank
-hole is the only hole made in the whole build — no rod or printed
-part is ever drilled — and no joint is permanent: the hub is a
-clamshell, everything else is a wide dual-bolt slit clamp, so every
-position and stop angle can be reset by loosening two bolts.
+The short version: bearings pressed into the base, the retainer
+collar dropped into its cavity, the base screwed down; shaft and arms
+laid into the hub clamshell and bolted; the shaft lowered through the
+bearings, the thrust collar clamped on the top race, the retainer
+slid up and clamped through the tower windows; vane hardware slid to
+position and clamped. Nothing is drilled anywhere, not the rods, not
+the printed parts, not even the plank, and no joint is permanent: the
+hub is a clamshell, everything else is a slit clamp, so every
+position and stop angle can be reset by loosening a bolt or two.
 Re-torque the clamps at the start of each season, printed plastic
 relaxes.
 
