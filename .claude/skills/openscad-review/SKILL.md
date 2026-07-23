@@ -27,6 +27,11 @@ Notes (learned in earlier projects — do not rediscover):
   view from the CUT side (`--camera=...,90,0,0,dist --projection=o` looks
   from -y, so remove the -y half). Cut faces render green in the PNG —
   that is normal, judge the geometry.
+- Section PNGs need `--render`: the OpenCSG preview silently mis-draws a
+  difference against a huge half-space cube (some solids section, others
+  draw whole, or the cut vanishes entirely). The STL is always correct;
+  only the preview lies. Before concluding a cut "did not apply", export
+  the STL and check its bounding box, then add `--render` to the PNG.
 
 ## Review procedure
 

@@ -1,18 +1,20 @@
 // ==============================================================================
-//   THRUST COLLAR — print ONE (the arms use arm_collar.scad, which is
-//   this part plus the inboard stop wedge).
+//   PLAIN COLLAR — print ONE (the arms use arm_collar.scad, which is
+//   this part plus the inboard stop wedge; the bottom of the shaft
+//   gets retainer.scad, its narrow single-bolt cousin).
 //
-//   Goes on the shaft: boss down, riding the top bearing's INNER race.
-//   This is the rotor's thrust bearing seat — the whole rotating mass
-//   hangs on it. The boss stays inside bearing_inner_shoulder_d so it
-//   never touches the static outer race.
+//   The rotor's THRUST collar: sits on the shaft boss down, riding the
+//   top bearing's INNER race, and the whole rotating mass hangs on it.
+//   The boss stays inside bearing_inner_shoulder_d so it never touches
+//   the static outer race.
 //
 //   A WIDE DUAL-BOLT slit clamp: 16 mm of grip on the rod, closed by
 //   two M3 bolts crossing the slit, each with a nyloc in a flat-up hex
-//   pocket. Friction, not a drilled lock — the trade for a machine
+//   pocket. Friction, not a drilled lock: the trade for a machine
 //   with no drilled rods and every joint re-adjustable. Grip fades as
-//   printed plastic relaxes, so re-torque the clamp bolts seasonally;
-//   if this one ever slips the rotor just settles onto the plank.
+//   printed plastic relaxes, so re-torque the clamp bolts seasonally.
+//   If it ever slips, the shaft tip lands on the plank inside the base
+//   cavity after shaft_tip_h mm and grinds audibly; nothing lets go.
 //
 //   Prints ring-face down (boss up), slit vertical, the bolt bores
 //   lying horizontal as teardrops.

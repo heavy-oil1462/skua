@@ -54,6 +54,12 @@ NON_PARTS = {"main_assembly", "design_params", "bearing_608", "hub"}
 VERSION_FILE = ROOT / "stl" / "openscad_version.txt"
 # docs/assembly.md's images: main_assembly.scad rendered at each step
 ASSEMBLY_STEPS = range(1, 6)
+# Per-step extra args (render_scad skips --viewall/--autocenter when a
+# --camera is passed). Step 3 is a close-up of the tower with the base
+# half cut away so the collars, bearings and retainer cavity read;
+# --render because the OpenCSG preview draws the section cube wrong
+# (the flange sections, the tower stays whole).
+STEP_CAMERAS = {3: ["--render", "--camera=0,0,50,70,0,0,420"]}
 
 
 def parts():
@@ -129,7 +135,7 @@ def main(argv):
             for n in ASSEMBLY_STEPS:
                 committed = ROOT / "docs" / "assembly" / f"step{n}.png"
                 ok &= run_one(assembly, *target(committed),
-                              extra=["-D", f"step={n}"])
+                              extra=["-D", f"step={n}"] + STEP_CAMERAS.get(n, []))
 
     if check and not only:
         expected = {f"{p.stem}.stl" for p in parts()}

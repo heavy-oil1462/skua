@@ -21,12 +21,22 @@ hardware. No electronics — the wind does everything.
   stops is part of the product.
 - **One rod stock.** Shaft and arms are all 8 mm aluminum rod (the 608
   bore). No second diameter may creep in.
-- **Rotor weight hangs on the thrust collar,** through-bolted to the shaft and
+- **Rotor weight hangs on the thrust collar,** clamped to the shaft and
   riding the top bearing's INNER race (boss stays inside
-  bearing_inner_shoulder_d). Nothing else may take axial load: the hub
-  joint transmits torque only, and no rotating face may touch a static
-  one — recesses (pocket_recess) and bosses exist to keep rubbing rings
-  small and on the right races.
+  bearing_inner_shoulder_d). Nothing else may take axial load in normal
+  running: the hub joint transmits torque only, and no rotating face may
+  touch a static one — recesses (pocket_recess) and bosses exist to keep
+  rubbing rings small and on the right races. The one sanctioned
+  exception is the uplift retainer (retainer.scad): a single-bolt collar
+  boss-up under the bottom bearing, clamped retainer_gap clear of its
+  inner race, so a wave slam or gust that unloads the rotor cannot lift
+  the shaft out of the bearings. It lives in the base_cavity_d cavity
+  inside the base tower (set through the two tower windows), carries
+  nothing until an uplift event, and only ever loads the bottom
+  bearing's races — never a static face. It also keeps the bottom
+  bearing captive, and the windows are deliberately narrower than the
+  retainer so it can never leave the cavity. Never "simplify" the gap
+  to zero (that preloads the bearings) and never delete the retainer.
 - **No rod is ever drilled; every joint is a clamp.** The hub is a
   clamshell split on the plane containing all three rod axes: lay in
   the rods, bolt the halves with M5s and wide washers; the halves must
@@ -34,7 +44,9 @@ hardware. No electronics — the wind does everything.
   fix a "gap" by shrinking it to zero). The collars and end caps are
   WIDE dual-bolt slit clamps: friction-only joints live on grip
   length and bolt count, so a single set screw or a narrow ring is a
-  design error here (geometry_check enforces the width). The price of
+  design error here (geometry_check enforces the width; the one
+  sanctioned narrow single-bolt clamp is the uplift retainer, which
+  carries nothing in normal running). The price of
   an all-friction, fully re-adjustable, drill-free machine is that
   printed clamps relax: re-torque every clamp bolt at the start of
   each season. Known open question: whether the tip clamps hold the
@@ -88,8 +100,9 @@ Conventions:
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
-- 8 mm aluminum rod: one 150 mm shaft + two 600 mm arms
-- 5x M5x40 with wide washers (hub clamshell) and 10x M3x16 (dual-bolt
-  collar and cap clamps), all with nyloc nuts; no drill needed
-  anywhere
-- 4x 4.2 mm wood screws for the plank
+- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms
+- 5x M5x40 with wide washers (hub clamshell) and 11x M3x16 (dual-bolt
+  collar and cap clamps, one for the retainer), all with nyloc nuts;
+  no rod or printed part is ever drilled
+- 4x 4.2 mm wood screws, and any plank to screw the base onto (no
+  hole: the shaft tip and retainer stay inside the base cavity)
