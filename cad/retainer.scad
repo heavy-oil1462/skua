@@ -13,10 +13,12 @@
 //   and only a short catch when something unloads the rotor. Same
 //   outer and boss diameters as the plain collar, narrower body.
 //
-//   Goes into the base cavity from below BEFORE the base is screwed
-//   down (the tower windows are too narrow to pass it later); at
-//   mounting the shaft is pressed into its snug bore and the gap is
-//   set through the windows.
+//   Clamped AT THE BENCH, boss toward the hub, flush with the shaft
+//   tip (press tip and retainer against something flat). Shaft and
+//   retainer then enter the base cavity from below before the base is
+//   screwed down, and the running gap is created by gauging the
+//   THRUST collar retainer_gap off the top race while the bottom race
+//   rests on this boss. Nothing inside the cavity is ever reached for.
 //
 //   Prints ring-face down (boss up), slit vertical, the bolt bore
 //   lying horizontal as a teardrop.

@@ -10,13 +10,13 @@
 //
 //   The step variable drives the docs/assembly step images (regen_all
 //   renders -D step=1..5), following the bench-first build order:
-//   1 the base screwed to its plank, retainer dropped loose into the
-//   cavity, 2 the rotor core ALONE as it is built at the bench (no
-//   base), 3 the rotor mounted, base drawn half cut away so the
-//   thrust collar and the uplift retainer at its running gap are
-//   visible, 4 the arm hardware slid apart on the rod, 5 everything
-//   seated at rest. The default 99 is the complete mid-action scene
-//   above.
+//   1 the base alone with both bearings pressed, 2 the rotor core
+//   ALONE as it is built at the bench (no base), with the retainer
+//   clamped flush with the shaft tip, 3 rotor and base mated, base
+//   drawn half cut away so the thrust collar and the retainer at its
+//   running gap are visible, 4 the arm hardware slid apart on the
+//   rod, 5 everything seated at rest. The default 99 is the complete
+//   mid-action scene above.
 // ==============================================================================
 
 step = 99;
@@ -67,7 +67,7 @@ if (step == 1 || step >= 3) {
             base();
     translate([0, 0, base_cavity_h + pocket_recess]) bearing_608();
     translate([0, 0, tower_h - bearing_w - pocket_recess]) bearing_608();
-    color("BurlyWood") translate([-160, -70, -21]) cube([320, 140, 21]);
+
 }
 
 // --- step 2: shaft through both inner races, thrust collar on top ---
@@ -81,12 +81,11 @@ if (step >= 2) {
                 collar();
 }
 
-// --- uplift retainer: dropped loose into the cavity in step 1, set
-//     boss up under the bottom bearing's inner race with retainer_gap
-//     of clearance in step 3 ---
-if (step == 1)
-    color("SteelBlue") retainer();
-if (step >= 3)
+// --- uplift retainer: clamped at the bench flush with the shaft tip
+//     in step 2, which puts it boss up retainer_gap under the bottom
+//     bearing's inner race once mounted (retainer_z == shaft_tip_h,
+//     gated by geometry_check) ---
+if (step >= 2)
     color("SteelBlue") translate([0, 0, retainer_z]) retainer();
 
 // --- step 2: hub, clamped at the shaft top on the bench ---

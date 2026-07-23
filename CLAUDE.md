@@ -28,15 +28,17 @@ hardware. No electronics — the wind does everything.
   touch a static one — recesses (pocket_recess) and bosses exist to keep
   rubbing rings small and on the right races. The one sanctioned
   exception is the uplift retainer (retainer.scad): a single-bolt collar
-  boss-up under the bottom bearing, clamped retainer_gap clear of its
+  boss-up under the bottom bearing, running retainer_gap clear of its
   inner race, so a wave slam or gust that unloads the rotor cannot lift
   the shaft out of the bearings. It lives in the base_cavity_d cavity
-  inside the base tower (set through the two tower windows), carries
-  nothing until an uplift event, and only ever loads the bottom
-  bearing's races — never a static face. It also keeps the bottom
-  bearing captive, and the windows are deliberately narrower than the
-  retainer so it can never leave the cavity. Never "simplify" the gap
-  to zero (that preloads the bearings) and never delete the retainer.
+  inside the base tower, is clamped at the bench flush with the shaft
+  tip, and the gap is created at mounting by gauging the THRUST collar
+  retainer_gap off the top race while the bottom race rests on the
+  retainer boss, so no cavity access is ever needed. It carries nothing
+  until an uplift event and only ever loads the bottom bearing's races
+  — never a static face. It also keeps the bottom bearing captive.
+  Never "simplify" the gap to zero (that preloads the bearings) and
+  never delete the retainer.
 - **No rod is ever drilled; every joint is a clamp.** The hub is a
   clamshell split on the plane containing all three rod axes: lay in
   the rods, bolt the halves with M5s and wide washers; the halves must

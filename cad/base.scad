@@ -4,11 +4,13 @@
 //   Prints flange-down, no supports. A flange with countersunk
 //   wood-screw holes, a central tower, and gussets between them. The
 //   bottom of the tower is hollow: a base_cavity_d cavity, open to the
-//   plank, holds the uplift retainer, and two windows in the tower
-//   wall (at the screw-hole angles, clear of the gussets) give finger
-//   and hex-key access to it. The retainer itself goes in from below
-//   before the base is screwed down; the windows are too narrow to
-//   pass it, which is what keeps it captive.
+//   plank, where the uplift retainer lives. The retainer arrives
+//   already clamped to the shaft (flush with the tip, set at the
+//   bench), and shaft and retainer enter the cavity from below before
+//   the base is screwed down; the running gap is gauged at the THRUST
+//   collar, so nothing inside the cavity ever needs reaching. To
+//   re-torque the retainer bolt, take out the four wood screws and
+//   reach in through the open cavity mouth.
 //
 //   Above the cavity the tower holds TWO 608 bearings: the bottom
 //   pocket opens down into the cavity (that bearing is pressed up from
@@ -27,10 +29,10 @@
 //   retainer -> bottom inner race -> balls -> outer race -> the
 //   bridged pocket ceiling -> tower.
 //
-//   Print notes: the cavity ceiling at z=base_cavity_h and the window
-//   tops bridge over open space, and the bottom pocket's 1.5 mm
-//   shoulder ring bridges over the pocket above that. They droop a
-//   little, which only softens faces a race presses against. Fine.
+//   Print notes: the cavity ceiling at z=base_cavity_h bridges over
+//   the cavity, and the bottom pocket's 1.5 mm shoulder ring bridges
+//   over the pocket above that. They droop a little, which only
+//   softens faces a race presses against. Fine.
 // ==============================================================================
 
 include <design_params.scad>
@@ -66,12 +68,6 @@ module base() {
         // retainer cavity, open to the plank
         translate([0, 0, -0.1])
             cylinder(h = base_cavity_h + 0.1, d = base_cavity_d);
-        // two access windows through the tower wall, between the gussets
-        for (a = [0, 180])
-            rotate([0, 0, a])
-                translate([base_cavity_d / 2 - 2, -base_window_w / 2, base_t])
-                    cube([(tower_od - base_cavity_d) / 2 + 3,
-                          base_window_w, base_cavity_h - base_t]);
         // bottom bearing pocket (opens down into the cavity)
         translate([0, 0, base_cavity_h])
             cylinder(h = pocket_depth, d = bearing_press_d);

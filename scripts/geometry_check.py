@@ -57,17 +57,20 @@ def main():
     # --- uplift retainer: single-bolt collar under the bottom bearing,
     #     boss up with running clearance, inside the base cavity;
     #     loaded only when something unloads the rotor (wave slam,
-    #     gust), and then only through the bottom bearing's races ---
+    #     gust), and then only through the bottom bearing's races.
+    #     Clamped at the bench flush with the tip; the gap is gauged
+    #     at the thrust collar, so it never depends on cavity access ---
     check(ok, 0.5 <= P["retainer_gap"] <= 2, "retainer running clearance",
           f"{P['retainer_gap']} mm between boss and bottom inner race"
           " (0.5 .. 2: never loaded in normal running, catches early)")
     retainer_bottom = (P["base_cavity_h"] + P["pocket_recess"]
                        - P["retainer_gap"] - P["collar_boss_h"]
                        - P["retainer_w"])
-    tip_proud = retainer_bottom - P["shaft_tip_h"]
-    check(ok, tip_proud >= 1, "retainer grip on the shaft",
-          f"tip stands {tip_proud:.1f} mm proud below the collar"
-          " (>= 1: the full clamp width is on the rod)")
+    check(ok, abs(retainer_bottom - P["shaft_tip_h"]) < 1e-9,
+          "retainer flush with the tip",
+          f"resting height {retainer_bottom:.1f} equals shaft_tip_h"
+          f" {P['shaft_tip_h']} (the bench clamps them flush, so the"
+          " tip height is set by the cavity stack, not the rod cut)")
     check(ok, P["shaft_tip_h"] >= 2, "shaft tip clears the plank",
           f"tip rides {P['shaft_tip_h']} mm above the plank"
           " (>= 2: nothing rotating touches wood)")
@@ -78,23 +81,6 @@ def main():
     check(ok, P["retainer_w"] >= nut_pocket + 1, "retainer bolt fits",
           f"{P['retainer_w']} mm of width around the {nut_pocket:.1f} mm"
           " nut pocket (>= 1 mm of wall; the sanctioned narrow clamp)")
-    window_h = P["base_cavity_h"] - P["base_t"]
-    check(ok, window_h >= 10, "window height",
-          f"{window_h:.0f} mm from flange top to cavity ceiling"
-          " (>= 10: a finger and the gap gauge must fit)")
-    bolt_reach = (P["base_window_w"] / 2
-                  - (P["rod_snug_d"] / 2 + P["collar_od"] / 2) / 2
-                  - P["m3_clear_d"] / 2)
-    check(ok, bolt_reach >= 1, "window width reaches the retainer bolt",
-          f"{bolt_reach:.1f} mm spare around a hex key on the bolt axis (>= 1)")
-    win_deg = math.degrees(math.asin(P["base_window_w"] / P["tower_od"]))
-    gusset_deg = 45 - math.degrees(math.atan(P["gusset_t"] / P["tower_od"]))
-    check(ok, gusset_deg - win_deg >= 3, "windows clear the gussets",
-          f"window edge at {win_deg:.1f} deg, gusset edge at"
-          f" {gusset_deg:.1f} deg (>= 3 deg apart)")
-    check(ok, P["base_window_w"] <= P["collar_od"] - 2, "retainer stays captive",
-          f"window {P['base_window_w']} narrower than retainer"
-          f" {P['collar_od']} (it can never fall out through a window)")
 
     # --- hub walls around the grooves (clamshell: plain round grooves,
     #     printed open-face-up, so no teardrop crown anywhere here) ---

@@ -51,7 +51,7 @@ screw_head_d   = 9.5;   // countersink cone top diameter
 screw_circle_d = 95;
 screw_count    = 4;
 tower_od       = 40;    // 9 mm wall around the bearing pockets
-tower_h        = 80;    // top bearing pocket at the top; the bottom
+tower_h        = 74;    // top bearing pocket at the top; the bottom
                         // pocket sits base_cavity_h up, above the
                         // retainer cavity, keeping the races 45 mm apart
 tower_bore_d   = 19;    // between the pockets: retains the outer races,
@@ -144,23 +144,28 @@ collar_slit   = 2;
 // --- Uplift retainer (single-bolt collar, boss up under the bottom
 //     bearing inside the base cavity; carries nothing in normal
 //     running, catches the inner race if a wave or gust unloads the
-//     rotor, and keeps the bottom bearing captive) ---
+//     rotor, and keeps the bottom bearing captive). Clamped to the
+//     shaft AT THE BENCH, flush with the tip; the running gap is then
+//     created at mounting by gauging the THRUST collar 1 mm off the
+//     top race while the bottom race rests on the retainer boss, so
+//     the finished gap never depends on reaching inside the base ---
 retainer_w     = 8;    // narrower than the dual-bolt clamps: it sees no
                        // load in normal running, so one M3 across the
                        // slit is enough (the one sanctioned narrow clamp)
-retainer_gap   = 1;    // running clearance between boss and inner race
+retainer_gap   = 1;    // running clearance between boss and inner race,
+                       // and the gauge thickness at the thrust collar
 
-// --- Base cavity and windows (the space under the bottom bearing that
-//     the retainer lives in, and the two openings in the tower wall
-//     used to slide it up and reach its bolt; the retainer is dropped
-//     in from below BEFORE the base is screwed down, the windows are
-//     deliberately too narrow to pass it) ---
+// --- Base cavity (the space under the bottom bearing that the
+//     retainer lives in; shaft and retainer enter it from below
+//     before the base is screwed down) ---
 base_cavity_d  = 30;   // clears the spinning retainer all round
-base_cavity_h  = 20;   // plank top to the bottom bearing pocket
-base_window_w  = 22;   // window width, between the gussets
+base_cavity_h  = 14;   // plank top to the bottom bearing pocket: the
+                       // retainer stack plus tip clearance, nothing more
 
 // --- Assembly stations / sanity limits ---
-shaft_tip_h      = 7;   // shaft tip rides this far above the plank,
-                        // inside the base cavity; nothing protrudes
-                        // below the base
+shaft_tip_h      = 3.5; // where the shaft tip rides above the plank.
+                        // NOT free: the tip is flush with the retainer
+                        // bottom (the bench clamping reference), so this
+                        // equals the retainer's resting height and
+                        // geometry_check pins the two together
 printer_bed      = 210; // largest printable footprint, gates part sizes
