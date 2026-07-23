@@ -134,7 +134,10 @@ for the stop setting.
 ## 5. Set the stops, then clamp them
 
 Set the stops with the rotor mounted, because hanging is defined by
-gravity. Push the parts together at each arm tip: cap on the rod end,
+gravity. The vane is balanced to be nearly weightless around its
+axis, so it settles toward hanging slowly and gently: give it a
+moment in still air, or sight the panel vertical by eye. Push the
+parts together at each arm tip: cap on the rod end,
 about a millimeter of sideways play for the vane, arm collar boss
 against the sleeve. Hold the vane hanging straight down, rotate the
 end cap until its wedge face just touches the notch wall on the driven

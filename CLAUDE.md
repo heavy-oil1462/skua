@@ -19,6 +19,14 @@ hardware. No electronics — the wind does everything.
   rigidly, or that can swing all the way around, produces no net torque
   — never "simplify" the stop away. The clack of the vanes hitting the
   stops is part of the product.
+- **The vane is partially balanced about its arm axis** (vane_rise,
+  the panel above the axis): folding must not require lifting the
+  panel's full weight, or the rotor cannot self-start below a moderate
+  breeze — both vanes just hang, catch the wind equally, and it rocks
+  in place. geometry_check gates the cancelled fraction. Keep it
+  PARTIAL: hanging must remain gravity-defined, because it is the
+  reference the stops are set against (assembly step 5). Never balance
+  fully, and never "save plastic" by deleting the rise panel.
 - **One rod stock.** Shaft and arms are all 8 mm aluminum rod (the 608
   bore). No second diameter may creep in.
 - **Rotor weight hangs on the thrust collar,** clamped to the shaft and

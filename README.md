@@ -20,6 +20,16 @@ upwind) just folds it flat. Both stops point the same way around, so the
 torques add and the rotor self-starts in any wind direction. Every pass
 the driving vane bangs against its stop — free percussion.
 
+The panel rises above the arm axis as well as hanging below it. The
+rise panel balances away about three quarters of the panel's weight,
+and that is what makes the machine start in light wind: folding a
+plain hanging panel means lifting it, which takes a moderate breeze,
+and below that both vanes hang, catch the wind equally, and the rotor
+only rocks in place. Balanced, the returning vane folds at a whisper
+while the driven vane presents both panels' face. The balance is
+deliberately partial so the vanes still settle to hanging, which is
+the reference the stops are set against.
+
 The rotor rides on two 608 skateboard bearings spaced 45 mm apart in the
 base tower, so the 1.2 m span runs true. All rotating weight hangs on a
 collar clamped to the shaft, resting on the top bearing's inner race.

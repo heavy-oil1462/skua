@@ -109,6 +109,16 @@ vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
 vane_width      = 200; // panel size along the arm; wide-and-short so the
 vane_drop       = 100; // panel (sleeve AXIS to bottom edge) keeps its area
                        // while clearing the plank under the shaft
+vane_rise       = 85;  // balance panel above the axis. A hanging panel
+                       // only folds when wind pressure beats its weight,
+                       // and a printed panel needs ~7 m/s for that, so
+                       // in light wind both vanes hang, catch the wind
+                       // equally, and the rotor rocks instead of
+                       // starting. The rise panel cancels ~3/4 of the
+                       // gravity moment (geometry_check computes it) so
+                       // light wind folds the free vane. PARTIAL on
+                       // purpose: hanging must stay gravity-defined,
+                       // it is the stop-setting reference (step 5)
 vane_t          = 3;
 vane_rim_w      = 4;   // stiffening rim around the panel
 vane_rim_h      = 6;

@@ -150,6 +150,28 @@ def main():
           f"collar starts {collar_start:.0f} mm out, hub face at {P['hub_len'] / 2:.0f}"
           " (5 mm room to slide)")
 
+    # --- low-wind self-start: the balance panel above the arm axis
+    #     cancels most of the hanging panel's gravity moment, so light
+    #     wind can fold the free vane instead of both vanes hanging
+    #     and catching the wind equally. The cancellation must stay
+    #     partial: hanging is the stop-setting reference (step 5) ---
+    sr = P["vane_sleeve_od"] / 2
+    rim_extra = P["vane_rim_w"] * (P["vane_rim_h"] - P["vane_t"])
+
+    def gravity_moment(reach):
+        # per-thickness areal moments about the arm axis: the panel
+        # sheet, the two side rims, and the edge rim (extra material
+        # only; the webs at the sleeve are mirrored and cancel)
+        panel = P["vane_width"] * P["vane_t"] * (reach**2 - sr**2) / 2
+        sides = 2 * rim_extra * (reach**2 - sr**2) / 2
+        edge = rim_extra * P["vane_width"] * (reach - P["vane_rim_w"] / 2)
+        return panel + sides + edge
+
+    balance = gravity_moment(P["vane_rise"]) / gravity_moment(P["vane_drop"])
+    check(ok, 0.6 <= balance <= 0.85, "vane balance",
+          f"rise panel cancels {balance:.0%} of the hanging moment"
+          " (0.6 .. 0.85: folds in light wind, hanging still defined)")
+
     # --- the swing stops: wedges inside the sleeve wall, notch leaves a
     #     stop, and both carriers (cap face, collar face) contain them ---
     check(ok, P["stop_wedge_ri"] >= P["rod_d"] / 2 + 0.2,
@@ -176,7 +198,7 @@ def main():
     # --- printability ---
     for name, size in (("base", P["base_d"]),
                        ("vane width", P["vane_width"]),
-                       ("vane height", P["vane_drop"] + P["vane_sleeve_od"] / 2)):
+                       ("vane height", P["vane_drop"] + P["vane_rise"])):
         check(ok, size <= P["printer_bed"], f"{name} fits the bed",
               f"{size:.0f} mm <= {P['printer_bed']} mm")
 

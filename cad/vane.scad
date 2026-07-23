@@ -2,16 +2,28 @@
 //   VANE — the flapping flag on the end of each arm (print TWO).
 //
 //   A sleeve that spins freely on the arm rod, with a stiffened panel
-//   hanging from it. The wind mechanism needs ASYMMETRY: a vane that
-//   could swing all the way around would just weathervane and the rotor
-//   would never start. So the sleeve's end faces carry a pie-shaped stop
-//   notch; a stop wedge rides in each (end cap outboard, arm collar
-//   inboard, sharing the impact) and limits the swing to
-//   vane_swing_deg. Pushed one way the vane folds flat and slips through
-//   the wind; pushed the other way it hits the stop, presents its full
-//   face, and drags the rotor around. Both vanes stop in the same
-//   rotational sense, so their torques add. The bang against the stop is
-//   free gull-scaring percussion.
+//   hanging from it and a BALANCE PANEL rising above it. The wind
+//   mechanism needs ASYMMETRY: a vane that could swing all the way
+//   around would just weathervane and the rotor would never start. So
+//   the sleeve's end faces carry a pie-shaped stop notch; a stop wedge
+//   rides in each (end cap outboard, arm collar inboard, sharing the
+//   impact) and limits the swing to vane_swing_deg. Pushed one way the
+//   vane folds flat and slips through the wind; pushed the other way
+//   it hits the stop, presents its full face, and drags the rotor
+//   around. Both vanes stop in the same rotational sense, so their
+//   torques add. The bang against the stop is free gull-scaring
+//   percussion.
+//
+//   The balance panel is the low-wind self-start fix: folding a
+//   hanging panel means lifting its weight, which for printed plastic
+//   takes ~7 m/s of wind, and below that both vanes hang, present the
+//   same face, and the rotor rocks instead of spinning. The rise panel
+//   moves the center of mass close to the arm axis, cancelling ~3/4 of
+//   the gravity moment (geometry_check computes the fraction), so
+//   light wind can fold the free vane while the stopped vane still
+//   presents both panels' area. The cancellation stays PARTIAL so
+//   gravity still defines hanging, the stop-setting reference. As a
+//   bonus, both panels add face area on the driven side.
 //
 //   The notch is cut into BOTH ends: the cap wedge and the collar wedge
 //   each get one, and the part fits either arm with either end
@@ -41,22 +53,30 @@ module vane() {
             translate([-vane_sleeve_len / 2, 0, sleeve_r])
                 rotate([0, 90, 0])
                     cylinder(h = vane_sleeve_len, r = sleeve_r);
-            // wedge web joining the sleeve to the panel's top edge
-            hull() {
-                translate([-vane_sleeve_len / 2, 0, sleeve_r])
-                    rotate([0, 90, 0])
-                        cylinder(h = vane_sleeve_len, r = sleeve_r);
-                translate([-vane_sleeve_len / 2, sleeve_r + 4, 0])
-                    cube([vane_sleeve_len, 4, vane_t]);
-            }
-            // the panel
+            // wedge webs joining the sleeve to both panels' near edges
+            for (m = [0, 1]) mirror([0, m, 0])
+                hull() {
+                    translate([-vane_sleeve_len / 2, 0, sleeve_r])
+                        rotate([0, 90, 0])
+                            cylinder(h = vane_sleeve_len, r = sleeve_r);
+                    translate([-vane_sleeve_len / 2, sleeve_r + 4, 0])
+                        cube([vane_sleeve_len, 4, vane_t]);
+                }
+            // the hanging panel (+y) and the balance panel (-y)
             translate([-vane_width / 2, sleeve_r, 0])
                 cube([vane_width, vane_drop - sleeve_r, vane_t]);
-            // stiffening rim: sides and bottom edge
-            for (m = [0, 1]) mirror([m, 0, 0])
+            translate([-vane_width / 2, -vane_rise, 0])
+                cube([vane_width, vane_rise - sleeve_r, vane_t]);
+            // stiffening rim: sides of both panels, bottom and top edges
+            for (m = [0, 1]) mirror([m, 0, 0]) {
                 translate([vane_width / 2 - vane_rim_w, sleeve_r, 0])
                     cube([vane_rim_w, vane_drop - sleeve_r, vane_rim_h]);
+                translate([vane_width / 2 - vane_rim_w, -vane_rise, 0])
+                    cube([vane_rim_w, vane_rise - sleeve_r, vane_rim_h]);
+            }
             translate([-vane_width / 2, vane_drop - vane_rim_w, 0])
+                cube([vane_width, vane_rim_w, vane_rim_h]);
+            translate([-vane_width / 2, -vane_rise, 0])
                 cube([vane_width, vane_rim_w, vane_rim_h]);
         }
 
