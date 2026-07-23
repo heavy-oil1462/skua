@@ -4,10 +4,9 @@ What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the three rod pieces (1x 145 mm, 2x
 600 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
-keys to suit (a ball-end hex key is worth having: it reaches the
-retainer bolt through the tower window at an angle), and something
-about 1 mm thick (a folded business card, a feeler gauge) for setting
-the retainer gap. Nothing is drilled in the whole build: not the
+keys to suit, and something about 1 mm thick and no wider than about
+15 mm (a strip of folded business card, a feeler gauge) for gauging
+the thrust collar. Nothing is drilled in the whole build: not the
 rods, not the printed parts, and not the plank either.
 
 Two joint types cover the whole build, and both are clamps. The hub
@@ -23,25 +22,19 @@ The images regenerate from the CAD via `python3 scripts/regen_all.py`
 (they are `cad/main_assembly.scad` rendered at `-D step=N`), so they
 always match the current parameters.
 
-## 1. Base, bearings, retainer in, base screwed down
+## 1. Base and bearings
 
 Press one bearing into the pocket on top of the tower, flush to its
-recess floor. The bottom pocket sits 20 mm up inside the tower, above
-the retainer cavity: turn the base over, drop the bearing into the
+recess floor. The bottom pocket sits up inside the tower, above the
+retainer cavity: turn the base over, drop the bearing into the
 cavity, and press it up until it seats against the pocket ceiling.
 Push on the OUTER race only; a spare 608 from the pack, held flat on
 top, makes a good drift. If either fit fights you, recheck
 `bearing_press_d` with the calibration gauge instead of forcing it.
 
-Drop the retainer collar (the small single-bolt one) into the cavity.
-It must go in now, from below, before the base is screwed down: the
-tower windows are deliberately too narrow to pass it. Once it is
-clamped to the shaft in step 3 it also keeps the bottom bearing
-captive.
-
-Set the base on the plank, retainer lying loose inside, and drive the
-four wood screws. The plank needs no hole and no minimum thickness;
-nothing reaches below the base.
+Do NOT screw the base to the plank yet. The shaft and its retainer
+enter the cavity from below, so the base meets the plank only at the
+end of step 3, with the rotor already in it.
 
 ![step 1](assembly/step1.png)
 
@@ -50,8 +43,8 @@ nothing reaches below the base.
 This all happens on the bench, and nothing is drilled. First slide
 the thrust collar (the wide plain one, no wedge) onto the shaft and
 leave it loose: it cannot pass the hub later, so it must be on the
-shaft now. The small single-bolt retainer is not part of this step;
-it is already waiting inside the base cavity from step 1.
+shaft now. The small single-bolt retainer goes on at the end of this
+step, at the other end of the shaft.
 
 Lay the hub front half (the one with the pegs) split face up and set
 the rods into its grooves: shaft into the center groove until it
@@ -66,33 +59,42 @@ between the faces so all the bolt force squeezes the rods. An even
 gap all around means the rods are gripped; faces touching anywhere
 means something is not seated.
 
+Last, the retainer: slide the small single-bolt collar onto the
+shaft tip, boss first (boss toward the hub), and push it flush with
+the tip. Easiest is to stand the tip on the bench so tip and collar
+press flat against the same surface, then tighten the bolt. Flush is
+the whole trick: it needs no measuring, and it is the reference that
+makes the next step work.
+
 ![step 2](assembly/step2.png)
 
-## 3. Mount the rotor, clamp both shaft collars
+## 3. Mate rotor and base, gauge the gap, screw down
 
-Lower the shaft down through both bearings. Near the bottom, guide
-the tip into the retainer waiting in the cavity (a finger through a
-tower window centers it under the shaft) and push on until the tip
-rests on the plank; the last centimeter presses snugly through the
-retainer bore, which is by design, that snugness is what will hold
-the retainer in place while its gap is set.
+Turn the rotor upside down: hub flat on the bench, shaft pointing
+up, bare arms out over the bench edges. Lower the base over the
+shaft, tower top first: the shaft threads through both bearings, the
+retainer disappears into its cavity, and the base comes to rest with
+the bottom bearing's inner race sitting on the retainer boss.
+Gravity does the aligning, and that resting contact is exactly the
+uplift catch, which is what makes the next move exact.
 
-Lift the whole rotor a few millimeters, watching the tip through a
-window: anywhere clearly off the plank and still inside the retainer
-is right. Hold it there, slide the thrust collar down, boss DOWN,
-onto the top bearing's inner race, and tighten its two clamp bolts
-evenly. The whole rotor now hangs on this collar, so give its bolts
-a deliberate, even torque.
+Now gauge the running clearance, with everything out in the open:
+the thrust collar hangs loose on the shaft by the tower top. Lay the
+1 mm card strip on the top bearing's inner race (it must be narrow
+enough to sit down on the race, inside the pocket mouth, not on the
+plastic rim), push the collar boss against it, and tighten the two
+clamp bolts evenly. The whole rotor will hang on this collar, so
+give its bolts a deliberate, even torque, then pull the strip out.
 
-Now the retainer: through a window, slide it up the shaft to about
-1 mm short of the bottom bearing's inner race, boss UP. Hold the
-folded business card between boss and race, push the collar against
-it, tighten its single bolt with the ball-end hex key through the
-opposite window, and pull the card out. The gap matters: the
-retainer must touch nothing while the rotor runs. Its job is to
-catch the inner race if a wave or a gust unloads the rotor, so the
-shaft can never lift out of its bearings, and it keeps the bottom
-bearing captive.
+That card thickness is exactly the play the shaft ends up with: flip
+the assembly upright and the rotor settles onto the thrust collar,
+leaving the retainer floating 1 mm under the bottom race, touching
+nothing, ready to catch the inner race if a wave or a gust unloads
+the rotor. Set the base on the plank and drive the four wood screws.
+The shaft can never lift out and the bottom bearing is captive. To
+re-torque the retainer bolt at season start, take out the four wood
+screws and reach into the open cavity from below; every other bolt
+is in the open.
 
 The image below shows the base cut open so the collars and the
 retainer are visible; yours is in one piece.

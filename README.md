@@ -27,8 +27,10 @@ smaller single-bolt collar clamped under the bottom bearing, a
 millimeter clear of its inner race, is the uplift retainer: it lives in
 a cavity inside the base tower and carries nothing while the rotor
 runs, but a wave slam or a gust that unloads the rotor cannot lift the
-shaft out of its bearings. Two windows in the tower wall give access
-to set it, and it keeps the bottom bearing captive too.
+shaft out of its bearings. It is clamped to the shaft at the bench,
+flush with the tip, and the running clearance is gauged at the thrust
+collar during mounting, so the base needs no access holes at all. It
+keeps the bottom bearing captive too.
 
 ## Bill of materials
 
@@ -59,11 +61,12 @@ Printers and filaments vary; the three fits are measured, not guessed:
 ## Assembly
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
-The short version: bearings pressed into the base, the retainer
-collar dropped into its cavity, the base screwed down; shaft and arms
-laid into the hub clamshell and bolted; the shaft lowered through the
-bearings, the thrust collar clamped on the top race, the retainer
-slid up and clamped through the tower windows; vane hardware slid to
+The short version: bearings pressed into the base; shaft and arms
+laid into the hub clamshell and bolted, the retainer clamped flush
+with the shaft tip; the base slid onto the shaft from the tip end
+until its bottom race rests on the retainer, the thrust collar
+gauged a millimeter off the top race and clamped, then everything
+flipped upright and the base screwed down; vane hardware slid to
 position and clamped. Nothing is drilled anywhere, not the rods, not
 the printed parts, not even the plank, and no joint is permanent: the
 hub is a clamshell, everything else is a slit clamp, so every
