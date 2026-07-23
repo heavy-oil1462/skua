@@ -8,19 +8,27 @@ hardware. No electronics — the wind does everything.
 ## Core design ideas (do not design against these)
 
 - **The rotor is driven by swing asymmetry, not by airfoils.** Each vane
-  pivots on its arm like a flag: free through vane_swing_deg one way,
-  hard stop the other (a stop wedge on the end cap and one on the arm
-  collar, each riding a notch in its end of the sleeve; the flat faces
-  land flush on the notch walls and share the impact; set both to the
-  same angle at assembly). Pushed
-  toward the stop it presents its full face and drags the rotor; pushed
-  the other way it folds flat and slips through. Both stops are set in
-  the same rotational sense so the torques add. A vane that is fixed
-  rigidly, or that can swing all the way around, produces no net torque
-  — never "simplify" the stop away. The clack of the vanes hitting the
-  stops is part of the product.
-- **One rod stock.** Shaft and arms are all 8 mm aluminum rod (the 608
-  bore). No second diameter may creep in.
+  pivots like a door on a VERTICAL stub rod at the arm tip (held by
+  the tip bracket): free through vane_swing_deg one way, hard stop
+  the other (a stop wedge on the end cap above and one on the arm
+  collar below, each riding a notch in its end of the sleeve; the
+  flat faces land flush on the notch walls and share the impact; set
+  both to the same angle at assembly). Pushed toward the stop it
+  presents its full face and drags the rotor; pushed the other way it
+  weathervanes flat and slips through. Both stops are set in the same
+  rotational sense seen from above, so the torques add. A vane that
+  is fixed rigidly, or that can swing all the way around, produces no
+  net torque — never "simplify" the stop away. The clack of the vanes
+  hitting the stops is part of the product.
+- **The hinge is vertical so folding never fights gravity.** That is
+  the low-wind self-start: a hanging panel on a horizontal hinge
+  needs a moderate breeze to fold, and below that the rotor only
+  rocks in place. Never tilt the hinge or hang mass on the vane in a
+  way that gives the free swing a gravity slope; the sleeve's weight
+  rides the arm collar's small boss ring so spin friction stays low.
+- **One rod stock.** Shaft, arms and the two vertical hinge stubs are
+  all 8 mm aluminum rod (the 608 bore). No second diameter may creep
+  in.
 - **Rotor weight hangs on the thrust collar,** clamped to the shaft and
   riding the top bearing's INNER race (boss stays inside
   bearing_inner_shoulder_d). Nothing else may take axial load in normal
@@ -109,9 +117,11 @@ Conventions:
 
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
-- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms
-- 5x M5x40 with wide washers (hub clamshell) and 10x M3x16 (dual-bolt
-  collar and cap clamps; one more if the optional retainer is
-  fitted), all with nyloc nuts; no rod or printed part is ever drilled
+- 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 130 mm
+  hinge stubs
+- 5x M5x40 with wide washers (hub clamshell) and 18x M3x16 (dual-bolt
+  collar, cap and bracket clamps; one more if the optional retainer
+  is fitted), all with nyloc nuts; no rod or printed part is ever
+  drilled
 - 4x 4.2 mm wood screws, and any plank to screw the base onto (no
   hole: the shaft tip and retainer stay inside the base cavity)

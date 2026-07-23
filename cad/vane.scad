@@ -1,24 +1,35 @@
 // ==============================================================================
-//   VANE — the flapping flag on the end of each arm (print TWO).
+//   VANE — the flapping flag at the end of each arm (print TWO).
 //
-//   A sleeve that spins freely on the arm rod, with a stiffened panel
-//   hanging from it. The wind mechanism needs ASYMMETRY: a vane that
-//   could swing all the way around would just weathervane and the rotor
-//   would never start. So the sleeve's end faces carry a pie-shaped stop
-//   notch; a stop wedge rides in each (end cap outboard, arm collar
-//   inboard, sharing the impact) and limits the swing to
-//   vane_swing_deg. Pushed one way the vane folds flat and slips through
-//   the wind; pushed the other way it hits the stop, presents its full
-//   face, and drags the rotor around. Both vanes stop in the same
-//   rotational sense, so their torques add. The bang against the stop is
-//   free gull-scaring percussion.
+//   A sleeve that spins freely on the VERTICAL stub rod at the arm
+//   tip, with a stiffened panel reaching out horizontally from it,
+//   like a door on a hinge. The hinge being vertical is the low-wind
+//   self-start: folding never lifts any weight, so the free vane
+//   weathervanes at a whisper while the stopped vane presents its
+//   face. The wind mechanism still needs ASYMMETRY: a vane that could
+//   swing all the way around would just weathervane and the rotor
+//   would never start. So the sleeve's end faces carry a pie-shaped
+//   stop notch; a stop wedge rides in each (end cap on top, arm
+//   collar underneath, sharing the impact) and limits the swing to
+//   vane_swing_deg. Pushed one way the vane trails flat and slips
+//   through the wind; pushed the other way it hits the stop, presents
+//   its full face, and drags the rotor around. Both vanes stop in the
+//   same rotational sense seen from above, so their torques add. The
+//   bang against the stop is free gull-scaring percussion.
 //
-//   The notch is cut into BOTH ends: the cap wedge and the collar wedge
-//   each get one, and the part fits either arm with either end
-//   outboard. Its radial walls match the wedge's flat side faces, so
-//   the stop is a face contact. The stop positions are set at assembly
-//   by rotating cap and collar to the same angle before clamping (see
-//   README).
+//   The panel spans the sleeve and overhangs its top end by
+//   vane_width - vane_sleeve_len (in use: past the end cap, which the
+//   panel's near edge clears; geometry_check gates it), so the sleeve
+//   sits toward the bottom of the flag. The sleeve's lower end face
+//   rests on the arm collar's boss, a small ring, so the vane spins
+//   with little friction and no printed face rubs a large one.
+//
+//   The notch is cut into BOTH ends: the cap wedge and the collar
+//   wedge each get one. Its radial walls match the wedge's flat side
+//   faces, so the stop is a face contact. The stop positions are set
+//   at assembly by rotating cap and collar before clamping (see
+//   README): panel pointing straight out along the arm is the driven
+//   stop.
 //
 //   Prints flat on the panel, no supports: the sleeve lies on the bed
 //   and its bore is a teardrop (lib/bores.scad).
@@ -49,15 +60,22 @@ module vane() {
                 translate([-vane_sleeve_len / 2, sleeve_r + 4, 0])
                     cube([vane_sleeve_len, 4, vane_t]);
             }
-            // the panel
-            translate([-vane_width / 2, sleeve_r, 0])
-                cube([vane_width, vane_drop - sleeve_r, vane_t]);
-            // stiffening rim: sides and bottom edge
-            for (m = [0, 1]) mirror([m, 0, 0])
-                translate([vane_width / 2 - vane_rim_w, sleeve_r, 0])
-                    cube([vane_rim_w, vane_drop - sleeve_r, vane_rim_h]);
-            translate([-vane_width / 2, vane_drop - vane_rim_w, 0])
+            // the panel: one edge flush with the sleeve's lower end
+            // (-x, the bottom in use), overhanging the other
+            translate([-vane_sleeve_len / 2, sleeve_r, 0])
+                cube([vane_width, vane_reach - sleeve_r, vane_t]);
+            // stiffening rim: both x edges (bottom and top in use),
+            // the outer edge, and the near edge of the overhang
+            translate([-vane_sleeve_len / 2, sleeve_r, 0])
+                cube([vane_rim_w, vane_reach - sleeve_r, vane_rim_h]);
+            translate([-vane_sleeve_len / 2 + vane_width - vane_rim_w,
+                       sleeve_r, 0])
+                cube([vane_rim_w, vane_reach - sleeve_r, vane_rim_h]);
+            translate([-vane_sleeve_len / 2, vane_reach - vane_rim_w, 0])
                 cube([vane_width, vane_rim_w, vane_rim_h]);
+            translate([vane_sleeve_len / 2, sleeve_r, 0])
+                cube([vane_width - vane_sleeve_len, vane_rim_w,
+                      vane_rim_h]);
         }
 
         // free-spinning bore
