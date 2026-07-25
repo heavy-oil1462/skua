@@ -1,16 +1,39 @@
 // ============================================================
 // SKUA TRI VARIANT PARAMETERS — study values only, tri_ prefixed so
 // nothing shadows design_params.scad (check_params enforces that).
-// The tri variant keeps the stub-side stack of v1 (8 mm stubs, stop
-// ring, end cap, sleeve bore) and changes what scripts/tri_study.py
-// says matters: arm count, arm rod, the vane construction, and the
-// span-held reach-for-arm trade. Values mirror the study's ladder.
+//
+// The tri v0.1 keeps the dual's vane side verbatim (8 mm arms and
+// stubs, the tip bracket, stop ring, solid vane, end cap) and
+// changes only the center: three arms into the split hub in
+// tri_hub.scad, closed by one central M5 into the tapped shaft end.
+// The later ladder steps from scripts/tri_study.py (PTFE washers,
+// film vanes, the reach-for-arm trade) keep their values below.
 // ============================================================
 
 tri_arms       = 3;    // the consistency fix: no dead parking angle
-tri_arm_rod_d  = 10;   // arm rod ONLY; stubs and shaft stay 8 mm
+
+// --- Split hub (tri_hub.scad): a cylinder split on the arm plane,
+//     one central M5 through the top half into the tapped shaft end ---
+tri_hub_d        = 60;   // seats run boss to rim: 23 mm grip per arm
+tri_hub_bot_h    = 34;   // socket + shoulder + its half of the seats
+tri_hub_top_h    = 14;   // the cap half
+tri_hub_socket   = 25;   // blind shaft socket depth, from the bottom
+tri_hub_gap      = 0.8;  // clamshell rule carried over from the dual:
+                         // the arms stand proud of their seats, so the
+                         // bolt preload lands on the rods, never on
+                         // face-to-face plastic
+tri_hub_boss_d   = 14;   // arm butt circle around the M5 clearance bore
+tri_bolt_cbore_d = 16;   // washer + head counterbore in the top half
+tri_bolt_cbore_h = 5;
+tri_rod_thread   = 10;   // M5x0.8 tap depth in the shaft's top end
+                         // (rod prep, not a printed dimension; an
+                         // M5x30 reaches through the whole stack)
+
+// --- Later ladder steps (tri_study.py's numbers; NOT in the v0.1
+//     scene, which uses the dual's rod_d / arm_length / vane) ---
+tri_arm_rod_d  = 10;   // reach-for-arm trade only; arm rod, never stubs
 tri_arm_length = 500;  // span held: shorter arms buy the longer reach
-tri_vane_reach = 250;  // film vane reach (v1: 150)
+tri_vane_reach = 250;  // film vane reach (dual: 150)
 tri_frame_w    = 8;    // printed perimeter frame member width
 tri_frame_t    = 4;    // ... and thickness
 tri_skin_t     = 0.4;  // membrane, drawn translucent

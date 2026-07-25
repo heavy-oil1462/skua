@@ -20,11 +20,46 @@ shorten to match. Everything else is open.
 ![tri concept](tri_assembly.png)
 
 The scene is `cad/tri/tri_assembly.scad`; open it in OpenSCAD to
-walk around it (regen_all renders it to the image above). The tri
-models use `tri_` prefixed parameters, are massing concepts rather
-than printable parts, and reuse the dual's stub-side stack (stop
-ring, washer seat, end cap, sleeve bore) directly so proportions
-are honest; hub and tip knuckles are placeholders.
+walk around it (regen_all renders it to the image above). It shows
+the tri v0.1 as currently planned: the vane side is the dual's
+verbatim (8 mm arms and stubs, real tip bracket, stop ring, solid
+vane and end cap), and only the center is new. The tri models use
+`tri_` prefixed parameters and nothing from `cad/tri/` is exported
+to `stl/`.
+
+## The split hub
+
+The tri's hub (`cad/tri/tri_hub.scad`) is a cylinder split on the
+horizontal plane containing all three arm axes. The arms lie in
+radial half-round seats and butt against the boss circle around
+the bolt bore; the top half closes over them, and one central M5
+with a washer runs down through both halves into a tapped hole in
+the shaft's top end. Tightening it pulls the shaft face up against
+the socket shoulder and presses the halves together, so a single
+bolt clamps three arms and locks the shaft axially at once. The
+three rods at 120 degrees key the halves against relative
+rotation, so there are no registration pegs, and the dual's
+clamshell rule carries over: the seats are cut shy by
+`tri_hub_gap`, so preload lands on the rods, never on
+face-to-face plastic. Both halves print seats-up with every bore
+vertical.
+
+This is a deliberate divergence from the dual's no-rod-is-ever-
+drilled rule, and it marks the variants' characters: the dual is
+the fully DIY machine (hacksaw and hex keys only), the tri leans
+commercial-kit, with a PREPARED shaft (drill 4.2 mm, tap M5x0.8,
+10 mm deep in one end). Sourcing that prepared shaft:
+
+- Tube cannot be tapped: any 8 mm tube has a bore at or above 5
+  mm, which is already larger than the M5 thread. Solid rod only.
+- Solid 8 mm aluminum rod taps easily by hand: center punch,
+  drill 4.2 mm about 14 mm deep, tap M5x0.8. A lathe makes it
+  concentric and fast but is not required, because the socket
+  locates the shaft and the bolt only supplies axial preload, so
+  thread concentricity is not critical.
+- For kits, linear-motion suppliers sell ground 8 mm shafts with
+  female-tapped ends as a standard catalog option, which is zero
+  machining.
 
 The dual's performance work showed what limits low-wind running
 once the geometry is tuned: thrust-seat friction, vane mass, and
@@ -57,6 +92,7 @@ would have to be bolted on, at which point the swing-vane concept
 is the simpler machine.
 
 Build order as the tri matures toward its first release: three
-arms first (pure consistency, no new materials), then washers,
-then film vanes, then the reach-for-arm trade only if the water
-still asks for it. Further tri ideas land here as they come.
+arms first via the split hub above (pure consistency, dual vanes
+throughout), then washers, then film vanes, then the reach-for-arm
+trade only if the water still asks for it. Further tri ideas land
+here as they come.

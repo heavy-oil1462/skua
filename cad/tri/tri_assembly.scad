@@ -1,16 +1,19 @@
 // ============================================================
 // TRI VARIANT CONCEPT ASSEMBLY — open this file in OpenSCAD to review.
 //
-// Three arms at 120 degrees (the worst-parking-angle fix), 10 mm
-// arm rod on 500 mm arms carrying 250 mm film-and-frame vanes
-// (span held near v1's sweep), PTFE washers on the thrust seats,
-// and a taller mounting drawn as a mast stub. The stub-side stack
-// is v1 verbatim: 8 mm stubs, the keyed stop ring, the end cap —
-// those parts are used directly so proportions are honest.
+// The tri v0.1: three arms at 120 degrees (the worst-parking-angle
+// fix) meeting in the split hub from tri_hub.scad, one central M5
+// down into the tapped shaft end. The vane side is the dual's
+// verbatim — 8 mm arms and stubs, the real tip bracket, stop ring,
+// solid vane and end cap — so everything outboard of the hub is
+// production CAD, not massing. A PTFE washer rides each thrust
+// seat (ladder step two; lift it off and the stack is pure dual).
 //
-// CONCEPT: hub and tip knuckles are massing models, not clamshell
-// designs; nothing from cad/tri/ is exported to stl/. regen_all
-// renders this scene to docs/tri_assembly.png.
+// Later ladder steps (film vanes, the reach-for-arm trade) live in
+// film_vane.scad and scripts/tri_study.py, not in this scene.
+//
+// Nothing from cad/tri/ is exported to stl/. regen_all renders
+// this scene to docs/tri_assembly.png.
 //
 // The three vanes are posed mid-action: one hard on its driven
 // stop, one weathervaned, one mid re-arm swing.
@@ -19,76 +22,81 @@
 include <../design_params.scad>
 include <tri_params.scad>
 use <../base.scad>
+use <../tip_bracket.scad>
 use <../stop_ring.scad>
+use <../vane.scad>
 use <../end_cap.scad>
-use <film_vane.scad>
+use <tri_hub.scad>
 
 $fn = 48;
 
-// stations, dual-variant relations with tri lengths
+// stations: the dual's relations with the split hub in the middle
 shaft_top  = shaft_tip_h + shaft_length;
-hub_bottom = shaft_top - hub_shaft_socket;
-tri_arm_z   = hub_bottom + hub_arm_z;
-tri_hub_r   = 24;                       // concept hub barrel radius
-tri_stub_x  = tri_hub_r + tri_arm_length - 24;   // hinge axis radius
-tri_tip_x   = tri_stub_x - 36;                  // tip knuckle start
+hub_bot_z  = shaft_top - tri_hub_socket;
+split_z    = hub_bot_z + tri_hub_bot_h;      // bottom half's top face
+tri_arm_z  = split_z + tri_hub_gap / 2;      // arm axes ride the gap
+arm_root   = tri_hub_boss_d / 2;             // arms butt the boss circle
+arm_tip    = arm_root + arm_length;
+bracket_x  = arm_tip - bracket_arm_grip;
+stub_x     = bracket_x + bracket_stub_x;
 sleeve_bot = tri_arm_z + bracket_h / 2 + collar_boss_h + tri_washer_t;
 cap_face   = sleeve_bot + vane_sleeve_len + 1;
 
-// mast stub (the taller mounting), then the v1 base on top of it
+// mast stub (the taller mounting), then the dual base on top of it
 color("Silver") translate([0, 0, -tri_mast_h])
     cylinder(h = tri_mast_h, d = tower_od);
 color("Tomato") base();
 
-// shaft and concept hub: a barrel with three sockets
+// shaft, then the split hub closed over the arms: bottom half
+// socketed on the shaft, top half flipped seats-down, the M5 and
+// its washer seated in the counterbore reaching the tapped rod end
 color("DarkGray") translate([0, 0, shaft_tip_h])
     cylinder(h = shaft_length, d = rod_d);
-color("SteelBlue") difference() {
-    translate([0, 0, hub_bottom]) cylinder(h = hub_h, r = tri_hub_r);
-    for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms])
-        translate([0, 0, tri_arm_z]) rotate([0, 90, 0])
-            cylinder(h = tri_hub_r + 1, d = tri_arm_rod_d);
-    translate([0, 0, hub_bottom - 0.1])
-        cylinder(h = hub_shaft_socket, d = rod_d);
-}
+color("SteelBlue") translate([0, 0, hub_bot_z]) tri_hub_bottom();
+color("SteelBlue")
+    translate([0, 0, split_z + tri_hub_gap + tri_hub_top_h])
+        rotate([180, 0, 0]) tri_hub_top();
+color("Silver")
+    translate([0, 0, split_z + tri_hub_gap + tri_hub_top_h - tri_bolt_cbore_h])
+        tri_hub_bolt();
 
 // poses: driven stop, weathervaned, mid re-arm
 poses = [0, vane_swing_deg, vane_swing_deg / 2];
 
 for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
-    // arm rod (10 mm) socketed into the hub barrel
+    // arm rod, boss circle to tip, seated in the hub's radial seat
     color("DarkGray")
-        translate([tri_hub_r - 20, 0, tri_arm_z])
+        translate([arm_root, 0, tri_arm_z])
             rotate([0, 90, 0])
-                cylinder(h = tri_arm_length + 20 - (tri_hub_r - 20),
-                         d = tri_arm_rod_d);
-    // tip knuckle: massing block, arm through, stub standing
+                cylinder(h = arm_length, d = rod_d);
+    // the dual tip stack, verbatim: bracket, stub, keyed stop ring
     color("SteelBlue")
-        translate([tri_tip_x, -bracket_w / 2, tri_arm_z - bracket_h / 2])
-            cube([50, bracket_w, bracket_h]);
+        translate([bracket_x, 0, tri_arm_z - bracket_h / 2])
+            tip_bracket();
     color("DarkGray")
-        translate([tri_stub_x, 0, tri_arm_z - bracket_h / 2])
+        translate([stub_x, 0, tri_arm_z - bracket_h / 2])
             cylinder(h = stub_length, d = rod_d);
-    // v1 stop ring, keyed flat outboard, then the PTFE washer
     color("SteelBlue")
-        translate([tri_stub_x, 0, tri_arm_z + bracket_h / 2 - ring_foot_t])
+        translate([stub_x, 0, tri_arm_z + bracket_h / 2 - ring_foot_t])
             stop_ring();
+    // the PTFE washer on the ring's thrust boss
     color("White")
-        translate([tri_stub_x, 0, tri_arm_z + bracket_h / 2 + collar_boss_h])
+        translate([stub_x, 0, tri_arm_z + bracket_h / 2 + collar_boss_h])
             difference() {
                 cylinder(h = tri_washer_t, d = tri_washer_od);
                 translate([0, 0, -0.5])
                     cylinder(h = tri_washer_t + 1, d = rod_free_d);
             }
-    // film vane: modeled frame-toward +Y; at the driven stop the
-    // frame points out along the arm, folding is -psi like v1
+    // the dual vane, panel out along the arm at the driven stop
     color("Gold")
-        translate([tri_stub_x, 0, sleeve_bot])
+        translate([stub_x, 0, sleeve_bot])
             rotate([0, 0, -90 - poses[k]])
-                film_vane();
-    // v1 end cap, wedge down, set to land with the fin
+                translate([vane_sleeve_od / 2, 0, vane_sleeve_len / 2])
+                    rotate([0, -90, 0])
+                        vane();
+    // the dual end cap, wedge down, set to land with the fin
     color("SteelBlue")
-        translate([tri_stub_x, 0, cap_face + cap_t])
+        translate([stub_x, 0, cap_face + cap_t])
             rotate([0, 0, 90 - (vane_swing_deg + ring_wedge_deg) / 2
                            + stop_wedge_deg / 2])
                 rotate([180, 0, 0])
