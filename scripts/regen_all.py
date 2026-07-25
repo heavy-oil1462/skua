@@ -15,6 +15,11 @@ Pipeline:
   5. cad/main_assembly.scad           -> main_assembly.png (README image)
   6. cad/main_assembly.scad -D step=N -> docs/assembly/step<N>.png
                                          (the assembly guide images)
+  7. cad/tri/tri_assembly.scad          -> docs/tri_assembly.png (the tri
+                                         concept scene; cad/tri/ holds
+                                         study models, never printable
+                                         parts, so it is not scanned
+                                         for STL export)
 
 STLs are committed build products (print-ready). A part whose STL gains a
 second volume or errors out is a finding, not something to ignore.
@@ -149,6 +154,11 @@ def main(argv):
                 committed = ROOT / "docs" / "assembly" / f"step{n}.png"
                 ok &= run_one(assembly, *target(committed),
                               extra=["-D", f"step={n}"] + STEP_CAMERAS.get(n, []))
+
+        tri_scene = ROOT / "cad" / "tri" / "tri_assembly.scad"
+        if (tri_scene.exists() and not stl_only
+                and (not only or "tri_assembly" in only)):
+            ok &= run_one(tri_scene, *target(ROOT / "docs" / "tri_assembly.png"))
 
     if check and not only:
         expected = {f"{p.stem}.stl" for p in parts()}
