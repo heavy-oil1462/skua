@@ -3,6 +3,16 @@
 Status: study only, long-lived on the `v2` branch. Nothing here
 changes v1 parts, parameters or gates. v1 ships first.
 
+![v2 concept](v2_assembly.png)
+
+The scene is `cad/v2/v2_assembly.scad`; open it in OpenSCAD to walk
+around it (regen_all renders it to the image above). The v2 models
+live in `cad/v2/` with `v2_` prefixed parameters, are massing
+concepts rather than printable parts, and are never exported to
+`stl/`. The stub-side stack (stop ring, washer seat, end cap,
+sleeve bore) is v1 verbatim, reused directly so proportions are
+honest; hub and tip knuckles are placeholders.
+
 One constraint carries over: the overall span stays close to
 today's sweep circle, so when vane reach grows the arms shorten to
 match. Everything else is open.
