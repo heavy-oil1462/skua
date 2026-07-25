@@ -199,6 +199,12 @@ def main():
           "ring fin sits on its foot",
           f"fin overhangs the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
           " (<= 1: lands on the bracket top, flush with the foot)")
+    boss_wall = (P["ring_boss_d"] - P["rod_free_d"]) / 2
+    check(ok, 0.8 <= boss_wall and P["ring_boss_d"] <= P["collar_boss_d"],
+          "ring boss is a real seat",
+          f"{boss_wall:.1f} mm of seat ring over the free bore (>= 0.8"
+          " printable), inside the old collar-width boss; narrower seat"
+          " = lower self-start wind, performance_check has the number")
 
     # --- up the stub: bracket boss, sleeve, play, cap all fit ---
     boss_top = P["bracket_h"] / 2 + P["collar_boss_h"]

@@ -202,6 +202,13 @@ ring_wedge_deg = 80;   // the stop fin's arc, wider than the cap's
 ring_foot_d    = 20;   // the D foot the clamshell traps
 ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
 ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
+ring_boss_d    = 10;   // the vane's thrust seat, narrowed to the
+                       // bore edge: self-start wind scales with the
+                       // sqrt of this contact radius (mu and vane
+                       // weight are the other factors), and the seat
+                       // carries about one newton, so the narrowest
+                       // printable ring wins. Only the ring uses it;
+                       // collar_boss_d stays the bearing-race boss
 
 // --- Stop wedges (SHARED: one on the end cap, set at assembly, and
 //     the stop ring's fin, keyed to the fixed driven-stop angle by

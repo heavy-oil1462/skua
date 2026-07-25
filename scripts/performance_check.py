@@ -59,8 +59,10 @@ CD_PLATE = 1.17        # finite flat plate, face-on
 CD_EDGE = 1.2          # folded vane seen edge-on: panel edge plus rim
                        # ends, bluff, taken high (conservative drag)
 V_SURVIVAL = 25.0      # m/s design storm at the mooring, rotor locked
-V_LIGHT_AIR = 1.8      # m/s spin-up ceiling: the scarer must run in
-                       # Beaufort 2, or it is a perch
+V_LIGHT_AIR = 1.5      # m/s spin-up ceiling: the scarer must run in
+                       # Beaufort 2, or it is a perch. Ratcheted down
+                       # from 1.8 when the ring boss narrowed; never
+                       # loosen it back
 
 # --- joints and friction ----------------------------------------------
 MU_HINGE = 0.35        # ASA sleeve end on ASA boss ring, dry thrust face
@@ -138,8 +140,10 @@ def main():
     # --- spin-up: the free vane must fold in light air ------------------
     # Sleeve weight rests on the stop ring's boss; that thrust face is
     # the hinge's whole friction.  The panel folds when the aero moment
-    # about the hinge beats it.
-    r_boss = (P["collar_boss_d"] + P["rod_free_d"]) / 4 * mm
+    # about the hinge beats it.  mu times weight times seat radius is
+    # the whole game: the seat radius is printed as narrow as it can
+    # be, the weight is the vane, and mu is the ring's material.
+    r_boss = (P["ring_boss_d"] + P["rod_free_d"]) / 4 * mm
     t_hinge = MU_HINGE * vane_kg * 9.81 * r_boss
     v_fold = math.sqrt(t_hinge / (CD_PLATE * 0.5 * RHO_AIR * area * d_hinge))
 
@@ -153,8 +157,16 @@ def main():
     v_net = math.sqrt(t_bearing / (drive_coef - resist_coef))
     v_spin = max(v_fold, v_net)
     check(ok, v_spin <= V_LIGHT_AIR, "spins in light air",
-          f"self-start at {v_spin:.1f} m/s (fold {v_fold:.1f}, torque"
-          f" {v_net:.1f}; <= {V_LIGHT_AIR}: must run in Beaufort 2)")
+          f"self-start at {v_spin:.2f} m/s (fold {v_fold:.2f}, torque"
+          f" {v_net:.2f}; <= {V_LIGHT_AIR}: must run in Beaufort 2)")
+    # the gated number is conservative (solid-density vane); the paths
+    # below it are material, not geometry, so they are reported, not
+    # designed in.  Weigh a printed vane to place the real machine.
+    print(f"[info] self-start projections: real printed vane (~65"
+          f" percent solid) ~{v_fold * math.sqrt(0.65):.2f} m/s; rings"
+          f" in nylon (mu ~0.2) ~{v_fold * math.sqrt(0.2 / MU_HINGE):.2f};"
+          " a thin PTFE washer on the boss (mu ~0.12)"
+          f" ~{v_fold * math.sqrt(0.12 / MU_HINGE):.2f}")
 
     # The ratio treats the returning flag as fully trailed; with a
     # finite swing it also rides its trailing stop at some incidence
