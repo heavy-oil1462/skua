@@ -36,9 +36,11 @@ module stop_ring() {
                 cylinder(h = ring_foot_t, d = ring_foot_d);
                 translate([ring_flat_x - 1000, -500, -1]) cube(1000);
             }
-            // boss: the sleeve's thrust seat
+            // boss: the sleeve's thrust seat, as narrow as printable
+            // so the friction radius, and with it the self-start
+            // wind, stays minimal (performance_check gates it)
             translate([0, 0, ring_foot_t])
-                cylinder(h = collar_boss_h, d = collar_boss_d);
+                cylinder(h = collar_boss_h, d = ring_boss_d);
             // the stop fin, through the boss layer and into the notch
             translate([0, 0, ring_foot_t])
                 rotate([0, 0, wall_lo + ring_wedge_deg / 2])
