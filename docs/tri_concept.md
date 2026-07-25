@@ -68,6 +68,20 @@ commercial-kit, with a PREPARED shaft (drill 4.2 mm, tap M5x0.8,
   female-tapped ends as a standard catalog option, which is zero
   machining.
 
+Considered and set aside, recorded so it is not rediscovered: a
+MALE die thread on the shaft top instead of the tap (8 mm rod is
+an M8 blank, so a hand die is the cheapest prep of all), with the
+hub squeezed between a shoulder nut under its bottom face and a
+top nut. Mechanically it works, but it puts thread roots at the
+shaft's highest-bending cross-section, right where the shaft
+exits the hub: the M8 minor diameter of about 6.5 mm roughly
+halves the bending section modulus and adds a fatigue notch to a
+joint the stop clack vibrates for years, and the shoulder nut
+reintroduces a set-by-position adjustment where the tap gives
+pure geometry. The female tap keeps the critical section a solid
+8 mm circle inside a snug printed socket. Die threads remain a
+good trick for any future joint that carries no bending.
+
 ## The screwed stub tip
 
 The stub is the tri's second prepared rod, tapped at BOTH ends
@@ -93,6 +107,13 @@ nothing proud of the cap cylinder for the folding flag to hit.
 The vane sleeve's upper notch simply goes unused, so the vane
 stays the shared dual part. If the water agrees that one stop is
 enough, the same deletion is a candidate for the dual line later.
+
+A tri-only vane with no upper notch is a noted option, deferred on
+purpose: the unused notch costs nothing, keeping the dual vane
+means every existing print builds a tri, and the tri's real own
+vane is the film-and-frame one further down the ladder, which
+will be drawn notchless from the start rather than forking the
+solid vane for a cosmetic deletion now.
 
 What the whole tri now needs, beyond printed parts and rod stock:
 seven M5 screws with washers (one hub, three stub, three cap, all
