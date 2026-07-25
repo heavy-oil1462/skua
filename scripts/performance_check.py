@@ -73,6 +73,13 @@ F_M5 = 1200            # N preload per M5; both are limited by the
 DYN_STOP = 5           # lumped dynamic factor: the stop clack versus
                        # the steady aero moment at the same wind
 HARDWARE_KG = 0.06     # bolts, nuts, washers on the rotor, rough
+VANE_SLICED_KG = 0.078 # the vane as actually sliced (Orca, production
+                       # profile, 2026-07-25); the STL mass model
+                       # prices it solid at ~0.096, kept for the GATES
+                       # because heavier is conservative everywhere.
+                       # This measured point feeds the projection info
+                       # only. Re-slice and update when the vane or
+                       # the profile changes.
 
 # rotor parts and their print counts (masses from stl/, solid ASA)
 ROTOR_PARTS = {"hub_front": 1, "hub_back": 1, "collar": 1, "retainer": 1,
@@ -159,14 +166,16 @@ def main():
     check(ok, v_spin <= V_LIGHT_AIR, "spins in light air",
           f"self-start at {v_spin:.2f} m/s (fold {v_fold:.2f}, torque"
           f" {v_net:.2f}; <= {V_LIGHT_AIR}: must run in Beaufort 2)")
-    # the gated number is conservative (solid-density vane); the paths
-    # below it are material, not geometry, so they are reported, not
-    # designed in.  Weigh a printed vane to place the real machine.
-    print(f"[info] self-start projections: real printed vane (~65"
-          f" percent solid) ~{v_fold * math.sqrt(0.65):.2f} m/s; rings"
-          f" in nylon (mu ~0.2) ~{v_fold * math.sqrt(0.2 / MU_HINGE):.2f};"
-          " a thin PTFE washer on the boss (mu ~0.12)"
-          f" ~{v_fold * math.sqrt(0.12 / MU_HINGE):.2f}")
+    # the gated number is conservative (solid-density vane); the real
+    # machine sits at the sliced vane mass, and the paths below THAT
+    # are material, not geometry, so they are reported, not designed
+    # in.  A kitchen scale on a printed vane beats the slicer estimate.
+    v_real = v_fold * math.sqrt(VANE_SLICED_KG / vane_kg)
+    print(f"[info] self-start as built ({VANE_SLICED_KG * 1000:.0f} g"
+          f" sliced vane): ~{v_real:.2f} m/s; rings in nylon (mu ~0.2)"
+          f" ~{v_real * math.sqrt(0.2 / MU_HINGE):.2f}; a thin PTFE"
+          " washer on the boss (mu ~0.12, r ~5.3 mm)"
+          f" ~{v_real * math.sqrt(0.12 * 5.3 * mm / (MU_HINGE * r_boss)):.2f}")
 
     # The ratio treats the returning flag as fully trailed; with a
     # finite swing it also rides its trailing stop at some incidence
