@@ -25,9 +25,27 @@ tri_hub_gap      = 0.8;  // clamshell rule carried over from the dual:
 tri_hub_boss_d   = 14;   // arm butt circle around the M5 clearance bore
 tri_bolt_cbore_d = 16;   // washer + head counterbore in the top half
 tri_bolt_cbore_h = 5;
-tri_rod_thread   = 10;   // M5x0.8 tap depth in the shaft's top end
-                         // (rod prep, not a printed dimension; an
-                         // M5x30 reaches through the whole stack)
+tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep, not a printed
+                         // dimension): the shaft's top end and both
+                         // stub ends; an M5x30 reaches through the
+                         // whole hub stack
+
+// --- Prepared stub tip (tri_tip_bracket.scad, tri_end_cap.scad):
+//     the stub is tapped both ends and SCREWED, never clamped.
+//     The stop is the ring fin ALONE (field finding from the dual:
+//     two stops never land exactly together, one face takes every
+//     hit anyway, and the stop-face gate already sizes one face
+//     for the full impact), so the cap is a smooth keyless
+//     retainer, stub rotation is irrelevant, and the rod prep is
+//     two taps, nothing more ---
+tri_step_t      = 3;    // printed step under the stub in the bracket
+tri_stub_length = 103;  // step to cap bore ceiling: bracket above the
+                        // step (21) + boss (2) + washer (1) + sleeve
+                        // (70) + running play (1) + cap bore (8)
+tri_cap_t       = 14;
+tri_cap_bore_h  = 8;    // free locating bore over the stub's top
+tri_cap_cbore_d = 13;   // washer + head counterbore, closed face
+tri_cap_cbore_h = 3;
 
 // --- Later ladder steps (tri_study.py's numbers; NOT in the v0.1
 //     scene, which uses the dual's rod_d / arm_length / vane) ---

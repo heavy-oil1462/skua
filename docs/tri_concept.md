@@ -21,11 +21,18 @@ shorten to match. Everything else is open.
 
 The scene is `cad/tri/tri_assembly.scad`; open it in OpenSCAD to
 walk around it (regen_all renders it to the image above). It shows
-the tri v0.1 as currently planned: the vane side is the dual's
-verbatim (8 mm arms and stubs, real tip bracket, stop ring, solid
-vane and end cap), and only the center is new. The tri models use
-`tri_` prefixed parameters and nothing from `cad/tri/` is exported
-to `stl/`.
+the tri v0.1 as currently planned: the vane, stop ring and all rod
+stock are the dual's verbatim, while the hub, tip bracket and end
+cap are the tri's own joints, built on one recurring idea. The tri
+models use `tri_` prefixed parameters and nothing from `cad/tri/`
+is exported to `stl/`.
+
+The idea: every rod in the tri lands on a printed step and is
+pulled home by one M5 with a washer into a tapped hole in the
+rod's end. The dual clamps rods because a DIY build cannot machine
+them; the tri PREPARES its rods (drill 4.2 mm, tap M5x0.8, 10 mm
+deep) and buys back almost every fastener and every set-by-hand
+step. One drill size, one tap, no lathe.
 
 ## The split hub
 
@@ -60,6 +67,42 @@ commercial-kit, with a PREPARED shaft (drill 4.2 mm, tap M5x0.8,
 - For kits, linear-motion suppliers sell ground 8 mm shafts with
   female-tapped ends as a standard catalog option, which is zero
   machining.
+
+## The screwed stub tip
+
+The stub is the tri's second prepared rod, tapped at BOTH ends
+(`cad/tri/tri_tip_bracket.scad`, `cad/tri/tri_end_cap.scad`). At
+the bottom, the bracket's through groove becomes a plain snug bore
+over a printed step: the stub drops in from above, lands face-down
+on the step, and an M5 from below pulls it home, so stub height is
+geometry and the bracket's stub-clamp bolt pair is gone; the
+clamshell's only remaining duty is clamping the arm with two M3s.
+At the top, the cap is a smooth disc whose bore ceiling lands on
+the stub's top face, pulled home by an M5 from above.
+
+The cap is smooth because the tri drops the upper stop wedge
+entirely, on a field finding from the dual: two stop faces never
+land exactly together, so one face takes every hit regardless of
+the design intent. The tri accepts that and makes it official: the
+ring fin is the ONLY stop. The stop-face gate in
+`performance_check` already sizes a single face for the full
+dynamic impact, the ring is the cheap keyed sacrificial part and
+swaps by popping the cap, and with no wedge the cap has no angular
+job: no key, no flat on the stub, no set-at-assembly step, and
+nothing proud of the cap cylinder for the folding flag to hit.
+The vane sleeve's upper notch simply goes unused, so the vane
+stays the shared dual part. If the water agrees that one stop is
+enough, the same deletion is a candidate for the dual line later.
+
+What the whole tri now needs, beyond printed parts and rod stock:
+seven M5 screws with washers (one hub, three stub, three cap, all
+into tapped rod ends, threadlocked against stop vibration), eight
+M3s with nylocs (three arm-clamp pairs and the thrust collar),
+and the rod prep of seven M5 taps across four rods. No nuts are
+juggled anywhere, and nothing is set by feel: the arms butt the
+hub's boss circle, the stubs land on their steps, every stop angle
+is keyed geometry, and the one adjustable joint left in the whole
+machine is the gauged thrust collar on the shaft.
 
 The dual's performance work showed what limits low-wind running
 once the geometry is tuned: thrust-seat friction, vane mass, and
