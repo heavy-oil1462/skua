@@ -155,8 +155,10 @@ Drop the vane sleeve over each stub; its lower end rests on the
 stop ring's boss (that small ring is the vane's whole thrust
 bearing, so it spins freely) with the ring's fin inside its lower
 notch. Then the end cap, open face and wedge DOWN, bolts loose; it
-gets set in step 5. Stop faces take every clack; if one ever wears,
-open the clamshell and drop in a freshly printed ring.
+gets set in step 5. Stop faces take every clack; if one ever looks
+chewed, pop the cap, lift sleeve and ring off the stub, and drop a
+freshly printed ring in its place. Printing a spare ring or two with
+the machine costs nothing.
 
 ![step 4](assembly/step4.png)
 
