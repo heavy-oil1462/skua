@@ -122,7 +122,18 @@ vane_reach      = 150; // hinge axis to the panel's outer vertical edge,
 vane_t          = 3;
 vane_rim_w      = 4;   // stiffening rim around the panel
 vane_rim_h      = 6;
-vane_swing_deg  = 120; // free swing between the two stops
+vane_swing_deg  = 90;  // free swing between the two stops. Field
+                       // feel at 120 was a flag that re-armed late:
+                       // the swing-back transit eats rotor travel
+                       // that scales with the swing while the
+                       // driven-stop window is 180 minus the swing
+                       // (performance_check prints the re-arm
+                       // numbers). Tuned via the stop ring's fin
+                       // width ONLY: keep swing + ring_wedge_deg at
+                       // 170 and the sleeve notch, the vanes and the
+                       // cap setting all stay exactly as printed --
+                       // a different swing is a reprint of two small
+                       // rings, nothing else
 
 // --- Stop cap (stub tip: retains the vane, carries the upper stop
 //     wedge; a wide dual-bolt slit clamp on the rod end) ---
@@ -148,8 +159,10 @@ cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
 //     bracket rotated 180 about the stub serves the other arm). Both
 //     rod axes lie in the split plane, so the halves close over arm
 //     and stub like the hub closes over its rods, bolted with M3x30s
-//     and small washers, and they trap the stop ring's D foot in the
-//     pocket on top the same way, so the stub stack is just the
+//     and small washers. The stub groove runs through and the ring
+//     pocket opens upward, so stub and stop ring feed in from above
+//     once the clamshell has closed on the arm, and the closed
+//     pocket keys the ring's D foot; the stub stack is just the
 //     ring, the sleeve and the end cap. The joint rides 620 mm out
 //     on the arm, so it is sized for weight: M3 preload is plenty
 //     for a clamp whose only friction duty is gust torsion, and the
@@ -178,16 +191,21 @@ bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
 //     sense are set by geometry, and a worn stop is replaced by
 //     reprinting one small part. Prints on its back: foot, boss and
 //     fin are plain vertical prisms, no overhangs at all ---
-ring_wedge_deg = 50;   // the stop fin's arc, wider than the cap's
+ring_wedge_deg = 80;   // the stop fin's arc, wider than the cap's
                        // wedge; the sleeve notch is sized swing +
-                       // this, so the full free swing survives
+                       // this, so the full free swing survives. The
+                       // fin width is the swing tuning knob: hold
+                       // swing + this = 170 and only the ring
+                       // changes (the 50 deg rings already printed
+                       // are the 120 deg swing variant, kept for
+                       // on-the-water A/B)
 ring_foot_d    = 20;   // the D foot the clamshell traps
 ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
 ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
 
 // --- Stop wedges (SHARED: one on the end cap, set at assembly, and
-//     one printed into the tip bracket's top face at the fixed
-//     driven-stop angle; each rides a notch in its end of the vane
+//     the stop ring's fin, keyed to the fixed driven-stop angle by
+//     the bracket pocket; each rides a notch in its end of the vane
 //     sleeve so the stop impact is carried by two, and their flat
 //     radial faces land flush on the notch walls — lib/stop_wedge.scad) ---
 stop_wedge_deg = 40;   // angular thickness; the notch arc grows by this

@@ -2,9 +2,9 @@
 //   END CAP — arm tip: retains the vane and carries the swing-stop
 //   wedge (print TWO).
 //
-//   Slides over the end of the arm rod, closed end outboard. The axial
-//   wedge on the open face rides in the vane sleeve's outboard stop
-//   notch (the arm collar's wedge takes the inboard notch, sharing the
+//   Slides over the end of the stub rod, closed end up. The axial
+//   wedge on the open face rides in the vane sleeve's upper stop
+//   notch (the stop ring's fin takes the lower notch, sharing the
 //   impact) — rotate the cap to set where the vane's driven stop sits
 //   (just past hanging-vertical, see README), then close the clamp.
 //

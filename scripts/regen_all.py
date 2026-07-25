@@ -6,9 +6,14 @@ lines (see the regen-outputs skill).
 
 Pipeline:
   1. scripts/check_params.py          — interface dimensions must agree
-  2. every part in cad/ + cad/calibration/  -> stl/<name>.stl
-  3. cad/main_assembly.scad           -> main_assembly.png (README image)
-  4. cad/main_assembly.scad -D step=N -> docs/assembly/step<N>.png
+  2. scripts/geometry_check.py        — assembly stack-up stays legal
+  3. every part in cad/ + cad/calibration/  -> stl/<name>.stl
+  4. scripts/performance_check.py     — spin-up wind, drag ratchet and
+                                        storm safety factors (needs the
+                                        fresh STLs for the mass model,
+                                        so it runs after the STL stage)
+  5. cad/main_assembly.scad           -> main_assembly.png (README image)
+  6. cad/main_assembly.scad -D step=N -> docs/assembly/step<N>.png
                                          (the assembly guide images)
 
 STLs are committed build products (print-ready). A part whose STL gains a
@@ -128,6 +133,12 @@ def main(argv):
             if only and scad.stem not in only:
                 continue
             ok &= run_one(scad, *target(ROOT / "stl" / f"{scad.stem}.stl"))
+
+        # performance gate after the STL stage: its mass model reads the
+        # committed stl/ files, which the loop above just refreshed (or,
+        # in check mode, just byte-verified against the sources)
+        ok &= subprocess.run([sys.executable, str(
+            ROOT / "scripts" / "performance_check.py")]).returncode == 0
 
         if not stl_only and (not only or "main_assembly" in only):
             assembly = ROOT / "cad" / "main_assembly.scad"

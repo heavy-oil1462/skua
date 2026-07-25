@@ -155,8 +155,10 @@ Drop the vane sleeve over each stub; its lower end rests on the
 stop ring's boss (that small ring is the vane's whole thrust
 bearing, so it spins freely) with the ring's fin inside its lower
 notch. Then the end cap, open face and wedge DOWN, bolts loose; it
-gets set in step 5. Stop faces take every clack; if one ever wears,
-open the clamshell and drop in a freshly printed ring.
+gets set in step 5. Stop faces take every clack; if one ever looks
+chewed, pop the cap, lift sleeve and ring off the stub, and drop a
+freshly printed ring in its place. Printing a spare ring or two with
+the machine costs nothing.
 
 ![step 4](assembly/step4.png)
 
@@ -164,20 +166,22 @@ open the clamshell and drop in a freshly printed ring.
 
 The lower stop needs no setting: the keyed stop ring fixes it at
 the driven angle, so the flag stops exactly at panel-along-the-arm.
-Only the cap's wedge is set, to land together with the bracket's,
+Only the cap's wedge is set, to land together with the ring's fin,
 because two faces sharing the impact is what the stop design counts
 on.
 
-Swing the vane against the printed stop and hold it there. Push the
+Swing the vane against the ring's fin and hold it there. Push the
 end cap down to leave the sleeve about a millimeter of vertical
 play, rotate it until its wedge face just touches the upper notch
 wall on the stopped side, and tighten its two clamp bolts while
 holding the angle.
 
-When both are done, each flag swings freely about 120 degrees
-toward trailing (the last few degrees land softly on the bracket
-wedge's print ramp; that cushion is intentional) and stops hard at
-panel-along-the-arm the other way. Both flags stop in the same
+When both are done, each flag swings freely about 90 degrees
+toward trailing (the far wall of the ring's fin catches it there)
+and stops hard at panel-along-the-arm the other way. The swing
+angle belongs to the ring: a wider or narrower fin changes it
+without touching vane or cap, so keeping rings with two fin widths
+makes an easy on-the-water comparison. Both flags stop in the same
 rotational sense automatically, courtesy of the brackets; if one
 seems mirrored, its bracket is upside down (step 4). If a cap angle
 ends up wrong, loosen two bolts and set it again, nothing is
