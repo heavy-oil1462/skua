@@ -16,12 +16,18 @@
 //   and no press fits: with the ASA snug a true 8.0 the rods LAY IN
 //   and the bolts do the gripping.
 //
-//   The pocket on top traps the STOP RING's D foot (stop_ring.scad)
-//   exactly the way the grooves trap the rods: lay it in with the
-//   rods, close the clamshell, and its angle is locked. The bracket
-//   itself carries no protrusions at all, so both halves print split
-//   face up as plain blocks with open channels: grooves, pocket and
-//   bolt bores, nothing to support anywhere.
+//   The pocket on top keys the STOP RING's D foot (stop_ring.scad)
+//   the way the grooves key the rods, but nothing has to be juggled
+//   at closing time: the pocket opens through the top face and the
+//   stub groove runs straight through, so the clamshell closes over
+//   the ARM alone, then the stub slides down through the closed
+//   groove (a funnel mouth in the pocket floor gives the rod a
+//   lead-in) and the ring drops in over it. The closed pocket locks
+//   the ring's angle and the sleeve standing on its boss holds it
+//   down. The bracket itself carries no protrusions at all, so both
+//   halves print split face up as plain blocks with open channels:
+//   grooves, pocket, funnel and bolt bores, nothing to support
+//   anywhere.
 //
 //   Hub rules apply: the halves NEVER touch (bracket_clamp_gap keeps
 //   the bolt preload on the rods; an even gap all around means the
@@ -32,8 +38,11 @@ include <design_params.scad>
 
 $fn = 80;
 
-peg_d = 4;               // registration pegs, same size as the hub's
-zc    = bracket_h / 2;   // the arm axis height
+peg_d        = 4;             // registration pegs, same size as the hub's
+zc           = bracket_h / 2; // the arm axis height
+stub_lead_in = 1.5;           // funnel mouth at the stub groove's top
+                              // entrance, so the rod finds a
+                              // line-to-line groove blind
 
 // The assembled clamshell, halves gapped on the rods (for the scene;
 // the halves are modeled in place, peg half on +y).
@@ -87,6 +96,16 @@ module bracket_solid() {
         // stub groove, straight through
         translate([bracket_stub_x, 0, -0.1])
             cylinder(h = bracket_h + 0.2, d = rod_snug_d);
+
+        // funnel mouth where the groove meets the ring pocket floor:
+        // the stub goes in from above with the halves already closed
+        // over the arm (docs/assembly.md step 4). Eats a ring of the
+        // pocket floor the foot never needed; still an open-channel
+        // cut in each half, nothing to support
+        translate([bracket_stub_x, 0,
+                   bracket_h - ring_foot_t - stub_lead_in])
+            cylinder(h = stub_lead_in + 0.1, d1 = rod_snug_d,
+                     d2 = rod_snug_d + 2 * (stub_lead_in + 0.1));
 
         // keyed pocket for the stop ring's D foot, flat outboard
         translate([bracket_stub_x, 0, bracket_h - ring_foot_t])

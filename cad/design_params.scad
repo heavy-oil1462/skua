@@ -126,9 +126,21 @@ vane_swing_deg  = 120; // free swing between the two stops
 
 // --- Stop cap (stub tip: retains the vane, carries the upper stop
 //     wedge; a wide dual-bolt slit clamp on the rod end) ---
-cap_d          = 24;
+cap_d          = 22;   // inside the flag rim corner's swept radius:
+                       // the rim corner passes hypot(11, 5) = 12.1 mm
+                       // from the hinge axis (geometry_check gates the
+                       // air; 24 left it 0.1 mm, a rub in practice)
 cap_t          = 20;
 cap_bore_depth = 18;
+cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
+                       // the cap axis from the wedge center. The nut
+                       // corners and bolt tips are the only things
+                       // proud of the cap cylinder, and the folding
+                       // flag's near edge sweeps most of that airspace:
+                       // this parks them in the arc the flag never
+                       // visits (geometry_check gates the band; the
+                       // old 180 sat square in the swept arc and the
+                       // nuts stopped the fold short)
 
 // --- Tip bracket (the clamshell knuckle at each arm tip that turns
 //     the hinge vertical; TWO half designs, print two of each: the

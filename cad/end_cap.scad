@@ -9,8 +9,11 @@
 //   (just past hanging-vertical, see README), then close the clamp.
 //
 //   A WIDE DUAL-BOLT slit clamp, like the collars: 16 mm of rod inside
-//   the bore, the slit opposite the wedge so the wedge base stays
-//   solid, two M3 bolts crossing the slit. Friction, not a drilled
+//   the bore, two M3 bolts crossing the slit. The slit sits
+//   cap_slit_deg around from the wedge: the nut corners and bolt tips
+//   are the only things proud of the cylinder, so they must live in
+//   the arc the folding flag's near edge never sweeps, and the offset
+//   also keeps the wedge base solid. Friction, not a drilled
 //   lock — the stop angle stays re-adjustable, and the price is a
 //   seasonal re-torque of the clamp bolts (see CLAUDE.md).
 //
@@ -37,13 +40,16 @@ module end_cap() {
         // blind rod bore from the open face
         translate([0, 0, cap_t - cap_bore_depth])
             cylinder(h = cap_bore_depth + 0.1, d = rod_snug_d);
-        // slit, along -x (opposite the wedge), bore region only so the
-        // closed end stays a solid disc
-        translate([-cap_d / 2 - 1, -collar_slit / 2, cap_t - cap_bore_depth])
-            cube([cap_d / 2 + 1, collar_slit, cap_bore_depth + 1]);
-        // two clamp bolts crossing the slit
-        for (z = [cap_t - cap_bore_depth + 4, cap_t - 4])
-            mirror([1, 0, 0]) clamp_bolt(z, cap_d);
+        // slit and clamp bolts, swung cap_slit_deg from the wedge so
+        // the nuts and bolt tips sit where the flag never sweeps
+        // (geometry_check gates the band); slit over the bore region
+        // only so the closed end stays a solid disc
+        rotate([0, 0, cap_slit_deg]) {
+            translate([0, -collar_slit / 2, cap_t - cap_bore_depth])
+                cube([cap_d / 2 + 1, collar_slit, cap_bore_depth + 1]);
+            for (z = [cap_t - cap_bore_depth + 4, cap_t - 4])
+                clamp_bolt(z, cap_d);
+        }
     }
 }
 

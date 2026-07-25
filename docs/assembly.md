@@ -2,7 +2,7 @@
 
 What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
-600 mm, 2x 120 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
+600 mm, 2x 113 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
 keys to suit, and, only if you fit the optional retainer, something
 about 1 mm thick and no wider than about 15 mm (a strip of folded
@@ -127,19 +127,27 @@ retainer are visible; yours is in one piece.
 
 Each tip bracket is two printed halves that close over the arm and
 the stub the way the hub closes over its rods: the PEG half and the
-PLAIN half (the peg sockets). Lay the peg half groove side up, set
-the arm end into the long groove until it bottoms out, and lay a
-113 mm stub into the cross groove, flush with the half's far face.
-Slide the stop ring down the stub, D flat toward the arm tip, and
-seat its foot in the round pocket; the flat only fits one way, and
-that keyed angle is the driven stop, so it cannot be assembled
-wrong and both flags get the same rotational sense for free. Fit
-the plain half over the pegs, add the four M3x30s with a small
-washer under each head and each nyloc, and tighten evenly. Same
-rule as the hub: the halves must NOT touch; an even gap all around
-means the rods, not the plastic, carry the preload. Before the
-final tighten, roll the bracket on the arm until the stub points
-straight up, ring on top.
+PLAIN half (the peg sockets). Nothing needs to be juggled in
+mid-air here: the stub groove runs straight through the bracket and
+the ring pocket opens through its top face, so the clamshell closes
+over the arm alone and the stub and ring feed in from above
+afterward.
+
+Lay the peg half groove side up and set the arm end into the long
+groove until it bottoms out. Fit the plain half over the pegs and
+add the four M3x30s with a small washer under each head and each
+nyloc, but leave them a turn loose so the halves can float. Roll
+the bracket on the arm until the stub groove points straight up,
+pocket face on top, and slide a 113 mm stub down through the groove
+until it sits flush with the bracket's underside; the funnel mouth
+in the pocket floor guides it in. Drop the stop ring down over the
+stub, D flat toward the arm tip, and seat its foot in the pocket.
+The flat only fits one way, and that keyed angle is the driven
+stop, so it cannot be assembled wrong and both flags get the same
+rotational sense for free. Check the stub still points straight
+up, ring on top, then tighten the four bolts evenly. Same rule as
+the hub: the halves must NOT touch; an even gap all around means
+the rods, not the plastic, carry the preload.
 
 The stub is the vane's hinge, and vertical is the point: a hinge
 gravity cannot fight is what lets the rotor start in light wind.
