@@ -6,10 +6,10 @@
 // identical half-shells clamped between fender washers by M8
 // nylocs on the shaft's die-threaded top (the slot-disc variant
 // with steel-on-rod jaws is modeled alongside; one-line swap
-// below). The whole tip is the DUAL's verbatim: clamped stub,
-// tip bracket, stop ring, vane and end cap all come off the dual
-// print files, so the tri v0.1 needs no new parts outboard of the
-// hub and no rod prep beyond the one die pass on the shaft. A
+// below). The tip is the DUAL's verbatim (clamped stub, tip
+// bracket, stop ring, vane) except the cap: the tri clamp cap is
+// the dual's minus the stop wedge, because in the tri the ring
+// fin is the only stop. No rod prep beyond the die pass. A
 // PTFE washer rides each thrust seat (ladder step two; lift it
 // off and the seat is pure dual). The screwed-stub tip in
 // tri_tip_bracket.scad / tri_end_cap.scad is the deferred kit
@@ -31,7 +31,7 @@ use <../base.scad>
 use <../tip_bracket.scad>
 use <../stop_ring.scad>
 use <../vane.scad>
-use <../end_cap.scad>
+use <tri_clamp_cap.scad>
 use <tri_hub.scad>
 
 $fn = 48;
@@ -109,12 +109,12 @@ for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
                 translate([vane_sleeve_od / 2, 0, vane_sleeve_len / 2])
                     rotate([0, -90, 0])
                         vane();
-    // the dual end cap, wedge down, set at assembly to land with
-    // the fin, exactly as on the dual
+    // the tri clamp cap, wedge-free: clamped at the dual's usual
+    // orientation only so its bolts park in the gated clear arc
     color("SteelBlue")
         translate([stub_x, 0, cap_face + cap_t])
             rotate([0, 0, 90 - (vane_swing_deg + ring_wedge_deg) / 2
                            + stop_wedge_deg / 2])
                 rotate([180, 0, 0])
-                    end_cap();
+                    tri_clamp_cap();
 }

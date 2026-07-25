@@ -32,9 +32,12 @@ the hub, and the only rod prep in the whole machine is one
 M8x1.25 die pass on the shaft's top end (8 mm rod is an M8 blank,
 so a hand die self-aligns; no drilling, no taps, no lathe).
 Everything outboard of the hub, the clamped tip bracket, stub,
-stop ring, vane and end cap, is the dual's verbatim and comes off
-the proven dual print files, so a third vane-arm set plus the hub
-hardware turns dual spares into a tri rotor.
+stop ring and vane, is the dual's verbatim and comes off the
+proven dual print files. The one exception is the cap: the tri
+clamp cap (`cad/tri/tri_clamp_cap.scad`) is the dual's cap with
+the stop wedge deleted, because in the tri the ring fin is the
+only stop from day one. Three of those plus a third vane-arm set
+and the hub hardware turn dual spares into a tri rotor.
 
 ## The washer-jaw hub
 
@@ -113,14 +116,15 @@ is gone. At the top, a smooth wedge-free cap lands on the stub's
 top face, pulled home by an M5 from above, with no angular job
 and no set-at-assembly step.
 
-The wedge-free cap rests on a field finding from the dual that
-stands regardless of which tip the tri ships: two stop faces
-never land exactly together, so one face takes every hit anyway,
-and the stop-face gate in `performance_check` already sizes a
-single face for the full dynamic impact. The ring fin can be the
-only stop; with the dual cap in v0.1 the wedge is simply set to
-land with the fin as always, and dropping it is a candidate for
-both lines after water testing.
+The wedge-free cap rests on a field finding from the dual: two
+stop faces never land exactly together, so one face takes every
+hit anyway, and the stop-face gate in `performance_check` already
+sizes a single face for the full dynamic impact. The tri adopts
+it from day one: v0.1's clamp cap (`tri_clamp_cap.scad`) has no
+wedge, the ring fin is the only stop, and the cap clamp's only
+assembly care is parking its bolts in the arc the flag never
+sweeps, at the dual's usual orientation. The dual keeps its wedge
+for now; deleting it there is a candidate after water testing.
 
 A tri-only vane with no upper notch is a noted option, deferred on
 purpose: the unused notch costs nothing, keeping the dual vane
