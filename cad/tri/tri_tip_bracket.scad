@@ -1,5 +1,8 @@
 // ============================================================
-// TRI TIP BRACKET — concept CAD, reviewable in tri_assembly.scad.
+// TRI TIP BRACKET — DEFERRED kit-direction concept, not in the
+// v0.1 scene: the tri v0.1 uses the dual's clamped tip verbatim,
+// so no stub taps are needed and every tip part comes off the
+// dual print files. This design waits for the kit round.
 //
 // The dual's knuckle rebuilt around the tri's prepared stub: the
 // stub is not clamped, it is SCREWED. The through stub groove

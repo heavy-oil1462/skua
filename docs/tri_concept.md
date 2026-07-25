@@ -27,13 +27,14 @@ cap are the tri's own joints, built on one recurring idea. The tri
 models use `tri_` prefixed parameters and nothing from `cad/tri/`
 is exported to `stl/`.
 
-The idea: the tri's rods end in threads, and every joint is a
-face pulled home along that thread, with printed plastic doing
-only keying and spacing. The dual clamps rods because a DIY build
-cannot machine them; the tri PREPARES its rods and buys back
-almost every fastener and every set-by-hand step. The whole
-toolchain is hand tools: one M8x1.25 die for the shaft, one 4.2 mm
-drill and M5x0.8 tap for the stubs, no lathe.
+The v0.1 recipe is deliberately minimal: the only new joint is
+the hub, and the only rod prep in the whole machine is one
+M8x1.25 die pass on the shaft's top end (8 mm rod is an M8 blank,
+so a hand die self-aligns; no drilling, no taps, no lathe).
+Everything outboard of the hub, the clamped tip bracket, stub,
+stop ring, vane and end cap, is the dual's verbatim and comes off
+the proven dual print files, so a third vane-arm set plus the hub
+hardware turns dual spares into a tri rotor.
 
 ## The washer-jaw hub
 
@@ -94,31 +95,32 @@ Sourcing notes for the prepared rods, kept from earlier rounds:
   threaded ends as a standard catalog option, which is zero
   machining.
 
-## The screwed stub tip
+## The screwed stub tip (deferred kit direction)
 
-The stub is the tri's second prepared rod, tapped at BOTH ends
-(`cad/tri/tri_tip_bracket.scad`, `cad/tri/tri_end_cap.scad`). At
-the bottom, the bracket's through groove becomes a plain snug bore
-over a printed step: the stub drops in from above, lands face-down
-on the step, and an M5 from below pulls it home, so stub height is
-geometry and the bracket's stub-clamp bolt pair is gone; the
-clamshell's only remaining duty is clamping the arm with two M3s.
-At the top, the cap is a smooth disc whose bore ceiling lands on
-the stub's top face, pulled home by an M5 from above.
+Decided for v0.1: the tip stays the dual's clamp design verbatim,
+because it is proven, already printed, and keeps taps out of the
+toolchain entirely. The screwed-stub alternative below remains
+modeled (`cad/tri/tri_tip_bracket.scad`,
+`cad/tri/tri_end_cap.scad`) as the direction a commercial kit
+would take, and waits for that round.
 
-The cap is smooth because the tri drops the upper stop wedge
-entirely, on a field finding from the dual: two stop faces never
-land exactly together, so one face takes every hit regardless of
-the design intent. The tri accepts that and makes it official: the
-ring fin is the ONLY stop. The stop-face gate in
-`performance_check` already sizes a single face for the full
-dynamic impact, the ring is the cheap keyed sacrificial part and
-swaps by popping the cap, and with no wedge the cap has no angular
-job: no key, no flat on the stub, no set-at-assembly step, and
-nothing proud of the cap cylinder for the folding flag to hit.
-The vane sleeve's upper notch simply goes unused, so the vane
-stays the shared dual part. If the water agrees that one stop is
-enough, the same deletion is a candidate for the dual line later.
+In that design the stub is a second prepared rod, tapped at BOTH
+ends. At the bottom, the bracket's through groove becomes a plain
+snug bore over a printed step: the stub drops in from above,
+lands face-down on the step, and an M5 from below pulls it home,
+so stub height is geometry and the bracket's stub-clamp bolt pair
+is gone. At the top, a smooth wedge-free cap lands on the stub's
+top face, pulled home by an M5 from above, with no angular job
+and no set-at-assembly step.
+
+The wedge-free cap rests on a field finding from the dual that
+stands regardless of which tip the tri ships: two stop faces
+never land exactly together, so one face takes every hit anyway,
+and the stop-face gate in `performance_check` already sizes a
+single face for the full dynamic impact. The ring fin can be the
+only stop; with the dual cap in v0.1 the wedge is simply set to
+land with the fin as always, and dropping it is a candidate for
+both lines after water testing.
 
 A tri-only vane with no upper notch is a noted option, deferred on
 purpose: the unused notch costs nothing, keeping the dual vane
@@ -127,16 +129,14 @@ vane is the film-and-frame one further down the ladder, which
 will be drawn notchless from the start rather than forking the
 solid vane for a cosmetic deletion now.
 
-What the whole tri now needs, beyond printed parts and rod stock:
-six M5 screws with washers (three stub, three cap, into tapped
-rod ends, threadlocked against stop vibration), two M8 nylocs
-with fender washers at the hub, eight M3s with nylocs (three
-arm-clamp pairs and the thrust collar), and the rod prep of one
-die pass on the shaft and six taps across the three stubs.
-Nothing is set by feel: the arms butt the hub's boss circle, the
-stubs land on their steps, every stop angle is keyed geometry,
-and the one adjustable joint left in the whole machine is the
-gauged thrust collar on the shaft.
+What the tri v0.1 needs, beyond printed parts and rod stock: two
+M8 nylocs with fender washers at the hub, and the dual's own tip
+hardware three times over (four M3x30 per bracket clamshell, two
+M3x16 per cap, two more at the thrust collar, twenty M3s with
+nylocs in all). Rod prep is the single die pass on the shaft.
+The arms butt the hub's boss circle, the stop angle is keyed by
+the ring pocket, and the set-by-hand joints are the same two the
+dual has: the gauged thrust collar and the cap wedges.
 
 The dual's performance work showed what limits low-wind running
 once the geometry is tuned: thrust-seat friction, vane mass, and

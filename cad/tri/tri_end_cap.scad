@@ -1,5 +1,8 @@
 // ============================================================
-// TRI END CAP — concept CAD, reviewable in tri_assembly.scad.
+// TRI END CAP — DEFERRED kit-direction concept, not in the v0.1
+// scene: the tri v0.1 uses the dual's clamped cap verbatim (see
+// tri_tip_bracket.scad's note). This design waits for the kit
+// round.
 //
 // The dual's cap with both the clamp and the wedge designed out.
 // Field finding from the dual: two stops never land exactly

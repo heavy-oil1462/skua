@@ -41,7 +41,10 @@ tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep): both ends of
                          // never tapped or drilled
 
 // --- Prepared stub tip (tri_tip_bracket.scad, tri_end_cap.scad):
-//     the stub is tapped both ends and SCREWED, never clamped.
+//     DEFERRED kit direction, not in the v0.1 scene (v0.1 uses the
+//     dual's clamped tip verbatim, so the only rod prep in the
+//     whole machine is the shaft's die pass).
+//     The stub is tapped both ends and SCREWED, never clamped.
 //     The stop is the ring fin ALONE (field finding from the dual:
 //     two stops never land exactly together, one face takes every
 //     hit anyway, and the stop-face gate already sizes one face
