@@ -2,12 +2,14 @@
 // TRI VARIANT CONCEPT ASSEMBLY — open this file in OpenSCAD to review.
 //
 // The tri v0.1: three arms at 120 degrees (the worst-parking-angle
-// fix) meeting in the split hub from tri_hub.scad, one central M5
-// down into the tapped shaft end. At each tip the tri's screwed
-// stub replaces the dual's clamped one: the stub drops through the
-// bracket onto a printed step and is pulled home by an M5 from
-// below; the smooth end cap lands on the stub's top face and is
-// pulled home by an M5 from above. The stop is the ring fin alone.
+// fix) keyed by the spacer disc from tri_hub.scad and clamped
+// between two fender washers by M8 nylocs on the shaft's die-
+// threaded top: steel jaws on aluminum rods, no plastic in
+// compression. At each tip the tri's screwed stub replaces the
+// dual's clamped one: the stub drops through the bracket onto a
+// printed step and is pulled home by an M5 from below; the smooth
+// end cap lands on the stub's top face and is pulled home by an
+// M5 from above. The stop is the ring fin alone.
 // The vane, stop ring and arm rods are the dual's verbatim, and a
 // PTFE washer rides each thrust seat (ladder step two; lift it off
 // and the seat is pure dual).
@@ -33,11 +35,11 @@ use <tri_end_cap.scad>
 
 $fn = 48;
 
-// stations: the dual's relations with the tri joints in place
+// stations: the dual's relations with the tri joints in place;
+// the top nut lands flush with the shaft tip, everything hangs
+// from there
 shaft_top   = shaft_tip_h + shaft_length;
-hub_bot_z   = shaft_top - tri_hub_socket;
-split_z     = hub_bot_z + tri_hub_bot_h;     // bottom half's top face
-tri_arm_z   = split_z + tri_hub_gap / 2;     // arm axes ride the gap
+tri_arm_z   = shaft_top - tri_nut_t - tri_m8_washer_t - rod_d / 2;
 arm_root    = tri_hub_boss_d / 2;            // arms butt the boss circle
 arm_tip     = arm_root + arm_length;
 bracket_x   = arm_tip - bracket_arm_grip;
@@ -60,19 +62,17 @@ color("Silver") translate([0, 0, -tri_mast_h])
     cylinder(h = tri_mast_h, d = 25);
 color("Tomato") base();
 
-// shaft, then the split hub closed over the arms: bottom half
-// socketed on the shaft, top half flipped seats-down, the central
-// M5 seated in the counterbore reaching the tapped shaft end
+// shaft (top tri_shaft_thread of it die-threaded M8, drawn plain),
+// then the washer-jaw hub: lower washer and nut the shoulder, the
+// spacer disc keying the arms, upper washer and nut the clamp
 color("DarkGray") translate([0, 0, shaft_tip_h])
     cylinder(h = shaft_length, d = rod_d);
-color("SteelBlue") translate([0, 0, hub_bot_z]) tri_hub_bottom();
-color("SteelBlue")
-    translate([0, 0, split_z + tri_hub_gap + tri_hub_top_h])
-        rotate([180, 0, 0]) tri_hub_top();
-color("Silver")
-    translate([0, 0, split_z + tri_hub_gap + tri_hub_top_h
-                     - tri_bolt_cbore_h])
-        tri_hub_bolt();
+color("Silver") translate([0, 0, tri_arm_z - rod_d / 2])
+    rotate([180, 0, 0]) tri_m8_stack();
+color("SteelBlue") translate([0, 0, tri_arm_z - tri_hub_disc_h / 2])
+    tri_hub_disc();
+color("Silver") translate([0, 0, tri_arm_z + rod_d / 2])
+    tri_m8_stack();
 
 // poses: driven stop, weathervaned, mid re-arm
 poses = [0, vane_swing_deg, vane_swing_deg / 2];

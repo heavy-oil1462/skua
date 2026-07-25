@@ -2,33 +2,38 @@
 // SKUA TRI VARIANT PARAMETERS — study values only, tri_ prefixed so
 // nothing shadows design_params.scad (check_params enforces that).
 //
-// The tri v0.1 keeps the dual's vane side verbatim (8 mm arms and
-// stubs, the tip bracket, stop ring, solid vane, end cap) and
-// changes only the center: three arms into the split hub in
-// tri_hub.scad, closed by one central M5 into the tapped shaft end.
-// The later ladder steps from scripts/tri_study.py (PTFE washers,
-// film vanes, the reach-for-arm trade) keep their values below.
+// The tri v0.1 keeps the dual's vane, stop ring and rod stock
+// verbatim and changes the joints: three arms keyed by the spacer
+// disc in tri_hub.scad and clamped between fender washers on the
+// die-threaded shaft, and screwed stubs at the tips. The later
+// ladder steps from scripts/tri_study.py (PTFE washers, film
+// vanes, the reach-for-arm trade) keep their values below.
 // ============================================================
 
 tri_arms       = 3;    // the consistency fix: no dead parking angle
 
-// --- Split hub (tri_hub.scad): a cylinder split on the arm plane,
-//     one central M5 through the top half into the tapped shaft end ---
-tri_hub_d        = 60;   // seats run boss to rim: 23 mm grip per arm
-tri_hub_bot_h    = 34;   // socket + shoulder + its half of the seats
-tri_hub_top_h    = 14;   // the cap half
-tri_hub_socket   = 25;   // blind shaft socket depth, from the bottom
-tri_hub_gap      = 0.8;  // clamshell rule carried over from the dual:
-                         // the arms stand proud of their seats, so the
-                         // bolt preload lands on the rods, never on
-                         // face-to-face plastic
-tri_hub_boss_d   = 14;   // arm butt circle around the M5 clearance bore
-tri_bolt_cbore_d = 16;   // washer + head counterbore in the top half
-tri_bolt_cbore_h = 5;
-tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep, not a printed
-                         // dimension): the shaft's top end and both
-                         // stub ends; an M5x30 reaches through the
-                         // whole hub stack
+// --- Washer-jaw hub (tri_hub.scad): one printed spacer disc keys
+//     three arms in full-height slots; two large fender washers
+//     press onto the proud rods from either side, clamped by M8
+//     nylocs on the shaft's die-threaded top end. Steel jaws, no
+//     plastic in compression, no seasonal re-torque ---
+tri_hub_d        = 50;   // slot flanks run boss to rim: 18 mm of
+                         // bearing per arm for horizontal bending
+tri_hub_disc_h   = 7.2;  // rod_d minus the clamshell gap: the arms
+                         // stand proud of both faces by 0.4, so the
+                         // washer preload lands on the rods, never
+                         // on face-to-face plastic
+tri_hub_boss_d   = 14;   // arm butt circle around the bore
+tri_shaft_thread = 40;   // M8x1.25 die length on the shaft's top end
+                         // (rod prep: a hand die, no drilling at all)
+tri_nut_af       = 13.4; // M8 nyloc across flats, drawn in the scene
+tri_nut_t        = 8;
+tri_m8_washer_od = 30;   // fender washer: the clamp jaw, gripping
+                         // each rod from the boss edge outward
+tri_m8_washer_t  = 1.5;
+tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep): both ends of
+                         // each stub; the shaft is die-threaded,
+                         // never tapped or drilled
 
 // --- Prepared stub tip (tri_tip_bracket.scad, tri_end_cap.scad):
 //     the stub is tapped both ends and SCREWED, never clamped.

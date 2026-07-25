@@ -27,60 +27,58 @@ cap are the tri's own joints, built on one recurring idea. The tri
 models use `tri_` prefixed parameters and nothing from `cad/tri/`
 is exported to `stl/`.
 
-The idea: every rod in the tri lands on a printed step and is
-pulled home by one M5 with a washer into a tapped hole in the
-rod's end. The dual clamps rods because a DIY build cannot machine
-them; the tri PREPARES its rods (drill 4.2 mm, tap M5x0.8, 10 mm
-deep) and buys back almost every fastener and every set-by-hand
-step. One drill size, one tap, no lathe.
+The idea: the tri's rods end in threads, and every joint is a
+face pulled home along that thread, with printed plastic doing
+only keying and spacing. The dual clamps rods because a DIY build
+cannot machine them; the tri PREPARES its rods and buys back
+almost every fastener and every set-by-hand step. The whole
+toolchain is hand tools: one M8x1.25 die for the shaft, one 4.2 mm
+drill and M5x0.8 tap for the stubs, no lathe.
 
-## The split hub
+## The washer-jaw hub
 
-The tri's hub (`cad/tri/tri_hub.scad`) is a cylinder split on the
-horizontal plane containing all three arm axes. The arms lie in
-radial half-round seats and butt against the boss circle around
-the bolt bore; the top half closes over them, and one central M5
-with a washer runs down through both halves into a tapped hole in
-the shaft's top end. Tightening it pulls the shaft face up against
-the socket shoulder and presses the halves together, so a single
-bolt clamps three arms and locks the shaft axially at once. The
-three rods at 120 degrees key the halves against relative
-rotation, so there are no registration pegs, and the dual's
-clamshell rule carries over: the seats are cut shy by
-`tri_hub_gap`, so preload lands on the rods, never on
-face-to-face plastic. Both halves print seats-up with every bore
-vertical.
+The hub (`cad/tri/tri_hub.scad`) went through several sizes on
+the way down and landed as small as the job allows: ONE printed
+spacer disc, thinner than the rod. Three full-height slots key
+the arms at 120 degrees, the arms butt the boss circle and stand
+proud of both faces by 0.4 mm each, and two large M8
+fender washers press onto the rods from either side, clamped by
+M8 nylocs on the shaft's die-threaded top end (8 mm rod is
+exactly an M8 thread blank, so a hand die self-aligns and this
+rod is never drilled at all; the lower nut is the shoulder, run
+to the die's thread runout, and the upper one is the clamp).
 
-This is a deliberate divergence from the dual's no-rod-is-ever-
-drilled rule, and it marks the variants' characters: the dual is
-the fully DIY machine (hacksaw and hex keys only), the tri leans
-commercial-kit, with a PREPARED shaft (drill 4.2 mm, tap M5x0.8,
-10 mm deep in one end). Sourcing that prepared shaft:
+The load path is worth stating: steel washer, aluminum rod, steel
+washer, steel nut. No plastic sits in compression anywhere in
+this joint, so unlike every clamp on the dual it does not relax
+and never needs the seasonal re-torque. The disc only keys: its
+slot flanks carry the arms' horizontal storm bending as bearing
+over 18 mm, the washer faces square the hub on the shaft, and the
+disc prints flat in minutes.
+
+A structural note, recording a correction: an earlier pass
+rejected male thread on the shaft, claiming the storm case fails
+at the threaded exit with a safety factor near 0.7. That number
+was wrong, it borrowed the ARM's root moment (about 5.8 Nm). The
+shaft at the hub only carries the vane drag over the short lever
+down to the top bearing, about 1 Nm at survival wind, so even on
+the M8 minor section the stress is about 42 MPa against the
+alloy's 160: a storm factor near four, with gust amplitudes far
+below fatigue concern. The storm-critical member is and remains
+the arm, unaffected by any hub choice.
+
+Sourcing notes for the prepared rods, kept from earlier rounds:
 
 - Tube cannot be tapped: any 8 mm tube has a bore at or above 5
-  mm, which is already larger than the M5 thread. Solid rod only.
-- Solid 8 mm aluminum rod taps easily by hand: center punch,
-  drill 4.2 mm about 14 mm deep, tap M5x0.8. A lathe makes it
-  concentric and fast but is not required, because the socket
-  locates the shaft and the bolt only supplies axial preload, so
-  thread concentricity is not critical.
+  mm, already larger than the M5 thread. Solid rod only.
+- Solid 8 mm rod taps easily by hand (center punch, drill 4.2 mm
+  about 14 mm deep, tap M5x0.8), and dies easily by hand (chamfer
+  the end, run the die). Concentricity is not critical in either
+  case, because bores and steps locate the rods and the threads
+  only supply axial preload.
 - For kits, linear-motion suppliers sell ground 8 mm shafts with
-  female-tapped ends as a standard catalog option, which is zero
+  threaded ends as a standard catalog option, which is zero
   machining.
-
-Considered and set aside, recorded so it is not rediscovered: a
-MALE die thread on the shaft top instead of the tap (8 mm rod is
-an M8 blank, so a hand die is the cheapest prep of all), with the
-hub squeezed between a shoulder nut under its bottom face and a
-top nut. Mechanically it works, but it puts thread roots at the
-shaft's highest-bending cross-section, right where the shaft
-exits the hub: the M8 minor diameter of about 6.5 mm roughly
-halves the bending section modulus and adds a fatigue notch to a
-joint the stop clack vibrates for years, and the shoulder nut
-reintroduces a set-by-position adjustment where the tap gives
-pure geometry. The female tap keeps the critical section a solid
-8 mm circle inside a snug printed socket. Die threads remain a
-good trick for any future joint that carries no bending.
 
 ## The screwed stub tip
 
@@ -116,14 +114,15 @@ will be drawn notchless from the start rather than forking the
 solid vane for a cosmetic deletion now.
 
 What the whole tri now needs, beyond printed parts and rod stock:
-seven M5 screws with washers (one hub, three stub, three cap, all
-into tapped rod ends, threadlocked against stop vibration), eight
-M3s with nylocs (three arm-clamp pairs and the thrust collar),
-and the rod prep of seven M5 taps across four rods. No nuts are
-juggled anywhere, and nothing is set by feel: the arms butt the
-hub's boss circle, the stubs land on their steps, every stop angle
-is keyed geometry, and the one adjustable joint left in the whole
-machine is the gauged thrust collar on the shaft.
+six M5 screws with washers (three stub, three cap, into tapped
+rod ends, threadlocked against stop vibration), two M8 nylocs
+with fender washers at the hub, eight M3s with nylocs (three
+arm-clamp pairs and the thrust collar), and the rod prep of one
+die pass on the shaft and six taps across the three stubs.
+Nothing is set by feel: the arms butt the hub's boss circle, the
+stubs land on their steps, every stop angle is keyed geometry,
+and the one adjustable joint left in the whole machine is the
+gauged thrust collar on the shaft.
 
 The dual's performance work showed what limits low-wind running
 once the geometry is tuned: thrust-seat friction, vane mass, and
@@ -156,7 +155,7 @@ would have to be bolted on, at which point the swing-vane concept
 is the simpler machine.
 
 Build order as the tri matures toward its first release: three
-arms first via the split hub above (pure consistency, dual vanes
-throughout), then washers, then film vanes, then the reach-for-arm
-trade only if the water still asks for it. Further tri ideas land
-here as they come.
+arms first via the washer-jaw hub above (pure consistency, dual
+vanes throughout), then washers, then film vanes, then the
+reach-for-arm trade only if the water still asks for it. Further
+tri ideas land here as they come.
