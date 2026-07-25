@@ -147,28 +147,27 @@ def main():
           f"{arm_wall:.1f} mm between arm groove and stub groove,"
           f" {stub_wall:.1f} mm outboard of the stub (>= 4 / >= 3)")
 
-    # --- bracket clamshell: M5 bolts and the peg keep their walls,
+    # --- bracket clamshell: M3 bolts and the pegs keep their walls,
     #     the halves keep their gap (hub rules) ---
-    m5r = P["m5_clear_d"] / 2
+    m3r = P["m3_clear_d"] / 2
     zc = P["bracket_h"] / 2
-    bolt_edge = zc - P["bracket_bolt_dz"] - m5r
-    bolt_groove = P["bracket_bolt_dz"] - m5r - P["rod_snug_d"] / 2
+    bolt_edge = zc - P["bracket_bolt_dz"] - m3r
+    bolt_groove = P["bracket_bolt_dz"] - m3r - P["rod_snug_d"] / 2
     check(ok, min(bolt_edge, bolt_groove) >= 2, "bracket arm bolts",
           f"{bolt_edge:.2f} mm to the faces, {bolt_groove:.2f} mm to"
           " the arm groove (>= 2)")
-    sb_groove = P["bracket_bolt_dx"] - m5r - P["rod_snug_d"] / 2
-    sb_socket = (P["bracket_stub_x"] - P["bracket_bolt_dx"] - m5r
+    sb_groove = P["bracket_bolt_dx"] - m3r - P["rod_snug_d"] / 2
+    sb_socket = (P["bracket_stub_x"] - P["bracket_bolt_dx"] - m3r
                  - P["bracket_arm_grip"])
     sb_end = (P["bracket_len"] - P["bracket_stub_x"]
-              - P["bracket_bolt_dx"] - m5r)
+              - P["bracket_bolt_dx"] - m3r)
     check(ok, min(sb_groove, sb_socket, sb_end) >= 2, "bracket stub bolts",
           f"{sb_groove:.2f} mm to the stub groove, {sb_socket:.2f} mm to"
           f" the arm groove end, {sb_end:.2f} mm to the end face (>= 2)")
-    peg_stub = (P["bracket_stub_x"] - P["rod_snug_d"] / 2
-                - P["bracket_peg_x"] - 2)
+    peg_groove = P["bracket_peg_dz"] - P["rod_snug_d"] / 2 - 2
     peg_edge = zc - P["bracket_peg_dz"] - 2
-    check(ok, min(peg_stub, peg_edge) >= 1.5, "bracket peg",
-          f"{peg_stub:.1f} mm to the stub groove, {peg_edge:.1f} mm to"
+    check(ok, min(peg_groove, peg_edge) >= 1.5, "bracket pegs",
+          f"{peg_groove:.1f} mm to the arm groove, {peg_edge:.1f} mm to"
           " the faces (>= 1.5)")
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
@@ -188,10 +187,10 @@ def main():
     groove_top = P["bracket_h"] / 2 + P["rod_snug_d"] / 2
     check(ok, pocket_floor - groove_top >= 3, "ring pocket floor",
           f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
-    peg_top = P["bracket_h"] / 2 + P["bracket_peg_dz"] + 2
-    check(ok, pocket_floor - peg_top >= 1.5, "pegs clear the pocket",
-          f"{pocket_floor - peg_top:.1f} mm between top peg and pocket"
-          " floor (>= 1.5)")
+    check(ok, P["bracket_stub_x"] - pocket_r
+              - (P["bracket_peg_x"] + 2) >= 1.5, "pegs clear the pocket",
+          f"{P['bracket_stub_x'] - pocket_r - P['bracket_peg_x'] - 2:.1f}"
+          " mm between the pegs and the pocket wall (>= 1.5)")
     check(ok, 2 <= P["ring_flat_x"] <= P["ring_foot_d"] / 2 - 2,
           "ring D flat keys",
           f"flat at {P['ring_flat_x']} mm, foot radius"
@@ -215,10 +214,11 @@ def main():
           f"{cap_engage:.1f} mm (>= 14: friction-only joints live on"
           " grip length; the cap also retains the vane)")
     edge = math.hypot(P["vane_sleeve_od"] / 2,
-                      P["vane_sleeve_od"] / 2 - P["vane_t"])
-    check(ok, edge >= P["cap_d"] / 2 + 1, "panel clears the cap",
-          f"panel near edge {edge:.1f} mm off the hinge axis, the cap"
-          f" reaches {P['cap_d'] / 2} (>= 1 mm air)")
+                      P["vane_sleeve_od"] / 2 - P["vane_rim_h"])
+    check(ok, edge >= P["cap_d"] / 2 + 1, "flag clears the cap",
+          f"rim corner {edge:.1f} mm off the hinge axis, the cap"
+          f" reaches {P['cap_d'] / 2} (>= 1 mm air; the near-edge"
+          " rim's inner corner, not the panel face, passes closest)")
     check(ok, P["collar_boss_h"] >= 2, "panel clears the bracket",
           f"the boss lifts sleeve and panel {P['collar_boss_h']} mm"
           " above the bracket top (>= 2: the flag swings over it)")
@@ -247,6 +247,37 @@ def main():
     engage = P["stop_wedge_len"] - 1
     check(ok, engage >= 3, "wedge engagement",
           f"{engage:.1f} mm of wedge inside each notch (>= 3)")
+
+    # --- cap slit placement: the nut corners and bolt tips are the
+    #     only things proud of the cap cylinder, and the folding
+    #     flag's near edge sweeps a band of the cap's airspace (the
+    #     swing arc plus the 45 deg the rim corner trails the panel
+    #     direction; 45 exactly, because the panel's outer face is
+    #     tangent to the sleeve). Angles are cap-local, wedge center
+    #     at 0: at the driven stop the wedge's contact wall (+w/2)
+    #     lands on the notch wall, the notch is centered on the panel
+    #     normal (vane.scad's pie, panel direction + 90), and folding
+    #     carries the panel toward +. The slit hardware must clear
+    #     the whole swept band ---
+    w = P["stop_wedge_deg"]
+    panel0 = w / 2 - notch / 2 + 90    # panel direction at the stop
+    forbid = (panel0, panel0 + P["vane_swing_deg"] + 45)
+    bolt_x = (P["rod_snug_d"] / 2 + P["cap_d"] / 2) / 2
+    nut_x = bolt_x + P["m3_nut_af"] / math.cos(math.radians(30)) / 2
+    prot = (P["cap_slit_deg"]
+            + math.degrees(math.atan2(P["rod_snug_d"] / 2, nut_x)),
+            P["cap_slit_deg"]
+            + math.degrees(math.atan2(P["cap_d"] / 2 + 2, bolt_x)))
+    gap_after = (prot[0] - forbid[1]) % 360   # flag band up to hardware
+    gap_before = (forbid[0] - prot[1]) % 360  # hardware up to flag band
+    disjoint = abs(gap_after + gap_before + (forbid[1] - forbid[0])
+                   + (prot[1] - prot[0]) - 360) < 1e-6
+    check(ok, disjoint and min(gap_after, gap_before) >= 15,
+          "cap slit clears the flag",
+          f"bolt hardware spans {prot[0]:.0f}..{prot[1]:.0f} deg off the"
+          f" wedge, the flag sweeps {forbid[0]:.0f}..{forbid[1]:.0f}"
+          f" ({min(gap_after, gap_before):.0f} deg clear, >= 15: the cap"
+          " is set by hand, leave the angle slop)")
     face = overlap * engage
     print(f"[info] each stop face contact: {overlap:.1f} x {engage:.1f} mm"
           f" = {face:.0f} mm2, two faces per stop")

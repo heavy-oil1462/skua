@@ -99,8 +99,9 @@ module vane() {
 // above points straight up in print orientation — the panel plane's
 // NORMAL, not the panel side. Mechanically the notch's angular position
 // is arbitrary (the stop angle is set at assembly by rotating cap and
-// collar), but main_assembly.scad's wedge_set is derived from this
-// reference, so move both together.
+// collar), but main_assembly.scad's cap placement and the cap slit
+// clearance band in scripts/geometry_check.py derive from this
+// reference, so move all of them together.
 module pie(r, deg) {
     polygon(concat([[0, 0]],
         [for (a = [-deg / 2 : 5 : deg / 2]) [-r * cos(a), r * sin(a)]],

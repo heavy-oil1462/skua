@@ -9,16 +9,25 @@
 //   Turns the vane hinge VERTICAL: the arm ends in a blind groove and
 //   the stub rod stands in a through groove. Both rod axes lie in the
 //   split plane, so like the hub the two halves close over arm and
-//   stub as a pillow block, and four M5x40s with wide washers clamp
-//   both rods at once. No teardrops and no press fits: with the ASA
-//   snug a true 8.0 the rods LAY IN and the bolts do the gripping.
+//   stub as a pillow block, and four M3x30s with small washers clamp
+//   both rods at once: this joint rides 620 mm out on the arm, so it
+//   is sized for weight, and M3 preload is plenty for a clamp whose
+//   only friction duty is gust torsion about the arm. No teardrops
+//   and no press fits: with the ASA snug a true 8.0 the rods LAY IN
+//   and the bolts do the gripping.
 //
-//   The pocket on top traps the STOP RING's D foot (stop_ring.scad)
-//   exactly the way the grooves trap the rods: lay it in with the
-//   rods, close the clamshell, and its angle is locked. The bracket
-//   itself carries no protrusions at all, so both halves print split
-//   face up as plain blocks with open channels: grooves, pocket and
-//   bolt bores, nothing to support anywhere.
+//   The pocket on top keys the STOP RING's D foot (stop_ring.scad)
+//   the way the grooves key the rods, but nothing has to be juggled
+//   at closing time: the pocket opens through the top face and the
+//   stub groove runs straight through, so the clamshell closes over
+//   the ARM alone, then the stub slides down through the closed
+//   groove (a funnel mouth in the pocket floor gives the rod a
+//   lead-in) and the ring drops in over it. The closed pocket locks
+//   the ring's angle and the sleeve standing on its boss holds it
+//   down. The bracket itself carries no protrusions at all, so both
+//   halves print split face up as plain blocks with open channels:
+//   grooves, pocket, funnel and bolt bores, nothing to support
+//   anywhere.
 //
 //   Hub rules apply: the halves NEVER touch (bracket_clamp_gap keeps
 //   the bolt preload on the rods; an even gap all around means the
@@ -29,8 +38,11 @@ include <design_params.scad>
 
 $fn = 80;
 
-peg_d = 4;               // registration pegs, same size as the hub's
-zc    = bracket_h / 2;   // the arm axis height
+peg_d        = 4;             // registration pegs, same size as the hub's
+zc           = bracket_h / 2; // the arm axis height
+stub_lead_in = 1.5;           // funnel mouth at the stub groove's top
+                              // entrance, so the rod finds a
+                              // line-to-line groove blind
 
 // The assembled clamshell, halves gapped on the rods (for the scene;
 // the halves are modeled in place, peg half on +y).
@@ -85,6 +97,16 @@ module bracket_solid() {
         translate([bracket_stub_x, 0, -0.1])
             cylinder(h = bracket_h + 0.2, d = rod_snug_d);
 
+        // funnel mouth where the groove meets the ring pocket floor:
+        // the stub goes in from above with the halves already closed
+        // over the arm (docs/assembly.md step 4). Eats a ring of the
+        // pocket floor the foot never needed; still an open-channel
+        // cut in each half, nothing to support
+        translate([bracket_stub_x, 0,
+                   bracket_h - ring_foot_t - stub_lead_in])
+            cylinder(h = stub_lead_in + 0.1, d1 = rod_snug_d,
+                     d2 = rod_snug_d + 2 * (stub_lead_in + 0.1));
+
         // keyed pocket for the stop ring's D foot, flat outboard
         translate([bracket_stub_x, 0, bracket_h - ring_foot_t])
             intersection() {
@@ -109,7 +131,7 @@ module bracket_solid() {
 module bolt_bore(pos) {
     translate([pos[0], 0, pos[1]])
         rotate([90, 0, 0])
-            cylinder(h = bracket_w + 2, d = m5_clear_d, center = true);
+            cylinder(h = bracket_w + 2, d = m3_clear_d, center = true);
 }
 
 tip_bracket();
