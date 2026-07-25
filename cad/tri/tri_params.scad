@@ -67,5 +67,6 @@ tri_frame_t    = 4;    // ... and thickness
 tri_skin_t     = 0.4;  // membrane, drawn translucent
 tri_washer_t   = 1;    // PTFE washer on the stop ring boss
 tri_washer_od  = 14;
-tri_mast_h     = 300;  // drawn stub of the taller mounting (the study
-                      // credits ~10 percent wind for +1 m)
+tri_mast_h     = 300;  // the taller mounting, study numbers only,
+                       // not drawn (the ladder credits ~10 percent
+                       // wind for +1 m)

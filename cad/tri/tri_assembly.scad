@@ -58,10 +58,8 @@ module tri_m5_screw(reach) {
     translate([0, 0, -reach]) cylinder(h = reach, d = 5); // shank
 }
 
-// mast stub (the taller mounting, drawn as a pole), then the dual
-// base on top of it
-color("Silver") translate([0, 0, -tri_mast_h])
-    cylinder(h = tri_mast_h, d = 25);
+// the dual base, plank level at z = 0 (the taller mounting from
+// the study's ladder is numbers only, not drawn)
 color("Tomato") base();
 
 // shaft (top tri_shaft_thread of it die-threaded M8, drawn plain),
