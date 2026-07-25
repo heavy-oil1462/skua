@@ -148,8 +148,10 @@ cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
 //     bracket rotated 180 about the stub serves the other arm). Both
 //     rod axes lie in the split plane, so the halves close over arm
 //     and stub like the hub closes over its rods, bolted with M3x30s
-//     and small washers, and they trap the stop ring's D foot in the
-//     pocket on top the same way, so the stub stack is just the
+//     and small washers. The stub groove runs through and the ring
+//     pocket opens upward, so stub and stop ring feed in from above
+//     once the clamshell has closed on the arm, and the closed
+//     pocket keys the ring's D foot; the stub stack is just the
 //     ring, the sleeve and the end cap. The joint rides 620 mm out
 //     on the arm, so it is sized for weight: M3 preload is plenty
 //     for a clamp whose only friction duty is gust torsion, and the
@@ -186,8 +188,8 @@ ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
 ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
 
 // --- Stop wedges (SHARED: one on the end cap, set at assembly, and
-//     one printed into the tip bracket's top face at the fixed
-//     driven-stop angle; each rides a notch in its end of the vane
+//     the stop ring's fin, keyed to the fixed driven-stop angle by
+//     the bracket pocket; each rides a notch in its end of the vane
 //     sleeve so the stop impact is carried by two, and their flat
 //     radial faces land flush on the notch walls — lib/stop_wedge.scad) ---
 stop_wedge_deg = 40;   // angular thickness; the notch arc grows by this

@@ -9,8 +9,8 @@ parameter edit that silently sinks the vanes into the plank or starves
 a socket of engagement cannot merge.
 
 The rotor works by swing asymmetry: each vane swings vane_swing_deg
-between the stop wedges and their notches (end cap wedge outboard, arm
-collar wedge inboard, sharing the impact on flat faces), folding flat
+between the stop wedges and their notches (end cap wedge above, the
+stop ring's fin below, sharing the impact on flat faces), folding flat
 one way and presenting its full face the other. The checks keep that
 mechanism real: the wedges must actually reach the notches, and the
 notch must not eat the whole sleeve wall.

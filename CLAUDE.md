@@ -31,7 +31,9 @@ hardware. No electronics — the wind does everything.
   needs a moderate breeze to fold, and below that the rotor only
   rocks in place. Never tilt the hinge or hang mass on the vane in a
   way that gives the free swing a gravity slope; the sleeve's weight
-  rides the tip bracket's small boss ring so spin friction stays low.
+  rides the stop ring's small boss so spin friction stays low (that
+  thrust face is what sets the self-start wind — performance_check
+  gates it).
 - **One rod stock.** Shaft, arms and the two vertical hinge stubs are
   all 8 mm aluminum rod (the 608 bore). No second diameter may creep
   in.
@@ -61,7 +63,9 @@ hardware. No electronics — the wind does everything.
   the tip brackets are clamshells split on the plane containing their
   rod axes: lay in the rods, bolt the halves with washered bolts
   (M5 at the hub, M3 at the tip brackets, which ride 620 mm out and
-  are sized for weight); the halves must never close solid
+  are sized for weight); the bracket's stub groove runs through and
+  its ring pocket opens upward, so stub and stop ring feed in from
+  above after the clamshell closes on the arm; the halves must never close solid
   (hub_clamp_gap and bracket_clamp_gap keep preload on the rods,
   never fix a "gap" by shrinking it to zero). The collars and end caps are
   WIDE dual-bolt slit clamps: friction-only joints live on grip
@@ -100,7 +104,8 @@ binaries** (`nix shell` / `nix build` only). OpenSCAD comes from
 hatch: set `OPENSCAD=/path/to/openscad`; the scripts are stdlib-only Python.
 
 - `python3 scripts/regen_all.py` — the single entry point for derived
-  artifacts: gates (params, geometry) → all STLs → `main_assembly.png`. Run
+  artifacts: gates (params, geometry) → all STLs → performance gate →
+  `main_assembly.png`. Run
   after ANY .scad change (see the `regen-outputs` skill). `--check` is the
   read-only commit gate (the `verify` skill): fresh renders are
   byte-compared against the committed artifacts. The byte comparison
@@ -109,6 +114,12 @@ hatch: set `OPENSCAD=/path/to/openscad`; the scripts are stdlib-only Python.
 - `python3 scripts/geometry_check.py` — recomputes the assembly stack-up
   (clearances, engagements, the stop-wedge geometry, bed fit) from the shared
   params and fails on any violation. Run after ANY parameter change.
+- `python3 scripts/performance_check.py` — the physics gate: self-start
+  wind, parasitic drag ratchet, and storm safety factors for every load
+  path (locked rotor, flag face-on at the survival wind). Mass model
+  reads the committed STLs, so it runs after the STL stage in regen_all.
+  Analysis constants (materials, drag coefficients, bolt preloads) live
+  in this file with their rationale; they are not CAD dimensions.
 - `python3 scripts/render_scad.py <file.scad> <out.png|stl> [args]` —
   one-off headless renders (see the `openscad-review` skill).
 
