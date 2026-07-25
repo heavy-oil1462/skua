@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""What-if study for Skua v2.0 — NOT a gate, prints a comparison table.
+"""What-if study for the Skua tri variant — NOT a gate, prints a comparison table.
 
-v1's performance_check gates the design that exists.  This study asks
-where the machine could go if the v1 constraints fall away, holding
+The dual's performance_check gates the design that exists.  This study asks
+where the machine could go if the dual's constraints fall away, holding
 one thing fixed: the overall span stays close to today's (the flag
 sweep circle, so arm length shrinks when vane reach grows).  Goal:
 maximum CONSISTENT spin at low wind.
 
-Two models on top of the v1 constants:
+Two models on top of the dual's constants:
 
-  1. The v1 fold/start model, evaluated per variant (seat friction,
+  1. The dual's fold/start model, evaluated per variant (seat friction,
      vane mass, aero area and lever, wind-gradient credit for a
      taller tower).
 
-  2. A torque-vs-rotor-angle model the v1 suite does not have.
+  2. A torque-vs-rotor-angle model the dual suite does not have.
      "Consistent" means the worst parking angle still produces
      torque: each vane is quasi-statically free between its stops,
      weathervanes when the trailing direction is reachable, and
@@ -24,7 +24,7 @@ Two models on top of the v1 constants:
 
 Variants are CUMULATIVE, top to bottom.  Assumption constants below
 carry their rationale; run this script for current numbers instead of
-quoting stale ones.  Nothing here changes v1 parts or gates.
+quoting stale ones.  Nothing here changes dual parts or gates.
 """
 
 import math
@@ -35,7 +35,7 @@ from performance_check import (CD_PLATE, MU_HINGE, RHO_AIR, RHO_ASA,
 
 MM = 1e-3
 
-# --- v2 assumption constants -------------------------------------------
+# --- tri-variant assumption constants -------------------------------------------
 MU_PTFE = 0.12         # thin PTFE washer on the thrust seat
 R_WASHER = 5.3 * MM    # its effective friction radius (8x14 washer)
 FILM_VANE_KG = 0.028   # printed perimeter frame + mylar/ripstop skin,
@@ -119,9 +119,9 @@ def main():
     # cumulative ladder: (label, arms, mu, r_seat, vane_kg,
     #                     (area, d, r_drive, arm_mm, rod_s), shear)
     v1_geom = (a0, d0, r0, P["arm_length"], rod8_s)
-    v2_geom = (a2, d2, r2, 500, ROD10_S)
+    tri_geom = (a2, d2, r2, 500, ROD10_S)
     ladder = [
-        ("v1 as built (calibrated 78 g vane)",
+        ("dual as built (calibrated 78 g vane)",
          2, MU_HINGE, seat, VANE_SLICED_KG, v1_geom, 1.0),
         ("+ PTFE washer on the thrust seat",
          2, MU_PTFE, R_WASHER, VANE_SLICED_KG, v1_geom, 1.0),
@@ -130,9 +130,9 @@ def main():
         ("+ film-and-frame vanes (~28 g)",
          3, MU_PTFE, R_WASHER, FILM_VANE_KG, v1_geom, 1.0),
         ("+ reach 250 on 500 arms, 10 mm rod (span held)",
-         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, v2_geom, 1.0),
+         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, tri_geom, 1.0),
         ("+ tower 1 m taller (wind shear credit)",
-         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, v2_geom, shear_tall),
+         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, tri_geom, shear_tall),
     ]
 
     print(f"{'variant':<48}{'start':>7}{'worst/mean':>11}{'arm SF':>8}")
@@ -148,11 +148,11 @@ def main():
     print("worst/mean: worst-parking-angle torque over the revolution")
     print("  mean; zero means dead angles exist (the two-arm problem).")
     print("arm SF: locked-rotor storm safety factor at the hub, one")
-    print("  flag face-on at 25 m/s; v1 floor is 1.3.")
+    print("  flag face-on at 25 m/s; dual floor is 1.3.")
     print()
     # re-arm, the other consistency term (see performance_check)
     for label, mkg, area, d, reach in (
-            ("v1 vane", VANE_SLICED_KG, a0, d0, P["vane_reach"]),
+            ("dual vane", VANE_SLICED_KG, a0, d0, P["vane_reach"]),
             ("film vane", FILM_VANE_KG, a0, d0, P["vane_reach"]),
             ("film vane, reach 250", FILM_VANE_250_KG, a2, d2, 250)):
         i = mkg * ((reach * MM) ** 3 - sleeve_r ** 3) / (3 * (reach * MM - sleeve_r))

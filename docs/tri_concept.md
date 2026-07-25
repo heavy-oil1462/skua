@@ -1,0 +1,62 @@
+# The tri variant: consistent spin in the least wind
+
+Skua ships in two parallel variants, each with its own release line
+tagged on main:
+
+- the DUAL: two arms, solid vanes, the mature machine (v1.0 at tag
+  time). Its docs are the README and the assembly guide.
+- the TRI: three arms, the light-wind variant, young (tri-v0.1
+  when it first flies). This document and `cad/tri/` are its home
+  while it grows; it is a sibling of the dual, not its successor,
+  and both live on.
+
+Status: concept study. Nothing under `cad/tri/` changes dual parts,
+parameters or gates, and nothing from it is exported to `stl/`.
+
+One constraint carries over from the dual: the overall span stays
+close to today's sweep circle, so when vane reach grows the arms
+shorten to match. Everything else is open.
+
+![tri concept](tri_assembly.png)
+
+The scene is `cad/tri/tri_assembly.scad`; open it in OpenSCAD to
+walk around it (regen_all renders it to the image above). The tri
+models use `tri_` prefixed parameters, are massing concepts rather
+than printable parts, and reuse the dual's stub-side stack (stop
+ring, washer seat, end cap, sleeve bore) directly so proportions
+are honest; hub and tip knuckles are placeholders.
+
+The dual's performance work showed what limits low-wind running
+once the geometry is tuned: thrust-seat friction, vane mass, and
+the two-arm torque gap. `scripts/tri_study.py` models the candidate
+fixes as a cumulative ladder; run it for current numbers. The
+directional findings:
+
+- The worst parking angle of the two-arm rotor produces NEGATIVE
+  torque (the wind holds it against rotation), which is the rocking
+  behavior seen at low wind. Three arms at 120 degrees turn the
+  worst angle into about 0.7 of mean torque; this is the single
+  biggest consistency change and needs a new hub, a third arm and a
+  third vane, nothing else.
+- A PTFE washer on each thrust seat cuts self-start from about 1.0
+  to about 0.66 m/s; film-and-frame vanes (printed perimeter,
+  mylar or ripstop skin, ~28 g against 78) take it to about 0.4 and
+  also fix the re-arm margin (about 70 degrees of transit against
+  the 90 degree window, comfortably early).
+- Holding the span while trading arm length for vane reach (500 mm
+  arms, 250 mm reach) needs 10 mm arm rod, abandoning the dual's
+  one-rod-stock rule, and lands self-start around 0.26 m/s with a
+  better storm margin than the dual has today.
+- A meter more tower height is worth about ten percent of wind at
+  threshold from the boundary layer alone.
+
+Rejected endpoint, recorded so it is not rediscovered: cup or
+Savonius geometry spins earliest of all but loses the flapping and
+the clack that actually scare gulls; a rotation-driven clacker
+would have to be bolted on, at which point the swing-vane concept
+is the simpler machine.
+
+Build order as the tri matures toward its first release: three
+arms first (pure consistency, no new materials), then washers,
+then film vanes, then the reach-for-arm trade only if the water
+still asks for it. Further tri ideas land here as they come.

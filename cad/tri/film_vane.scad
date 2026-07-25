@@ -1,5 +1,5 @@
 // ============================================================
-// v2 CONCEPT: film-and-frame vane. A printed perimeter frame with a
+// TRI VARIANT CONCEPT: film-and-frame vane. A printed perimeter frame with a
 // membrane skin (mylar or ripstop) instead of v1's solid panel:
 // same face area at roughly a third of the mass, which the study
 // says buys both the fold threshold and the re-arm margin.
@@ -12,13 +12,13 @@
 // ============================================================
 
 include <../design_params.scad>
-include <v2_params.scad>
+include <tri_params.scad>
 use <../vane.scad>
 
 $fn = 60;
 
-v2_notch_deg = vane_swing_deg + ring_wedge_deg;
-v2_panel_x   = vane_sleeve_od / 2 - v2_frame_t;  // frame plane offset,
+tri_notch_deg = vane_swing_deg + ring_wedge_deg;
+tri_panel_x   = vane_sleeve_od / 2 - tri_frame_t;  // frame plane offset,
                                                  // tangent like v1
 
 module film_vane() {
@@ -32,27 +32,27 @@ module film_vane() {
         for (z = [-0.25, vane_sleeve_len - stop_wedge_len - 0.75])
             translate([0, 0, z])
                 linear_extrude(height = stop_wedge_len + 1)
-                    pie(sleeve_r + 1, v2_notch_deg);
+                    pie(sleeve_r + 1, tri_notch_deg);
     }
     // frame: a picture-frame rectangle from the sleeve to the reach,
     // overhanging the sleeve top like v1 (the flag is the face)
     frame_h = vane_width;
-    translate([v2_panel_x, 0, 0]) {
-        for (y = [sleeve_r, v2_vane_reach - v2_frame_w])
+    translate([tri_panel_x, 0, 0]) {
+        for (y = [sleeve_r, tri_vane_reach - tri_frame_w])
             translate([0, y, 0])
-                cube([v2_frame_t, v2_frame_w, frame_h]);
-        for (z = [0, frame_h - v2_frame_w])
+                cube([tri_frame_t, tri_frame_w, frame_h]);
+        for (z = [0, frame_h - tri_frame_w])
             translate([0, sleeve_r, z])
-                cube([v2_frame_t, v2_vane_reach - sleeve_r, v2_frame_w]);
+                cube([tri_frame_t, tri_vane_reach - sleeve_r, tri_frame_w]);
         // the skin
         color("LemonChiffon", 0.45)
-            translate([v2_frame_t / 2, sleeve_r, 0])
-                cube([v2_skin_t, v2_vane_reach - sleeve_r, frame_h]);
+            translate([tri_frame_t / 2, sleeve_r, 0])
+                cube([tri_skin_t, tri_vane_reach - sleeve_r, frame_h]);
     }
     // web joining sleeve to the frame's near edge
     hull() {
-        translate([v2_panel_x, sleeve_r, 0])
-            cube([v2_frame_t, v2_frame_w, vane_sleeve_len]);
+        translate([tri_panel_x, sleeve_r, 0])
+            cube([tri_frame_t, tri_frame_w, vane_sleeve_len]);
         cylinder(h = vane_sleeve_len, d = vane_sleeve_od - 4);
     }
 }
