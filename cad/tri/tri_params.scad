@@ -24,6 +24,11 @@ tri_hub_disc_h   = 7.2;  // rod_d minus the clamshell gap: the arms
                          // washer preload lands on the rods, never
                          // on face-to-face plastic
 tri_hub_boss_d   = 14;   // arm butt circle around the bore
+tri_hub_gap      = 0.8;  // clamshell rule: the rods stand proud of
+                         // their seats or slots by half this per
+                         // side, so preload lands on the rods
+tri_hub_shell_h  = 6;    // the sandwich variant's half-shell: a
+                         // 3.6 half-seat plus a 2.4 web under it
 tri_shaft_thread = 40;   // M8x1.25 die length on the shaft's top end
                          // (rod prep: a hand die, no drilling at all)
 tri_nut_af       = 13.4; // M8 nyloc across flats, drawn in the scene

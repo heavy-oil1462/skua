@@ -2,10 +2,11 @@
 // TRI VARIANT CONCEPT ASSEMBLY — open this file in OpenSCAD to review.
 //
 // The tri v0.1: three arms at 120 degrees (the worst-parking-angle
-// fix) keyed by the spacer disc from tri_hub.scad and clamped
-// between two fender washers by M8 nylocs on the shaft's die-
-// threaded top: steel jaws on aluminum rods, no plastic in
-// compression. At each tip the tri's screwed stub replaces the
+// fix) cradled in the sandwich hub from tri_hub.scad, two
+// identical half-shells clamped between fender washers by M8
+// nylocs on the shaft's die-threaded top (the slot-disc variant
+// with steel-on-rod jaws is modeled alongside; one-line swap
+// below). At each tip the tri's screwed stub replaces the
 // dual's clamped one: the stub drops through the bracket onto a
 // printed step and is pulled home by an M5 from below; the smooth
 // end cap lands on the stub's top face and is pulled home by an
@@ -39,7 +40,8 @@ $fn = 48;
 // the top nut lands flush with the shaft tip, everything hangs
 // from there
 shaft_top   = shaft_tip_h + shaft_length;
-tri_arm_z   = shaft_top - tri_nut_t - tri_m8_washer_t - rod_d / 2;
+tri_arm_z   = shaft_top - tri_nut_t - tri_m8_washer_t
+              - tri_hub_shell_h - tri_hub_gap / 2;
 arm_root    = tri_hub_boss_d / 2;            // arms butt the boss circle
 arm_tip     = arm_root + arm_length;
 bracket_x   = arm_tip - bracket_arm_grip;
@@ -63,16 +65,24 @@ color("Silver") translate([0, 0, -tri_mast_h])
 color("Tomato") base();
 
 // shaft (top tri_shaft_thread of it die-threaded M8, drawn plain),
-// then the washer-jaw hub: lower washer and nut the shoulder, the
-// spacer disc keying the arms, upper washer and nut the clamp
+// then the sandwich hub: lower washer and nut the shoulder, two
+// identical half-shells cradling the arms, upper washer and nut
+// the clamp (swap the shells for tri_hub_disc to see the slot-disc
+// variant)
 color("DarkGray") translate([0, 0, shaft_tip_h])
     cylinder(h = shaft_length, d = rod_d);
-color("Silver") translate([0, 0, tri_arm_z - rod_d / 2])
-    rotate([180, 0, 0]) tri_m8_stack();
-color("SteelBlue") translate([0, 0, tri_arm_z - tri_hub_disc_h / 2])
-    tri_hub_disc();
-color("Silver") translate([0, 0, tri_arm_z + rod_d / 2])
-    tri_m8_stack();
+color("Silver")
+    translate([0, 0, tri_arm_z - tri_hub_gap / 2 - tri_hub_shell_h])
+        rotate([180, 0, 0]) tri_m8_stack();
+color("SteelBlue")
+    translate([0, 0, tri_arm_z - tri_hub_gap / 2 - tri_hub_shell_h])
+        tri_hub_shell();
+color("SteelBlue")
+    translate([0, 0, tri_arm_z + tri_hub_gap / 2 + tri_hub_shell_h])
+        rotate([180, 0, 0]) tri_hub_shell();
+color("Silver")
+    translate([0, 0, tri_arm_z + tri_hub_gap / 2 + tri_hub_shell_h])
+        tri_m8_stack();
 
 // poses: driven stop, weathervaned, mid re-arm
 poses = [0, vane_swing_deg, vane_swing_deg / 2];

@@ -56,6 +56,20 @@ slot flanks carry the arms' horizontal storm bending as bearing
 over 18 mm, the washer faces square the hub on the shaft, and the
 disc prints flat in minutes.
 
+A second variant sits between this and the split hub it replaced,
+modeled alongside it (`tri_hub_shell`, currently the one in the
+scene): two identical thin half-shells, each a 3.6 mm half-seat
+over a 2.4 mm web, cradle the arms over the full grip, and the
+washers clamp the sandwich. The arms get distributed bearing top
+and bottom instead of the washer rim's edge clamp, and nothing
+can ever rattle; the price is those webs putting plastic back in
+the clamp path, so a mild version of the dual's clamp creep
+returns (low stress over a large washer footprint, and a spring
+washer under each nut absorbs what little there is). Same
+hardware, same print-two-of-one-part, 13 mm tall against 7. The
+slot disc is the no-re-torque purist, the shells are the gentler
+cradle; the bench and the water pick between them.
+
 A structural note, recording a correction: an earlier pass
 rejected male thread on the shaft, claiming the storm case fails
 at the threaded exit with a safety factor near 0.7. That number

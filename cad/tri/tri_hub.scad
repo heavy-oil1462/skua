@@ -1,18 +1,24 @@
 // ============================================================
-// TRI WASHER-JAW HUB — concept CAD, reviewable in tri_assembly.scad.
+// TRI WASHER-CLAMPED HUB — concept CAD, reviewable in
+// tri_assembly.scad. TWO variants, both clamped between M8 fender
+// washers and nylocs on the shaft's die-threaded top end, both
+// print-two-of-one-part (the slot disc is a single part):
 //
-// As small as the job allows: ONE printed spacer disc, just high
-// enough to key the rods. Three full-height radial slots hold the
-// arms at 120; the disc is thinner than the rod, so the arms stand
-// proud of both faces, and two large M8 fender washers press onto
-// the rods from either side, clamped by M8 nylocs on the shaft's
-// die-threaded top end. The washers are the clamp jaws: the load
-// path is steel washer, aluminum rod, steel washer, steel nut,
-// with NO plastic in compression anywhere, so unlike every clamp
-// on the dual this joint never needs a seasonal re-torque. The
-// disc only keys: slot flanks carry the arms' horizontal storm
-// bending as bearing, the arms butt the boss circle, and the
-// washer faces square the hub on the shaft.
+// tri_hub_disc — the SLOT DISC: one spacer thinner than the rod,
+// three full-height slots, arms proud of both faces, washers
+// pressing directly on the rods. Load path steel washer, aluminum
+// rod, steel washer: no plastic in compression, never needs a
+// re-torque. The slot flanks carry horizontal storm bending; the
+// washer rims edge-clamp the rods vertically.
+//
+// tri_hub_shell — the SANDWICH: two identical thin half-shells
+// (a half-seat plus a web) cradle the arms over the full grip and
+// the washers clamp the sandwich. Kinder vertical bearing on the
+// arms and nothing can rattle, at the price of the webs putting
+// plastic back in the clamp path, so a mild version of the dual's
+// clamp creep returns (a spring washer under each nut absorbs
+// it). Open A/B for the bench and the water; the scene shows the
+// sandwich.
 //
 // The shaft prep is a hand die, not a tap: 8 mm rod is an M8
 // thread blank, so the die self-aligns and this rod is never
@@ -31,7 +37,28 @@ include <tri_params.scad>
 
 $fn = 80;
 
-// the one printed part of the hub
+// three half-round arm seats cut into a face at z = 0, radial from
+// the boss circle to the rim, centers tri_hub_gap/2 beyond the face
+module tri_arm_seats() {
+    for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms])
+        translate([tri_hub_boss_d / 2, 0, tri_hub_gap / 2])
+            rotate([0, 90, 0])
+                cylinder(h = tri_hub_d / 2 - tri_hub_boss_d / 2 + 1,
+                         d = rod_snug_d);
+}
+
+// the sandwich variant's half-shell: print two, close seats to
+// seats over the arms
+module tri_hub_shell() {
+    difference() {
+        cylinder(h = tri_hub_shell_h, d = tri_hub_d);
+        translate([0, 0, -0.1])
+            cylinder(h = tri_hub_shell_h + 0.2, d = rod_free_d);
+        translate([0, 0, tri_hub_shell_h]) tri_arm_seats();
+    }
+}
+
+// the slot-disc variant: one part is the whole hub
 module tri_hub_disc() {
     difference() {
         cylinder(h = tri_hub_disc_h, d = tri_hub_d);
@@ -55,4 +82,7 @@ module tri_m8_stack() {
         cylinder(h = tri_nut_t, d = tri_nut_af / cos(30), $fn = 6);
 }
 
-tri_hub_disc();
+// preview: the sandwich pair as it prints, the slot disc beside it
+tri_hub_shell();
+translate([tri_hub_d + 10, 0, 0]) tri_hub_shell();
+translate([0, tri_hub_d + 10, 0]) tri_hub_disc();
