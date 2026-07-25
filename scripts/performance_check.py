@@ -156,6 +156,11 @@ def main():
           f"self-start at {v_spin:.1f} m/s (fold {v_fold:.1f}, torque"
           f" {v_net:.1f}; <= {V_LIGHT_AIR}: must run in Beaufort 2)")
 
+    # The ratio treats the returning flag as fully trailed; with a
+    # finite swing it also rides its trailing stop at some incidence
+    # for part of the revolution, which this single-pose model cannot
+    # see.  That is the cost side of a smaller swing; the re-arm info
+    # below is the benefit side, and the water decides between rings.
     ratio = resist_coef / drive_coef
     check(ok, ratio <= 0.05, "parasitic drag stays small",
           f"parasitic/driving torque ratio {ratio:.3f} (<= 0.05, wind"
@@ -170,6 +175,26 @@ def main():
         print(f"[info] roughly {rpm:.0f} rpm at {v:.0f} m/s"
               f" ({omega_per_v * v * (hinge_r + P['vane_reach'] * mm):.1f}"
               " m/s flag tip speed)")
+
+    # --- re-arm: after the trailing release the flag must swing all
+    #     of vane_swing_deg back before the driven stop can drive,
+    #     and the driven window is only 180 - swing degrees of rotor
+    #     travel.  Transit from the flag's hinge inertia against half
+    #     the face moment; the rotor angle it consumes is wind
+    #     independent (transit ~ 1/v, rotor speed ~ v).  Rough, so
+    #     info not gate: the swing angle is a stop-ring fin reprint,
+    #     and the boat decides ---
+    m_panel = RHO_ASA * panel_w * panel_h * P["vane_t"] * mm
+    i_hinge = (m_panel * ((P["vane_reach"] * mm) ** 3 - sleeve_r ** 3)
+               / (3 * panel_w))
+    t_per_v = math.sqrt(2 * math.radians(P["vane_swing_deg"]) * i_hinge
+                        / (0.5 * CD_PLATE * 0.5 * RHO_AIR * area * d_hinge))
+    rearm = math.degrees(omega_per_v * t_per_v)
+    window = 180 - P["vane_swing_deg"]
+    print(f"[info] re-arm: the swing-back consumes ~{rearm:.0f} deg of"
+          f" rotor travel against a {window:.0f} deg driven window"
+          " (wind independent; at 120 deg swing this read ~120 vs 60,"
+          " the flag chronically arrived late)")
 
     # --- survival: locked rotor, flag face-on at V_SURVIVAL -------------
     f_panel = CD_PLATE * q(V_SURVIVAL) * area

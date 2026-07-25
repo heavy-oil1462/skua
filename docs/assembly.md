@@ -176,9 +176,12 @@ play, rotate it until its wedge face just touches the upper notch
 wall on the stopped side, and tighten its two clamp bolts while
 holding the angle.
 
-When both are done, each flag swings freely about 120 degrees
+When both are done, each flag swings freely about 90 degrees
 toward trailing (the far wall of the ring's fin catches it there)
-and stops hard at panel-along-the-arm the other way. Both flags stop in the same
+and stops hard at panel-along-the-arm the other way. The swing
+angle belongs to the ring: a wider or narrower fin changes it
+without touching vane or cap, so keeping rings with two fin widths
+makes an easy on-the-water comparison. Both flags stop in the same
 rotational sense automatically, courtesy of the brackets; if one
 seems mirrored, its bracket is upside down (step 4). If a cap angle
 ends up wrong, loosen two bolts and set it again, nothing is

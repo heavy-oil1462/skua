@@ -14,9 +14,12 @@ vertical stub rod, held at the arm tip by a printed knuckle bracket,
 with the panel reaching out sideways like a door. A stop wedge rides
 in a notch at each end of the sleeve: one on the end cap above, and
 below it the fin of a keyed stop ring trapped in the bracket, the
-replaceable wear part. The vane swings freely through about 120
+replaceable wear part. The vane swings freely through about 90
 degrees one way and hits a hard stop the other way, the impact landing
-flat on the notch walls and shared by both wedges. Wind pushing a vane
+flat on the notch walls and shared by both wedges. The swing angle is
+set entirely by the ring fin's width (the sleeve notch minus the fin),
+so trying a different swing is a reprint of two small rings; the
+vanes, caps and their settings do not change. Wind pushing a vane
 onto its stop gets the full panel face and drags the rotor around;
 wind pushing the other vane (coming back upwind) just weathervanes it
 flat. Both stops point the same way around seen from above, so the
