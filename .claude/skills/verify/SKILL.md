@@ -19,10 +19,13 @@ What it checks, in order:
    bed fit, recomputed from the shared params
 3. every printable part renders warning-free with manifold status NoError,
    AND the fresh render is byte-identical to the committed `stl/<name>.stl`
-4. `main_assembly.png` and `docs/assembly/step*.png` byte-match fresh
+4. `performance_check.py` — self-start wind, parasitic drag ratchet,
+   storm safety factors; its mass model reads the committed STLs, which
+   step 3 just verified against the sources
+5. `main_assembly.png` and `docs/assembly/step*.png` byte-match fresh
    assembly renders (README and assembly-guide images — a stale one
    ships a wrong picture of the machine)
-5. no orphaned files in `stl/` that lack a source part
+6. no orphaned files in `stl/` that lack a source part
 
 ## When it fails
 

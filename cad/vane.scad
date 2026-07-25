@@ -9,10 +9,9 @@
 //   face. The wind mechanism still needs ASYMMETRY: a vane that could
 //   swing all the way around would just weathervane and the rotor
 //   would never start. So the sleeve's end faces carry a pie-shaped
-//   stop notch; a stop wedge rides in each (end cap on top, the tip
-//   bracket's printed wedge underneath, sharing the impact) and
-//   limits the swing to
-//   vane_swing_deg. Pushed one way the vane trails flat and slips
+//   stop notch; a stop wedge rides in each (end cap on top, the
+//   stop ring's fin underneath, sharing the impact) and limits the
+//   swing to vane_swing_deg. Pushed one way the vane trails flat and slips
 //   through the wind; pushed the other way it hits the stop, presents
 //   its full face, and drags the rotor around. Both vanes stop in the
 //   same rotational sense seen from above, so their torques add. The
@@ -25,12 +24,13 @@
 //   rests on the tip bracket's boss ring, so the vane spins with
 //   little friction and no printed face rubs a large one.
 //
-//   The notch is cut into BOTH ends: the cap wedge and the collar
-//   wedge each get one. Its radial walls match the wedge's flat side
-//   faces, so the stop is a face contact. The stop positions are set
-//   at assembly by rotating cap and collar before clamping (see
-//   README): panel pointing straight out along the arm is the driven
-//   stop.
+//   The notch is cut into BOTH ends: the cap wedge and the stop
+//   ring's fin each get one. Its radial walls match the wedge's flat
+//   side faces, so the stop is a face contact. The lower stop is
+//   keyed (the ring's D foot only fits the bracket pocket one way);
+//   only the cap is rotated at assembly, to land together with the
+//   fin (see README). Panel pointing straight out along the arm is
+//   the driven stop.
 //
 //   Prints flat on the panel, no supports: the sleeve lies on the bed
 //   and its bore is a teardrop (lib/bores.scad).

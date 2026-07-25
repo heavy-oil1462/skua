@@ -164,20 +164,19 @@ open the clamshell and drop in a freshly printed ring.
 
 The lower stop needs no setting: the keyed stop ring fixes it at
 the driven angle, so the flag stops exactly at panel-along-the-arm.
-Only the cap's wedge is set, to land together with the bracket's,
+Only the cap's wedge is set, to land together with the ring's fin,
 because two faces sharing the impact is what the stop design counts
 on.
 
-Swing the vane against the printed stop and hold it there. Push the
+Swing the vane against the ring's fin and hold it there. Push the
 end cap down to leave the sleeve about a millimeter of vertical
 play, rotate it until its wedge face just touches the upper notch
 wall on the stopped side, and tighten its two clamp bolts while
 holding the angle.
 
 When both are done, each flag swings freely about 120 degrees
-toward trailing (the last few degrees land softly on the bracket
-wedge's print ramp; that cushion is intentional) and stops hard at
-panel-along-the-arm the other way. Both flags stop in the same
+toward trailing (the far wall of the ring's fin catches it there)
+and stops hard at panel-along-the-arm the other way. Both flags stop in the same
 rotational sense automatically, courtesy of the brackets; if one
 seems mirrored, its bracket is upside down (step 4). If a cap angle
 ends up wrong, loosen two bolts and set it again, nothing is
