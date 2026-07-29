@@ -70,6 +70,12 @@ tri_arm_length = 500;  // span held: shorter arms buy the longer reach
 tri_vane_reach = 250;  // film vane reach (dual: 150)
 tri_frame_w    = 8;    // printed perimeter frame member width
 tri_frame_t    = 4;    // ... and thickness
+tri_frame_h    = 140;  // film vane frame height (the dual's old
+                       // full-height panel; the dual itself moved
+                       // to the arched pennant with no height
+                       // param). Keep in sync with FILM_FRAME_H in
+                       // scripts/tri_study.py, which cannot read
+                       // this file
 tri_skin_t     = 0.4;  // membrane, drawn translucent
 tri_washer_t   = 1;    // PTFE washer on the stop ring boss
 tri_washer_od  = 14;

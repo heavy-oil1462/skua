@@ -115,10 +115,12 @@ m5_clear_d    = 5.5;
 vane_sleeve_len = 70;
 vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
                         // wedge impact every pass
-vane_width      = 140; // panel length ALONG the sleeve axis, so vertical
-                       // in use; spans the sleeve and overhangs its top
-vane_reach      = 150; // hinge axis to the panel's outer vertical edge,
-                       // horizontal in use
+vane_reach      = 150; // hinge axis to the flag's outer tip,
+                       // horizontal in use. The panel no longer has
+                       // its own height: it spans the sleeve, runs
+                       // flat for vane_shoulder_w past it, then one
+                       // quarter-ellipse arch sweeps from there down
+                       // to the bottom outer tip at this reach
 vane_t          = 2;   // field finding: catching wind is easy, the
                        // low-energy re-arm is the fight, so the flag
                        // is as light as the storm gates allow; the
@@ -138,12 +140,13 @@ vane_swing_deg  = 90;  // free swing between the driven stop and the
                        // different swing is a reprint of two small
                        // caps, nothing else
 vane_shoulder_w = 20;  // the flat shoulder at the sleeve top before
-                       // the panel's top inner corner tapers away to
-                       // the top outer corner: everything above and
-                       // inboard of it is cut, so the resting flag
-                       // presents less edge up high and the cap's
-                       // bolt hardware clears the flag at ANY cap
-                       // angle (geometry_check gates the radius)
+                       // the arch springs: the panel tops out at the
+                       // sleeve top and nothing overhangs the cap,
+                       // so the cap's bolt hardware clears the flag
+                       // at ANY cap angle (geometry_check gates the
+                       // radius). The arch trades outboard-high
+                       // area for a low-inertia return swing: the
+                       // re-arm, not the catch, is the fight
 
 // --- Stop cap (stub tip: retains the vane and carries THE stop
 //     wedge, the vane's only stop; a wide dual-bolt slit clamp on

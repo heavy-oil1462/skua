@@ -35,8 +35,9 @@ module film_vane() {
                     pie(sleeve_r + 1, tri_notch_deg);
     }
     // frame: a picture-frame rectangle from the sleeve to the reach,
-    // overhanging the sleeve top like v1 (the flag is the face)
-    frame_h = vane_width;
+    // overhanging the sleeve top (its own height: the dual's solid
+    // vane became an arched pennant with no height param)
+    frame_h = tri_frame_h;
     translate([tri_panel_x, 0, 0]) {
         for (y = [sleeve_r, tri_vane_reach - tri_frame_w])
             translate([0, y, 0])

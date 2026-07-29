@@ -42,6 +42,11 @@ FILM_VANE_KG = 0.028   # printed perimeter frame + mylar/ripstop skin,
                        # same face area as the solid panel; weigh a
                        # prototype before believing the third decimal
 FILM_VANE_250_KG = 0.035  # the same construction at 250 mm reach
+FILM_FRAME_H = 0.140   # m, film vane frame height; keep in sync with
+                       # tri_frame_h in cad/tri/tri_params.scad (this
+                       # script only parses design_params.scad, and
+                       # the dual's arched pennant vane no longer has
+                       # a height param to borrow)
 ROD10_S = math.pi * (10 * MM) ** 3 / 32  # 10 mm arm rod section modulus
 WIND_SHEAR_EXP = 0.11  # wind profile over open water, v ~ h^0.11
 ROTOR_H = 0.7          # m, arm axis above the water today (plank on a
@@ -58,7 +63,7 @@ def aero(reach_mm, arm_mm):
     """area, hinge lever, hinge radius, drive radius for a vane."""
     hr = (P["hub_len"] / 2 - P["hub_arm_socket"] + arm_mm
           - P["bracket_arm_grip"] + P["bracket_stub_x"]) * MM
-    area = (reach_mm * MM - sleeve_r) * P["vane_width"] * MM
+    area = (reach_mm * MM - sleeve_r) * FILM_FRAME_H
     d = (reach_mm * MM + sleeve_r) / 2
     return area, d, hr, hr + d
 

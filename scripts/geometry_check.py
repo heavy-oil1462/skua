@@ -235,11 +235,14 @@ def main():
     check(ok, P["collar_boss_h"] >= 2, "panel clears the bracket",
           f"the boss lifts sleeve and panel {P['collar_boss_h']} mm"
           " above the bracket top (>= 2: the flag swings over it)")
-    check(ok, P["vane_width"] > P["vane_sleeve_len"] + P["cap_t"],
-          "panel overhangs the cap",
-          f"panel {P['vane_width']} mm tall on a {P['vane_sleeve_len']} mm"
-          f" sleeve (> {P['vane_sleeve_len'] + P['cap_t']}: the flag, not"
-          " the hardware, is the face)")
+    # the pennant panel tops out at the sleeve top by construction (the
+    # arch springs from there and only descends), so the old
+    # panel-overhangs-the-cap check is gone: the cap now rides bare
+    # above the flag, which is exactly what makes its angle free
+    check(ok, P["vane_shoulder_w"] >= 5, "arch has a real shoulder",
+          f"the arch springs {P['vane_shoulder_w']} mm out from the"
+          " sleeve (>= 5: the sleeve top edge keeps a flat seat and"
+          " the notch shoulders keep meat behind them)")
 
     # --- the swing stop: the cap's wedge inside the sleeve wall, the
     #     notch leaves a stop, and the cap face contains the wedge ---
@@ -270,7 +273,7 @@ def main():
 
     # --- printability ---
     for name, size in (("base", P["base_d"]),
-                       ("vane panel", P["vane_width"]),
+                       ("vane height", P["vane_sleeve_len"]),
                        ("vane reach", P["vane_reach"] + P["vane_sleeve_od"] / 2)):
         check(ok, size <= P["printer_bed"], f"{name} fits the bed",
               f"{size:.0f} mm <= {P['printer_bed']} mm")
@@ -281,7 +284,8 @@ def main():
           f" ({width / 10:.0f} cm); flags at the driven stop sweep"
           f" {sweep:.0f} mm")
     print(f"[info] arm axis rides {arm_z:.0f} mm above the plank; flag"
-          f" tops reach {arm_z + boss_top + P['vane_width']:.0f} mm")
+          f" tops reach {arm_z + boss_top + P['vane_sleeve_len']:.0f} mm,"
+          f" cap tops {arm_z + boss_top + P['vane_sleeve_len'] + 1 + P['cap_t']:.0f} mm")
 
     return 0 if all(ok) else 1
 

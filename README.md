@@ -29,13 +29,18 @@ direction. Every pass the driving vane bangs against its stop — free
 percussion.
 
 The flag itself is built for the return trip, not the push: catching
-wind is the easy half, so the panel is thin, its top inner corner is
-cut away on a slope from a short shoulder at the sleeve top to the
-top outer corner, and a perimeter rim does the stiffening. That
-drops about a third of the panel mass (an easier weathervane and a
-lower self-start wind), trims edge area up high on the resting flag,
-and keeps the cap's bolt hardware clear of the fold at any cap
-angle.
+wind is the easy half, the swing back to the driven stop is the
+fight. So the panel is a thin pennant: it spans the sleeve, runs
+flat a short shoulder past the sleeve top, then one arch sweeps
+from that top inner corner down to the bottom outer tip, with a
+perimeter rim doing the stiffening. The arch concentrates the face
+near the hinge, which is what the return swing wants: the hinge
+inertia the wind has to turn drops by well over half compared to a
+full rectangle, the trailing flag shows half the edge-on
+silhouette, and the flappy free top corner is gone. The price is
+outboard area, paid from the light-air folding margin, which had
+headroom. Nothing overhangs the end cap anymore, so the cap's bolt
+hardware clears the fold at any cap angle.
 
 The hinge being vertical is what makes it start in light wind: folding
 never lifts any weight. A vane hanging from a horizontal hinge only
