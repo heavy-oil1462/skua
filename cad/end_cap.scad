@@ -1,21 +1,22 @@
 // ==============================================================================
 //   END CAP — arm tip: retains the vane and carries the swing-stop
-//   wedge (print TWO).
+//   wedge, the vane's ONLY stop (print TWO).
 //
 //   Slides over the end of the stub rod, closed end up. The axial
-//   wedge on the open face rides in the vane sleeve's upper stop
-//   notch (the stop ring's fin takes the lower notch, sharing the
-//   impact) — rotate the cap to set where the vane's driven stop sits
-//   (just past hanging-vertical, see README), then close the clamp.
+//   wedge on the open face rides in the vane sleeve's top notch —
+//   rotate the cap to set where the vane's driven stop sits, then
+//   close the clamp. The stop ring below is a smooth thrust seat, so
+//   the driven-stop angle belongs entirely to this clamp: loosening
+//   two bolts moves it anywhere, the field-testing knob.
 //
 //   A WIDE DUAL-BOLT slit clamp, like the collars: 16 mm of rod inside
 //   the bore, two M3 bolts crossing the slit. The slit sits
-//   cap_slit_deg around from the wedge: the nut corners and bolt tips
-//   are the only things proud of the cylinder, so they must live in
-//   the arc the folding flag's near edge never sweeps, and the offset
-//   also keeps the wedge base solid. Friction, not a drilled
-//   lock — the stop angle stays re-adjustable, and the price is a
-//   seasonal re-torque of the clamp bolts (see CLAUDE.md).
+//   cap_slit_deg around from the wedge so the wedge base stays solid;
+//   the flag's cut-away top inner corner (vane_shoulder_w) keeps the
+//   nut corners and bolt tips clear of the fold at ANY cap angle.
+//   Friction, not a drilled lock — the stop angle stays
+//   re-adjustable, and the price is a seasonal re-torque of the
+//   clamp bolts (see CLAUDE.md).
 //
 //   Prints closed-end-down: the wedge is a small vertical prism, the
 //   rod bore a clean blind vertical hole, the bolt bores horizontal
@@ -41,9 +42,8 @@ module end_cap() {
         translate([0, 0, cap_t - cap_bore_depth])
             cylinder(h = cap_bore_depth + 0.1, d = rod_snug_d);
         // slit and clamp bolts, swung cap_slit_deg from the wedge so
-        // the nuts and bolt tips sit where the flag never sweeps
-        // (geometry_check gates the band); slit over the bore region
-        // only so the closed end stays a solid disc
+        // its base stays solid; slit over the bore region only so
+        // the closed end stays a solid disc
         rotate([0, 0, cap_slit_deg]) {
             translate([0, -collar_slit / 2, cap_t - cap_bore_depth])
                 cube([cap_d / 2 + 1, collar_slit, cap_bore_depth + 1]);

@@ -142,50 +142,45 @@ pocket face on top, and slide a 113 mm stub down through the groove
 until it sits flush with the bracket's underside; the funnel mouth
 in the pocket floor guides it in. Drop the stop ring down over the
 stub, D flat toward the arm tip, and seat its foot in the pocket.
-The flat only fits one way, and that keyed angle is the driven
-stop, so it cannot be assembled wrong and both flags get the same
-rotational sense for free. Check the stub still points straight
-up, ring on top, then tighten the four bolts evenly. Same rule as
-the hub: the halves must NOT touch; an even gap all around means
-the rods, not the plastic, carry the preload.
+The ring is smooth: it is only the vane's thrust seat, and the
+D foot is just the shape that fills the pocket. Check the stub
+still points straight up, ring on top, then tighten the four bolts
+evenly. Same rule as the hub: the halves must NOT touch; an even
+gap all around means the rods, not the plastic, carry the preload.
 
 The stub is the vane's hinge, and vertical is the point: a hinge
 gravity cannot fight is what lets the rotor start in light wind.
-Drop the vane sleeve over each stub; its lower end rests on the
-stop ring's boss (that small ring is the vane's whole thrust
-bearing, so it spins freely) with the ring's fin inside its lower
-notch. Then the end cap, open face and wedge DOWN, bolts loose; it
-gets set in step 5. Stop faces take every clack; if one ever looks
-chewed, pop the cap, lift sleeve and ring off the stub, and drop a
-freshly printed ring in its place. Printing a spare ring or two with
-the machine costs nothing.
+Drop the vane sleeve over each stub, notched end up; its lower end
+rests on the stop ring's boss (that small ring is the vane's whole
+thrust bearing, so it spins freely). Then the end cap, open face
+and wedge DOWN into the notch, bolts loose; it gets set in step 5.
+The thrust seat takes all the running friction; if a ring ever
+looks worn, pop the cap, lift sleeve and ring off the stub, and
+drop a freshly printed ring in its place. Printing a spare ring or
+two with the machine costs nothing.
 
 ![step 4](assembly/step4.png)
 
 ## 5. Set the caps, then clamp them
 
-The lower stop needs no setting: the keyed stop ring fixes it at
-the driven angle, so the flag stops exactly at panel-along-the-arm.
-Only the cap's wedge is set, to land together with the ring's fin,
-because two faces sharing the impact is what the stop design counts
-on.
+The cap's wedge is the only stop, and the cap is a clamp, so this
+step is where the driven-stop angle is chosen. The reference
+setting is panel-along-the-arm: hold the flag pointing straight
+out along the arm, push the end cap down to leave the sleeve about
+a millimeter of vertical play, rotate it until its wedge face just
+touches the notch wall on the stopped side, and tighten its two
+clamp bolts while holding the angle.
 
-Swing the vane against the ring's fin and hold it there. Push the
-end cap down to leave the sleeve about a millimeter of vertical
-play, rotate it until its wedge face just touches the upper notch
-wall on the stopped side, and tighten its two clamp bolts while
-holding the angle.
-
-When both are done, each flag swings freely about 90 degrees
-toward trailing (the far wall of the ring's fin catches it there)
-and stops hard at panel-along-the-arm the other way. The swing
-angle belongs to the ring: a wider or narrower fin changes it
-without touching vane or cap, so keeping rings with two fin widths
-makes an easy on-the-water comparison. Both flags stop in the same
-rotational sense automatically, courtesy of the brackets; if one
-seems mirrored, its bracket is upside down (step 4). If a cap angle
-ends up wrong, loosen two bolts and set it again, nothing is
-permanent.
+Two things matter, and only the first is checked by eye once: BOTH
+flags must stop in the same rotational sense seen from above, or
+the torques cancel instead of adding. The keyed ring used to
+guarantee that; the adjustable cap trades it for a stop angle you
+can move on the water, so check it whenever a cap is re-set. And
+the angle itself is now a two-bolt experiment: loosen, rotate,
+clamp, watch the machine. The swing arc stays about 90 degrees
+wherever the stop points (it is the sleeve notch minus the wedge
+width, so changing the ARC is a reprint of two small caps with a
+different wedge width, without touching the vanes).
 
 ![step 5](assembly/step5.png)
 

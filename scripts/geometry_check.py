@@ -9,11 +9,13 @@ parameter edit that silently sinks the vanes into the plank or starves
 a socket of engagement cannot merge.
 
 The rotor works by swing asymmetry: each vane swings vane_swing_deg
-between the stop wedges and their notches (end cap wedge above, the
-stop ring's fin below, sharing the impact on flat faces), folding flat
-one way and presenting its full face the other. The checks keep that
-mechanism real: the wedges must actually reach the notches, and the
-notch must not eat the whole sleeve wall.
+between the end cap wedge's two flanks in the sleeve's top notch (the
+cap is the only stop; the stop ring below is a smooth thrust seat),
+folding flat one way and presenting its full face the other. The
+checks keep that mechanism real: the wedge must actually reach the
+notch, the notch must not eat the whole sleeve wall, and the flag
+must clear the cap's bolt hardware at ANY cap angle, because the
+driven-stop angle is a field adjustment now.
 
 Exit 1 on any failure.
 """
@@ -172,9 +174,9 @@ def main():
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
           " clamp rods not plastic (0.4 .. 2)")
-    # --- stop ring: D foot trapped in the bracket pocket, keyed by
-    #     the flat; the fin and boss print as vertical prisms on the
-    #     ring's own back, so nothing here needs support ---
+    # --- stop ring: D foot trapped in the bracket pocket; foot and
+    #     boss print as vertical prisms on the ring's own back, so
+    #     nothing here needs support ---
     pocket_r = P["ring_foot_d"] / 2 + P["fit_tol"]
     check(ok, P["bracket_w"] / 2 - pocket_r >= 1.5, "ring pocket side walls",
           f"{P['bracket_w'] / 2 - pocket_r:.1f} mm outside the pocket"
@@ -196,9 +198,9 @@ def main():
           f"flat at {P['ring_flat_x']} mm, foot radius"
           f" {P['ring_foot_d'] / 2} (a real flat, one orientation only)")
     check(ok, P["stop_wedge_ro"] - P["ring_foot_d"] / 2 <= 1,
-          "ring fin sits on its foot",
-          f"fin overhangs the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
-          " (<= 1: lands on the bracket top, flush with the foot)")
+          "tri fin option sits on its foot",
+          f"a fin would overhang the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
+          " (<= 1: the tri's finned ring lands on the bracket top)")
     boss_wall = (P["ring_boss_d"] - P["rod_free_d"]) / 2
     check(ok, 0.8 <= boss_wall and P["ring_boss_d"] <= P["collar_boss_d"],
           "ring boss is a real seat",
@@ -219,12 +221,17 @@ def main():
     check(ok, cap_engage >= 14, "cap grip on the stub",
           f"{cap_engage:.1f} mm (>= 14: friction-only joints live on"
           " grip length; the cap also retains the vane)")
-    edge = math.hypot(P["vane_sleeve_od"] / 2,
-                      P["vane_sleeve_od"] / 2 - P["vane_rim_h"])
-    check(ok, edge >= P["cap_d"] / 2 + 1, "flag clears the cap",
-          f"rim corner {edge:.1f} mm off the hinge axis, the cap"
-          f" reaches {P['cap_d'] / 2} (>= 1 mm air; the near-edge"
-          " rim's inner corner, not the panel face, passes closest)")
+    # the flag's top inner corner is cut away above a flat shoulder at
+    # the sleeve top, so nothing of the flag enters the cap's airspace:
+    # the swing stop angle is a hand-set clamp now, and the bolt tips
+    # and nut corners (the only things proud of the cap cylinder) must
+    # clear the folding flag at EVERY cap angle, not just the drawn one
+    hardware_r = P["cap_d"] / 2 + 2   # bolt tips past the cap cylinder
+    shoulder_r = P["vane_sleeve_od"] / 2 + P["vane_shoulder_w"]
+    check(ok, shoulder_r >= hardware_r + 3, "flag clears the cap at any angle",
+          f"panel material above the sleeve starts {shoulder_r:.1f} mm off"
+          f" the hinge axis, cap bolt hardware reaches {hardware_r:.1f}"
+          " (>= 3 mm air at every cap angle: the stop is field-adjustable)")
     check(ok, P["collar_boss_h"] >= 2, "panel clears the bracket",
           f"the boss lifts sleeve and panel {P['collar_boss_h']} mm"
           " above the bracket top (>= 2: the flag swings over it)")
@@ -234,8 +241,8 @@ def main():
           f" sleeve (> {P['vane_sleeve_len'] + P['cap_t']}: the flag, not"
           " the hardware, is the face)")
 
-    # --- the swing stops: wedges inside the sleeve wall, notch leaves a
-    #     stop, and both carriers (cap face, collar face) contain them ---
+    # --- the swing stop: the cap's wedge inside the sleeve wall, the
+    #     notch leaves a stop, and the cap face contains the wedge ---
     check(ok, P["stop_wedge_ri"] >= P["rod_d"] / 2 + 0.2,
           "stop wedge clears the rod",
           f"inner radius {P['stop_wedge_ri']} vs rod r {P['rod_d'] / 2} + 0.2")
@@ -245,48 +252,21 @@ def main():
           f"{overlap:.2f} mm radial overlap with the notch shoulders (>= 1.5)")
     check(ok, P["stop_wedge_ro"] <= P["cap_d"] / 2, "stop wedge fits the cap",
           f"outer radius {P['stop_wedge_ro']} inside cap r {P['cap_d'] / 2}")
-    notch = P["vane_swing_deg"] + P["ring_wedge_deg"]
+    notch = P["vane_swing_deg"] + P["stop_wedge_deg"]
     check(ok, notch <= 200, "stop notch",
-          f"{notch:.0f} deg cut from the sleeve end, sized for the"
-          " stop ring's fin (<= 200, the rest is the stop); the full"
-          f" {P['vane_swing_deg']} deg of swing stays free")
+          f"{notch:.0f} deg cut from the sleeve top, sized for the cap's"
+          " wedge, the only stop (<= 200, the rest is the stop); the"
+          f" full {P['vane_swing_deg']} deg of swing stays free")
     engage = P["stop_wedge_len"] - 1
     check(ok, engage >= 3, "wedge engagement",
-          f"{engage:.1f} mm of wedge inside each notch (>= 3)")
-
-    # --- cap slit placement: the nut corners and bolt tips are the
-    #     only things proud of the cap cylinder, and the folding
-    #     flag's near edge sweeps a band of the cap's airspace (the
-    #     swing arc plus the 45 deg the rim corner trails the panel
-    #     direction; 45 exactly, because the panel's outer face is
-    #     tangent to the sleeve). Angles are cap-local, wedge center
-    #     at 0: at the driven stop the wedge's contact wall (+w/2)
-    #     lands on the notch wall, the notch is centered on the panel
-    #     normal (vane.scad's pie, panel direction + 90), and folding
-    #     carries the panel toward +. The slit hardware must clear
-    #     the whole swept band ---
-    w = P["stop_wedge_deg"]
-    panel0 = w / 2 - notch / 2 + 90    # panel direction at the stop
-    forbid = (panel0, panel0 + P["vane_swing_deg"] + 45)
-    bolt_x = (P["rod_snug_d"] / 2 + P["cap_d"] / 2) / 2
-    nut_x = bolt_x + P["m3_nut_af"] / math.cos(math.radians(30)) / 2
-    prot = (P["cap_slit_deg"]
-            + math.degrees(math.atan2(P["rod_snug_d"] / 2, nut_x)),
-            P["cap_slit_deg"]
-            + math.degrees(math.atan2(P["cap_d"] / 2 + 2, bolt_x)))
-    gap_after = (prot[0] - forbid[1]) % 360   # flag band up to hardware
-    gap_before = (forbid[0] - prot[1]) % 360  # hardware up to flag band
-    disjoint = abs(gap_after + gap_before + (forbid[1] - forbid[0])
-                   + (prot[1] - prot[0]) - 360) < 1e-6
-    check(ok, disjoint and min(gap_after, gap_before) >= 15,
-          "cap slit clears the flag",
-          f"bolt hardware spans {prot[0]:.0f}..{prot[1]:.0f} deg off the"
-          f" wedge, the flag sweeps {forbid[0]:.0f}..{forbid[1]:.0f}"
-          f" ({min(gap_after, gap_before):.0f} deg clear, >= 15: the cap"
-          " is set by hand, leave the angle slop)")
+          f"{engage:.1f} mm of wedge inside the notch (>= 3)")
+    # keep the slit off the wedge base so the base stays solid
+    slit_gap = (abs(P["cap_slit_deg"]) % 360) - P["stop_wedge_deg"] / 2
+    check(ok, slit_gap >= 30, "cap slit clears the wedge base",
+          f"slit sits {slit_gap:.0f} deg past the wedge flank (>= 30)")
     face = overlap * engage
-    print(f"[info] each stop face contact: {overlap:.1f} x {engage:.1f} mm"
-          f" = {face:.0f} mm2, two faces per stop")
+    print(f"[info] stop face contact: {overlap:.1f} x {engage:.1f} mm"
+          f" = {face:.0f} mm2, one face per direction, cap only")
 
     # --- printability ---
     for name, size in (("base", P["base_d"]),

@@ -17,7 +17,7 @@ use <../vane.scad>
 
 $fn = 60;
 
-tri_notch_deg = vane_swing_deg + ring_wedge_deg;
+tri_notch_deg = vane_swing_deg + stop_wedge_deg;
 tri_panel_x   = vane_sleeve_od / 2 - tri_frame_t;  // frame plane offset,
                                                  // tangent like v1
 

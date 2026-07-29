@@ -100,11 +100,11 @@ arm_side(swing = 0);
 mirror([1, 0, 0]) arm_side(swing = step > 5 ? 75 : 0);
 
 module arm_side(swing) {
-    // At the driven stop the notch's contact wall lies on the stop
-    // ring's fin, whose keyed angle is chosen so the panel points
-    // exactly straight out along the arm. `swing` folds it toward
-    // trailing. The cap's wedge is clamped to land together with the
-    // fin on the same wall.
+    // At the driven stop the notch's contact wall lies on the cap
+    // wedge's flank; the cap is clamped so the panel points exactly
+    // straight out along the arm (the test setting drawn here — on
+    // the water any angle goes, two bolts). `swing` folds the vane
+    // toward trailing.
     vane_ang = -90 - swing;
     e = step == 4 ? 22 : 0;   // step 4: hardware slid apart up the stub
 
@@ -117,7 +117,7 @@ module arm_side(swing) {
 
     if (step >= 4) {
         // tip bracket on the arm end, stub rod standing through,
-        // and the keyed stop ring trapped in the bracket's pocket
+        // and the smooth stop ring trapped in the bracket's pocket
         color("SteelBlue")
             translate([bracket_x, 0, arm_z - bracket_h / 2])
                 tip_bracket();
@@ -137,11 +137,11 @@ module arm_side(swing) {
                             vane();
 
         // end cap on the stub tip, open face and wedge DOWN into the
-        // sleeve's upper notch, wedge centered to share the fin's wall
+        // sleeve's top notch, its contact flank on the notch wall
+        // (the rotation reduces to 90 - swing/2 for any wedge width)
         color("SteelBlue")
             translate([stub_x, 0, cap_face_z + cap_t + 2 * e])
-                rotate([0, 0, 90 - (vane_swing_deg + ring_wedge_deg) / 2
-                               + stop_wedge_deg / 2])
+                rotate([0, 0, 90 - vane_swing_deg / 2])
                     rotate([180, 0, 0])
                         end_cap();
     }

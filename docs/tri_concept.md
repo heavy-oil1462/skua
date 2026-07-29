@@ -32,12 +32,15 @@ the hub, and the only rod prep in the whole machine is one
 M8x1.25 die pass on the shaft's top end (8 mm rod is an M8 blank,
 so a hand die self-aligns; no drilling, no taps, no lathe).
 Everything outboard of the hub, the clamped tip bracket, stub,
-stop ring and vane, is the dual's verbatim and comes off the
-proven dual print files. The one exception is the cap: the tri
-clamp cap (`cad/tri/tri_clamp_cap.scad`) is the dual's cap with
-the stop wedge deleted, because in the tri the ring fin is the
-only stop from day one. Three of those plus a third vane-arm set
-and the hub hardware turn dual spares into a tri rotor.
+stop ring and vane, is the dual's design, printed with the tri's
+switches on: the ring with its fin option (`stop_ring(fin_deg)`)
+and the vane with its bottom notch (`vane(bottom_notch = true)`),
+because the tri's only stop is the keyed ring fin, where the dual
+went the other way and kept only the cap's wedge. The other
+exception is the cap: the tri clamp cap
+(`cad/tri/tri_clamp_cap.scad`) is the dual's cap with the stop
+wedge deleted. Three of those plus a third vane-arm set and the
+hub hardware turn dual spares into a tri rotor.
 
 ## The washer-jaw hub
 
@@ -119,19 +122,20 @@ and no set-at-assembly step.
 The wedge-free cap rests on a field finding from the dual: two
 stop faces never land exactly together, so one face takes every
 hit anyway, and the stop-face gate in `performance_check` already
-sizes a single face for the full dynamic impact. The tri adopts
-it from day one: v0.1's clamp cap (`tri_clamp_cap.scad`) has no
-wedge, the ring fin is the only stop, and the cap clamp's only
-assembly care is parking its bolts in the arc the flag never
-sweeps, at the dual's usual orientation. The dual keeps its wedge
-for now; deleting it there is a candidate after water testing.
+sizes a single face for the full dynamic impact. Both variants
+now run one stop, from opposite ends of the same tradeoff: the
+dual kept the CAP's wedge (adjustable angle, the field-testing
+knob, at the price of setting both caps to the same rotational
+sense by hand), the tri keeps the RING's fin (angle baked into
+the keyed pocket, no set-at-assembly step, which is what a kit
+wants). Since the dual's printable vane dropped its bottom notch
+and the flag no longer sweeps the cap's airspace, the tri prints
+the vane with `bottom_notch = true` and its cap bolts park
+anywhere.
 
-A tri-only vane with no upper notch is a noted option, deferred on
-purpose: the unused notch costs nothing, keeping the dual vane
-means every existing print builds a tri, and the tri's real own
-vane is the film-and-frame one further down the ladder, which
-will be drawn notchless from the start rather than forking the
-solid vane for a cosmetic deletion now.
+The tri's real own vane is the film-and-frame one further down
+the ladder, which will be drawn with only the notch its fin
+needs.
 
 What the tri v0.1 needs, beyond printed parts and rod stock: two
 M8 nylocs with fender washers at the hub, and the dual's own tip
@@ -139,8 +143,10 @@ hardware three times over (four M3x30 per bracket clamshell, two
 M3x16 per cap, two more at the thrust collar, twenty M3s with
 nylocs in all). Rod prep is the single die pass on the shaft.
 The arms butt the hub's boss circle, the stop angle is keyed by
-the ring pocket, and the set-by-hand joints are the same two the
-dual has: the gauged thrust collar and the cap wedges.
+the ring pocket, and with the tri cap having no angular job the
+only set-by-hand joint left is the gauged thrust collar (the dual
+sets its cap wedges by hand; that is exactly the knob the tri
+trades away for keyed assembly).
 
 The dual's performance work showed what limits low-wind running
 once the geometry is tuned: thrust-seat friction, vane mass, and

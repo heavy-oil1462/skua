@@ -119,24 +119,36 @@ vane_width      = 140; // panel length ALONG the sleeve axis, so vertical
                        // in use; spans the sleeve and overhangs its top
 vane_reach      = 150; // hinge axis to the panel's outer vertical edge,
                        // horizontal in use
-vane_t          = 3;
-vane_rim_w      = 4;   // stiffening rim around the panel
+vane_t          = 2;   // field finding: catching wind is easy, the
+                       // low-energy re-arm is the fight, so the flag
+                       // is as light as the storm gates allow; the
+                       // perimeter rim does the stiffening
+vane_rim_w      = 4;   // stiffening rim around the panel edge
 vane_rim_h      = 6;
-vane_swing_deg  = 90;  // free swing between the two stops. Field
-                       // feel at 120 was a flag that re-armed late:
-                       // the swing-back transit eats rotor travel
-                       // that scales with the swing while the
-                       // driven-stop window is 180 minus the swing
-                       // (performance_check prints the re-arm
-                       // numbers). Tuned via the stop ring's fin
-                       // width ONLY: keep swing + ring_wedge_deg at
-                       // 170 and the sleeve notch, the vanes and the
-                       // cap setting all stay exactly as printed --
-                       // a different swing is a reprint of two small
-                       // rings, nothing else
+vane_swing_deg  = 90;  // free swing between the driven stop and the
+                       // notch's far wall. Field feel at 120 was a
+                       // flag that re-armed late: the swing-back
+                       // transit eats rotor travel that scales with
+                       // the swing while the driven-stop window is
+                       // 180 minus the swing (performance_check
+                       // prints the re-arm numbers). Tuned via the
+                       // cap's wedge width ONLY: keep swing +
+                       // stop_wedge_deg at 150 and the sleeve notch
+                       // and the vanes stay exactly as printed -- a
+                       // different swing is a reprint of two small
+                       // caps, nothing else
+vane_shoulder_w = 20;  // the flat shoulder at the sleeve top before
+                       // the panel's top inner corner tapers away to
+                       // the top outer corner: everything above and
+                       // inboard of it is cut, so the resting flag
+                       // presents less edge up high and the cap's
+                       // bolt hardware clears the flag at ANY cap
+                       // angle (geometry_check gates the radius)
 
-// --- Stop cap (stub tip: retains the vane, carries the upper stop
-//     wedge; a wide dual-bolt slit clamp on the rod end) ---
+// --- Stop cap (stub tip: retains the vane and carries THE stop
+//     wedge, the vane's only stop; a wide dual-bolt slit clamp on
+//     the rod end, so the driven-stop angle is set by rotating the
+//     cap and re-set for testing by loosening two bolts) ---
 cap_d          = 22;   // inside the flag rim corner's swept radius:
                        // the rim corner passes hypot(11, 5) = 12.1 mm
                        // from the hinge axis (geometry_check gates the
@@ -144,14 +156,14 @@ cap_d          = 22;   // inside the flag rim corner's swept radius:
 cap_t          = 20;
 cap_bore_depth = 18;
 cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
-                       // the cap axis from the wedge center. The nut
-                       // corners and bolt tips are the only things
-                       // proud of the cap cylinder, and the folding
-                       // flag's near edge sweeps most of that airspace:
-                       // this parks them in the arc the flag never
-                       // visits (geometry_check gates the band; the
-                       // old 180 sat square in the swept arc and the
-                       // nuts stopped the fold short)
+                       // the cap axis from the wedge center: off the
+                       // wedge base so it stays solid. Since the flag's
+                       // top inner corner was cut away (vane_shoulder_w)
+                       // the folding flag never enters the cap's
+                       // airspace at all, so the bolt hardware is safe
+                       // at ANY cap angle and the slit direction is
+                       // free (geometry_check gates the shoulder
+                       // radius, not a slit band)
 
 // --- Tip bracket (the clamshell knuckle at each arm tip that turns
 //     the hinge vertical; TWO half designs, print two of each: the
@@ -184,21 +196,16 @@ bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
                          // rule: bolt preload lands on the rods,
                          // never on face-to-face plastic
 
-// --- Stop ring (print TWO; the vane's lower stop and thrust seat).
-//     A D-footed disc trapped in a matching pocket when the bracket
-//     clamshell closes, the same way the rods are trapped: the D flat
-//     keys the angle, so the driven stop and the rotor's rotational
-//     sense are set by geometry, and a worn stop is replaced by
-//     reprinting one small part. Prints on its back: foot, boss and
-//     fin are plain vertical prisms, no overhangs at all ---
-ring_wedge_deg = 80;   // the stop fin's arc, wider than the cap's
-                       // wedge; the sleeve notch is sized swing +
-                       // this, so the full free swing survives. The
-                       // fin width is the swing tuning knob: hold
-                       // swing + this = 170 and only the ring
-                       // changes (the 50 deg rings already printed
-                       // are the 120 deg swing variant, kept for
-                       // on-the-water A/B)
+// --- Stop ring (print TWO; the vane's thrust seat, SMOOTH). A
+//     D-footed disc trapped in a matching pocket when the bracket
+//     clamshell closes, the same way the rods are trapped. Field
+//     finding: two stops never land exactly together and the fin
+//     only added friction risk on the wing, so the printable ring
+//     carries no fin and the cap's wedge is the only stop (the ring
+//     module keeps the fin as an option; the tri variant still uses
+//     it). Prints on its back: foot and boss are plain vertical
+//     prisms, no overhangs at all, and a worn seat is a tiny
+//     reprint ---
 ring_foot_d    = 20;   // the D foot the clamshell traps
 ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
 ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
@@ -210,12 +217,18 @@ ring_boss_d    = 10;   // the vane's thrust seat, narrowed to the
                        // printable ring wins. Only the ring uses it;
                        // collar_boss_d stays the bearing-race boss
 
-// --- Stop wedges (SHARED: one on the end cap, set at assembly, and
-//     the stop ring's fin, keyed to the fixed driven-stop angle by
-//     the bracket pocket; each rides a notch in its end of the vane
-//     sleeve so the stop impact is carried by two, and their flat
-//     radial faces land flush on the notch walls — lib/stop_wedge.scad) ---
-stop_wedge_deg = 40;   // angular thickness; the notch arc grows by this
+// --- Stop wedge (on the end cap, set at assembly to any angle; it
+//     rides the notch in the vane sleeve's top end and its flat
+//     radial faces land flush on the notch walls, so the stop is a
+//     face contact — lib/stop_wedge.scad. The same profile is the
+//     tri variant's ring fin) ---
+stop_wedge_deg = 60;   // angular thickness, also the swing tuning
+                       // knob (see vane_swing_deg): the notch arc is
+                       // swing + this. Sized so ONE wedge takes the
+                       // full stop clack in shear with margin now
+                       // that the ring fin no longer shares the
+                       // impact (performance_check gates it; 40 sat
+                       // right on the limit)
 stop_wedge_len = 6;    // proud of the carrier face, riding in the notch
 stop_wedge_ri  = 4.5;  // inner radius: clears the rod
 stop_wedge_ro  = 10.5; // outer radius: spans the sleeve wall, inside the

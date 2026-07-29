@@ -2,8 +2,11 @@
 // SKUA TRI VARIANT PARAMETERS — study values only, tri_ prefixed so
 // nothing shadows design_params.scad (check_params enforces that).
 //
-// The tri v0.1 keeps the dual's vane, stop ring and rod stock
-// verbatim and changes the joints: three arms keyed by the spacer
+// The tri v0.1 keeps the dual's vane and rod stock (the vane with
+// its bottom notch grown back, the stop ring with its fin option
+// on, both one-argument variants of the dual parts: the tri's only
+// stop is the keyed ring fin) and changes the joints: three arms
+// keyed by the spacer
 // disc in tri_hub.scad and clamped between fender washers on the
 // die-threaded shaft, and screwed stubs at the tips. The later
 // ladder steps from scripts/tri_study.py (PTFE washers, film
