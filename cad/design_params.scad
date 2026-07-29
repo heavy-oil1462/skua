@@ -68,14 +68,22 @@ gusset_h       = 55;
 // axes, so the two halves close over the rods like a pillow block and
 // five M3 bolts with wide washers clamp everything at once. No hole is
 // drilled in any rod at the hub, which is where rod bending is worst.
-hub_len          = 80;  // along the arms
-hub_w            = 32;
-hub_h            = 54;
+// Slimmed after the tri's washer-jaw hub showed how little plastic
+// the job needs: the dual keeps its no-rod-prep clamshell (the tri's
+// steel-jaw sandwich needs the die-threaded shaft), but the halves
+// got thin. Shortening body and arm sockets together keeps the arm
+// root at the same station, so nothing outboard moves.
+hub_len          = 70;  // along the arms
+hub_w            = 22;  // across the split: each half is a groove
+                        // (4) plus backing wall (7); the clamp
+                        // preload is bolt-and-washer, not wall
+hub_h            = 52;
 hub_arm_z        = 44;  // arm bore axis above the hub bottom face
 hub_shaft_socket = 30;  // blind shaft socket depth, from the bottom
-hub_arm_socket   = 35;  // blind arm socket depth, from each end
+hub_arm_socket   = 30;  // blind arm socket depth, from each end
+                        // (still well past the bracket's 22 grip)
 hub_beam_z       = 28;  // T profile: below this only the stem and its 45
-hub_stem_w       = 34;  // degree chamfers remain — the lower corners of
+hub_stem_w       = 30;  // degree chamfers remain — the lower corners of
                         // the old box carried no load and cost print time
 hub_clamp_gap    = 0.8; // total gap between the closed halves: the rods
                         // stand proud of their grooves by this much, so
@@ -85,7 +93,7 @@ hub_bolt_stem_x  = 10;  // M5 clamp bolts: two flanking the shaft groove
 hub_bolt_beam_x  = 25;  // ... two under the beam, outboard ...
 hub_bolt_beam_z  = 34;  // ... plus one through the center web at arm
                         // height; geometry_check verifies every wall
-hub_peg_x        = 33;  // registration pegs, so the bolts never carry
+hub_peg_x        = 30;  // registration pegs, so the bolts never carry
 hub_peg_z        = 32;  // the job of aligning the halves
 hub_peg_d        = 4;
 
@@ -115,12 +123,14 @@ m5_clear_d    = 5.5;
 vane_sleeve_len = 70;
 vane_sleeve_od  = 22;   // thick walls: the stop notch shoulders take the
                         // wedge impact every pass
-vane_reach      = 150; // hinge axis to the flag's outer tip,
-                       // horizontal in use. The panel no longer has
-                       // its own height: it spans the sleeve, runs
-                       // flat for vane_shoulder_w past it, then one
-                       // quarter-ellipse arch sweeps from there down
-                       // to the bottom outer tip at this reach
+vane_reach      = 130; // hinge axis to the flag's outer tip,
+                       // horizontal in use; shortened from 150 when
+                       // the arch went up instead of out. The panel
+                       // has no height param: it spans the sleeve,
+                       // runs flat for vane_shoulder_w past it,
+                       // rises vane_arch_h in a quarter circle to
+                       // the arch peak, then sweeps down to the
+                       // bottom outer tip at this reach
 vane_t          = 2;   // field finding: catching wind is easy, the
                        // low-energy re-arm is the fight, so the flag
                        // is as light as the storm gates allow; the
@@ -140,13 +150,21 @@ vane_swing_deg  = 90;  // free swing between the driven stop and the
                        // different swing is a reprint of two small
                        // caps, nothing else
 vane_shoulder_w = 20;  // the flat shoulder at the sleeve top before
-                       // the arch springs: the panel tops out at the
-                       // sleeve top and nothing overhangs the cap,
-                       // so the cap's bolt hardware clears the flag
-                       // at ANY cap angle (geometry_check gates the
-                       // radius). The arch trades outboard-high
-                       // area for a low-inertia return swing: the
-                       // re-arm, not the catch, is the fight
+                       // the arch springs: everything above the
+                       // sleeve top sits at least this far out, so
+                       // the cap's bolt hardware clears the flag at
+                       // ANY cap angle (geometry_check gates the
+                       // radius). The arch trades outboard area for
+                       // a low-inertia return swing: the re-arm,
+                       // not the catch, is the fight
+vane_arch_h     = 30;  // the arch peak above the sleeve top: a
+                       // quarter-circle rise of this radius off the
+                       // shoulder, then the ellipse sweep down to
+                       // the tip. Height is free area for the swing
+                       // mechanics (only the spread over REACH
+                       // enters the hinge integrals), so the raised
+                       // arch buys back fold moment near the hinge
+                       // without buying back tip inertia
 
 // --- Stop cap (stub tip: retains the vane and carries THE stop
 //     wedge, the vane's only stop; a wide dual-bolt slit clamp on

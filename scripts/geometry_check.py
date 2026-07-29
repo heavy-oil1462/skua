@@ -273,7 +273,7 @@ def main():
 
     # --- printability ---
     for name, size in (("base", P["base_d"]),
-                       ("vane height", P["vane_sleeve_len"]),
+                       ("vane height", P["vane_sleeve_len"] + P["vane_arch_h"]),
                        ("vane reach", P["vane_reach"] + P["vane_sleeve_od"] / 2)):
         check(ok, size <= P["printer_bed"], f"{name} fits the bed",
               f"{size:.0f} mm <= {P['printer_bed']} mm")
@@ -283,8 +283,9 @@ def main():
     print(f"[info] rotor width across the arms: {width:.0f} mm"
           f" ({width / 10:.0f} cm); flags at the driven stop sweep"
           f" {sweep:.0f} mm")
-    print(f"[info] arm axis rides {arm_z:.0f} mm above the plank; flag"
-          f" tops reach {arm_z + boss_top + P['vane_sleeve_len']:.0f} mm,"
+    arch_top = arm_z + boss_top + P["vane_sleeve_len"] + P["vane_arch_h"]
+    print(f"[info] arm axis rides {arm_z:.0f} mm above the plank; arch"
+          f" peaks reach {arch_top:.0f} mm,"
           f" cap tops {arm_z + boss_top + P['vane_sleeve_len'] + 1 + P['cap_t']:.0f} mm")
 
     return 0 if all(ok) else 1

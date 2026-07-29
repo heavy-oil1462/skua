@@ -30,17 +30,17 @@ percussion.
 
 The flag itself is built for the return trip, not the push: catching
 wind is the easy half, the swing back to the driven stop is the
-fight. So the panel is a thin pennant: it spans the sleeve, runs
-flat a short shoulder past the sleeve top, then one arch sweeps
-from that top inner corner down to the bottom outer tip, with a
-perimeter rim doing the stiffening. The arch concentrates the face
-near the hinge, which is what the return swing wants: the hinge
-inertia the wind has to turn drops by well over half compared to a
-full rectangle, the trailing flag shows half the edge-on
-silhouette, and the flappy free top corner is gone. The price is
-outboard area, paid from the light-air folding margin, which had
-headroom. Nothing overhangs the end cap anymore, so the cap's bolt
-hardware clears the fold at any cap angle.
+fight. So the panel is a thin arched pennant: it spans the sleeve,
+runs flat a short shoulder past the sleeve top, rises in a quarter
+circle to the arch peak, then sweeps down to the bottom outer tip,
+with a perimeter rim doing the stiffening. Height is free for the
+swing mechanics (only the spread over reach enters the hinge
+integrals), so the raised arch carries face area near the hinge
+where folding wants it, while the shortened reach keeps the tip
+inertia the return swing hates low. Compared to the old full
+rectangle the hinge inertia drops by more than half and the flappy
+free top corner is gone. Nothing of the flag sits close to the end
+cap, so the cap's bolt hardware clears the fold at any cap angle.
 
 The hinge being vertical is what makes it start in light wind: folding
 never lifts any weight. A vane hanging from a horizontal hinge only

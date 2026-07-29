@@ -24,23 +24,22 @@
 //   face contact. The sleeve's bottom end face is left whole: a full
 //   ring resting on the stop ring's boss.
 //
-//   The panel is a pennant, drawn for the return trip: it spans the
-//   sleeve, runs flat for vane_shoulder_w past the sleeve top, then
-//   one quarter-ellipse ARCH sweeps from that top inner corner down
-//   to the bottom outer tip at vane_reach (tangent to the shoulder
-//   where it springs, square to the bottom edge at the tip). The
-//   swing mechanics only feel how area spreads over REACH, so the
-//   arch moves area inboard: the hinge inertia the re-arm swing has
-//   to turn drops by more than the fold moment does (field finding:
-//   catching wind is easy, the low-energy re-arm is the fight —
-//   this trades light-air fold margin, which had headroom, for the
-//   re-arm transit, which was the binding number). It also halves
-//   the trailing flag's edge-on silhouette and deletes the flappy
-//   top outer corner. Nothing overhangs the cap anymore, so the
-//   cap's bolt hardware clears the flag at ANY cap angle
-//   (geometry_check gates the shoulder radius). The panel is vane_t
-//   thin for the same reason; the perimeter rim does the
-//   stiffening.
+//   The panel is an arched pennant, drawn for the return trip: it
+//   spans the sleeve, runs flat for vane_shoulder_w past the sleeve
+//   top, RISES vane_arch_h in a quarter circle to the arch peak,
+//   then sweeps down in a quarter ellipse to the bottom outer tip
+//   at vane_reach. Every join is tangent-smooth and the tip lands
+//   square on the bottom edge. The swing mechanics only feel how
+//   area spreads over REACH, so the arch concentrates face near
+//   the hinge: the hinge inertia the re-arm swing has to turn
+//   drops by more than the fold moment does (field finding:
+//   catching wind is easy, the low-energy re-arm is the fight),
+//   and raising the arch while shortening the reach buys fold
+//   moment back without buying back tip inertia. Nothing of the
+//   flag sits above the sleeve top closer than the shoulder
+//   radius, so the cap's bolt hardware clears the flag at ANY cap
+//   angle (geometry_check gates it). The panel is vane_t thin for
+//   the same reason; the perimeter rim does the stiffening.
 //
 //   Prints flat on the panel, no supports: the sleeve lies on the bed
 //   and its bore is a teardrop (lib/bores.scad).
@@ -104,18 +103,27 @@ module vane(bottom_notch = false) {
 // The panel's 2D outline in print orientation (x along the sleeve
 // axis from the bottom edge at -x, y out from the hinge axis): a
 // rectangle over the sleeve's span, a flat shoulder at the sleeve
-// top, then the quarter-ellipse arch down to the bottom outer tip.
-// The arch's tangent is along the shoulder where it springs and
-// square to the bottom edge at the tip, so both joins are smooth.
+// top, a quarter-circle rise to the arch peak, then the
+// quarter-ellipse sweep down to the bottom outer tip. The rise
+// leaves the shoulder square (so the shoulder stays a real flat),
+// crests tangent into the ellipse at the peak, and the ellipse
+// lands square on the bottom edge at the tip.
 module panel_outline(sleeve_r) {
     spring = sleeve_r + vane_shoulder_w;   // arch springing line
+    peak_y = spring + vane_arch_h;         // peak position over reach
+    peak_x = vane_sleeve_len / 2 + vane_arch_h;
     polygon(concat(
         [[-vane_sleeve_len / 2, sleeve_r],
-         [vane_sleeve_len / 2, sleeve_r],
-         [vane_sleeve_len / 2, spring]],
-        [for (t = [3 : 3 : 90])
-            [-vane_sleeve_len / 2 + vane_sleeve_len * cos(t),
-             spring + (vane_reach - spring) * sin(t)]]));
+         [vane_sleeve_len / 2, sleeve_r]],
+        // quarter-circle rise off the shoulder
+        [for (t = [0 : 5 : 90])
+            [vane_sleeve_len / 2 + vane_arch_h * sin(t),
+             peak_y - vane_arch_h * cos(t)]],
+        // quarter-ellipse sweep from the peak down to the tip
+        [for (t = [5 : 5 : 90])
+            [-vane_sleeve_len / 2
+             + (vane_sleeve_len + vane_arch_h) * cos(t),
+             peak_y + (vane_reach - peak_y) * sin(t)]]));
 }
 
 // 2D pie wedge of the given radius/angle. Drawn centered on the -X
