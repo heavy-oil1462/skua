@@ -38,8 +38,8 @@
 //   moment back without buying back tip inertia. Nothing of the
 //   flag sits above the sleeve top closer than the shoulder
 //   radius, so the cap's bolt hardware clears the flag at ANY cap
-//   angle (geometry_check gates it). The panel is vane_t thin for
-//   the same reason; the perimeter rim does the stiffening.
+//   angle (geometry_check gates it). The panel is a bare vane_t
+//   skin, rim deleted for weight; see the note at the panel below.
 //
 //   Prints flat on the panel, no supports: the sleeve lies on the bed
 //   and its bore is a teardrop (lib/bores.scad).
@@ -75,15 +75,16 @@ module vane(bottom_notch = false) {
                 translate([-vane_sleeve_len / 2, sleeve_r + 4, 0])
                     cube([vane_sleeve_len, 4, vane_t]);
             }
-            // panel and rim from the shared outline: thin skin plus a
-            // perimeter rim around the pennant
+            // the panel: bare vane_t skin, no rim. Weight is king:
+            // the old perimeter rim carried about a quarter of the
+            // flag's hinge inertia for 5 g. The accepted risk is
+            // slow creep-curl of the bare plate in the sun — a
+            // curled flag stops folding flat, so WATCH FOR CURL in
+            // the field; if it shows, reprint with a slim rim on
+            // the arch edge (this is a deliberate experiment, not
+            // an oversight)
             linear_extrude(height = vane_t)
                 panel_outline(sleeve_r);
-            linear_extrude(height = vane_rim_h)
-                difference() {
-                    panel_outline(sleeve_r);
-                    offset(delta = -vane_rim_w) panel_outline(sleeve_r);
-                }
         }
 
         // free-spinning bore

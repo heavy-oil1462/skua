@@ -56,8 +56,8 @@ E_ALU = 69e9           # Pa
 
 # --- aerodynamics ------------------------------------------------------
 CD_PLATE = 1.17        # finite flat plate, face-on
-CD_EDGE = 1.2          # folded vane seen edge-on: panel edge plus rim
-                       # ends, bluff, taken high (conservative drag)
+CD_EDGE = 1.2          # folded vane seen edge-on: the bare panel
+                       # edge, bluff, taken high (conservative drag)
 V_SURVIVAL = 25.0      # m/s design storm at the mooring, rotor locked
 V_LIGHT_AIR = 1.5      # m/s spin-up ceiling: the scarer must run in
                        # Beaufort 2, or it is a perch. Ratcheted down
@@ -170,8 +170,9 @@ def main():
               + peak_h * (math.pi * a_fall ** 3 / 16
                           + 2 * y1 * a_fall ** 2 / 3
                           + y1 ** 2 * math.pi * a_fall / 4))
+    # rimless panel: the edge-on silhouette is just the skin edge
     area_edge = (P["vane_t"] * (P["vane_sleeve_len"] + P["vane_arch_h"])
-                 + 3 * P["vane_rim_w"] * (P["vane_rim_h"] - P["vane_t"])) * mm * mm
+                 * mm * mm)
 
     def q(v):
         return 0.5 * RHO_AIR * v * v
@@ -244,20 +245,10 @@ def main():
     #     independent (transit ~ 1/v, rotor speed ~ v).  Rough, so
     #     info not gate: the swing angle is a cap reprint with a
     #     different wedge width, and the boat decides ---
-    # hinge inertia of the actual pennant: the skin exactly (i_face),
-    # plus the long rims, which are NOT small at y^2 weighting —
-    # bottom rim and quarter-circle rise rim exactly as line masses,
-    # the fall rim as its chord stretched 10 percent for the
-    # ellipse's extra length. The short rims near the hinge are
-    # noise here
-    rim_c = (P["vane_rim_w"] * (P["vane_rim_h"] - P["vane_t"])) * mm * mm
-    chord = math.hypot(peak_h, a_fall) * 1.1 / a_fall
-    i_rims = rim_c * ((reach ** 3 - sleeve_r ** 3) / 3
-                      + arch_h * (y1 ** 2 * math.pi / 2
-                                  - 2 * y1 * arch_h
-                                  + arch_h ** 2 * math.pi / 4)
-                      + chord * (reach ** 3 - y1 ** 3) / 3)
-    i_hinge = RHO_ASA * (P["vane_t"] * mm * i_face + i_rims)
+    # hinge inertia of the actual pennant: the bare skin, exactly
+    # (i_face is the second moment of the outline; there is no rim
+    # anymore — deleting it cut about a quarter of this number)
+    i_hinge = RHO_ASA * P["vane_t"] * mm * i_face
     t_per_v = math.sqrt(2 * math.radians(P["vane_swing_deg"]) * i_hinge
                         / (0.5 * CD_PLATE * 0.5 * RHO_AIR * area * d_hinge))
     rearm = math.degrees(omega_per_v * t_per_v)
@@ -298,7 +289,7 @@ def main():
     # cut away), so the section height is the sleeve length, not the
     # full panel height
     s_panel = P["vane_sleeve_len"] * mm * (P["vane_t"] * mm) ** 2 / 6
-    m_panel = f_panel * (d_hinge - sleeve_r - P["vane_rim_w"] * mm)
+    m_panel = f_panel * (d_hinge - sleeve_r)
     sf_panel = ASA_YIELD / (m_panel / s_panel)
     check(ok, sf_panel >= 3, "panel root survives the storm",
           f"{m_panel:.2f} N m at the sleeve web, SF {sf_panel:.1f}"

@@ -133,10 +133,13 @@ vane_reach      = 130; // hinge axis to the flag's outer tip,
                        // bottom outer tip at this reach
 vane_t          = 2;   // field finding: catching wind is easy, the
                        // low-energy re-arm is the fight, so the flag
-                       // is as light as the storm gates allow; the
-                       // perimeter rim does the stiffening
-vane_rim_w      = 4;   // stiffening rim around the panel edge
-vane_rim_h      = 6;
+                       // is as light as the storm gates allow: a
+                       // bare skin, no stiffening rim (the rim cost
+                       // 5 g and a quarter of the hinge inertia;
+                       // the accepted risk is slow creep-curl in
+                       // the sun — watch the flags for curl, and if
+                       // it shows, bring back a slim rim on the
+                       // arch edge)
 vane_swing_deg  = 90;  // free swing between the driven stop and the
                        // notch's far wall. Field feel at 120 was a
                        // flag that re-armed late: the swing-back
@@ -170,10 +173,11 @@ vane_arch_h     = 30;  // the arch peak above the sleeve top: a
 //     wedge, the vane's only stop; a wide dual-bolt slit clamp on
 //     the rod end, so the driven-stop angle is set by rotating the
 //     cap and re-set for testing by loosening two bolts) ---
-cap_d          = 22;   // inside the flag rim corner's swept radius:
-                       // the rim corner passes hypot(11, 5) = 12.1 mm
-                       // from the hinge axis (geometry_check gates the
-                       // air; 24 left it 0.1 mm, a rub in practice)
+cap_d          = 22;   // matches the sleeve OD; big enough to carry
+                       // the wedge (stop_wedge_ro) and a real clamp,
+                       // and the flag's cut-away corner keeps all of
+                       // it clear of the fold at any angle
+                       // (geometry_check gates the air)
 cap_t          = 20;
 cap_bore_depth = 18;
 cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around

@@ -32,8 +32,11 @@ The flag itself is built for the return trip, not the push: catching
 wind is the easy half, the swing back to the driven stop is the
 fight. So the panel is a thin arched pennant: it spans the sleeve,
 runs flat a short shoulder past the sleeve top, rises in a quarter
-circle to the arch peak, then sweeps down to the bottom outer tip,
-with a perimeter rim doing the stiffening. Height is free for the
+circle to the arch peak, then sweeps down to the bottom outer tip.
+It is a bare 2 mm skin with no stiffening rim, weight being what
+the return swing pays for; if a flag ever creep-curls in the sun,
+that is the sign to reprint with a slim rim on the arch edge.
+Height is free for the
 swing mechanics (only the spread over reach enters the hinge
 integrals), so the raised arch carries face area near the hinge
 where folding wants it, while the shortened reach keeps the tip
