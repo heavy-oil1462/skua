@@ -144,7 +144,8 @@ Conventions:
   outdoors)
 - 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 113 mm
   hinge stubs
-- 5x M5x40 with wide washers (hub clamshell), 8x M3x30 with small
+- 5x M5x35 with wide washers (hub clamshell; M5x40 also fits with
+  about 10 mm of stickout, the pre-slim length), 8x M3x30 with small
   washers (tip bracket clamshells, kept light out at the arm tips)
   and 6x M3x16 (dual-bolt thrust collar and cap clamps; one more if
   the optional retainer is fitted), all with nyloc nuts; no rod or

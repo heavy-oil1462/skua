@@ -54,8 +54,10 @@ the rods into its grooves: shaft into the center groove until it
 bottoms out, both 600 mm arms into the end grooves until they bottom
 out against the center web, which guarantees both arms reach equally
 far. Fit the back half over the registration pegs, then fit the five
-M5x40 clamp bolts, each with a wide washer under the head and under
-the nyloc, and tighten evenly in a couple of rounds.
+M5x35 clamp bolts, each with a wide washer under the head and under
+the nyloc, and tighten evenly in a couple of rounds. (M5x40s from
+the pre-slim hub also work; they just stand about 10 mm proud of
+the nuts.)
 
 The halves must NOT touch when tight: the design leaves a 0.8 mm gap
 between the faces so all the bolt force squeezes the rods. An even

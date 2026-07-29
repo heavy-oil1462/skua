@@ -77,7 +77,7 @@ cavity later if the mooring proves rough (see the assembly guide).
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 113 mm
   (the vertical hinge stubs)
-- 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
+- 5x M5x35 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
 - 8x M3x30 bolt + nyloc + 2 small washers each (the tip bracket
   clamshells: kept light because they ride at the arm tips)
