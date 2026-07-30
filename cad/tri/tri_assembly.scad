@@ -32,7 +32,7 @@ include <../design_params.scad>
 include <tri_params.scad>
 use <../base.scad>
 use <../tip_bracket.scad>
-use <../stop_ring.scad>
+use <tri_stop_ring.scad>
 use <../vane.scad>
 use <tri_clamp_cap.scad>
 use <tri_hub.scad>
@@ -43,14 +43,14 @@ $fn = 48;
 // the top nut lands flush with the shaft tip, everything hangs
 // from there
 shaft_top   = shaft_tip_h + shaft_length;
-tri_arm_z   = shaft_top - tri_nut_t - tri_m8_washer_t
+tri_arm_z   = shaft_top - m8_nut_t - m8_washer_t
               - tri_hub_shell_h - tri_hub_gap / 2;
 arm_root    = tri_hub_boss_d / 2;            // arms butt the boss circle
 arm_tip     = arm_root + arm_length;
 bracket_x   = arm_tip - bracket_arm_grip;
 stub_x      = bracket_x + bracket_stub_x;
 bracket_bot = tri_arm_z - bracket_h / 2;
-sleeve_bot  = tri_arm_z + bracket_h / 2 + collar_boss_h + tri_washer_t;
+sleeve_bot  = tri_arm_z + bracket_h / 2 + collar_boss_h + ptfe_washer_t;
 cap_face    = sleeve_bot + vane_sleeve_len + 1;
 
 // the dual base, plank level at z = 0 (the taller mounting from
@@ -86,11 +86,12 @@ for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
         translate([arm_root, 0, tri_arm_z])
             rotate([0, 90, 0])
                 cylinder(h = arm_length, d = rod_d);
-    // the dual tip stack, verbatim: clamshell bracket on the arm,
-    // clamped stub standing through, keyed stop ring in the pocket
+    // the dual tip stack: clamshell bracket on the arm (with the
+    // tri's keyed ring pocket switched on), clamped stub standing
+    // through, keyed stop ring in the pocket
     color("SteelBlue")
         translate([bracket_x, 0, bracket_bot])
-            tip_bracket();
+            tip_bracket(ring_pocket = true);
     color("DarkGray")
         translate([stub_x, 0, bracket_bot])
             cylinder(h = stub_length, d = rod_d);
@@ -101,9 +102,9 @@ for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
     color("White")
         translate([stub_x, 0, tri_arm_z + bracket_h / 2 + collar_boss_h])
             difference() {
-                cylinder(h = tri_washer_t, d = tri_washer_od);
+                cylinder(h = ptfe_washer_t, d = ptfe_washer_od);
                 translate([0, 0, -0.5])
-                    cylinder(h = tri_washer_t + 1, d = rod_free_d);
+                    cylinder(h = ptfe_washer_t + 1, d = ptfe_washer_id);
             }
     // the dual vane with the bottom notch grown back for the fin,
     // panel out along the arm at the driven stop

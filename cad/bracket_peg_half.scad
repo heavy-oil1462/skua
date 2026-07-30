@@ -3,8 +3,8 @@
 //   tip_bracket.scad for how the clamshell works). This is the half
 //   with the registration pegs.
 //
-//   Prints split face UP: grooves and ring pocket are open channels,
-//   the M5 bores vertical, the pegs small towers. A plain block, no
+//   Prints split face UP: grooves and funnel are open channels, the
+//   M3 bores vertical, the pegs small towers. A plain block, no
 //   supports, no teardrops, nothing protruding.
 // ==============================================================================
 

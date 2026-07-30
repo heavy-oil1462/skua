@@ -33,12 +33,11 @@ tri_hub_gap      = 0.8;  // clamshell rule: the rods stand proud of
 tri_hub_shell_h  = 6;    // the sandwich variant's half-shell: a
                          // 3.6 half-seat plus a 2.4 web under it
 tri_shaft_thread = 40;   // M8x1.25 die length on the shaft's top end
-                         // (rod prep: a hand die, no drilling at all)
-tri_nut_af       = 13.4; // M8 nyloc across flats, drawn in the scene
-tri_nut_t        = 8;
-tri_m8_washer_od = 30;   // fender washer: the clamp jaw, gripping
-                         // each rod from the boss edge outward
-tri_m8_washer_t  = 1.5;
+                         // (rod prep: a hand die, no drilling at
+                         // all). The nut and fender-washer sizes are
+                         // the shared m8_* values in design_params
+                         // (the dual's hub_disc variant uses the
+                         // same jaw stack)
 tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep): both ends of
                          // each stub; the shaft is die-threaded,
                          // never tapped or drilled
@@ -76,9 +75,10 @@ tri_frame_h    = 140;  // film vane frame height (the dual's old
                        // param). Keep in sync with FILM_FRAME_H in
                        // scripts/tri_study.py, which cannot read
                        // this file
-tri_skin_t     = 0.4;  // membrane, drawn translucent
-tri_washer_t   = 1;    // PTFE washer on the stop ring boss
-tri_washer_od  = 14;
+tri_skin_t     = 0.4;  // membrane, drawn translucent (the PTFE
+                       // washer on the ring boss is the shared
+                       // ptfe_washer_* part in design_params, the
+                       // dual's thrust seat)
 tri_mast_h     = 300;  // the taller mounting, study numbers only,
                        // not drawn (the ladder credits ~10 percent
                        // wind for +1 m)

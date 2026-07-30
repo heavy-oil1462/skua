@@ -124,6 +124,33 @@ def main():
           f"{P['hub_clamp_gap']} mm total: rods stand proud, bolts clamp"
           " rods not plastic (0.4 .. 2)")
 
+    # --- hub disc VARIANT (hub_disc.scad): the washer-jaw hub on the
+    #     die-threaded shaft top. Same proud-rod clamp rule, steel
+    #     jaws instead of bolted plastic ---
+    check(ok, abs(P["hub_disc_h"] - (P["rod_d"] - P["hub_clamp_gap"])) < 1e-9,
+          "disc leaves the rods proud",
+          f"disc {P['hub_disc_h']} = rod {P['rod_d']} - gap"
+          f" {P['hub_clamp_gap']}: washer preload lands on the rods,"
+          " never on face-to-face plastic")
+    flank = (P["hub_disc_d"] - P["hub_disc_boss_d"]) / 2
+    check(ok, flank >= 14, "disc slot flanks stay long",
+          f"{flank:.0f} mm of slot bearing per arm (>= 14: the flanks"
+          " carry horizontal storm bending, the grip-length rule)")
+    jaw = (P["m8_washer_od"] - P["hub_disc_boss_d"]) / 2
+    check(ok, jaw >= 5 and P["m8_washer_od"] <= P["hub_disc_d"],
+          "washer jaws grip the rods",
+          f"{jaw:.1f} mm of fender washer on each rod beyond the boss"
+          f" circle (>= 5), washer {P['m8_washer_od']} inside the"
+          f" {P['hub_disc_d']} disc")
+    disc_boss = (P["hub_disc_boss_d"] - P["rod_free_d"]) / 2
+    check(ok, disc_boss >= 2, "disc boss around the bore",
+          f"{disc_boss:.1f} mm of butt ring between the free bore and"
+          " the slots (>= 2)")
+    m8_stack = 2 * P["m8_nut_t"] + 2 * P["m8_washer_t"] + P["hub_disc_h"]
+    check(ok, P["hub_shaft_thread"] >= m8_stack + 1, "die thread covers the stack",
+          f"{P['hub_shaft_thread']} mm of M8x1.25 vs the {m8_stack:.1f} mm"
+          " nut-washer-disc-washer-nut stack (>= 1 mm lead)")
+
     # --- vertical stack: shaft and collar working room ---
     shaft_top = P["shaft_tip_h"] + P["shaft_length"]
     hub_bottom = shaft_top - P["hub_shaft_socket"]
@@ -132,6 +159,20 @@ def main():
                                 + P["collar_w"] + P["collar_boss_h"])
     check(ok, collar_room >= 5, "shaft length",
           f"{collar_room:.1f} mm open shaft between thrust collar and hub (>= 5)")
+    # the hub disc variant hangs its whole stack below the shaft top,
+    # so its arm station sits lower on the same shaft; the stack must
+    # still clear the thrust collar
+    disc_arm_z = (shaft_top - P["m8_nut_t"] - P["m8_washer_t"]
+                  - P["hub_disc_h"] / 2)
+    disc_room = collar_room + P["hub_shaft_socket"] - (2 * P["m8_nut_t"]
+                + 2 * P["m8_washer_t"] + P["hub_disc_h"])
+    check(ok, disc_room >= 5, "shaft length (hub disc variant)",
+          f"{disc_room:.1f} mm between thrust collar and the lower M8"
+          " nut (>= 5)")
+    print(f"[info] hub disc variant: arm axis at {disc_arm_z:.0f} mm"
+          f" vs the clamshell's {hub_bottom + P['hub_arm_z']:.0f} mm"
+          " above the shaft tip station — same shaft, arms ride"
+          f" {hub_bottom + P['hub_arm_z'] - disc_arm_z:.0f} mm lower")
 
     # --- along the arm: hub socket, clear span, tip bracket ---
     arm_tip = P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
@@ -174,43 +215,85 @@ def main():
     check(ok, 0.4 <= P["bracket_clamp_gap"] <= 2, "bracket clamp gap",
           f"{P['bracket_clamp_gap']} mm total: rods stand proud, bolts"
           " clamp rods not plastic (0.4 .. 2)")
-    # --- stop ring: D foot trapped in the bracket pocket; foot and
-    #     boss print as vertical prisms on the ring's own back, so
-    #     nothing here needs support ---
+
+    # --- captive nyloc pockets (plain half's outer face): the hex
+    #     sits flats toward the part faces, so the thin walls beside
+    #     the arm-clamp pockets are flat-to-flat, not corner-to-face;
+    #     they only back the nut flats (retainer precedent: about a
+    #     millimeter of ASA around a captive nut is house-legal) ---
+    hex_flat = P["m3_nut_af"] / 2
+    hex_corner = P["m3_nut_af"] / math.cos(math.radians(30)) / 2
+    pkt_face = zc - P["bracket_bolt_dz"] - hex_flat
+    check(ok, pkt_face >= 1, "nut pockets keep their face walls",
+          f"{pkt_face:.1f} mm from the arm-bolt pockets to the"
+          " top/bottom faces (>= 1, hex flats toward the faces)")
+    pkt_end = (P["bracket_len"] - P["bracket_stub_x"]
+               - P["bracket_bolt_dx"] - hex_corner)
+    check(ok, pkt_end >= 1.5, "nut pockets clear the end face",
+          f"{pkt_end:.1f} mm from the outboard stub-bolt pocket to the"
+          " end face (>= 1.5)")
+    pkt_web = P["bracket_w"] / 2 - P["m3_locknut_t"]
+    check(ok, pkt_web >= 4, "nut pockets keep their floors",
+          f"{pkt_web:.1f} mm of plastic between pocket floor and split"
+          " face (>= 4: the nut bears on it)")
+
+    # --- the vane's thrust seat: a bought PTFE washer on the
+    #     bracket's FLAT top (the dual has no stop ring; the cap
+    #     wedge is the only stop). The washer must land on the flat
+    #     annulus outside the funnel mouth and spin free on the stub ---
+    funnel_r = P["rod_snug_d"] / 2 + P["stub_lead_in"]
+    seat = P["ptfe_washer_od"] / 2 - funnel_r
+    check(ok, seat >= 1, "washer seats outside the funnel",
+          f"{seat:.1f} mm of flat ring between the funnel mouth and"
+          " the washer rim (>= 1: a real seat, not a knife edge)")
+    check(ok, P["ptfe_washer_id"] >= P["rod_d"] + 0.1, "washer spins free",
+          f"washer bore {P['ptfe_washer_id']} over the {P['rod_d']} mm"
+          " stub (>= 0.1 clearance)")
+    check(ok, min(P["bracket_w"] / 2,
+                  P["bracket_len"] - P["bracket_stub_x"])
+              >= P["ptfe_washer_od"] / 2, "washer inside the bracket top",
+          f"washer radius {P['ptfe_washer_od'] / 2} inside the flat"
+          " around the stub")
+
+    # --- tri variant option: the keyed stop ring and its pocket
+    #     (ring_pocket = true in tip_bracket.scad; the tri prints
+    #     this bracket variant with the dual's dimensions, so the
+    #     pocket geometry must stay legal even though the dual's top
+    #     is flat) ---
     pocket_r = P["ring_foot_d"] / 2 + P["fit_tol"]
-    check(ok, P["bracket_w"] / 2 - pocket_r >= 1.5, "ring pocket side walls",
+    check(ok, P["bracket_w"] / 2 - pocket_r >= 1.5, "tri ring pocket side walls",
           f"{P['bracket_w'] / 2 - pocket_r:.1f} mm outside the pocket"
           " (>= 1.5)")
     check(ok, P["bracket_len"] - P["bracket_stub_x"] - pocket_r >= 2,
-          "ring pocket end wall",
+          "tri ring pocket end wall",
           f"{P['bracket_len'] - P['bracket_stub_x'] - pocket_r:.1f} mm to"
           " the outboard face (>= 2)")
     pocket_floor = P["bracket_h"] - P["ring_foot_t"]
     groove_top = P["bracket_h"] / 2 + P["rod_snug_d"] / 2
-    check(ok, pocket_floor - groove_top >= 3, "ring pocket floor",
+    check(ok, pocket_floor - groove_top >= 3, "tri ring pocket floor",
           f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
     check(ok, P["bracket_stub_x"] - pocket_r
-              - (P["bracket_peg_x"] + 2) >= 1.5, "pegs clear the pocket",
+              - (P["bracket_peg_x"] + 2) >= 1.5, "tri pegs clear the pocket",
           f"{P['bracket_stub_x'] - pocket_r - P['bracket_peg_x'] - 2:.1f}"
           " mm between the pegs and the pocket wall (>= 1.5)")
     check(ok, 2 <= P["ring_flat_x"] <= P["ring_foot_d"] / 2 - 2,
-          "ring D flat keys",
+          "tri ring D flat keys",
           f"flat at {P['ring_flat_x']} mm, foot radius"
           f" {P['ring_foot_d'] / 2} (a real flat, one orientation only)")
     check(ok, P["stop_wedge_ro"] - P["ring_foot_d"] / 2 <= 1,
-          "tri fin option sits on its foot",
+          "tri fin sits on its foot",
           f"a fin would overhang the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
           " (<= 1: the tri's finned ring lands on the bracket top)")
     boss_wall = (P["ring_boss_d"] - P["rod_free_d"]) / 2
     check(ok, 0.8 <= boss_wall and P["ring_boss_d"] <= P["collar_boss_d"],
-          "ring boss is a real seat",
+          "tri ring boss is a real seat",
           f"{boss_wall:.1f} mm of seat ring over the free bore (>= 0.8"
-          " printable), inside the old collar-width boss; narrower seat"
-          " = lower self-start wind, performance_check has the number")
+          " printable), inside the old collar-width boss; the tri's"
+          " self-start rides this radius (scripts/tri_study.py)")
 
-    # --- up the stub: bracket boss, sleeve, play, cap all fit ---
-    boss_top = P["bracket_h"] / 2 + P["collar_boss_h"]
-    sleeve_top = boss_top + P["vane_sleeve_len"]    # heights above arm axis
+    # --- up the stub: washer, sleeve, play, cap all fit ---
+    seat_top = P["bracket_h"] / 2 + P["ptfe_washer_t"]
+    sleeve_top = seat_top + P["vane_sleeve_len"]    # heights above arm axis
     cap_face_z = sleeve_top + 1                     # 1 mm running play
     stub_tip = P["stub_length"] - P["bracket_h"] / 2
     cap_slack = (cap_face_z + P["cap_bore_depth"]) - stub_tip
@@ -232,9 +315,10 @@ def main():
           f"panel material above the sleeve starts {shoulder_r:.1f} mm off"
           f" the hinge axis, cap bolt hardware reaches {hardware_r:.1f}"
           " (>= 3 mm air at every cap angle: the stop is field-adjustable)")
-    check(ok, P["collar_boss_h"] >= 2, "panel clears the bracket",
-          f"the boss lifts sleeve and panel {P['collar_boss_h']} mm"
-          " above the bracket top (>= 2: the flag swings over it)")
+    check(ok, 0.8 <= P["ptfe_washer_t"] <= 2, "panel clears the bracket",
+          f"the PTFE washer lifts sleeve and panel {P['ptfe_washer_t']} mm"
+          " above the flat bracket top (0.8 .. 2: the flag swings over"
+          " it; a thicker washer only raises the cap)")
     # the pennant panel tops out at the sleeve top by construction (the
     # arch springs from there and only descends), so the old
     # panel-overhangs-the-cap check is gone: the cap now rides bare
@@ -283,10 +367,10 @@ def main():
     print(f"[info] rotor width across the arms: {width:.0f} mm"
           f" ({width / 10:.0f} cm); flags at the driven stop sweep"
           f" {sweep:.0f} mm")
-    arch_top = arm_z + boss_top + P["vane_sleeve_len"] + P["vane_arch_h"]
+    arch_top = arm_z + seat_top + P["vane_sleeve_len"] + P["vane_arch_h"]
     print(f"[info] arm axis rides {arm_z:.0f} mm above the plank; arch"
           f" peaks reach {arch_top:.0f} mm,"
-          f" cap tops {arm_z + boss_top + P['vane_sleeve_len'] + 1 + P['cap_t']:.0f} mm")
+          f" cap tops {arm_z + seat_top + P['vane_sleeve_len'] + 1 + P['cap_t']:.0f} mm")
 
     return 0 if all(ok) else 1
 

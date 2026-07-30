@@ -59,13 +59,18 @@ CD_PLATE = 1.17        # finite flat plate, face-on
 CD_EDGE = 1.2          # folded vane seen edge-on: the bare panel
                        # edge, bluff, taken high (conservative drag)
 V_SURVIVAL = 25.0      # m/s design storm at the mooring, rotor locked
-V_LIGHT_AIR = 1.5      # m/s spin-up ceiling: the scarer must run in
+V_LIGHT_AIR = 1.0      # m/s spin-up ceiling: the scarer must run in
                        # Beaufort 2, or it is a perch. Ratcheted down
-                       # from 1.8 when the ring boss narrowed; never
-                       # loosen it back
+                       # from 1.8 when the ring boss narrowed and from
+                       # 1.5 when the printed seat became the PTFE
+                       # washer; never loosen it back
 
 # --- joints and friction ----------------------------------------------
-MU_HINGE = 0.35        # ASA sleeve end on ASA boss ring, dry thrust face
+MU_HINGE = 0.15        # ASA sleeve end on the bought PTFE thrust
+                       # washer (data sheets say 0.04-0.1 on polished
+                       # steel; taken 0.15 against printed ASA
+                       # texture, conservative). The printed ring
+                       # seat this replaced ran 0.35
 MU_CLAMP = 0.30        # printed clamp bore on aluminum rod
 F_M3 = 800             # N preload per M3, hand-tight into printed part
 F_M5 = 1200            # N preload per M5; both are limited by the
@@ -83,10 +88,11 @@ VANE_SLICED_KG = 0.078 # the vane as actually sliced (Orca, production
                        # solid STL mass, so they are unaffected; this
                        # point feeds the projection info only.
 
-# rotor parts and their print counts (masses from stl/, solid ASA)
+# rotor parts and their print counts (masses from stl/, solid ASA;
+# the bought PTFE washers ride in HARDWARE_KG)
 ROTOR_PARTS = {"hub_front": 1, "hub_back": 1, "collar": 1, "retainer": 1,
                "bracket_peg_half": 2, "bracket_plain_half": 2,
-               "stop_ring": 2, "end_cap": 2, "vane": 2}
+               "end_cap": 2, "vane": 2}
 
 
 def stl_volume_mm3(path):
@@ -124,7 +130,7 @@ def main():
     rotor_kg = (sum(part_kg[n] * c for n, c in ROTOR_PARTS.items())
                 + rods_kg + HARDWARE_KG)
     vane_kg = part_kg["vane"]
-    tip_kg = (vane_kg + part_kg["end_cap"] + part_kg["stop_ring"]
+    tip_kg = (vane_kg + part_kg["end_cap"]
               + part_kg["bracket_peg_half"] + part_kg["bracket_plain_half"]
               + rod_kg_m * P["stub_length"] * mm + 0.01)
     print(f"[info] rotor {rotor_kg * 1000:.0f} g (vane {vane_kg * 1000:.0f} g,"
@@ -178,13 +184,16 @@ def main():
         return 0.5 * RHO_AIR * v * v
 
     # --- spin-up: the free vane must fold in light air ------------------
-    # Sleeve weight rests on the stop ring's boss; that thrust face is
-    # the hinge's whole friction.  The panel folds when the aero moment
-    # about the hinge beats it.  mu times weight times seat radius is
-    # the whole game: the seat radius is printed as narrow as it can
-    # be, the weight is the vane, and mu is the ring's material.
-    r_boss = (P["ring_boss_d"] + P["rod_free_d"]) / 4 * mm
-    t_hinge = MU_HINGE * vane_kg * 9.81 * r_boss
+    # Sleeve weight rests on the PTFE washer on the bracket's flat
+    # top; that thrust face is the hinge's whole friction.  The panel
+    # folds when the aero moment about the hinge beats it.  mu times
+    # weight times seat radius is the whole game: the washer is as
+    # narrow as bought washers come, the weight is the vane, and mu
+    # is PTFE, which is the whole point of buying the seat instead of
+    # printing it.  (The sleeve face slips on the washer rather than
+    # the washer on the bracket: same mu class, smaller radius.)
+    r_seat = (P["ptfe_washer_od"] + P["ptfe_washer_id"]) / 4 * mm
+    t_hinge = MU_HINGE * vane_kg * 9.81 * r_seat
     v_fold = math.sqrt(t_hinge / (CD_PLATE * 0.5 * RHO_AIR * area * d_hinge))
 
     # --- spin-up: net torque on a stationary rotor ----------------------
@@ -206,10 +215,9 @@ def main():
     if VANE_SLICED_KG < vane_kg:
         v_real = v_fold * math.sqrt(VANE_SLICED_KG / vane_kg)
         print(f"[info] self-start as built ({VANE_SLICED_KG * 1000:.0f} g"
-              f" sliced vane): ~{v_real:.2f} m/s; rings in nylon (mu ~0.2)"
-              f" ~{v_real * math.sqrt(0.2 / MU_HINGE):.2f}; a thin PTFE"
-              " washer on the boss (mu ~0.12, r ~5.3 mm)"
-              f" ~{v_real * math.sqrt(0.12 * 5.3 * mm / (MU_HINGE * r_boss)):.2f}")
+              f" sliced vane): ~{v_real:.2f} m/s; if the washer runs at"
+              " its data-sheet mu (0.10)"
+              f" ~{v_real * math.sqrt(0.10 / MU_HINGE):.2f}")
     else:
         print(f"[info] VANE_SLICED_KG ({VANE_SLICED_KG * 1000:.0f} g) is"
               f" stale: it exceeds the solid mass of the current vane"
@@ -277,7 +285,7 @@ def main():
           f" the 8 mm rod, SF {sf_arm:.2f} vs T5 yield (>= 1.3)")
 
     # stub bending where it leaves the bracket grip
-    lever_stub = (P["collar_boss_h"]
+    lever_stub = (P["ptfe_washer_t"]
                   + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
     sf_stub = ALU_YIELD / (f_panel * lever_stub / s_rod)
     check(ok, sf_stub >= 3, "stub survives the storm",
@@ -328,7 +336,7 @@ def main():
           " angle over time — the known deferred upgrade (knurl, flats);"
           " re-set the cap if the driven stop drifts")
 
-    lever_tors = (P["bracket_h"] / 2 + P["collar_boss_h"]
+    lever_tors = (P["bracket_h"] / 2 + P["ptfe_washer_t"]
                   + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
     t_bracket = MU_CLAMP * 2 * F_M3 * (P["rod_d"] / 2) * mm
     sf_tors = t_bracket / (f_panel * lever_tors)

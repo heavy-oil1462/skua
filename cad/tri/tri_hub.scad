@@ -77,9 +77,9 @@ module tri_hub_disc() {
 
 // an M8 fender washer and nyloc for the scene, washer at z = 0
 module tri_m8_stack() {
-    cylinder(h = tri_m8_washer_t, d = tri_m8_washer_od);
-    translate([0, 0, tri_m8_washer_t])
-        cylinder(h = tri_nut_t, d = tri_nut_af / cos(30), $fn = 6);
+    cylinder(h = m8_washer_t, d = m8_washer_od);
+    translate([0, 0, m8_washer_t])
+        cylinder(h = m8_nut_t, d = m8_nut_af / cos(30), $fn = 6);
 }
 
 // preview: the sandwich pair as it prints, the slot disc beside it

@@ -28,7 +28,6 @@ include <tri_params.scad>
 $fn = 80;
 
 zc           = bracket_h / 2;   // the arm axis height
-stub_lead_in = 1.5;             // funnel mouth, dual verbatim
 
 module tri_tip_bracket() {
     difference() {

@@ -19,10 +19,10 @@
 //
 //   The cap is the ONLY stop and it clamps at any angle, so the
 //   driven-stop angle is a two-bolt adjustment (field testing knob);
-//   the stop ring below is just the smooth thrust seat. The notch's
+//   below, the sleeve spins on the bought PTFE washer. The notch's
 //   radial walls match the wedge's flat side faces, so the stop is a
 //   face contact. The sleeve's bottom end face is left whole: a full
-//   ring resting on the stop ring's boss.
+//   ring resting on the washer.
 //
 //   The panel is an arched pennant, drawn for the return trip: it
 //   spans the sleeve, runs flat for vane_shoulder_w past the sleeve

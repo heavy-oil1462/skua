@@ -2,7 +2,8 @@
 
 What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
-600 mm, 2x 113 mm of 8 mm aluminum), the M5 clamp bolts with wide washers and the
+600 mm, 2x 112 mm of 8 mm aluminum), the two PTFE washers (8x14x1,
+the vane thrust seats), the M5 clamp bolts with wide washers and the
 M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
 keys to suit, and, only if you fit the optional retainer, something
 about 1 mm thick and no wider than about 15 mm (a strip of folded
@@ -130,36 +131,36 @@ retainer are visible; yours is in one piece.
 Each tip bracket is two printed halves that close over the arm and
 the stub the way the hub closes over its rods: the PEG half and the
 PLAIN half (the peg sockets). Nothing needs to be juggled in
-mid-air here: the stub groove runs straight through the bracket and
-the ring pocket opens through its top face, so the clamshell closes
-over the arm alone and the stub and ring feed in from above
-afterward.
+mid-air here: the stub groove runs straight through the bracket
+with a funnel mouth at its top face, so the clamshell closes over
+the arm alone and the stub feeds in from above afterward.
 
 Lay the peg half groove side up and set the arm end into the long
-groove until it bottoms out. Fit the plain half over the pegs and
-add the four M3x30s with a small washer under each head and each
-nyloc, but leave them a turn loose so the halves can float. Roll
-the bracket on the arm until the stub groove points straight up,
-pocket face on top, and slide a 113 mm stub down through the groove
-until it sits flush with the bracket's underside; the funnel mouth
-in the pocket floor guides it in. Drop the stop ring down over the
-stub, D flat toward the arm tip, and seat its foot in the pocket.
-The ring is smooth: it is only the vane's thrust seat, and the
-D foot is just the shape that fills the pocket. Check the stub
-still points straight up, ring on top, then tighten the four bolts
-evenly. Same rule as the hub: the halves must NOT touch; an even
-gap all around means the rods, not the plastic, carry the preload.
+groove until it bottoms out. Fit the plain half over the pegs,
+press a nyloc into each of the four hex pockets in the plain
+half's outer face, and add the four M3x25s with a small washer
+under each head, but leave them a turn loose so the halves can
+float. The pockets hold the nuts, so the whole bracket tightens
+with just a screwdriver on the head side; M3x30s also work, they
+just stand about 5 mm proud of the nut face. Roll the bracket on
+the arm until the stub groove points straight up and slide a
+112 mm stub down through the groove until it sits flush with the
+bracket's underside; the funnel mouth in the top face guides it
+in. Check the stub points straight up, then tighten the four
+bolts evenly. Same rule as the hub: the halves must NOT touch; an
+even gap all around means the rods, not the plastic, carry the
+preload.
 
 The stub is the vane's hinge, and vertical is the point: a hinge
 gravity cannot fight is what lets the rotor start in light wind.
-Drop the vane sleeve over each stub, notched end up; its lower end
-rests on the stop ring's boss (that small ring is the vane's whole
-thrust bearing, so it spins freely). Then the end cap, open face
-and wedge DOWN into the notch, bolts loose; it gets set in step 5.
-The thrust seat takes all the running friction; if a ring ever
-looks worn, pop the cap, lift sleeve and ring off the stub, and
-drop a freshly printed ring in its place. Printing a spare ring or
-two with the machine costs nothing.
+Drop a PTFE washer over each stub onto the bracket's flat top,
+then the vane sleeve, notched end up; its lower end rests on the
+washer, and that slippery millimeter is the vane's whole thrust
+bearing. Then the end cap, open face and wedge DOWN into the
+notch, bolts loose; it gets set in step 5. The washer takes all
+the running friction; if one ever looks chewed up, pop the cap,
+lift the sleeve, and drop a fresh washer on. They cost pennies,
+so keep a couple of spares in the toolbox.
 
 ![step 4](assembly/step4.png)
 

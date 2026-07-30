@@ -13,8 +13,9 @@ Each vane is a flag on a VERTICAL hinge: a sleeve spinning on a short
 vertical stub rod, held at the arm tip by a printed knuckle bracket,
 with the panel reaching out sideways like a door. The end cap's stop
 wedge rides in a notch in the sleeve's top end and is the vane's only
-stop; below, the sleeve rests on a smooth stop ring trapped in the
-bracket, the vane's thrust seat and the replaceable wear part. The
+stop; below, the sleeve rests on a thin PTFE washer on the bracket's
+flat top, the vane's whole thrust seat: bought, slippery where a
+printed seat drags, and the cheapest wear part there is. The
 vane swings freely through about 90 degrees one way and hits the
 hard stop the other way, the impact landing flat on the notch walls.
 The cap is a clamp, so the driven-stop angle is set, and re-set, by
@@ -72,22 +73,37 @@ cavity later if the mooring proves rough (see the assembly guide).
 
 - printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
   2 tip bracket peg halves + 2 plain halves (each arm tip clamps
-  between one of each), 2 stop rings, 2 end caps, 1 thrust collar,
+  between one of each), 2 end caps, 1 thrust collar,
   and optionally 1 retainer collar (see `stl/`)
 - filament: something UV-stable (ASA) for a machine that lives on a
   boat; PLA is fine for prototyping and fit checks but creeps under
   clamp preload and degrades in the sun
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
-- 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 113 mm
+- 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 112 mm
   (the vertical hinge stubs)
+- 2x PTFE washer 8x14x1 (the vane thrust seats: each sleeve spins on
+  one, resting on the bracket's flat top)
 - 5x M5x35 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
-- 8x M3x30 bolt + nyloc + 2 small washers each (the tip bracket
-  clamshells: kept light because they ride at the arm tips)
+- 8x M3x25 bolt + nyloc + 1 small washer each (the tip bracket
+  clamshells, kept light because they ride at the arm tips; the
+  nylocs sit captive in hex pockets, so a screwdriver on the head
+  side is the whole tool kit. M3x30s also fit, standing about 5 mm
+  proud)
 - 6x M3x16 bolt + nyloc (two each for the dual-bolt clamps: the
   thrust collar and 2 caps), plus one more if the retainer is fitted
 - 4x 4.2 mm wood screws, and a plank to screw the base onto (any
   thickness, no hole: nothing reaches below the base)
+
+OPTIONAL hub disc variant (`stl/hub_disc.stl`): one printed slot
+disc replaces the hub clamshell and all five M5s. The two arms lie
+in through slots and clamp between two M8 fender washers (8.4x30x1.5)
+and two M8 nylocs on the shaft's top end, threaded M8x1.25 for 30 mm
+with a hand die (8 mm rod is an M8 blank; the die self-aligns and
+nothing is drilled). Steel jaws instead of bolted plastic: about
+85 g off the rotor, no seasonal re-torque at the hub, and the arms
+ride 27 mm lower on the same shaft. The clamshell stays the default
+because it needs no rod prep at all.
 
 ## Calibration before printing the real parts
 
