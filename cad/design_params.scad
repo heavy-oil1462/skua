@@ -13,10 +13,20 @@
 // include, no need to edit this file.
 // ============================================================
 
-// --- Aluminum rod stock (bought; ONE diameter everywhere) ---
-// 8 mm rod is chosen to match the 608 bearing bore, so the shaft and
-// both arms cut from the same stock.
+// --- Aluminum rod stock (bought) ---
+// 8 mm rod matches the 608 bearing bore, so shaft and stubs are
+// PINNED to it (and the hub disc variant's M8 die pass rides on it).
+// The arms default to the same stock but have their own knob below:
+// thinner arms are a weight experiment, and the storm gate decides
+// (the arm is the machine's fuse — watch its SF when thinning).
 rod_d        = 8;
+arm_rod_d    = 8;    // the two horizontal arms ONLY. Changing it
+                     // (say to 6) resizes the hub and bracket arm
+                     // grooves and the hub disc slots; re-gauge
+                     // arm_snug_d on the new stock first (the rod
+                     // fit gauge grows a second bar when this
+                     // differs from rod_d) and keep hub_disc_h =
+                     // arm_rod_d - hub_clamp_gap (both gated)
 shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
                      // plank (geometry_check.py gates the clearance)
@@ -46,6 +56,11 @@ pocket_recess = 0.5;  // bearings sit this far below the tower faces so
 bearing_press_d = 21.95; // pocket that grips the outer race — cad/calibration/bearing_pocket_gauge.scad
 rod_snug_d      = 8.0;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
 rod_free_d      = 8.2;  // bores that must SPIN on the rod (vane sleeve) — same gauge
+arm_snug_d      = 8.0;  // grooves the ARM presses into (hub, bracket,
+                        // disc slots) — same gauge, arm bar. MEASURED,
+                        // never derived: while arm_rod_d == rod_d this
+                        // must equal rod_snug_d (geometry_check pins
+                        // it); on other arm stock, gauge that stock
 fit_tol         = 0.2;  // clearance for printed slots/pockets
 
 // --- Base (screwed to the plank) ---
@@ -111,10 +126,10 @@ hub_peg_d        = 4;
 //     arm station about 27 mm lower on the same shaft ---
 hub_disc_d       = 50;  // slot flanks run boss to rim: 18 mm of
                         // bearing per arm for horizontal storm bending
-hub_disc_h       = 7.2; // rod_d minus hub_clamp_gap: the arms stand
-                        // proud of both faces by half the gap, so
-                        // washer preload lands on the rods, never on
-                        // plastic (geometry_check pins the relation)
+hub_disc_h       = 7.2; // arm_rod_d minus hub_clamp_gap: the arms
+                        // stand proud of both faces by half the gap,
+                        // so washer preload lands on the rods, never
+                        // on plastic (geometry_check pins the relation)
 hub_disc_boss_d  = 14;  // arm butt circle around the free bore
 hub_shaft_thread = 30;  // M8x1.25 die length on the shaft top: the
                         // nut-washer-disc-washer-nut stack plus lead

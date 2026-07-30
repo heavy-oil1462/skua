@@ -43,9 +43,16 @@ hardware. No electronics — the wind does everything.
   rides the thin PTFE washer so spin friction stays low (that
   thrust face is what sets the self-start wind — performance_check
   gates it).
-- **One rod stock.** Shaft, arms and the two vertical hinge stubs are
-  all 8 mm aluminum rod (the 608 bore). No second diameter may creep
-  in.
+- **Shaft and stubs are pinned to 8 mm rod** (the 608 bore, which
+  also makes the shaft an M8 die blank for the hub disc variant).
+  The ARMS default to the same stock but carry their own knob,
+  arm_rod_d: thinner arms are a weight experiment paid for straight
+  out of the arm's storm safety factor (the arm is the machine's
+  fuse, and performance_check arbitrates). Changing arm_rod_d means
+  re-gauging arm_snug_d on the new stock (the rod fit gauge grows an
+  arm bar when the diameters differ; fits are measured, never
+  derived) and keeping hub_disc_h = arm_rod_d - hub_clamp_gap, all
+  gated. Beyond those two stocks no diameter may creep in.
 - **Rotor weight hangs on the thrust collar,** clamped to the shaft and
   riding the top bearing's INNER race (boss stays inside
   bearing_inner_shoulder_d). Nothing else may take axial load in normal
@@ -154,7 +161,8 @@ Conventions:
 - 2x 608 bearing (8x22x7, any skateboard bearing; ZZ shields preferred
   outdoors)
 - 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 112 mm
-  hinge stubs
+  hinge stubs (the arms follow arm_rod_d if changed from the default
+  8; shaft and stubs stay 8)
 - 2x PTFE washer 8x14x1, the vane thrust seats on the bracket tops
 - 5x M5x35 with wide washers (hub clamshell; M5x40 also fits with
   about 10 mm of stickout, the pre-slim length), 8x M3x25 with small

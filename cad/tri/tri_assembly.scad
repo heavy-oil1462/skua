@@ -85,7 +85,7 @@ for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
     color("DarkGray")
         translate([arm_root, 0, tri_arm_z])
             rotate([0, 90, 0])
-                cylinder(h = arm_length, d = rod_d);
+                cylinder(h = arm_length, d = arm_rod_d);
     // the dual tip stack: clamshell bracket on the arm (with the
     // tri's keyed ring pocket switched on), clamped stub standing
     // through, keyed stop ring in the pocket

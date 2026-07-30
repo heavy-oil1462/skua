@@ -113,7 +113,7 @@ module arm_side(swing) {
         color("DarkGray")
             translate([arm_root, 0, arm_z])
                 rotate([0, 90, 0])
-                    cylinder(h = arm_length, d = rod_d);
+                    cylinder(h = arm_length, d = arm_rod_d);
 
     if (step >= 4) {
         // tip bracket on the arm end, stub rod standing through,

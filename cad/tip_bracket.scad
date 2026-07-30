@@ -113,10 +113,11 @@ module bracket_solid(ring_pocket) {
         translate([0, -bracket_w / 2, 0])
             cube([bracket_len, bracket_w, bracket_h]);
 
-        // arm groove, blind, from the inboard face
+        // arm groove, blind, from the inboard face (the arm stock's
+        // own gauged fit)
         translate([-0.1, 0, zc])
             rotate([0, 90, 0])
-                cylinder(h = bracket_arm_grip + 0.1, d = rod_snug_d);
+                cylinder(h = bracket_arm_grip + 0.1, d = arm_snug_d);
 
         // stub groove, straight through
         translate([bracket_stub_x, 0, -0.1])

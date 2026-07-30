@@ -34,12 +34,12 @@ module hub_disc() {
         // free over the thread crests; the washers do the locating
         translate([0, 0, -0.1])
             cylinder(h = hub_disc_h + 0.2, d = rod_free_d);
-        // one full-height slot per arm, snug on the rod flanks, boss
+        // one full-height slot per arm, snug on the arm flanks, boss
         // circle to rim
         for (m = [0, 1]) mirror([m, 0, 0])
-            translate([hub_disc_boss_d / 2, -rod_snug_d / 2, -0.1])
+            translate([hub_disc_boss_d / 2, -arm_snug_d / 2, -0.1])
                 cube([hub_disc_d / 2 - hub_disc_boss_d / 2 + 1,
-                      rod_snug_d, hub_disc_h + 0.2]);
+                      arm_snug_d, hub_disc_h + 0.2]);
     }
 }
 

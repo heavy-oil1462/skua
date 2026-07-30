@@ -125,8 +125,9 @@ def main():
             return 1
         part_kg[name] = stl_volume_mm3(f) * 1e-9 * RHO_ASA
     rod_kg_m = RHO_ALU * math.pi * (P["rod_d"] * mm / 2) ** 2
-    rods_kg = rod_kg_m * mm * (P["shaft_length"] + 2 * P["arm_length"]
-                               + 2 * P["stub_length"])
+    arm_kg_m = RHO_ALU * math.pi * (P["arm_rod_d"] * mm / 2) ** 2
+    rods_kg = (rod_kg_m * mm * (P["shaft_length"] + 2 * P["stub_length"])
+               + arm_kg_m * mm * 2 * P["arm_length"])
     rotor_kg = (sum(part_kg[n] * c for n, c in ROTOR_PARTS.items())
                 + rods_kg + HARDWARE_KG)
     vane_kg = part_kg["vane"]
@@ -276,18 +277,20 @@ def main():
     arm_free = P["arm_length"] * mm - P["hub_arm_socket"] * mm
     m_wind = f_panel * (r_drive - P["hub_len"] / 2 * mm)
     m_weight = 9.81 * (tip_kg * arm_free
-                       + rod_kg_m * arm_free * arm_free / 2)
+                       + arm_kg_m * arm_free * arm_free / 2)
     m_arm = math.hypot(m_wind, m_weight)
-    s_rod = math.pi * (P["rod_d"] * mm) ** 3 / 32
-    sf_arm = ALU_YIELD / (m_arm / s_rod)
+    s_arm = math.pi * (P["arm_rod_d"] * mm) ** 3 / 32
+    sf_arm = ALU_YIELD / (m_arm / s_arm)
     check(ok, sf_arm >= 1.3, "arm survives the storm",
-          f"{m_arm:.1f} N m at the hub, {m_arm / s_rod / 1e6:.0f} MPa in"
-          f" the 8 mm rod, SF {sf_arm:.2f} vs T5 yield (>= 1.3)")
+          f"{m_arm:.1f} N m at the hub, {m_arm / s_arm / 1e6:.0f} MPa in"
+          f" the {P['arm_rod_d']} mm arm rod, SF {sf_arm:.2f} vs T5"
+          " yield (>= 1.3; thinning arm_rod_d spends exactly this)")
 
     # stub bending where it leaves the bracket grip
     lever_stub = (P["ptfe_washer_t"]
                   + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
-    sf_stub = ALU_YIELD / (f_panel * lever_stub / s_rod)
+    s_stub = math.pi * (P["rod_d"] * mm) ** 3 / 32
+    sf_stub = ALU_YIELD / (f_panel * lever_stub / s_stub)
     check(ok, sf_stub >= 3, "stub survives the storm",
           f"{f_panel * lever_stub:.2f} N m at the bracket, SF"
           f" {sf_stub:.1f} (>= 3)")
@@ -338,13 +341,13 @@ def main():
 
     lever_tors = (P["bracket_h"] / 2 + P["ptfe_washer_t"]
                   + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
-    t_bracket = MU_CLAMP * 2 * F_M3 * (P["rod_d"] / 2) * mm
+    t_bracket = MU_CLAMP * 2 * F_M3 * (P["arm_rod_d"] / 2) * mm
     sf_tors = t_bracket / (f_panel * lever_tors)
     check(ok, sf_tors >= 2, "bracket holds against gust torsion",
           f"arm-clamp friction {t_bracket:.2f} N m vs {f_panel * lever_tors:.2f}"
           f" twisting it about the arm, SF {sf_tors:.1f} (>= 2)")
 
-    t_hub_arm = MU_CLAMP * 3 * F_M5 * (P["rod_d"] / 2) * mm
+    t_hub_arm = MU_CLAMP * 3 * F_M5 * (P["arm_rod_d"] / 2) * mm
     sf_hub = t_hub_arm / (f_panel * lever_tors)
     check(ok, sf_hub >= 2, "arm cannot roll in the hub",
           f"hub-clamp friction {t_hub_arm:.2f} N m vs the same torsion,"
@@ -362,9 +365,9 @@ def main():
 
     # arm droop under its own and the tip's weight (observable: check
     # the real machine against this number)
-    i_rod = math.pi * (P["rod_d"] * mm) ** 4 / 64
-    droop = (tip_kg * 9.81 * arm_free ** 3 / (3 * E_ALU * i_rod)
-             + rod_kg_m * 9.81 * arm_free ** 4 / (8 * E_ALU * i_rod))
+    i_arm = math.pi * (P["arm_rod_d"] * mm) ** 4 / 64
+    droop = (tip_kg * 9.81 * arm_free ** 3 / (3 * E_ALU * i_arm)
+             + arm_kg_m * 9.81 * arm_free ** 4 / (8 * E_ALU * i_arm))
     print(f"[info] arm tips droop {droop * 1000:.0f} mm under gravity"
           " (rig check: measure it)")
 

@@ -34,9 +34,24 @@ def check(ok_list, good, label, detail):
 def main():
     ok = []
 
-    # --- fits are ordered: free spins, snug grips, both over the rod ---
+    # --- fits are ordered: free spins, snug grips, both over the rod.
+    #     The arms have their own stock diameter and their own GAUGED
+    #     snug fit (nothing spins on an arm, so no free fit) ---
     check(ok, P["rod_d"] <= P["rod_snug_d"] < P["rod_free_d"],
           "rod fits", f"rod {P['rod_d']} <= snug {P['rod_snug_d']} < free {P['rod_free_d']}")
+    check(ok, P["arm_rod_d"] <= P["arm_snug_d"] <= P["arm_rod_d"] + 0.4,
+          "arm fit",
+          f"arm {P['arm_rod_d']} <= snug {P['arm_snug_d']} <= arm + 0.4"
+          " (measured on the arm stock, never derived)")
+    if P["arm_rod_d"] == P["rod_d"]:
+        check(ok, P["arm_snug_d"] == P["rod_snug_d"],
+              "arm fit matches the shaft gauge",
+              f"same stock, same gauge number: arm_snug {P['arm_snug_d']}"
+              f" == rod_snug {P['rod_snug_d']}")
+    else:
+        print(f"[info] arms are {P['arm_rod_d']} mm stock: arm_snug_d must"
+              " come from the fit gauge's arm bar, and the arm storm SF"
+              " in performance_check is the number that decides the diet")
     check(ok, P["bearing_od"] - 0.5 <= P["bearing_press_d"] <= P["bearing_od"] + 0.1,
           "bearing press fit",
           f"pocket {P['bearing_press_d']} within [{P['bearing_od'] - 0.5}, {P['bearing_od'] + 0.1}]")
@@ -86,14 +101,14 @@ def main():
 
     # --- hub walls around the grooves (clamshell: plain round grooves,
     #     printed open-face-up, so no teardrop crown anywhere here) ---
-    web = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_shaft_socket"]
+    web = (P["hub_arm_z"] - P["arm_snug_d"] / 2) - P["hub_shaft_socket"]
     check(ok, web >= 3, "hub shaft/arm web", f"{web:.1f} mm between the sockets (>= 3)")
-    peak = P["hub_arm_z"] + P["rod_snug_d"] / 2
+    peak = P["hub_arm_z"] + P["arm_snug_d"] / 2
     check(ok, P["hub_h"] - peak >= 2, "hub top wall",
           f"{P['hub_h'] - peak:.1f} mm above the arm groove (>= 2)")
     check(ok, P["hub_len"] - 2 * P["hub_arm_socket"] >= 8, "hub center web",
           f"{P['hub_len'] - 2 * P['hub_arm_socket']:.1f} mm between the arm sockets (>= 8)")
-    beam_wall = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - P["hub_beam_z"]
+    beam_wall = (P["hub_arm_z"] - P["arm_snug_d"] / 2) - P["hub_beam_z"]
     check(ok, beam_wall >= 3, "hub T beam under the arm bores",
           f"{beam_wall:.1f} mm of beam below the bore (>= 3)")
     stem_wall = (P["hub_stem_w"] - P["rod_snug_d"]) / 2
@@ -110,12 +125,12 @@ def main():
     check(ok, min(stem_in, stem_out) >= 2, "hub stem bolts",
           f"{stem_in:.1f} mm to the shaft groove, {stem_out:.1f} mm to the"
           " stem edge (>= 2)")
-    beam_up = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - (P["hub_bolt_beam_z"] + r)
+    beam_up = (P["hub_arm_z"] - P["arm_snug_d"] / 2) - (P["hub_bolt_beam_z"] + r)
     beam_dn = (P["hub_bolt_beam_z"] - r) - P["hub_beam_z"]
     check(ok, min(beam_up, beam_dn) >= 2, "hub beam bolts",
           f"{beam_up:.1f} mm to the arm groove, {beam_dn:.1f} mm to the"
           " beam underside (>= 2)")
-    peg_up = (P["hub_arm_z"] - P["rod_snug_d"] / 2) - (P["hub_peg_z"] + P["hub_peg_d"] / 2)
+    peg_up = (P["hub_arm_z"] - P["arm_snug_d"] / 2) - (P["hub_peg_z"] + P["hub_peg_d"] / 2)
     peg_out = P["hub_len"] / 2 - P["hub_peg_x"] - P["hub_peg_d"] / 2
     check(ok, min(peg_up, peg_out) >= 1.5, "hub registration pegs",
           f"{peg_up:.1f} mm to the arm groove, {peg_out:.1f} mm to the end"
@@ -127,9 +142,9 @@ def main():
     # --- hub disc VARIANT (hub_disc.scad): the washer-jaw hub on the
     #     die-threaded shaft top. Same proud-rod clamp rule, steel
     #     jaws instead of bolted plastic ---
-    check(ok, abs(P["hub_disc_h"] - (P["rod_d"] - P["hub_clamp_gap"])) < 1e-9,
-          "disc leaves the rods proud",
-          f"disc {P['hub_disc_h']} = rod {P['rod_d']} - gap"
+    check(ok, abs(P["hub_disc_h"] - (P["arm_rod_d"] - P["hub_clamp_gap"])) < 1e-9,
+          "disc leaves the arms proud",
+          f"disc {P['hub_disc_h']} = arm {P['arm_rod_d']} - gap"
           f" {P['hub_clamp_gap']}: washer preload lands on the rods,"
           " never on face-to-face plastic")
     flank = (P["hub_disc_d"] - P["hub_disc_boss_d"]) / 2
@@ -195,7 +210,7 @@ def main():
     m3r = P["m3_clear_d"] / 2
     zc = P["bracket_h"] / 2
     bolt_edge = zc - P["bracket_bolt_dz"] - m3r
-    bolt_groove = P["bracket_bolt_dz"] - m3r - P["rod_snug_d"] / 2
+    bolt_groove = P["bracket_bolt_dz"] - m3r - P["arm_snug_d"] / 2
     check(ok, min(bolt_edge, bolt_groove) >= 2, "bracket arm bolts",
           f"{bolt_edge:.2f} mm to the faces, {bolt_groove:.2f} mm to"
           " the arm groove (>= 2)")
@@ -207,7 +222,7 @@ def main():
     check(ok, min(sb_groove, sb_socket, sb_end) >= 2, "bracket stub bolts",
           f"{sb_groove:.2f} mm to the stub groove, {sb_socket:.2f} mm to"
           f" the arm groove end, {sb_end:.2f} mm to the end face (>= 2)")
-    peg_groove = P["bracket_peg_dz"] - P["rod_snug_d"] / 2 - 2
+    peg_groove = P["bracket_peg_dz"] - P["arm_snug_d"] / 2 - 2
     peg_edge = zc - P["bracket_peg_dz"] - 2
     check(ok, min(peg_groove, peg_edge) >= 1.5, "bracket pegs",
           f"{peg_groove:.1f} mm to the arm groove, {peg_edge:.1f} mm to"
@@ -269,7 +284,7 @@ def main():
           f"{P['bracket_len'] - P['bracket_stub_x'] - pocket_r:.1f} mm to"
           " the outboard face (>= 2)")
     pocket_floor = P["bracket_h"] - P["ring_foot_t"]
-    groove_top = P["bracket_h"] / 2 + P["rod_snug_d"] / 2
+    groove_top = P["bracket_h"] / 2 + P["arm_snug_d"] / 2
     check(ok, pocket_floor - groove_top >= 3, "tri ring pocket floor",
           f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
     check(ok, P["bracket_stub_x"] - pocket_r
