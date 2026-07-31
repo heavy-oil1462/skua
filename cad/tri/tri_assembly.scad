@@ -1,22 +1,17 @@
 // ============================================================
 // TRI VARIANT CONCEPT ASSEMBLY — open this file in OpenSCAD to review.
 //
-// The tri v0.1: three arms at 120 degrees (the worst-parking-angle
+// The tri: three arms at 120 degrees (the worst-parking-angle
 // fix) cradled in the sandwich hub from tri_hub.scad, two
 // identical half-shells clamped between fender washers by M8
 // nylocs on the shaft's die-threaded top (the slot-disc variant
 // with steel-on-rod jaws is modeled alongside; one-line swap
-// below). The tip is the DUAL's verbatim (clamped stub, tip
-// bracket, vane) except the stop, which sits at the tri's other
-// end of the one-stop tradeoff: the tri clamp cap is the dual's
-// minus the stop wedge and the ring grows its keyed fin back
-// (stop_ring's fin_deg option, stop_wedge_deg wide so the shared
-// notch fits), because in the tri the ring fin is the only stop
-// and the angle is baked in. No rod prep beyond the die pass. A
-// PTFE washer rides each thrust seat (ladder step two; lift it
-// off and the seat is pure dual). The screwed-stub tip in
-// tri_tip_bracket.scad / tri_end_cap.scad is the deferred kit
-// direction, not in this scene.
+// below). EVERYTHING outboard of the hub is the dual's vane
+// assembly verbatim: the same bracket, stub, PTFE thrust washer,
+// vane and cap-wedge stop, printed once more. The only assembly
+// difference is counting: three caps get hand-set to the same
+// rotational sense instead of two. No rod prep beyond the die
+// pass.
 //
 // Later ladder steps (film vanes, the reach-for-arm trade) live in
 // film_vane.scad and scripts/tri_study.py, not in this scene.
@@ -32,9 +27,8 @@ include <../design_params.scad>
 include <tri_params.scad>
 use <../base.scad>
 use <../tip_bracket.scad>
-use <tri_stop_ring.scad>
 use <../vane.scad>
-use <tri_clamp_cap.scad>
+use <../end_cap.scad>
 use <tri_hub.scad>
 
 $fn = 48;
@@ -50,7 +44,7 @@ arm_tip     = arm_root + arm_length;
 bracket_x   = arm_tip - bracket_arm_grip;
 stub_x      = bracket_x + bracket_stub_x;
 bracket_bot = tri_arm_z - bracket_h / 2;
-sleeve_bot  = tri_arm_z + bracket_h / 2 + collar_boss_h + ptfe_washer_t;
+sleeve_bot  = tri_arm_z + bracket_h / 2 + ptfe_washer_t;
 cap_face    = sleeve_bot + vane_sleeve_len + 1;
 
 // the dual base, plank level at z = 0 (the taller mounting from
@@ -86,40 +80,34 @@ for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms]) {
         translate([arm_root, 0, tri_arm_z])
             rotate([0, 90, 0])
                 cylinder(h = arm_length, d = arm_rod_d);
-    // the dual tip stack: clamshell bracket on the arm (with the
-    // tri's keyed ring pocket switched on), clamped stub standing
-    // through, keyed stop ring in the pocket
+    // the dual tip stack, verbatim: clamshell bracket on the arm,
+    // clamped stub standing through, the PTFE thrust washer on the
+    // bracket's flat top
     color("SteelBlue")
         translate([bracket_x, 0, bracket_bot])
-            tip_bracket(ring_pocket = true);
+            tip_bracket();
     color("DarkGray")
         translate([stub_x, 0, bracket_bot])
             cylinder(h = stub_length, d = rod_d);
-    color("SteelBlue")
-        translate([stub_x, 0, tri_arm_z + bracket_h / 2 - ring_foot_t])
-            stop_ring(stop_wedge_deg);
-    // the PTFE washer on the ring's thrust boss
     color("White")
-        translate([stub_x, 0, tri_arm_z + bracket_h / 2 + collar_boss_h])
+        translate([stub_x, 0, tri_arm_z + bracket_h / 2])
             difference() {
                 cylinder(h = ptfe_washer_t, d = ptfe_washer_od);
                 translate([0, 0, -0.5])
                     cylinder(h = ptfe_washer_t + 1, d = ptfe_washer_id);
             }
-    // the dual vane with the bottom notch grown back for the fin,
-    // panel out along the arm at the driven stop
+    // the dual vane, panel out along the arm at the driven stop
     color("Gold")
         translate([stub_x, 0, sleeve_bot])
             rotate([0, 0, -90 - poses[k]])
                 translate([vane_sleeve_od / 2, 0, vane_sleeve_len / 2])
                     rotate([0, -90, 0])
-                        vane(bottom_notch = true);
-    // the tri clamp cap, wedge-free: rotation is irrelevant (no
-    // wedge, and the dual vane's cut-away corner clears the bolt
-    // hardware at any angle); drawn at the dual's cap setting
+                        vane();
+    // the dual end cap, open face and wedge DOWN into the sleeve's
+    // top notch, all three hand-set to the same rotational sense
     color("SteelBlue")
         translate([stub_x, 0, cap_face + cap_t])
             rotate([0, 0, 90 - vane_swing_deg / 2])
                 rotate([180, 0, 0])
-                    tri_clamp_cap();
+                    end_cap();
 }

@@ -262,25 +262,28 @@ cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
 //     a funnel mouth at the top face, so the stub feeds in from
 //     above once the clamshell has closed on the arm; the top is
 //     otherwise FLAT, and the stub stack is just the bought PTFE
-//     washer, the sleeve and the end cap. (The keyed stop ring and
-//     its pocket survive as the tri variant's bracket option; the
-//     dual's stop is the cap wedge alone.) The joint rides 620 mm
-//     out on the arm, so it is sized for weight: M3 preload is
-//     plenty for a clamp whose only friction duty is gust torsion,
-//     and the width stays 24 only because the tri's ring pocket
-//     needs side walls; the slimming is in height and length ---
-bracket_w        = 24;  // clamshell thickness across the split
+//     washer, the sleeve and the end cap. The tri variant prints
+//     this same bracket, cap and vane (one vane assembly, both
+//     machines). The joint rides 620 mm out on the arm, so it is
+//     sized for weight: M3 preload is plenty for a clamp whose only
+//     friction duty is gust torsion (the gate ran SF 7 before this
+//     diet), so every dimension sits on its geometry floor: width
+//     on the captive-nut pocket floors, length on the bolt walls,
+//     grip on the 14 mm friction-joint rule. Height alone stays 24,
+//     pinned by the arm-clamp bolts above and below the arm groove
+//     plus their hex pockets, not by strength ---
+bracket_w        = 18;  // clamshell thickness across the split
 bracket_h        = 24;  // height; also the stub clamp's grip length
-bracket_len      = 50;  // along the arm
-bracket_arm_grip = 22;  // blind arm groove depth
-bracket_stub_x   = 36;  // stub axis from the bracket's inboard face
+bracket_len      = 41;  // along the arm
+bracket_arm_grip = 16;  // blind arm groove depth
+bracket_stub_x   = 28;  // stub axis from the bracket's inboard face
 bracket_bolt_dz  = 8;   // arm-clamp M3s at mid-grip, this far above
                         // and below the arm axis
 bracket_bolt_dx  = 8;   // stub-clamp M3s at mid-height, this far
                         // inboard and outboard of the stub axis
 bracket_peg_x    = 18;  // the two registration pegs (peg half), this
-bracket_peg_dz   = 8;   // far above and below the arm axis, inboard
-                        // of the tri's ring pocket
+bracket_peg_dz   = 8;   // far above and below the arm axis, between
+                        // the arm bolts and the stub bolts
 bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
                          // rule: bolt preload lands on the rods,
                          // never on face-to-face plastic
@@ -290,29 +293,10 @@ stub_lead_in     = 1.5; // funnel mouth at the stub groove's top
                         // the flat ring OUTSIDE this mouth
                         // (geometry_check gates the annulus)
 
-// --- Stop ring (TRI VARIANT ONLY, cad/tri/tri_stop_ring.scad): a
-//     D-footed disc trapped in the bracket's matching pocket when
-//     the clamshell closes, carrying the keyed stop fin — in the
-//     tri the fin is the only stop and the angle is baked in. The
-//     dual deleted it: its stop is the cap wedge alone, and its
-//     thrust seat is the bought PTFE washer on the bracket's flat
-//     top (lower friction than any printed seat, and one less part
-//     to print and wear). The dimensions stay here because the
-//     bracket's pocket option and the ring must agree ---
-ring_foot_d    = 20;   // the D foot the clamshell traps
-ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
-ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
-ring_boss_d    = 10;   // the ring's thrust seat, narrowed to the
-                       // bore edge: the tri's self-start wind scales
-                       // with the sqrt of this contact radius. Only
-                       // the ring uses it; collar_boss_d stays the
-                       // bearing-race boss
-
 // --- Stop wedge (on the end cap, set at assembly to any angle; it
 //     rides the notch in the vane sleeve's top end and its flat
 //     radial faces land flush on the notch walls, so the stop is a
-//     face contact — lib/stop_wedge.scad. The same profile is the
-//     tri variant's ring fin) ---
+//     face contact — lib/stop_wedge.scad) ---
 stop_wedge_deg = 60;   // angular thickness, also the swing tuning
                        // knob (see vane_swing_deg): the notch arc is
                        // swing + this. Sized so ONE wedge takes the
