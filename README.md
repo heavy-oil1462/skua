@@ -11,20 +11,39 @@ No electronics, no motor — wind only.
 
 Each vane is a flag on a VERTICAL hinge: a sleeve spinning on a short
 vertical stub rod, held at the arm tip by a printed knuckle bracket,
-with the panel reaching out sideways like a door. A stop wedge rides
-in a notch at each end of the sleeve: one on the end cap above, and
-below it the fin of a keyed stop ring trapped in the bracket, the
-replaceable wear part. The vane swings freely through about 90
-degrees one way and hits a hard stop the other way, the impact landing
-flat on the notch walls and shared by both wedges. The swing angle is
-set entirely by the ring fin's width (the sleeve notch minus the fin),
-so trying a different swing is a reprint of two small rings; the
-vanes, caps and their settings do not change. Wind pushing a vane
-onto its stop gets the full panel face and drags the rotor around;
-wind pushing the other vane (coming back upwind) just weathervanes it
-flat. Both stops point the same way around seen from above, so the
-torques add and the rotor self-starts in any wind direction. Every
-pass the driving vane bangs against its stop — free percussion.
+with the panel reaching out sideways like a door. The end cap's stop
+wedge rides in a notch in the sleeve's top end and is the vane's only
+stop; below, the sleeve rests on a smooth stop ring trapped in the
+bracket, the vane's thrust seat and the replaceable wear part. The
+vane swings freely through about 90 degrees one way and hits the
+hard stop the other way, the impact landing flat on the notch walls.
+The cap is a clamp, so the driven-stop angle is set, and re-set, by
+loosening two bolts — the field-testing knob. The swing angle is the
+sleeve notch minus the wedge width, so trying a different swing is a
+reprint of two small caps; the vanes do not change. Wind pushing a
+vane onto its stop gets the full panel face and drags the rotor
+around; wind pushing the other vane (coming back upwind) just
+weathervanes it flat. Set both caps the same way around seen from
+above so the torques add and the rotor self-starts in any wind
+direction. Every pass the driving vane bangs against its stop — free
+percussion.
+
+The flag itself is built for the return trip, not the push: catching
+wind is the easy half, the swing back to the driven stop is the
+fight. So the panel is a thin arched pennant: it spans the sleeve,
+runs flat a short shoulder past the sleeve top, rises in a quarter
+circle to the arch peak, then sweeps down to the bottom outer tip.
+It is a bare 2 mm skin with no stiffening rim, weight being what
+the return swing pays for; if a flag ever creep-curls in the sun,
+that is the sign to reprint with a slim rim on the arch edge.
+Height is free for the
+swing mechanics (only the spread over reach enters the hinge
+integrals), so the raised arch carries face area near the hinge
+where folding wants it, while the shortened reach keeps the tip
+inertia the return swing hates low. Compared to the old full
+rectangle the hinge inertia drops by more than half and the flappy
+free top corner is gone. Nothing of the flag sits close to the end
+cap, so the cap's bolt hardware clears the fold at any cap angle.
 
 The hinge being vertical is what makes it start in light wind: folding
 never lifts any weight. A vane hanging from a horizontal hinge only
@@ -61,7 +80,7 @@ cavity later if the mooring proves rough (see the assembly guide).
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 113 mm
   (the vertical hinge stubs)
-- 5x M5x40 bolt + nyloc + 2 wide washers each (the hub clamshell; no
+- 5x M5x35 bolt + nyloc + 2 wide washers each (the hub clamshell; no
   drilling there)
 - 8x M3x30 bolt + nyloc + 2 small washers each (the tip bracket
   clamshells: kept light because they ride at the arm tips)
@@ -97,7 +116,8 @@ until its bottom race rests on the retainer, the thrust collar
 gauged a millimeter off the top race and clamped, then everything
 flipped upright and the base screwed down; the tip bracket
 clamshells bolted over arms and stubs, sleeves and caps slid on, and
-each cap set to land together with its keyed stop ring's fin.
+each cap rotated to its driven-stop angle, both the same way around,
+and clamped.
 Nothing is drilled anywhere, not the rods, not
 the printed parts, not even the plank, and no joint is permanent: the
 hub is a clamshell, everything else is a slit clamp, so every

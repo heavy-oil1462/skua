@@ -17,7 +17,7 @@ use <../vane.scad>
 
 $fn = 60;
 
-tri_notch_deg = vane_swing_deg + ring_wedge_deg;
+tri_notch_deg = vane_swing_deg + stop_wedge_deg;
 tri_panel_x   = vane_sleeve_od / 2 - tri_frame_t;  // frame plane offset,
                                                  // tangent like v1
 
@@ -35,8 +35,9 @@ module film_vane() {
                     pie(sleeve_r + 1, tri_notch_deg);
     }
     // frame: a picture-frame rectangle from the sleeve to the reach,
-    // overhanging the sleeve top like v1 (the flag is the face)
-    frame_h = vane_width;
+    // overhanging the sleeve top (its own height: the dual's solid
+    // vane became an arched pennant with no height param)
+    frame_h = tri_frame_h;
     translate([tri_panel_x, 0, 0]) {
         for (y = [sleeve_r, tri_vane_reach - tri_frame_w])
             translate([0, y, 0])

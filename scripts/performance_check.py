@@ -56,8 +56,8 @@ E_ALU = 69e9           # Pa
 
 # --- aerodynamics ------------------------------------------------------
 CD_PLATE = 1.17        # finite flat plate, face-on
-CD_EDGE = 1.2          # folded vane seen edge-on: panel edge plus rim
-                       # ends, bluff, taken high (conservative drag)
+CD_EDGE = 1.2          # folded vane seen edge-on: the bare panel
+                       # edge, bluff, taken high (conservative drag)
 V_SURVIVAL = 25.0      # m/s design storm at the mooring, rotor locked
 V_LIGHT_AIR = 1.5      # m/s spin-up ceiling: the scarer must run in
                        # Beaufort 2, or it is a perch. Ratcheted down
@@ -74,12 +74,14 @@ DYN_STOP = 5           # lumped dynamic factor: the stop clack versus
                        # the steady aero moment at the same wind
 HARDWARE_KG = 0.06     # bolts, nuts, washers on the rotor, rough
 VANE_SLICED_KG = 0.078 # the vane as actually sliced (Orca, production
-                       # profile, 2026-07-25); the STL mass model
-                       # prices it solid at ~0.096, kept for the GATES
-                       # because heavier is conservative everywhere.
-                       # This measured point feeds the projection info
-                       # only. Re-slice and update when the vane or
-                       # the profile changes.
+                       # profile, 2026-07-25) — STALE: that slice was
+                       # the 3 mm untapered panel, so it now sits
+                       # ABOVE the solid mass of the light vane.
+                       # Re-slice the new vane and put the number
+                       # here (a kitchen scale on a printed one beats
+                       # the slicer estimate). The gates use the
+                       # solid STL mass, so they are unaffected; this
+                       # point feeds the projection info only.
 
 # rotor parts and their print counts (masses from stl/, solid ASA)
 ROTOR_PARTS = {"hub_front": 1, "hub_back": 1, "collar": 1, "retainer": 1,
@@ -133,13 +135,44 @@ def main():
     sleeve_r = P["vane_sleeve_od"] / 2 * mm
     hinge_r = (P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
                - P["bracket_arm_grip"] + P["bracket_stub_x"]) * mm
-    panel_w = (P["vane_reach"] * mm - sleeve_r)     # horizontal span
-    panel_h = P["vane_width"] * mm                  # vertical span
-    area = panel_w * panel_h                        # one flag face
-    d_hinge = (P["vane_reach"] * mm + sleeve_r) / 2 # hinge to panel center
+    panel_h = P["vane_sleeve_len"] * mm             # height at the sleeve
+    arch_h = P["vane_arch_h"] * mm                  # arch peak above it
+    peak_h = panel_h + arch_h                       # tallest point
+    reach = P["vane_reach"] * mm
+    # the arched pennant (vane.scad draws the same outline): a
+    # panel_h-tall strip from the sleeve out to the shoulder, a
+    # quarter-circle rise of radius arch_h to the peak, then the
+    # quarter-ellipse sweep down to the bottom outer tip. Exact area,
+    # centroid and hinge inertia of that outline — the arch is the
+    # whole point (area concentrates inboard, the return swing gets
+    # cheap), so the model must see the real shape
+    shoulder = P["vane_shoulder_w"] * mm
+    y0 = sleeve_r + shoulder                        # arch springing line
+    y1 = y0 + arch_h                                # peak position
+    a_fall = reach - y1                             # falling arch axis
+    a_strip = shoulder * panel_h
+    a_rise = panel_h * arch_h + math.pi * arch_h ** 2 / 4
+    a_fall_qe = math.pi * a_fall * peak_h / 4
+    area = a_strip + a_rise + a_fall_qe             # one flag face
+    # first and second moments of the face about the hinge (strip and
+    # circular-segment band exactly; quarter ellipse about its
+    # springing edge, pi a^3 b / 16, shifted out to the hinge)
+    m1 = (a_strip * (sleeve_r + shoulder / 2)
+          + panel_h * (y1 ** 2 - y0 ** 2) / 2
+          + y1 * math.pi * arch_h ** 2 / 4 - arch_h ** 3 / 3
+          + peak_h * (a_fall ** 2 / 3 + y1 * math.pi * a_fall / 4))
+    d_hinge = m1 / area                             # hinge to face center
     r_drive = hinge_r + d_hinge                     # rotor axis to center
-    area_edge = (P["vane_t"] * P["vane_width"]
-                 + 3 * P["vane_rim_w"] * (P["vane_rim_h"] - P["vane_t"])) * mm * mm
+    i_face = (panel_h * (y0 ** 3 - sleeve_r ** 3) / 3
+              + panel_h * (y1 ** 3 - y0 ** 3) / 3
+              + math.pi * arch_h ** 4 / 16 - 2 * y1 * arch_h ** 3 / 3
+              + y1 ** 2 * math.pi * arch_h ** 2 / 4
+              + peak_h * (math.pi * a_fall ** 3 / 16
+                          + 2 * y1 * a_fall ** 2 / 3
+                          + y1 ** 2 * math.pi * a_fall / 4))
+    # rimless panel: the edge-on silhouette is just the skin edge
+    area_edge = (P["vane_t"] * (P["vane_sleeve_len"] + P["vane_arch_h"])
+                 * mm * mm)
 
     def q(v):
         return 0.5 * RHO_AIR * v * v
@@ -170,12 +203,19 @@ def main():
     # machine sits at the sliced vane mass, and the paths below THAT
     # are material, not geometry, so they are reported, not designed
     # in.  A kitchen scale on a printed vane beats the slicer estimate.
-    v_real = v_fold * math.sqrt(VANE_SLICED_KG / vane_kg)
-    print(f"[info] self-start as built ({VANE_SLICED_KG * 1000:.0f} g"
-          f" sliced vane): ~{v_real:.2f} m/s; rings in nylon (mu ~0.2)"
-          f" ~{v_real * math.sqrt(0.2 / MU_HINGE):.2f}; a thin PTFE"
-          " washer on the boss (mu ~0.12, r ~5.3 mm)"
-          f" ~{v_real * math.sqrt(0.12 * 5.3 * mm / (MU_HINGE * r_boss)):.2f}")
+    if VANE_SLICED_KG < vane_kg:
+        v_real = v_fold * math.sqrt(VANE_SLICED_KG / vane_kg)
+        print(f"[info] self-start as built ({VANE_SLICED_KG * 1000:.0f} g"
+              f" sliced vane): ~{v_real:.2f} m/s; rings in nylon (mu ~0.2)"
+              f" ~{v_real * math.sqrt(0.2 / MU_HINGE):.2f}; a thin PTFE"
+              " washer on the boss (mu ~0.12, r ~5.3 mm)"
+              f" ~{v_real * math.sqrt(0.12 * 5.3 * mm / (MU_HINGE * r_boss)):.2f}")
+    else:
+        print(f"[info] VANE_SLICED_KG ({VANE_SLICED_KG * 1000:.0f} g) is"
+              f" stale: it exceeds the solid mass of the current vane"
+              f" ({vane_kg * 1000:.0f} g). Re-slice or weigh the new vane"
+              " and update it; the as-built self-start projection is"
+              " suppressed until then")
 
     # The ratio treats the returning flag as fully trailed; with a
     # finite swing it also rides its trailing stop at some incidence
@@ -203,11 +243,12 @@ def main():
     #     travel.  Transit from the flag's hinge inertia against half
     #     the face moment; the rotor angle it consumes is wind
     #     independent (transit ~ 1/v, rotor speed ~ v).  Rough, so
-    #     info not gate: the swing angle is a stop-ring fin reprint,
-    #     and the boat decides ---
-    m_panel = RHO_ASA * panel_w * panel_h * P["vane_t"] * mm
-    i_hinge = (m_panel * ((P["vane_reach"] * mm) ** 3 - sleeve_r ** 3)
-               / (3 * panel_w))
+    #     info not gate: the swing angle is a cap reprint with a
+    #     different wedge width, and the boat decides ---
+    # hinge inertia of the actual pennant: the bare skin, exactly
+    # (i_face is the second moment of the outline; there is no rim
+    # anymore — deleting it cut about a quarter of this number)
+    i_hinge = RHO_ASA * P["vane_t"] * mm * i_face
     t_per_v = math.sqrt(2 * math.radians(P["vane_swing_deg"]) * i_hinge
                         / (0.5 * CD_PLATE * 0.5 * RHO_AIR * area * d_hinge))
     rearm = math.degrees(omega_per_v * t_per_v)
@@ -236,23 +277,29 @@ def main():
           f" the 8 mm rod, SF {sf_arm:.2f} vs T5 yield (>= 1.3)")
 
     # stub bending where it leaves the bracket grip
-    lever_stub = (P["collar_boss_h"] + P["vane_width"] / 2) * mm
+    lever_stub = (P["collar_boss_h"]
+                  + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
     sf_stub = ALU_YIELD / (f_panel * lever_stub / s_rod)
     check(ok, sf_stub >= 3, "stub survives the storm",
           f"{f_panel * lever_stub:.2f} N m at the bracket, SF"
           f" {sf_stub:.1f} (>= 3)")
 
-    # panel root bending in the printed plastic
-    s_panel = panel_h * (P["vane_t"] * mm) ** 2 / 6
-    m_panel = f_panel * (d_hinge - sleeve_r - P["vane_rim_w"] * mm)
+    # panel root bending in the printed plastic; the root is the web
+    # along the sleeve span only (above the shoulder the inner edge is
+    # cut away), so the section height is the sleeve length, not the
+    # full panel height
+    s_panel = P["vane_sleeve_len"] * mm * (P["vane_t"] * mm) ** 2 / 6
+    m_panel = f_panel * (d_hinge - sleeve_r)
     sf_panel = ASA_YIELD / (m_panel / s_panel)
     check(ok, sf_panel >= 3, "panel root survives the storm",
           f"{m_panel:.2f} N m at the sleeve web, SF {sf_panel:.1f}"
           " (>= 3; the rod, not the flag, must be the fuse)")
 
-    # the stop faces: steady aero moment about the hinge, times the
-    # clack dynamic factor, all on ONE face (a badly set cap can leave
-    # the ring's fin alone until the clamps are re-set)
+    # the stop face: steady aero moment about the hinge, times the
+    # clack dynamic factor, all on the cap's wedge — the ONLY stop
+    # since the ring went smooth. The wedge width is sized by its
+    # shear here: one face always took the whole hit in this model,
+    # but the fin used to be the shear-critical part
     m_stop = f_panel * d_hinge
     r_c = (P["stop_wedge_ri"] + P["stop_wedge_ro"]) / 2 * mm
     face = ((min(P["vane_sleeve_od"] / 2, P["stop_wedge_ro"])
@@ -260,29 +307,29 @@ def main():
             * (P["stop_wedge_len"] - 1)) * mm * mm
     f_face = m_stop * DYN_STOP / r_c
     sf_face = ASA_YIELD / (f_face / face)
-    fin_base = ((P["stop_wedge_ro"] - P["stop_wedge_ri"])
-                * math.radians(P["ring_wedge_deg"]) * r_c / mm) * mm * mm
-    sf_fin = ASA_SHEAR / (f_face / fin_base)
-    check(ok, min(sf_face, sf_fin) >= 2, "stop faces take the clack",
-          f"{f_face:.0f} N on one face (dynamic x{DYN_STOP}): bearing SF"
-          f" {sf_face:.1f}, fin shear SF {sf_fin:.1f} (>= 2)")
+    wedge_base = ((P["stop_wedge_ro"] - P["stop_wedge_ri"])
+                  * math.radians(P["stop_wedge_deg"]) * r_c / mm) * mm * mm
+    sf_wedge = ASA_SHEAR / (f_face / wedge_base)
+    check(ok, min(sf_face, sf_wedge) >= 2, "stop face takes the clack",
+          f"{f_face:.0f} N on the cap wedge (dynamic x{DYN_STOP}): bearing"
+          f" SF {sf_face:.1f}, wedge shear SF {sf_wedge:.1f} (>= 2)")
 
     # friction clamps against their steady survival moments.  The cap
     # and the bracket both hold angles by friction alone; geometry keys
     # everything else.
     t_cap = MU_CLAMP * 2 * F_M3 * (P["rod_d"] / 2) * mm
-    sf_cap = t_cap / (m_stop / 2)     # cap and fin share the steady stop
+    sf_cap = t_cap / m_stop           # the cap alone holds the stop now
     check(ok, sf_cap >= 2, "cap holds the stop angle (steady)",
-          f"clamp friction {t_cap:.2f} N m vs its half of the stop moment"
-          f" {m_stop / 2:.2f}, SF {sf_cap:.1f} (>= 2)")
-    v_creep = math.sqrt(t_cap / (DYN_STOP * 0.5 * CD_PLATE * 0.5 * RHO_AIR
+          f"clamp friction {t_cap:.2f} N m vs the full stop moment"
+          f" {m_stop:.2f}, SF {sf_cap:.1f} (>= 2)")
+    v_creep = math.sqrt(t_cap / (DYN_STOP * CD_PLATE * 0.5 * RHO_AIR
                                  * area * d_hinge))
     print(f"[info] stop CLACKS above ~{v_creep:.0f} m/s may creep the cap"
           " angle over time — the known deferred upgrade (knurl, flats);"
           " re-set the cap if the driven stop drifts")
 
     lever_tors = (P["bracket_h"] / 2 + P["collar_boss_h"]
-                  + P["vane_width"] / 2) * mm
+                  + (P["vane_sleeve_len"] + P["vane_arch_h"]) / 2) * mm
     t_bracket = MU_CLAMP * 2 * F_M3 * (P["rod_d"] / 2) * mm
     sf_tors = t_bracket / (f_panel * lever_tors)
     check(ok, sf_tors >= 2, "bracket holds against gust torsion",

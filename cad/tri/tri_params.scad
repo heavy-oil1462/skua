@@ -2,8 +2,11 @@
 // SKUA TRI VARIANT PARAMETERS — study values only, tri_ prefixed so
 // nothing shadows design_params.scad (check_params enforces that).
 //
-// The tri v0.1 keeps the dual's vane, stop ring and rod stock
-// verbatim and changes the joints: three arms keyed by the spacer
+// The tri v0.1 keeps the dual's vane and rod stock (the vane with
+// its bottom notch grown back, the stop ring with its fin option
+// on, both one-argument variants of the dual parts: the tri's only
+// stop is the keyed ring fin) and changes the joints: three arms
+// keyed by the spacer
 // disc in tri_hub.scad and clamped between fender washers on the
 // die-threaded shaft, and screwed stubs at the tips. The later
 // ladder steps from scripts/tri_study.py (PTFE washers, film
@@ -67,6 +70,12 @@ tri_arm_length = 500;  // span held: shorter arms buy the longer reach
 tri_vane_reach = 250;  // film vane reach (dual: 150)
 tri_frame_w    = 8;    // printed perimeter frame member width
 tri_frame_t    = 4;    // ... and thickness
+tri_frame_h    = 140;  // film vane frame height (the dual's old
+                       // full-height panel; the dual itself moved
+                       // to the arched pennant with no height
+                       // param). Keep in sync with FILM_FRAME_H in
+                       // scripts/tri_study.py, which cannot read
+                       // this file
 tri_skin_t     = 0.4;  // membrane, drawn translucent
 tri_washer_t   = 1;    // PTFE washer on the stop ring boss
 tri_washer_od  = 14;

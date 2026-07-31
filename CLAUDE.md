@@ -10,19 +10,25 @@ hardware. No electronics — the wind does everything.
 - **The rotor is driven by swing asymmetry, not by airfoils.** Each vane
   pivots like a door on a VERTICAL stub rod at the arm tip (held by
   the tip bracket): free through vane_swing_deg one way, hard stop
-  the other (a stop wedge on the end cap above and the STOP RING's
-  fin below, each riding a notch in its end of the sleeve; the flat
-  faces land flush on the notch walls and share the impact; only the
-  cap is set at assembly, to land together with the fin. The stop
-  ring is a D-footed piece trapped in the bracket clamshell's pocket
-  like the rods are: the flat keys one orientation only, so the
-  driven-stop angle and the rotor's rotational sense are geometry,
-  not assembly care. It prints on its back with no overhangs, it is
-  the replaceable wear part, and the notch is sized swing +
-  ring_wedge_deg so the wider fin costs no swing). Pushed toward the stop it presents
-  its full face and drags the rotor; pushed the other way it
-  weathervanes flat and slips through. The brackets bake both arms
-  into the same rotational sense, so the torques add. A vane that
+  the other. The stop is the end cap's wedge ALONE, riding the notch
+  in the sleeve's top end; its flat faces land flush on the notch
+  walls, and the notch is sized swing + stop_wedge_deg so the wedge
+  costs no swing. Field findings behind cap-only: two stops never
+  land exactly together, one face takes every hit anyway, and a fin
+  near the sleeve's end face was friction risk on the wing. The cap
+  is a clamp, so the driven-stop angle is set at assembly and
+  re-set for testing with two bolts; the swing ARC is the notch
+  minus the wedge, so a different swing is a cap reprint with a
+  different wedge width (hold swing + stop_wedge_deg = 150 and the
+  vanes stay as printed). The STOP RING below is now just the smooth
+  thrust seat: a D-footed piece trapped in the bracket clamshell's
+  pocket like the rods are, printing on its back with no overhangs,
+  the replaceable wear part (its fin survives as a module option;
+  the tri variant's keyed stop uses it). Pushed toward the stop the
+  vane presents its full face and drags the rotor; pushed the other
+  way it weathervanes flat and slips through. Set both caps to the
+  same rotational sense seen from above so the torques add — this is
+  assembly care now, the price of the adjustable stop. A vane that
   is fixed rigidly, or that can swing all the way around, produces no
   net torque — never "simplify" the stop away. The clack of the vanes
   hitting the stops is part of the product.
@@ -138,7 +144,8 @@ Conventions:
   outdoors)
 - 8 mm aluminum rod: one 145 mm shaft + two 600 mm arms + two 113 mm
   hinge stubs
-- 5x M5x40 with wide washers (hub clamshell), 8x M3x30 with small
+- 5x M5x35 with wide washers (hub clamshell; M5x40 also fits with
+  about 10 mm of stickout, the pre-slim length), 8x M3x30 with small
   washers (tip bracket clamshells, kept light out at the arm tips)
   and 6x M3x16 (dual-bolt thrust collar and cap clamps; one more if
   the optional retainer is fitted), all with nyloc nuts; no rod or
