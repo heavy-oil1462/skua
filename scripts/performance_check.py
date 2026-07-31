@@ -72,9 +72,13 @@ MU_HINGE = 0.15        # ASA sleeve end on the bought PTFE thrust
                        # texture, conservative). The printed ring
                        # seat this replaced ran 0.35
 MU_CLAMP = 0.30        # printed clamp bore on aluminum rod
-F_M3 = 800             # N preload per M3, hand-tight into printed part
-F_M5 = 1200            # N preload per M5; both are limited by the
-                       # plastic under the washer, not by the bolt
+F_M3 = 800             # N preload per M3, hand-tight into printed
+                       # part, limited by the plastic under the
+                       # washer, not by the bolt
+F_M8 = 3000            # N preload of the hub sandwich's M8 nyloc
+                       # stack: a wrench delivers far more, but the
+                       # fender washer bears on the shell webs, so
+                       # the printed plastic limits again; taken low
 DYN_STOP = 5           # lumped dynamic factor: the stop clack versus
                        # the steady aero moment at the same wind
 HARDWARE_KG = 0.06     # bolts, nuts, washers on the rotor, rough
@@ -89,8 +93,10 @@ VANE_SLICED_KG = 0.078 # the vane as actually sliced (Orca, production
                        # point feeds the projection info only.
 
 # rotor parts and their print counts (masses from stl/, solid ASA;
-# the bought PTFE washers ride in HARDWARE_KG)
-ROTOR_PARTS = {"hub_front": 1, "hub_back": 1, "collar": 1, "retainer": 1,
+# the bought PTFE washers and the hub's M8 stack ride in HARDWARE_KG,
+# which kept its pre-sandwich value covering five M5 sets, so it sits
+# comfortably heavy — conservative in every check here)
+ROTOR_PARTS = {"hub_shell": 2, "collar": 1, "retainer": 1,
                "bracket_peg_half": 2, "bracket_plain_half": 2,
                "end_cap": 2, "vane": 2}
 
@@ -140,7 +146,7 @@ def main():
 
     # --- stations (same stack as geometry_check / main_assembly) -------
     sleeve_r = P["vane_sleeve_od"] / 2 * mm
-    hinge_r = (P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
+    hinge_r = (P["hub_shell_boss_d"] / 2 + P["arm_length"]
                - P["bracket_arm_grip"] + P["bracket_stub_x"]) * mm
     panel_h = P["vane_sleeve_len"] * mm             # height at the sleeve
     arch_h = P["vane_arch_h"] * mm                  # arch peak above it
@@ -272,10 +278,12 @@ def main():
     print(f"[info] survival case: {f_panel:.1f} N on the flag at"
           f" {V_SURVIVAL:.0f} m/s, rotor locked")
 
-    # arm bending where it leaves the hub (wind horizontal + weight
-    # vertical, combined vectorially; the arm is the fuse of the machine)
-    arm_free = P["arm_length"] * mm - P["hub_arm_socket"] * mm
-    m_wind = f_panel * (r_drive - P["hub_len"] / 2 * mm)
+    # arm bending where it leaves the hub sandwich's seat, at the
+    # shell rim (wind horizontal + weight vertical, combined
+    # vectorially; the arm is the fuse of the machine)
+    arm_free = (P["arm_length"]
+                - (P["hub_shell_d"] - P["hub_shell_boss_d"]) / 2) * mm
+    m_wind = f_panel * (r_drive - P["hub_shell_d"] / 2 * mm)
     m_weight = 9.81 * (tip_kg * arm_free
                        + arm_kg_m * arm_free * arm_free / 2)
     m_arm = math.hypot(m_wind, m_weight)
@@ -347,17 +355,22 @@ def main():
           f"arm-clamp friction {t_bracket:.2f} N m vs {f_panel * lever_tors:.2f}"
           f" twisting it about the arm, SF {sf_tors:.1f} (>= 2)")
 
-    t_hub_arm = MU_CLAMP * 3 * F_M5 * (P["arm_rod_d"] / 2) * mm
+    # the sandwich: each arm is squeezed between the two shells'
+    # seats, and the two arms share the M8 stack preload, so the
+    # normal force per seat face is F_M8 / 2 and the roll capacity
+    # per arm is mu x F_M8 x r
+    t_hub_arm = MU_CLAMP * F_M8 * (P["arm_rod_d"] / 2) * mm
     sf_hub = t_hub_arm / (f_panel * lever_tors)
     check(ok, sf_hub >= 2, "arm cannot roll in the hub",
-          f"hub-clamp friction {t_hub_arm:.2f} N m vs the same torsion,"
-          f" SF {sf_hub:.1f} (>= 2)")
+          f"sandwich seat friction {t_hub_arm:.2f} N m vs the same"
+          f" torsion, SF {sf_hub:.1f} (>= 2)")
 
     # bearings: the storm couple resolved across the two races
     spacing = (P["tower_h"] - P["bearing_w"] - P["pocket_recess"]
                - P["base_cavity_h"] - P["bearing_w"] - P["pocket_recess"]) * mm
-    h_load = (P["shaft_tip_h"] + P["shaft_length"] - P["hub_shaft_socket"]
-              + P["hub_arm_z"]) * mm - (P["tower_h"] * mm)
+    h_load = (P["shaft_tip_h"] + P["shaft_length"] - P["m8_nut_t"]
+              - P["m8_washer_t"] - P["hub_shell_h"]
+              - P["hub_clamp_gap"] / 2) * mm - (P["tower_h"] * mm)
     f_bearing = f_panel * (h_load + spacing) / spacing
     sf_bearing = 1370 / f_bearing   # 608 static rating C0 = 1.37 kN
     print(f"[info] top bearing sees {f_bearing:.0f} N in the storm,"

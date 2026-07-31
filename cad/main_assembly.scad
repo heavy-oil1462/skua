@@ -23,7 +23,7 @@
 step = 99;
 
 use <base.scad>
-use <hub.scad>
+use <hub_shell.scad>
 use <vane.scad>
 use <end_cap.scad>
 use <collar.scad>
@@ -35,13 +35,16 @@ include <design_params.scad>
 $fn = 60;
 
 // Stations, bottom to top (z = 0 is the plank top / base bottom; the
-// shaft tip and the uplift retainer live inside the base cavity)
+// shaft tip and the uplift retainer live inside the base cavity).
+// The hub sandwich hangs from the shaft top: top nyloc flush with
+// the tip of the die-threaded section, arm axes on the sandwich's
+// mid-plane
 shaft_top  = shaft_tip_h + shaft_length;
 retainer_z = base_cavity_h + pocket_recess - retainer_gap
              - collar_boss_h - retainer_w;
-hub_bottom = shaft_top - hub_shaft_socket;
-arm_z      = hub_bottom + hub_arm_z;          // arm rod axis height
-arm_root   = hub_len / 2 - hub_arm_socket;    // rod start (inside the hub)
+arm_z      = shaft_top - m8_nut_t - m8_washer_t - hub_shell_h
+             - hub_clamp_gap / 2;             // arm rod axis height
+arm_root   = hub_shell_boss_d / 2;            // arms butt the boss circle
 arm_tip    = arm_root + arm_length;
 
 // Stations at the arm tip, from geometry_check.py's model: the
@@ -89,9 +92,24 @@ if (step >= 2) {
 if (step >= 2)
     color("SteelBlue") translate([0, 0, retainer_z]) retainer();
 
-// --- step 2: hub, clamped at the shaft top on the bench ---
-if (step >= 2)
-    color("SteelBlue") translate([0, 0, hub_bottom]) hub();
+// --- step 2: the hub sandwich, threaded onto the shaft top on the
+//     bench: lower nyloc and washer, two identical shells cradling
+//     the arms, upper washer and nyloc (the top of the shaft is
+//     die-threaded M8, drawn plain) ---
+if (step >= 2) {
+    color("Silver")
+        translate([0, 0, arm_z - hub_clamp_gap / 2 - hub_shell_h])
+            rotate([180, 0, 0]) m8_stack();
+    color("SteelBlue")
+        translate([0, 0, arm_z - hub_clamp_gap / 2 - hub_shell_h])
+            hub_shell();
+    color("SteelBlue")
+        translate([0, 0, arm_z + hub_clamp_gap / 2 + hub_shell_h])
+            rotate([180, 0, 0]) hub_shell();
+    color("Silver")
+        translate([0, 0, arm_z + hub_clamp_gap / 2 + hub_shell_h])
+            m8_stack();
+}
 
 // --- arms: right vane driving (hanging on its stop); the left vane
 //     hangs too in every step image, folded only in the complete

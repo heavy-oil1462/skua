@@ -3,24 +3,27 @@
 What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
 600 mm, 2x 112 mm of 8 mm aluminum), the two PTFE washers (8x14x1,
-the vane thrust seats), the M5 clamp bolts with wide washers and the
-M3 bolts, all with nyloc nuts, four wood screws, screwdrivers or hex
-keys to suit, and, only if you fit the optional retainer, something
-about 1 mm thick and no wider than about 15 mm (a strip of folded
-business card, a feeler gauge) for gauging the thrust collar. Nothing
-is drilled in the whole build: not the rods, not the printed parts,
-and not the plank either.
+the vane thrust seats), an M8x1.25 hand die with its stock, the two
+M8 nylocs and fender washers for the hub, the M3 bolts with nyloc
+nuts, four wood screws, screwdrivers or hex keys to suit, a 13 mm
+wrench or socket for the M8 nuts, and, only if you fit the optional
+retainer, something about 1 mm thick and no wider than about 15 mm
+(a strip of folded business card, a feeler gauge) for gauging the
+thrust collar. Nothing is drilled in the whole build: not the rods,
+not the printed parts, and not the plank either. The one rod prep is
+the die pass on the shaft top in step 2.
 
-Two joint types cover the whole build, and both are clamps. The hub
-and the tip brackets are clamshells: lay the rods into the grooves
-and bolt the halves together with washered bolts (M5 at the hub, M3
-at the light tip brackets). The collars and
-end caps are wide slit clamps, each closed
-by two M3 bolts crossing the slit: slide to position, set the angle,
-tighten both bolts. Every joint stays re-adjustable by loosening two
-bolts, and the flip side of friction everywhere is maintenance:
-re-torque every clamp bolt at the start of each season, because
-printed plastic relaxes.
+Three joint types cover the whole build, and all are clamps. The hub
+is a sandwich: two identical printed shells cradle the arms and two
+M8 nuts squeeze the stack between fender washers on the shaft's
+die-threaded top. The tip brackets are clamshells: lay the rods into
+the grooves and bolt the halves together with washered M3s. The
+collars and end caps are wide slit clamps, each closed by two M3
+bolts crossing the slit: slide to position, set the angle, tighten
+both bolts. Every joint stays re-adjustable by loosening a nut or
+two, and the flip side of friction everywhere is maintenance:
+re-torque every clamp bolt, the hub nuts included, at the start of
+each season, because printed plastic relaxes.
 
 The images regenerate from the CAD via `python3 scripts/regen_all.py`
 (they are `cad/main_assembly.scad` rendered at `-D step=N`), so they
@@ -42,28 +45,35 @@ end of step 3, with the rotor already in it.
 
 ![step 1](assembly/step1.png)
 
-## 2. Rotor core, clamped in the clamshell
+## 2. Rotor core on the die-threaded shaft top
 
-This all happens on the bench, and nothing is drilled. First slide
-the thrust collar (the wide plain one, no wedge) onto the shaft and
-leave it loose: it cannot pass the hub later, so it must be on the
-shaft now. The small single-bolt retainer goes on at the end of this
-step, at the other end of the shaft.
+This all happens on the bench, and nothing is drilled. First the one
+rod prep of the build: run the M8x1.25 die 35 mm down the shaft's
+top end. An 8 mm rod is an M8 thread blank, so the die self-aligns;
+a drop of oil and a quarter turn back per turn forward and it cuts
+clean. Then slide the thrust collar (the wide plain one, no wedge)
+onto the shaft from the other end and leave it loose: it cannot pass
+the hub nuts later, so it must be on the shaft now. The small
+single-bolt retainer goes on at the end of this step, at that same
+tip end.
 
-Lay the hub front half (the one with the pegs) split face up and set
-the rods into its grooves: shaft into the center groove until it
-bottoms out, both 600 mm arms into the end grooves until they bottom
-out against the center web, which guarantees both arms reach equally
-far. Fit the back half over the registration pegs, then fit the five
-M5x35 clamp bolts, each with a wide washer under the head and under
-the nyloc, and tighten evenly in a couple of rounds. (M5x40s from
-the pre-slim hub also work; they just stand about 10 mm proud of
-the nuts.)
+Now build the hub sandwich up the thread: spin the first nyloc down
+until it stops where the thread runs out, then a fender washer, then
+one shell seats UP. Lay both 600 mm arms into the seats and push
+them inward until they butt the shaft, which guarantees both arms
+reach equally far. Close the second shell over them seats DOWN (the
+two shells are the same part; the arms key them, no pegs needed),
+add the second washer, and tighten the top nyloc with the 13 mm
+wrench while a second wrench holds the bottom nut. Tight is right:
+the nuts bear on steel washers, so give it a proper wrench torque,
+not just finger feel.
 
-The halves must NOT touch when tight: the design leaves a 0.8 mm gap
-between the faces so all the bolt force squeezes the rods. An even
-gap all around means the rods are gripped; faces touching anywhere
-means something is not seated.
+The shells must NOT touch when tight: the seats are shallower than
+half the arm, so the arms hold the shells about 0.8 mm apart and
+all the nut force squeezes the rods. An even gap all around means
+the arms are gripped; faces touching anywhere means something is
+not seated. The top nut lands about flush with the shaft tip when
+the stack is right.
 
 Last, the retainer, and this one is OPTIONAL: the rotor's weight
 alone keeps the shaft seated in its bearings in all ordinary
@@ -80,7 +90,7 @@ the reference that makes the next step work.
 
 ## 3. Mate rotor and base, gauge the gap, screw down
 
-Turn the rotor upside down: hub flat on the bench, shaft pointing
+Turn the rotor upside down: top hub nut on the bench, shaft pointing
 up, bare arms out over the bench edges. Lower the base over the
 shaft, tower top first: the shaft threads through both bearings, the
 retainer disappears into its cavity, and the base comes to rest with
@@ -129,8 +139,8 @@ retainer are visible; yours is in one piece.
 ## 4. Tip bracket clamshells, stubs, vanes
 
 Each tip bracket is two printed halves that close over the arm and
-the stub the way the hub closes over its rods: the PEG half and the
-PLAIN half (the peg sockets). Nothing needs to be juggled in
+the stub the way the hub shells close over the arms: the PEG half
+and the PLAIN half (the peg sockets). Nothing needs to be juggled in
 mid-air here: the stub groove runs straight through the bracket
 with a funnel mouth at its top face, so the clamshell closes over
 the arm alone and the stub feeds in from above afterward.

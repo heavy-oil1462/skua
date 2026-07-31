@@ -21,12 +21,13 @@
 // (the arm is the machine's fuse — watch its SF when thinning).
 rod_d        = 8;
 arm_rod_d    = 8;    // the two horizontal arms ONLY. Changing it
-                     // (say to 6) resizes the hub and bracket arm
-                     // grooves and the hub disc slots; re-gauge
-                     // arm_snug_d on the new stock first (the rod
-                     // fit gauge grows a second bar when this
-                     // differs from rod_d) and keep hub_disc_h =
-                     // arm_rod_d - hub_clamp_gap (both gated)
+                     // (say to 6) resizes the hub shell seats and
+                     // the bracket arm grooves; re-gauge arm_snug_d
+                     // on the new stock first (the rod fit gauge
+                     // grows a second bar when this differs from
+                     // rod_d; the seat depth follows the gauged fit,
+                     // and geometry_check gates the shell web left
+                     // under it)
 shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
                      // plank (geometry_check.py gates the clearance)
@@ -80,16 +81,16 @@ gusset_t       = 6;
 gusset_reach   = 25;    // how far a gusset runs out from the tower wall
 gusset_h       = 55;
 
-// --- Hub (clamps the shaft top, carries both arms) ---
+// --- Hub clamshell VARIANT (hub.scad, optional alternative to the
+//     sandwich below for a build that skips the die pass) ---
 // A CLAMSHELL: split on the vertical plane that contains all three rod
 // axes, so the two halves close over the rods like a pillow block and
 // five M5 bolts with wide washers clamp everything at once. No hole is
 // drilled in any rod at the hub, which is where rod bending is worst.
-// Slimmed after the tri's washer-jaw hub showed how little plastic
-// the job needs: the dual keeps its no-rod-prep clamshell (the tri's
-// steel-jaw sandwich needs the die-threaded shaft), but the halves
-// got thin. Shortening body and arm sockets together keeps the arm
-// root at the same station, so nothing outboard moves.
+// Was the default until the washer-jaw sandwich took over: it needs
+// no rod prep at all, at the price of five M5s and about 80 g. The
+// arm station rides about 30 mm higher than the sandwich puts it,
+// on the same shaft.
 hub_len          = 70;  // along the arms
 hub_w            = 22;  // across the split: each half is a groove
                         // (4) plus backing wall (7); the clamp
@@ -114,25 +115,29 @@ hub_peg_x        = 30;  // registration pegs, so the bolts never carry
 hub_peg_z        = 32;  // the job of aligning the halves
 hub_peg_d        = 4;
 
-// --- Hub disc VARIANT (hub_disc.scad, optional alternative to the
-//     clamshell): the tri's washer-jaw hub sized for two arms. One
-//     printed slot disc keys both arms butted against the boss
-//     circle; two M8 fender washers press onto the rods, standing
-//     proud of both faces, clamped by M8 nylocs on the shaft's
-//     die-threaded top end. Steel jaws, no plastic in compression,
-//     no seasonal re-torque, and about 85 g lighter than clamshell
-//     plus M5 hardware — at the price of the one rod prep in the
-//     build (a hand die on the shaft top, still no drilling) and an
-//     arm station about 27 mm lower on the same shaft ---
-hub_disc_d       = 50;  // slot flanks run boss to rim: 18 mm of
-                        // bearing per arm for horizontal storm bending
-hub_disc_h       = 7.2; // arm_rod_d minus hub_clamp_gap: the arms
-                        // stand proud of both faces by half the gap,
-                        // so washer preload lands on the rods, never
-                        // on plastic (geometry_check pins the relation)
-hub_disc_boss_d  = 14;  // arm butt circle around the free bore
-hub_shaft_thread = 30;  // M8x1.25 die length on the shaft top: the
-                        // nut-washer-disc-washer-nut stack plus lead
+// --- Hub sandwich (hub_shell.scad, THE hub; print TWO of the one
+//     part): the tri's shell hub sized for two arms. Two identical
+//     thin half-shells cradle the arms in half-round seats, arms
+//     butted against the boss circle and standing proud of the
+//     mating faces by half the clamp gap, so the shells never
+//     touch; two M8 fender washers press the sandwich together
+//     from either end, clamped by M8 nylocs on the shaft's
+//     die-threaded top end. Full-length seats bear kindly on the
+//     arms and nothing can rattle; the webs put a little plastic
+//     in the clamp path, so the M8 nuts join the seasonal
+//     re-torque round. About 80 g lighter than the clamshell plus
+//     its M5 hardware, at the price of the one rod prep in the
+//     build (a hand die on the shaft top, still no drilling) and
+//     an arm station about 30 mm lower on the same shaft ---
+hub_shell_d      = 50;  // seats run boss to rim: 18 mm of bearing
+                        // per arm for horizontal storm bending
+hub_shell_h      = 6;   // one half-shell: the half-seat (arm_snug_d/2
+                        // minus half the clamp gap, cut in the scad)
+                        // plus the web under it (geometry_check
+                        // gates the web that remains)
+hub_shell_boss_d = 14;  // arm butt circle around the free bore
+hub_shaft_thread = 35;  // M8x1.25 die length on the shaft top: the
+                        // nut-washer-sandwich-washer-nut stack plus lead
 
 // --- M3 hardware (collar and cap clamps: each is a wide slit clamp
 //     closed by TWO bolts crossing the slit — friction on the rod, but
@@ -144,15 +149,16 @@ m3_nut_af     = 5.8;  // nut across flats, incl. pocket clearance
 m3_locknut_t  = 4.4;  // nyloc nut height, incl. pocket clearance
 m3_head_d     = 6.4;
 
-// --- M5 hardware (hub clamshell only: the clamp preload lives or dies
-//     on washer bearing area and survivable hand-torque, and M5 wins
-//     both; heads and nylocs sit on the flat faces with wide washers,
-//     so only the clearance bore is modeled) ---
+// --- M5 hardware (hub clamshell VARIANT only: the clamp preload
+//     lives or dies on washer bearing area and survivable
+//     hand-torque, and M5 wins both; heads and nylocs sit on the
+//     flat faces with wide washers, so only the clearance bore is
+//     modeled) ---
 m5_clear_d    = 5.5;
 
-// --- M8 hardware (the washer-jaw hubs only: hub_disc.scad and the
-//     tri variant's hubs, clamped by nylocs on the die-threaded
-//     shaft top with fender washers as the steel jaws) ---
+// --- M8 hardware (the washer-jaw hubs: hub_shell.scad, the hub,
+//     and the tri variant's hubs, clamped by nylocs on the
+//     die-threaded shaft top with fender washers as the jaws) ---
 m8_nut_af     = 13.4;  // nyloc across flats, incl. drawing clearance
 m8_nut_t      = 8;
 m8_washer_od  = 30;    // fender washer: the clamp jaw, gripping each
@@ -249,7 +255,7 @@ cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
 //     PEG half and the PLAIN half with the sockets. The assembled
 //     bracket rotated 180 about the stub serves the other arm). Both
 //     rod axes lie in the split plane, so the halves close over arm
-//     and stub like the hub closes over its rods, bolted with M3x25s
+//     and stub like the hub shells close over the arms, bolted with M3x25s
 //     and small washers under the heads; the nylocs sit captive in
 //     hex pockets in the plain half, so tightening is a screwdriver
 //     on the head side, no wrench. The stub groove runs through with

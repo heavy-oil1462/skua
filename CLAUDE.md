@@ -44,15 +44,16 @@ hardware. No electronics — the wind does everything.
   thrust face is what sets the self-start wind — performance_check
   gates it).
 - **Shaft and stubs are pinned to 8 mm rod** (the 608 bore, which
-  also makes the shaft an M8 die blank for the hub disc variant).
+  also makes the shaft the M8 die blank the hub sandwich clamps on).
   The ARMS default to the same stock but carry their own knob,
   arm_rod_d: thinner arms are a weight experiment paid for straight
   out of the arm's storm safety factor (the arm is the machine's
   fuse, and performance_check arbitrates). Changing arm_rod_d means
   re-gauging arm_snug_d on the new stock (the rod fit gauge grows an
   arm bar when the diameters differ; fits are measured, never
-  derived) and keeping hub_disc_h = arm_rod_d - hub_clamp_gap, all
-  gated. Beyond those two stocks no diameter may creep in.
+  derived); the shell seat depth follows the gauged fit and
+  geometry_check gates the web left under it. Beyond those two
+  stocks no diameter may creep in.
 - **Rotor weight hangs on the thrust collar,** clamped to the shaft and
   riding the top bearing's INNER race (boss stays inside
   bearing_inner_shoulder_d). Nothing else may take axial load in normal
@@ -75,22 +76,29 @@ hardware. No electronics — the wind does everything.
   through the open cavity with the base unscrewed. But it stays in the
   DESIGN: never delete the part, the cavity, or their checks, and
   never "simplify" the gap to zero (that preloads the bearings).
-- **No rod is ever drilled; every joint is a clamp.** The hub and
-  the tip brackets are clamshells split on the plane containing their
-  rod axes: lay in the rods, bolt the halves with washered bolts
-  (M5 at the hub, M3 at the tip brackets, which ride 620 mm out and
-  are sized for weight; the bracket nylocs sit captive in hex
-  pockets so the tips tighten with a screwdriver alone); the
+- **No rod is ever drilled; every joint is a clamp.** The hub is a
+  SANDWICH (hub_shell.scad, one part printed twice): two identical
+  thin shells cradle the arms in half-round seats, butted against
+  the boss circle, and two M8 nylocs squeeze the stack between
+  fender washers on the shaft's die-threaded top. The seats are
+  shallower than half the arm by half the clamp gap, so the shells
+  never touch: the clamshell rule, preload on the rods, never on
+  face-to-face plastic. The die pass (M8x1.25, hub_shaft_thread) is
+  the build's one rod prep — a hand die on an M8 blank, still
+  nothing drilled. The webs put a little plastic in the clamp path,
+  so the hub nuts join the seasonal re-torque round. The tip
+  brackets are clamshells split on the plane containing their rod
+  axes: lay in the rods, bolt the halves with washered M3s (they
+  ride 620 mm out and are sized for weight; the nylocs sit captive
+  in hex pockets so the tips tighten with a screwdriver alone); the
   bracket's stub groove runs through with a funnel at the top face,
   so the stub feeds in from above after the clamshell closes on the
-  arm; the halves must never close solid
-  (hub_clamp_gap and bracket_clamp_gap keep preload on the rods,
-  never fix a "gap" by shrinking it to zero). The OPTIONAL hub disc
-  variant (hub_disc.scad) swaps the hub clamshell for a slot disc
-  clamped between M8 fender washers and nylocs on the shaft's
-  die-threaded top: steel jaws, about 85 g lighter, no re-torque,
-  and still nothing drilled (a hand die pass is the only rod prep;
-  the clamshell stays the default because it needs none at all).
+  arm; the halves must never close solid (hub_clamp_gap and
+  bracket_clamp_gap keep preload on the rods, never fix a "gap" by
+  shrinking it to zero). The OPTIONAL hub clamshell variant
+  (hub.scad, hub_front + hub_back, five washered M5s) is the
+  pre-sandwich hub: about 80 g heavier and the arms 30 mm higher,
+  kept because it needs no rod prep at all.
   The collars and end caps are
   WIDE dual-bolt slit clamps: friction-only joints live on grip
   length and bolt count, so a single set screw or a narrow ring is a
@@ -164,15 +172,16 @@ Conventions:
   hinge stubs (the arms follow arm_rod_d if changed from the default
   8; shaft and stubs stay 8)
 - 2x PTFE washer 8x14x1, the vane thrust seats on the bracket tops
-- 5x M5x35 with wide washers (hub clamshell; M5x40 also fits with
-  about 10 mm of stickout, the pre-slim length), 8x M3x25 with small
-  washers under the heads (tip bracket clamshells, kept light out at
-  the arm tips; nylocs captive in hex pockets, M3x30 fits about 5 mm
-  proud) and 6x M3x16 (dual-bolt thrust collar and cap clamps; one
-  more if the optional retainer is fitted), all with nyloc nuts; no
-  rod or printed part is ever drilled
-- hub disc variant only: 2x M8 nyloc + 2x M8 fender washer
-  (8.4x30x1.5) on the shaft top, die-threaded M8x1.25 for 30 mm
-  (replaces the five M5s and their washers)
+- 2x M8 nyloc + 2x M8 fender washer (8.4x30x1.5), the hub clamp on
+  the shaft top, die-threaded M8x1.25 for 35 mm with a hand die
+- 8x M3x25 with small washers under the heads (tip bracket
+  clamshells, kept light out at the arm tips; nylocs captive in hex
+  pockets, M3x30 fits about 5 mm proud) and 6x M3x16 (dual-bolt
+  thrust collar and cap clamps; one more if the optional retainer
+  is fitted), all with nyloc nuts; no rod or printed part is ever
+  drilled
+- hub clamshell variant only: 5x M5x35 with wide washers (M5x40
+  also fits with about 10 mm of stickout), replacing the M8 stack
+  and the die pass
 - 4x 4.2 mm wood screws, and any plank to screw the base onto (no
   hole: the shaft tip and retainer stay inside the base cavity)
