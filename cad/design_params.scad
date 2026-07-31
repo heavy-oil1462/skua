@@ -13,19 +13,31 @@
 // include, no need to edit this file.
 // ============================================================
 
-// --- Aluminum rod stock (bought; ONE diameter everywhere) ---
-// 8 mm rod is chosen to match the 608 bearing bore, so the shaft and
-// both arms cut from the same stock.
+// --- Aluminum rod stock (bought) ---
+// 8 mm rod matches the 608 bearing bore, so shaft and stubs are
+// PINNED to it (and the hub disc variant's M8 die pass rides on it).
+// The arms default to the same stock but have their own knob below:
+// thinner arms are a weight experiment, and the storm gate decides
+// (the arm is the machine's fuse — watch its SF when thinning).
 rod_d        = 8;
+arm_rod_d    = 8;    // the two horizontal arms ONLY. Changing it
+                     // (say to 6) resizes the hub and bracket arm
+                     // grooves and the hub disc slots; re-gauge
+                     // arm_snug_d on the new stock first (the rod
+                     // fit gauge grows a second bar when this
+                     // differs from rod_d) and keep hub_disc_h =
+                     // arm_rod_d - hub_clamp_gap (both gated)
 shaft_length = 145;  // vertical shaft; sets how high the rotor rides.
                      // Long enough that the hanging vanes clear the
                      // plank (geometry_check.py gates the clearance)
                      // and that the tip reaches down through the
                      // uplift retainer inside the base cavity.
 arm_length   = 600;  // each horizontal arm (two of them)
-stub_length  = 113;  // the vertical hinge rod at each arm tip (two of
+stub_length  = 112;  // the vertical hinge rod at each arm tip (two of
                      // them, same stock): clamped through the tip
                      // bracket, carrying the vane sleeve and its cap
+                     // (112 since the sleeve seat became the 1 mm PTFE
+                     // washer; the old ring boss stood 2 mm)
 
 // --- 608 skateboard bearing (bought, TWO of them) ---
 // Two bearings spaced apart in the base tower instead of one: a single
@@ -44,6 +56,11 @@ pocket_recess = 0.5;  // bearings sit this far below the tower faces so
 bearing_press_d = 21.95; // pocket that grips the outer race — cad/calibration/bearing_pocket_gauge.scad
 rod_snug_d      = 8.0;  // sockets the rod presses into (hub, collar, cap) — cad/calibration/rod_fit_gauge.scad
 rod_free_d      = 8.2;  // bores that must SPIN on the rod (vane sleeve) — same gauge
+arm_snug_d      = 8.0;  // grooves the ARM presses into (hub, bracket,
+                        // disc slots) — same gauge, arm bar. MEASURED,
+                        // never derived: while arm_rod_d == rod_d this
+                        // must equal rod_snug_d (geometry_check pins
+                        // it); on other arm stock, gauge that stock
 fit_tol         = 0.2;  // clearance for printed slots/pockets
 
 // --- Base (screwed to the plank) ---
@@ -66,7 +83,7 @@ gusset_h       = 55;
 // --- Hub (clamps the shaft top, carries both arms) ---
 // A CLAMSHELL: split on the vertical plane that contains all three rod
 // axes, so the two halves close over the rods like a pillow block and
-// five M3 bolts with wide washers clamp everything at once. No hole is
+// five M5 bolts with wide washers clamp everything at once. No hole is
 // drilled in any rod at the hub, which is where rod bending is worst.
 // Slimmed after the tri's washer-jaw hub showed how little plastic
 // the job needs: the dual keeps its no-rod-prep clamshell (the tri's
@@ -97,6 +114,26 @@ hub_peg_x        = 30;  // registration pegs, so the bolts never carry
 hub_peg_z        = 32;  // the job of aligning the halves
 hub_peg_d        = 4;
 
+// --- Hub disc VARIANT (hub_disc.scad, optional alternative to the
+//     clamshell): the tri's washer-jaw hub sized for two arms. One
+//     printed slot disc keys both arms butted against the boss
+//     circle; two M8 fender washers press onto the rods, standing
+//     proud of both faces, clamped by M8 nylocs on the shaft's
+//     die-threaded top end. Steel jaws, no plastic in compression,
+//     no seasonal re-torque, and about 85 g lighter than clamshell
+//     plus M5 hardware — at the price of the one rod prep in the
+//     build (a hand die on the shaft top, still no drilling) and an
+//     arm station about 27 mm lower on the same shaft ---
+hub_disc_d       = 50;  // slot flanks run boss to rim: 18 mm of
+                        // bearing per arm for horizontal storm bending
+hub_disc_h       = 7.2; // arm_rod_d minus hub_clamp_gap: the arms
+                        // stand proud of both faces by half the gap,
+                        // so washer preload lands on the rods, never
+                        // on plastic (geometry_check pins the relation)
+hub_disc_boss_d  = 14;  // arm butt circle around the free bore
+hub_shaft_thread = 30;  // M8x1.25 die length on the shaft top: the
+                        // nut-washer-disc-washer-nut stack plus lead
+
 // --- M3 hardware (collar and cap clamps: each is a wide slit clamp
 //     closed by TWO bolts crossing the slit — friction on the rod, but
 //     spread over a long grip and generous bolt preload; nothing is
@@ -112,6 +149,23 @@ m3_head_d     = 6.4;
 //     both; heads and nylocs sit on the flat faces with wide washers,
 //     so only the clearance bore is modeled) ---
 m5_clear_d    = 5.5;
+
+// --- M8 hardware (the washer-jaw hubs only: hub_disc.scad and the
+//     tri variant's hubs, clamped by nylocs on the die-threaded
+//     shaft top with fender washers as the steel jaws) ---
+m8_nut_af     = 13.4;  // nyloc across flats, incl. drawing clearance
+m8_nut_t      = 8;
+m8_washer_od  = 30;    // fender washer: the clamp jaw, gripping each
+m8_washer_t   = 1.5;   // rod from the boss circle outward
+
+// --- PTFE washer (bought, TWO of them: the vane's thrust seat. The
+//     sleeve end rides it directly on the tip bracket's flat top;
+//     the whole self-start friction lives on this face, and PTFE
+//     beats any printed seat. Also the sleeve's only lift over the
+//     bracket top, so the flag swings this far above the plastic) ---
+ptfe_washer_od = 14;
+ptfe_washer_id = 8.2;  // spins free on the 8 mm stub
+ptfe_washer_t  = 1;
 
 // --- Vane (the flapping flag; TWO of them). The sleeve rides a
 //     VERTICAL stub rod at the arm tip, so folding never fights
@@ -195,16 +249,20 @@ cap_slit_deg   = -90;  // slit and clamp bolt direction, degrees around
 //     PEG half and the PLAIN half with the sockets. The assembled
 //     bracket rotated 180 about the stub serves the other arm). Both
 //     rod axes lie in the split plane, so the halves close over arm
-//     and stub like the hub closes over its rods, bolted with M3x30s
-//     and small washers. The stub groove runs through and the ring
-//     pocket opens upward, so stub and stop ring feed in from above
-//     once the clamshell has closed on the arm, and the closed
-//     pocket keys the ring's D foot; the stub stack is just the
-//     ring, the sleeve and the end cap. The joint rides 620 mm out
-//     on the arm, so it is sized for weight: M3 preload is plenty
-//     for a clamp whose only friction duty is gust torsion, and the
-//     width stays 24 only because the ring pocket needs side walls;
-//     the slimming is in height and length ---
+//     and stub like the hub closes over its rods, bolted with M3x25s
+//     and small washers under the heads; the nylocs sit captive in
+//     hex pockets in the plain half, so tightening is a screwdriver
+//     on the head side, no wrench. The stub groove runs through with
+//     a funnel mouth at the top face, so the stub feeds in from
+//     above once the clamshell has closed on the arm; the top is
+//     otherwise FLAT, and the stub stack is just the bought PTFE
+//     washer, the sleeve and the end cap. (The keyed stop ring and
+//     its pocket survive as the tri variant's bracket option; the
+//     dual's stop is the cap wedge alone.) The joint rides 620 mm
+//     out on the arm, so it is sized for weight: M3 preload is
+//     plenty for a clamp whose only friction duty is gust torsion,
+//     and the width stays 24 only because the tri's ring pocket
+//     needs side walls; the slimming is in height and length ---
 bracket_w        = 24;  // clamshell thickness across the split
 bracket_h        = 24;  // height; also the stub clamp's grip length
 bracket_len      = 50;  // along the arm
@@ -216,31 +274,33 @@ bracket_bolt_dx  = 8;   // stub-clamp M3s at mid-height, this far
                         // inboard and outboard of the stub axis
 bracket_peg_x    = 18;  // the two registration pegs (peg half), this
 bracket_peg_dz   = 8;   // far above and below the arm axis, inboard
-                        // of the ring pocket
+                        // of the tri's ring pocket
 bracket_clamp_gap = 0.8; // total gap between the closed halves, hub
                          // rule: bolt preload lands on the rods,
                          // never on face-to-face plastic
+stub_lead_in     = 1.5; // funnel mouth at the stub groove's top
+                        // entrance, so the rod finds a line-to-line
+                        // groove blind; the PTFE washer must seat on
+                        // the flat ring OUTSIDE this mouth
+                        // (geometry_check gates the annulus)
 
-// --- Stop ring (print TWO; the vane's thrust seat, SMOOTH). A
-//     D-footed disc trapped in a matching pocket when the bracket
-//     clamshell closes, the same way the rods are trapped. Field
-//     finding: two stops never land exactly together and the fin
-//     only added friction risk on the wing, so the printable ring
-//     carries no fin and the cap's wedge is the only stop (the ring
-//     module keeps the fin as an option; the tri variant still uses
-//     it). Prints on its back: foot and boss are plain vertical
-//     prisms, no overhangs at all, and a worn seat is a tiny
-//     reprint ---
+// --- Stop ring (TRI VARIANT ONLY, cad/tri/tri_stop_ring.scad): a
+//     D-footed disc trapped in the bracket's matching pocket when
+//     the clamshell closes, carrying the keyed stop fin — in the
+//     tri the fin is the only stop and the angle is baked in. The
+//     dual deleted it: its stop is the cap wedge alone, and its
+//     thrust seat is the bought PTFE washer on the bracket's flat
+//     top (lower friction than any printed seat, and one less part
+//     to print and wear). The dimensions stay here because the
+//     bracket's pocket option and the ring must agree ---
 ring_foot_d    = 20;   // the D foot the clamshell traps
 ring_foot_t    = 3;    // foot thickness = pocket depth, foot flush
 ring_flat_x    = 7;    // the D flat, outboard side, keys the angle
-ring_boss_d    = 10;   // the vane's thrust seat, narrowed to the
-                       // bore edge: self-start wind scales with the
-                       // sqrt of this contact radius (mu and vane
-                       // weight are the other factors), and the seat
-                       // carries about one newton, so the narrowest
-                       // printable ring wins. Only the ring uses it;
-                       // collar_boss_d stays the bearing-race boss
+ring_boss_d    = 10;   // the ring's thrust seat, narrowed to the
+                       // bore edge: the tri's self-start wind scales
+                       // with the sqrt of this contact radius. Only
+                       // the ring uses it; collar_boss_d stays the
+                       // bearing-race boss
 
 // --- Stop wedge (on the end cap, set at assembly to any angle; it
 //     rides the notch in the vane sleeve's top end and its flat

@@ -5,7 +5,7 @@
 //   Slides over the end of the stub rod, closed end up. The axial
 //   wedge on the open face rides in the vane sleeve's top notch —
 //   rotate the cap to set where the vane's driven stop sits, then
-//   close the clamp. The stop ring below is a smooth thrust seat, so
+//   close the clamp. The seat below is the smooth PTFE washer, so
 //   the driven-stop angle belongs entirely to this clamp: loosening
 //   two bolts moves it anywhere, the field-testing knob.
 //

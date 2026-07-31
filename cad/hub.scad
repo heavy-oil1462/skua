@@ -73,11 +73,12 @@ module hub_solid() {
         translate([0, 0, -0.1])
             cylinder(h = hub_shaft_socket + 0.1, d = rod_snug_d);
 
-        // arm grooves, blind, from each end
+        // arm grooves, blind, from each end (arm stock has its own
+        // diameter and its own gauged fit)
         for (m = [0, 1]) mirror([m, 0, 0])
             translate([hub_len / 2 - hub_arm_socket, 0, hub_arm_z])
                 rotate([0, 90, 0])
-                    cylinder(h = hub_arm_socket + 1, d = rod_snug_d);
+                    cylinder(h = hub_arm_socket + 1, d = arm_snug_d);
 
         // clamp bolt bores: through the center web, flanking the shaft,
         // under the beam (positions gated by geometry_check.py)

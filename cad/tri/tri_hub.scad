@@ -44,7 +44,7 @@ module tri_arm_seats() {
         translate([tri_hub_boss_d / 2, 0, tri_hub_gap / 2])
             rotate([0, 90, 0])
                 cylinder(h = tri_hub_d / 2 - tri_hub_boss_d / 2 + 1,
-                         d = rod_snug_d);
+                         d = arm_snug_d);
 }
 
 // the sandwich variant's half-shell: print two, close seats to
@@ -69,17 +69,17 @@ module tri_hub_disc() {
         // circle to rim; the arms butt the boss and stand proud of
         // both faces by half the gap
         for (k = [0 : tri_arms - 1]) rotate([0, 0, k * 360 / tri_arms])
-            translate([tri_hub_boss_d / 2, -rod_snug_d / 2, -0.1])
+            translate([tri_hub_boss_d / 2, -arm_snug_d / 2, -0.1])
                 cube([tri_hub_d / 2 - tri_hub_boss_d / 2 + 1,
-                      rod_snug_d, tri_hub_disc_h + 0.2]);
+                      arm_snug_d, tri_hub_disc_h + 0.2]);
     }
 }
 
 // an M8 fender washer and nyloc for the scene, washer at z = 0
 module tri_m8_stack() {
-    cylinder(h = tri_m8_washer_t, d = tri_m8_washer_od);
-    translate([0, 0, tri_m8_washer_t])
-        cylinder(h = tri_nut_t, d = tri_nut_af / cos(30), $fn = 6);
+    cylinder(h = m8_washer_t, d = m8_washer_od);
+    translate([0, 0, m8_washer_t])
+        cylinder(h = m8_nut_t, d = m8_nut_af / cos(30), $fn = 6);
 }
 
 // preview: the sandwich pair as it prints, the slot disc beside it

@@ -28,7 +28,6 @@ include <tri_params.scad>
 $fn = 80;
 
 zc           = bracket_h / 2;   // the arm axis height
-stub_lead_in = 1.5;             // funnel mouth, dual verbatim
 
 module tri_tip_bracket() {
     difference() {
@@ -38,7 +37,7 @@ module tri_tip_bracket() {
         // arm groove, blind, from the inboard face (dual verbatim)
         translate([-0.1, 0, zc])
             rotate([0, 90, 0])
-                cylinder(h = bracket_arm_grip + 0.1, d = rod_snug_d);
+                cylinder(h = bracket_arm_grip + 0.1, d = arm_snug_d);
 
         // the stub bore, snug, from the top face down to the
         // printed step

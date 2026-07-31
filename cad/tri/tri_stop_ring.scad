@@ -1,31 +1,24 @@
 // ==============================================================================
-//   STOP RING — print TWO. The vane's thrust seat, SMOOTH: one
-//   D-footed piece per arm tip, no fin.
+//   TRI STOP RING — TRI VARIANT ONLY (the dual deleted its ring: the
+//   cap wedge is its only stop and its thrust seat is the bought
+//   PTFE washer on the bracket's flat top).
 //
 //   A D-shaped foot drops into the matching pocket in the tip
-//   bracket's top face and is trapped when the clamshell closes, the
-//   same way the rods are. On top of the flush foot sits the boss
-//   ring, the small ring the sleeve spins on. Field finding from the
-//   built machine: two stops never land exactly together, one face
-//   takes every hit anyway, and a fin near the sleeve's end face is
-//   friction risk on the wing — so the fin is gone, the cap's wedge
-//   is the only stop, and the driven-stop angle is a two-bolt cap
-//   adjustment instead of baked-in geometry. The D flat still keys
-//   the foot into the pocket, it just no longer has an angle to set.
+//   bracket's top face (the bracket's ring_pocket = true option) and
+//   is trapped when the clamshell closes, the same way the rods are.
+//   On top of the flush foot sits the boss ring the sleeve spins on,
+//   and through it the keyed stop FIN (fin_deg grows a fin of that
+//   arc, contact flank at the driven stop): in the tri the fin is
+//   the only stop, the cap is a smooth retainer, and the D flat is
+//   what bakes the stop angle in.
 //
-//   Being its own part is what makes it print perfectly: on its
-//   back, foot and boss are plain vertical prisms with no overhang
-//   anywhere. It is also the sacrificial piece: the thrust seat
-//   takes all the spin friction, and a worn one is a tiny reprint.
-//
-//   The fin stays available as a module option (fin_deg > 0 grows a
-//   fin of that arc, contact flank at the driven stop): the tri
-//   variant's keyed-ring stop uses it, and it is the way back if the
-//   cap-only experiment loses.
+//   On its back, foot, boss and fin are plain vertical prisms with
+//   no overhang anywhere. The thrust seat takes all the spin
+//   friction, and a worn one is a tiny reprint.
 // ==============================================================================
 
-include <design_params.scad>
-use <lib/stop_wedge.scad>
+include <../design_params.scad>
+use <../lib/stop_wedge.scad>
 
 $fn = 80;
 
@@ -60,4 +53,4 @@ module stop_ring(fin_deg = 0) {
     }
 }
 
-stop_ring();
+stop_ring(stop_wedge_deg);

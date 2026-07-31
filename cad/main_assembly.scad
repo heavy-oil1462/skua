@@ -29,7 +29,6 @@ use <end_cap.scad>
 use <collar.scad>
 use <retainer.scad>
 use <tip_bracket.scad>
-use <stop_ring.scad>
 use <bearing_608.scad>
 include <design_params.scad>
 
@@ -47,10 +46,11 @@ arm_tip    = arm_root + arm_length;
 
 // Stations at the arm tip, from geometry_check.py's model: the
 // bracket clamps the arm's last bracket_arm_grip, the stub stands
-// through it, and the sleeve rides the bracket's boss under the cap
+// through it, and the sleeve rides the PTFE washer on the bracket's
+// flat top under the cap
 bracket_x  = arm_tip - bracket_arm_grip;      // bracket inboard face
 stub_x     = bracket_x + bracket_stub_x;      // the vertical hinge axis
-sleeve_bot = arm_z + bracket_h / 2 + collar_boss_h;  // on the bracket boss
+sleeve_bot = arm_z + bracket_h / 2 + ptfe_washer_t;  // on the washer
 cap_face_z = sleeve_bot + vane_sleeve_len + 1;       // 1 mm running play
 
 // --- base, bearings, plank (hidden in the bench-only step 2). In
@@ -113,20 +113,25 @@ module arm_side(swing) {
         color("DarkGray")
             translate([arm_root, 0, arm_z])
                 rotate([0, 90, 0])
-                    cylinder(h = arm_length, d = rod_d);
+                    cylinder(h = arm_length, d = arm_rod_d);
 
     if (step >= 4) {
         // tip bracket on the arm end, stub rod standing through,
-        // and the smooth stop ring trapped in the bracket's pocket
+        // and the PTFE thrust washer on the bracket's flat top
         color("SteelBlue")
             translate([bracket_x, 0, arm_z - bracket_h / 2])
                 tip_bracket();
         color("DarkGray")
             translate([stub_x, 0, arm_z - bracket_h / 2])
                 cylinder(h = stub_length, d = rod_d);
-        color("SteelBlue")
-            translate([stub_x, 0, arm_z + bracket_h / 2 - ring_foot_t])
-                stop_ring();
+        color("White")
+            translate([stub_x, 0, arm_z + bracket_h / 2 + 0.4 * e])
+                difference() {
+                    cylinder(h = ptfe_washer_t, d = ptfe_washer_od);
+                    translate([0, 0, -0.5])
+                        cylinder(h = ptfe_washer_t + 1,
+                                 d = ptfe_washer_id);
+                }
 
         // vane on the stub: panel out along the arm at the stop
         color("Gold")
