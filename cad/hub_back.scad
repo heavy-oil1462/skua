@@ -1,6 +1,7 @@
 // ==============================================================================
-//   HUB BACK HALF — the clamshell half with the peg sockets (print
-//   ONE; see hub.scad for how the clamshell works). At assembly it is
+//   HUB BACK HALF — the clamshell VARIANT's half with the peg sockets
+//   (print ONE, only for the no-rod-prep clamshell build; see
+//   hub.scad for how the clamshell works). At assembly it is
 //   the same shape as the front half turned 180 degrees, so it prints
 //   in the same orientation: split face UP, grooves as open channels,
 //   bolt bores vertical. No supports.

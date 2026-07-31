@@ -71,10 +71,11 @@ cavity later if the mooring proves rough (see the assembly guide).
 
 ## Bill of materials
 
-- printed: 1 base, 1 hub front + 1 hub back (a clamshell), 2 vanes,
-  2 tip bracket peg halves + 2 plain halves (each arm tip clamps
-  between one of each), 2 end caps, 1 thrust collar,
-  and optionally 1 retainer collar (see `stl/`)
+- printed: 1 base, 2 hub shells (one part printed twice; they close
+  seats to seats over the arms), 2 vanes, 2 tip bracket peg halves +
+  2 plain halves (each arm tip clamps between one of each), 2 end
+  caps, 1 thrust collar, and optionally 1 retainer collar (see
+  `stl/`)
 - filament: something UV-stable (ASA) for a machine that lives on a
   boat; PLA is fine for prototyping and fit checks but creeps under
   clamp preload and degrades in the sun
@@ -87,8 +88,11 @@ cavity later if the mooring proves rough (see the assembly guide).
   machine's structural fuse
 - 2x PTFE washer 8x14x1 (the vane thrust seats: each sleeve spins on
   one, resting on the bracket's flat top)
-- 5x M5x35 bolt + nyloc + 2 wide washers each (the hub clamshell; no
-  drilling there)
+- 2x M8 nyloc + 2x M8 fender washer (8.4x30x1.5): the hub clamp.
+  The shaft's top end is threaded M8x1.25 for 35 mm with a hand die
+  (8 mm rod is an M8 blank; the die self-aligns and nothing is
+  drilled), and the washers press the shell sandwich together from
+  either end
 - 8x M3x25 bolt + nyloc + 1 small washer each (the tip bracket
   clamshells, kept light because they ride at the arm tips; the
   nylocs sit captive in hex pockets, so a screwdriver on the head
@@ -99,15 +103,13 @@ cavity later if the mooring proves rough (see the assembly guide).
 - 4x 4.2 mm wood screws, and a plank to screw the base onto (any
   thickness, no hole: nothing reaches below the base)
 
-OPTIONAL hub disc variant (`stl/hub_disc.stl`): one printed slot
-disc replaces the hub clamshell and all five M5s. The two arms lie
-in through slots and clamp between two M8 fender washers (8.4x30x1.5)
-and two M8 nylocs on the shaft's top end, threaded M8x1.25 for 30 mm
-with a hand die (8 mm rod is an M8 blank; the die self-aligns and
-nothing is drilled). Steel jaws instead of bolted plastic: about
-85 g off the rotor, no seasonal re-torque at the hub, and the arms
-ride 27 mm lower on the same shaft. The clamshell stays the default
-because it needs no rod prep at all.
+OPTIONAL hub clamshell variant (`stl/hub_front.stl` +
+`stl/hub_back.stl`, plus 5x M5x35 bolt + nyloc + 2 wide washers
+each): the pre-sandwich hub, a clamshell that closes over shaft and
+arms and bolts shut. It needs no rod prep at all — the one reason
+to choose it over the sandwich, which asks for the die pass but
+drops about 80 g and three bolts' worth of hardware. The clamshell
+carries the arms about 30 mm higher on the same shaft.
 
 ## Calibration before printing the real parts
 
@@ -129,9 +131,10 @@ ASA with the production profile.
 ## Assembly
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
-The short version: bearings pressed into the base; shaft and arms
-laid into the hub clamshell and bolted, the retainer clamped flush
-with the shaft tip; the base slid onto the shaft from the tip end
+The short version: bearings pressed into the base; the shaft top
+die-threaded, then the hub sandwich built up the thread (nut,
+washer, shell, arms, shell, washer, nut) and the retainer clamped
+flush with the shaft tip; the base slid onto the shaft from the tip end
 until its bottom race rests on the retainer, the thrust collar
 gauged a millimeter off the top race and clamped, then everything
 flipped upright and the base screwed down; the tip bracket

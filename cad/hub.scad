@@ -1,5 +1,9 @@
 // ==============================================================================
-//   HUB — clamps the top of the vertical shaft and carries both arm rods.
+//   HUB CLAMSHELL — optional VARIANT of the hub sandwich
+//   (hub_shell.scad) for a build that skips the shaft's die pass:
+//   clamps the shaft top and carries both arm rods with no rod prep
+//   at all, at the price of five M5s and about 80 g. The arm station
+//   rides about 30 mm higher than the sandwich puts it.
 //
 //   A CLAMSHELL split on the vertical plane through all three rod axes:
 //   lay the shaft and both arms into one half's grooves, close the

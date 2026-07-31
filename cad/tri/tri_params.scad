@@ -36,8 +36,8 @@ tri_shaft_thread = 40;   // M8x1.25 die length on the shaft's top end
                          // (rod prep: a hand die, no drilling at
                          // all). The nut and fender-washer sizes are
                          // the shared m8_* values in design_params
-                         // (the dual's hub_disc variant uses the
-                         // same jaw stack)
+                         // (the dual's hub sandwich uses the same
+                         // jaw stack)
 tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep): both ends of
                          // each stub; the shaft is die-threaded,
                          // never tapped or drilled

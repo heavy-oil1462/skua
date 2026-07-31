@@ -10,7 +10,7 @@ a socket of engagement cannot merge.
 
 The rotor works by swing asymmetry: each vane swings vane_swing_deg
 between the end cap wedge's two flanks in the sleeve's top notch (the
-cap is the only stop; the stop ring below is a smooth thrust seat),
+cap is the only stop; below, the sleeve rides the bought PTFE washer),
 folding flat one way and presenting its full face the other. The
 checks keep that mechanism real: the wedge must actually reach the
 notch, the notch must not eat the whole sleeve wall, and the flag
@@ -99,8 +99,10 @@ def main():
           f"{P['retainer_w']} mm of width around the {nut_pocket:.1f} mm"
           " nut pocket (>= 1 mm of wall; the sanctioned narrow clamp)")
 
-    # --- hub walls around the grooves (clamshell: plain round grooves,
-    #     printed open-face-up, so no teardrop crown anywhere here) ---
+    # --- hub clamshell VARIANT walls around the grooves (plain round
+    #     grooves, printed open-face-up, so no teardrop crown anywhere
+    #     here; the variant stays printable even though the sandwich
+    #     is the hub) ---
     web = (P["hub_arm_z"] - P["arm_snug_d"] / 2) - P["hub_shaft_socket"]
     check(ok, web >= 3, "hub shaft/arm web", f"{web:.1f} mm between the sockets (>= 3)")
     peak = P["hub_arm_z"] + P["arm_snug_d"] / 2
@@ -115,7 +117,8 @@ def main():
     check(ok, stem_wall >= 4, "hub T stem around the shaft socket",
           f"{stem_wall:.1f} mm wall each side (>= 4)")
 
-    # --- hub clamshell: every M5 clamp bolt and peg keeps its walls ---
+    # --- hub clamshell VARIANT: every M5 clamp bolt and peg keeps its
+    #     walls ---
     r = P["m5_clear_d"] / 2
     center_web = P["hub_len"] / 2 - P["hub_arm_socket"] - r
     check(ok, center_web >= 2, "hub center bolt clears the arm grooves",
@@ -139,58 +142,67 @@ def main():
           f"{P['hub_clamp_gap']} mm total: rods stand proud, bolts clamp"
           " rods not plastic (0.4 .. 2)")
 
-    # --- hub disc VARIANT (hub_disc.scad): the washer-jaw hub on the
-    #     die-threaded shaft top. Same proud-rod clamp rule, steel
-    #     jaws instead of bolted plastic ---
-    check(ok, abs(P["hub_disc_h"] - (P["arm_rod_d"] - P["hub_clamp_gap"])) < 1e-9,
-          "disc leaves the arms proud",
-          f"disc {P['hub_disc_h']} = arm {P['arm_rod_d']} - gap"
-          f" {P['hub_clamp_gap']}: washer preload lands on the rods,"
-          " never on face-to-face plastic")
-    flank = (P["hub_disc_d"] - P["hub_disc_boss_d"]) / 2
-    check(ok, flank >= 14, "disc slot flanks stay long",
-          f"{flank:.0f} mm of slot bearing per arm (>= 14: the flanks"
+    # --- hub sandwich (hub_shell.scad, THE hub): two identical
+    #     shells on the die-threaded shaft top, arms in half-round
+    #     seats. Same proud-rod clamp rule as every clamshell: the
+    #     seats are shallower than half the arm by half the gap, so
+    #     the shells never touch and the washer preload lands on the
+    #     rods through the seats ---
+    seat_depth = P["arm_snug_d"] / 2 - P["hub_clamp_gap"] / 2
+    shell_web = P["hub_shell_h"] - seat_depth
+    check(ok, shell_web >= 2, "shell keeps a web under the seat",
+          f"{shell_web:.1f} mm of shell below the {seat_depth:.1f} mm"
+          " seat (>= 2: the washer bears on it)")
+    flank = (P["hub_shell_d"] - P["hub_shell_boss_d"]) / 2
+    check(ok, flank >= 14, "shell seats stay long",
+          f"{flank:.0f} mm of seat bearing per arm (>= 14: the seats"
           " carry horizontal storm bending, the grip-length rule)")
-    jaw = (P["m8_washer_od"] - P["hub_disc_boss_d"]) / 2
-    check(ok, jaw >= 5 and P["m8_washer_od"] <= P["hub_disc_d"],
-          "washer jaws grip the rods",
-          f"{jaw:.1f} mm of fender washer on each rod beyond the boss"
-          f" circle (>= 5), washer {P['m8_washer_od']} inside the"
-          f" {P['hub_disc_d']} disc")
-    disc_boss = (P["hub_disc_boss_d"] - P["rod_free_d"]) / 2
-    check(ok, disc_boss >= 2, "disc boss around the bore",
-          f"{disc_boss:.1f} mm of butt ring between the free bore and"
-          " the slots (>= 2)")
-    m8_stack = 2 * P["m8_nut_t"] + 2 * P["m8_washer_t"] + P["hub_disc_h"]
+    jaw = (P["m8_washer_od"] - P["hub_shell_boss_d"]) / 2
+    check(ok, jaw >= 5 and P["m8_washer_od"] <= P["hub_shell_d"],
+          "washer jaws cover the seats",
+          f"{jaw:.1f} mm of fender washer over each seat beyond the"
+          f" boss circle (>= 5), washer {P['m8_washer_od']} inside the"
+          f" {P['hub_shell_d']} shell")
+    shell_boss = (P["hub_shell_boss_d"] - P["rod_free_d"]) / 2
+    check(ok, shell_boss >= 2, "shell boss around the bore",
+          f"{shell_boss:.1f} mm of butt ring between the free bore and"
+          " the seats (>= 2)")
+    m8_stack = (2 * P["m8_nut_t"] + 2 * P["m8_washer_t"]
+                + 2 * P["hub_shell_h"] + P["hub_clamp_gap"])
     check(ok, P["hub_shaft_thread"] >= m8_stack + 1, "die thread covers the stack",
           f"{P['hub_shaft_thread']} mm of M8x1.25 vs the {m8_stack:.1f} mm"
-          " nut-washer-disc-washer-nut stack (>= 1 mm lead)")
+          " nut-washer-sandwich-washer-nut stack (>= 1 mm lead)")
 
-    # --- vertical stack: shaft and collar working room ---
+    # --- vertical stack: shaft and collar working room. The sandwich
+    #     hangs its whole stack below the shaft top (top nyloc flush
+    #     with the tip of the thread), so the arm axis sits on the
+    #     sandwich mid-plane and the lower nut must clear the thrust
+    #     collar ---
     shaft_top = P["shaft_tip_h"] + P["shaft_length"]
-    hub_bottom = shaft_top - P["hub_shaft_socket"]
-    arm_z = hub_bottom + P["hub_arm_z"]
-    collar_room = hub_bottom - (P["tower_h"] - P["pocket_recess"]
-                                + P["collar_w"] + P["collar_boss_h"])
+    arm_z = (shaft_top - P["m8_nut_t"] - P["m8_washer_t"]
+             - P["hub_shell_h"] - P["hub_clamp_gap"] / 2)
+    collar_top = (P["tower_h"] - P["pocket_recess"]
+                  + P["collar_w"] + P["collar_boss_h"])
+    collar_room = (shaft_top - m8_stack) - collar_top
     check(ok, collar_room >= 5, "shaft length",
-          f"{collar_room:.1f} mm open shaft between thrust collar and hub (>= 5)")
-    # the hub disc variant hangs its whole stack below the shaft top,
-    # so its arm station sits lower on the same shaft; the stack must
-    # still clear the thrust collar
-    disc_arm_z = (shaft_top - P["m8_nut_t"] - P["m8_washer_t"]
-                  - P["hub_disc_h"] / 2)
-    disc_room = collar_room + P["hub_shaft_socket"] - (2 * P["m8_nut_t"]
-                + 2 * P["m8_washer_t"] + P["hub_disc_h"])
-    check(ok, disc_room >= 5, "shaft length (hub disc variant)",
-          f"{disc_room:.1f} mm between thrust collar and the lower M8"
-          " nut (>= 5)")
-    print(f"[info] hub disc variant: arm axis at {disc_arm_z:.0f} mm"
-          f" vs the clamshell's {hub_bottom + P['hub_arm_z']:.0f} mm"
-          " above the shaft tip station — same shaft, arms ride"
-          f" {hub_bottom + P['hub_arm_z'] - disc_arm_z:.0f} mm lower")
+          f"{collar_room:.1f} mm open shaft between thrust collar and"
+          " the lower M8 nut (>= 5)")
+    # the clamshell variant clamps a blind socket over the shaft top
+    # instead, which puts its arm station higher on the same shaft
+    hub_bottom = shaft_top - P["hub_shaft_socket"]
+    clam_room = hub_bottom - collar_top
+    check(ok, clam_room >= 5, "shaft length (clamshell variant)",
+          f"{clam_room:.1f} mm open shaft between thrust collar and"
+          " the clamshell (>= 5)")
+    print(f"[info] arm axis at {arm_z:.0f} mm above the plank; the"
+          f" clamshell variant carries it at"
+          f" {hub_bottom + P['hub_arm_z']:.0f} mm — same shaft, the"
+          " sandwich rides"
+          f" {hub_bottom + P['hub_arm_z'] - arm_z:.0f} mm lower")
 
-    # --- along the arm: hub socket, clear span, tip bracket ---
-    arm_tip = P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
+    # --- along the arm: boss butt, clear span, tip bracket (the arms
+    #     butt the sandwich's boss circle and run out from there) ---
+    arm_tip = P["hub_shell_boss_d"] / 2 + P["arm_length"]
     bracket_x = arm_tip - P["bracket_arm_grip"]  # bracket inboard face
     stub_x = bracket_x + P["bracket_stub_x"]     # hinge axis radius
     check(ok, P["bracket_arm_grip"] >= 14 and P["bracket_h"] >= 14,
@@ -377,7 +389,7 @@ def main():
         check(ok, size <= P["printer_bed"], f"{name} fits the bed",
               f"{size:.0f} mm <= {P['printer_bed']} mm")
 
-    width = P["hub_len"] + 2 * (P["arm_length"] - P["hub_arm_socket"])
+    width = 2 * arm_tip
     sweep = 2 * (stub_x + P["vane_reach"])
     print(f"[info] rotor width across the arms: {width:.0f} mm"
           f" ({width / 10:.0f} cm); flags at the driven stop sweep"

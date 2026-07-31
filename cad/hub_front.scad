@@ -1,6 +1,7 @@
 // ==============================================================================
-//   HUB FRONT HALF — the clamshell half with the registration pegs
-//   (print ONE; see hub.scad for how the clamshell works).
+//   HUB FRONT HALF — the clamshell VARIANT's half with the
+//   registration pegs (print ONE, only for the no-rod-prep clamshell
+//   build; see hub.scad for how the clamshell works).
 //
 //   Prints split face UP: the rod grooves are open channels, the bolt
 //   bores vertical, the pegs small towers. No supports.
