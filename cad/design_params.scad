@@ -139,6 +139,26 @@ hub_shell_boss_d = 14;  // arm butt circle around the free bore
 hub_shaft_thread = 35;  // M8x1.25 die length on the shaft top: the
                         // nut-washer-sandwich-washer-nut stack plus lead
 
+// --- Die jig (die_jig.scad; a bench TOOL, not a machine part; print
+//     TWO of the one part): soft vice jaws for the die pass. The
+//     halves close groove to groove over the shaft and the vice
+//     squeezes their flat backs, so the rod is gripped over the whole
+//     groove instead of chewed by the jaw teeth. Clamshell rule as
+//     everywhere: the groove is shallower than half the rod by half
+//     the gap, so the halves never touch and all the vice preload
+//     lands on the rod. Sized for the 8 mm shaft stock (the snug
+//     gauge fit); also handy for holding any rod while cutting it ---
+die_jig_len = 70;  // along the rod: the grip friction that holds the
+                   // die's torque lives on this area (and leaves the
+                   // whole 35 mm thread standing free of the jig on
+                   // the 145 shaft — geometry_check does the sum)
+die_jig_w   = 24;  // across the groove, walls each side of the rod
+die_jig_h   = 10;  // one half: groove depth plus the web the vice
+                   // jaw bears on
+die_jig_gap = 0.8; // total gap between the closed halves, hub rule:
+                   // vice preload lands on the rod, never on
+                   // face-to-face plastic
+
 // --- M3 hardware (collar and cap clamps: each is a wide slit clamp
 //     closed by TWO bolts crossing the slit — friction on the rod, but
 //     spread over a long grip and generous bolt preload; nothing is

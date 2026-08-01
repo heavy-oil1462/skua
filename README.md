@@ -75,7 +75,9 @@ cavity later if the mooring proves rough (see the assembly guide).
   seats to seats over the arms), 2 vanes, 2 tip bracket peg halves +
   2 plain halves (each arm tip clamps between one of each), 2 end
   caps, 1 thrust collar, and optionally 1 retainer collar (see
-  `stl/`)
+  `stl/`). Plus one bench tool: 2 die jig halves (again one part
+  printed twice), soft vice jaws that hold the shaft for the die
+  pass without the vice teeth marking it
 - filament: something UV-stable (ASA) for a machine that lives on a
   boat; PLA is fine for prototyping and fit checks but creeps under
   clamp preload and degrades in the sun
