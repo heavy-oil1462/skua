@@ -23,11 +23,10 @@ hardware. No electronics — the wind does everything.
   vanes stay as printed). Below, the sleeve rides a bought PTFE
   washer (ptfe_washer_*) directly on the bracket's FLAT top: the
   vane's whole thrust seat, lower friction than any printed seat
-  and the cheapest wear part there is. The old keyed STOP RING and
-  the bracket pocket that trapped it survive only as the tri
-  variant's stop (tip_bracket's ring_pocket option and
-  cad/tri/tri_stop_ring.scad); the dual prints no ring and cuts no
-  pocket. Pushed toward the stop the
+  and the cheapest wear part there is. The old keyed stop ring is
+  gone everywhere: the tri variant uses this exact vane assembly
+  (bracket, washer, vane, cap wedge), just three times over with
+  three caps hand-set to the same sense. Pushed toward the stop the
   vane presents its full face and drags the rotor; pushed the other
   way it weathervanes flat and slips through. Set both caps to the
   same rotational sense seen from above so the torques add — this is

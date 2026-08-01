@@ -36,8 +36,6 @@ from performance_check import (CD_PLATE, MU_HINGE, RHO_AIR, RHO_ASA,
 MM = 1e-3
 
 # --- tri-variant assumption constants -------------------------------------------
-MU_PTFE = 0.12         # thin PTFE washer on the thrust seat
-R_WASHER = 5.3 * MM    # its effective friction radius (8x14 washer)
 FILM_VANE_KG = 0.028   # printed perimeter frame + mylar/ripstop skin,
                        # same face area as the solid panel; weigh a
                        # prototype before believing the third decimal
@@ -54,14 +52,14 @@ ROTOR_H = 0.7          # m, arm axis above the water today (plank on a
 
 # --- baseline geometry from the shared params --------------------------
 sleeve_r = P["vane_sleeve_od"] / 2 * MM
-hinge_r = (P["hub_len"] / 2 - P["hub_arm_socket"] + P["arm_length"]
+hinge_r = (P["hub_shell_boss_d"] / 2 + P["arm_length"]
            - P["bracket_arm_grip"] + P["bracket_stub_x"]) * MM
 swing = P["vane_swing_deg"]
 
 
 def aero(reach_mm, arm_mm):
     """area, hinge lever, hinge radius, drive radius for a vane."""
-    hr = (P["hub_len"] / 2 - P["hub_arm_socket"] + arm_mm
+    hr = (P["hub_shell_boss_d"] / 2 + arm_mm
           - P["bracket_arm_grip"] + P["bracket_stub_x"]) * MM
     area = (reach_mm * MM - sleeve_r) * FILM_FRAME_H
     d = (reach_mm * MM + sleeve_r) / 2
@@ -107,9 +105,9 @@ def curve(arms, s, R, d):
 def storm_sf(area, r_drive, arm_mm, rod_s, tip_kg):
     q = 0.5 * RHO_AIR * V_SURVIVAL ** 2
     f = CD_PLATE * q * area
-    free = (arm_mm - P["hub_arm_socket"]) * MM
+    free = (arm_mm - (P["hub_shell_d"] - P["hub_shell_boss_d"]) / 2) * MM
     rod_kg_m = 2700 * math.pi * (P["rod_d"] * MM / 2) ** 2
-    m = math.hypot(f * (r_drive - P["hub_len"] / 2 * MM),
+    m = math.hypot(f * (r_drive - P["hub_shell_d"] / 2 * MM),
                    9.81 * (tip_kg * free + rod_kg_m * free * free / 2))
     return ALU_YIELD / (m / rod_s)
 
@@ -118,7 +116,10 @@ def main():
     rod8_s = math.pi * (P["rod_d"] * MM) ** 3 / 32
     a0, d0, _, r0 = aero(P["vane_reach"], P["arm_length"])
     a2, d2, _, r2 = aero(250, 500)   # span held: 619+150 ~ 519+250
-    seat = (P["ring_boss_d"] + P["rod_free_d"]) / 4 * MM
+    # the dual's own thrust seat IS the PTFE washer now, so the seat
+    # radius and mu are the gate's (performance_check), and the old
+    # "+ PTFE washer" rung is the baseline
+    seat = (P["ptfe_washer_od"] + P["ptfe_washer_id"]) / 4 * MM
     shear_tall = ((ROTOR_H + 1.0) / ROTOR_H) ** WIND_SHEAR_EXP
 
     # cumulative ladder: (label, arms, mu, r_seat, vane_kg,
@@ -126,18 +127,16 @@ def main():
     v1_geom = (a0, d0, r0, P["arm_length"], rod8_s)
     tri_geom = (a2, d2, r2, 500, ROD10_S)
     ladder = [
-        ("dual as built (calibrated 78 g vane)",
+        ("dual as built (PTFE seat, 78 g vane)",
          2, MU_HINGE, seat, VANE_SLICED_KG, v1_geom, 1.0),
-        ("+ PTFE washer on the thrust seat",
-         2, MU_PTFE, R_WASHER, VANE_SLICED_KG, v1_geom, 1.0),
         ("+ three arms",
-         3, MU_PTFE, R_WASHER, VANE_SLICED_KG, v1_geom, 1.0),
+         3, MU_HINGE, seat, VANE_SLICED_KG, v1_geom, 1.0),
         ("+ film-and-frame vanes (~28 g)",
-         3, MU_PTFE, R_WASHER, FILM_VANE_KG, v1_geom, 1.0),
+         3, MU_HINGE, seat, FILM_VANE_KG, v1_geom, 1.0),
         ("+ reach 250 on 500 arms, 10 mm rod (span held)",
-         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, tri_geom, 1.0),
+         3, MU_HINGE, seat, FILM_VANE_250_KG, tri_geom, 1.0),
         ("+ tower 1 m taller (wind shear credit)",
-         3, MU_PTFE, R_WASHER, FILM_VANE_250_KG, tri_geom, shear_tall),
+         3, MU_HINGE, seat, FILM_VANE_250_KG, tri_geom, shear_tall),
     ]
 
     print(f"{'variant':<48}{'start':>7}{'worst/mean':>11}{'arm SF':>8}")

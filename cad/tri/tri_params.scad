@@ -2,15 +2,13 @@
 // SKUA TRI VARIANT PARAMETERS — study values only, tri_ prefixed so
 // nothing shadows design_params.scad (check_params enforces that).
 //
-// The tri v0.1 keeps the dual's vane and rod stock (the vane with
-// its bottom notch grown back, the stop ring with its fin option
-// on, both one-argument variants of the dual parts: the tri's only
-// stop is the keyed ring fin) and changes the joints: three arms
-// keyed by the spacer
-// disc in tri_hub.scad and clamped between fender washers on the
-// die-threaded shaft, and screwed stubs at the tips. The later
-// ladder steps from scripts/tri_study.py (PTFE washers, film
-// vanes, the reach-for-arm trade) keep their values below.
+// The tri keeps the dual's ENTIRE vane assembly verbatim (bracket,
+// stub, PTFE seat, vane, cap-wedge stop; three caps hand-set to
+// the same rotational sense instead of two) and changes only the
+// count and the hub sizing: three arms at 120 degrees in its own
+// wider washer-jaw hub from tri_hub.scad. The later ladder steps
+// from scripts/tri_study.py (film vanes, the reach-for-arm trade)
+// keep their values below.
 // ============================================================
 
 tri_arms       = 3;    // the consistency fix: no dead parking angle
@@ -38,29 +36,6 @@ tri_shaft_thread = 40;   // M8x1.25 die length on the shaft's top end
                          // the shared m8_* values in design_params
                          // (the dual's hub sandwich uses the same
                          // jaw stack)
-tri_rod_thread   = 10;   // M5x0.8 tap depth (rod prep): both ends of
-                         // each stub; the shaft is die-threaded,
-                         // never tapped or drilled
-
-// --- Prepared stub tip (tri_tip_bracket.scad, tri_end_cap.scad):
-//     DEFERRED kit direction, not in the v0.1 scene (v0.1 uses the
-//     dual's clamped tip verbatim, so the only rod prep in the
-//     whole machine is the shaft's die pass).
-//     The stub is tapped both ends and SCREWED, never clamped.
-//     The stop is the ring fin ALONE (field finding from the dual:
-//     two stops never land exactly together, one face takes every
-//     hit anyway, and the stop-face gate already sizes one face
-//     for the full impact), so the cap is a smooth keyless
-//     retainer, stub rotation is irrelevant, and the rod prep is
-//     two taps, nothing more ---
-tri_step_t      = 3;    // printed step under the stub in the bracket
-tri_stub_length = 103;  // step to cap bore ceiling: bracket above the
-                        // step (21) + boss (2) + washer (1) + sleeve
-                        // (70) + running play (1) + cap bore (8)
-tri_cap_t       = 14;
-tri_cap_bore_h  = 8;    // free locating bore over the stub's top
-tri_cap_cbore_d = 13;   // washer + head counterbore, closed face
-tri_cap_cbore_h = 3;
 
 // --- Later ladder steps (tri_study.py's numbers; NOT in the v0.1
 //     scene, which uses the dual's rod_d / arm_length / vane) ---
