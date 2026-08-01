@@ -84,8 +84,8 @@ cavity later if the mooring proves rough (see the assembly guide).
 - 2x 608 bearing (8x22x7 — any skateboard bearing, shielded preferred)
 - 8 mm aluminum rod: 1x 145 mm (shaft), 2x 600 mm (arms), 2x 112 mm
   (the vertical hinge stubs). The arm diameter is a parameter
-  (`arm_rod_d`, default 8): thinner arms save weight and the hub,
-  bracket and disc grooves follow, but re-gauge the arm fit on the
+  (`arm_rod_d`, default 8): thinner arms save weight and the hub
+  seats and bracket grooves follow, but re-gauge the arm fit on the
   new stock and let the storm gate judge the arm, which is the
   machine's structural fuse
 - 2x PTFE washer 8x14x1 (the vane thrust seats: each sleeve spins on
@@ -104,14 +104,6 @@ cavity later if the mooring proves rough (see the assembly guide).
   thrust collar and 2 caps), plus one more if the retainer is fitted
 - 4x 4.2 mm wood screws, and a plank to screw the base onto (any
   thickness, no hole: nothing reaches below the base)
-
-OPTIONAL hub clamshell variant (`stl/hub_front.stl` +
-`stl/hub_back.stl`, plus 5x M5x35 bolt + nyloc + 2 wide washers
-each): the pre-sandwich hub, a clamshell that closes over shaft and
-arms and bolts shut. It needs no rod prep at all — the one reason
-to choose it over the sandwich, which asks for the die pass but
-drops about 80 g and three bolts' worth of hardware. The clamshell
-carries the arms about 30 mm higher on the same shaft.
 
 ## Calibration before printing the real parts
 
@@ -134,21 +126,43 @@ ASA with the production profile.
 
 Step-by-step guide with rendered images: [docs/assembly.md](docs/assembly.md).
 The short version: bearings pressed into the base; the shaft top
-die-threaded, then the hub sandwich built up the thread (nut,
-washer, shell, arms, shell, washer, nut) and the retainer clamped
-flush with the shaft tip; the base slid onto the shaft from the tip end
-until its bottom race rests on the retainer, the thrust collar
-gauged a millimeter off the top race and clamped, then everything
-flipped upright and the base screwed down; the tip bracket
-clamshells bolted over arms and stubs, sleeves and caps slid on, and
-each cap rotated to its driven-stop angle, both the same way around,
-and clamped.
+die-threaded (the printed die jig holds it in the vice), then the
+hub sandwich built up the thread (nut, washer, shell, arms, shell,
+washer, nut), plus the optional retainer clamped flush with the
+shaft tip if fitted; the base slid onto the shaft from the tip end,
+the thrust collar gauged a millimeter off the top race and clamped,
+then everything flipped upright and the base screwed down; the tip
+bracket clamshells bolted over arms and stubs, washers, sleeves and
+caps slid on, and each cap rotated to its driven-stop angle, both
+the same way around, and clamped.
 Nothing is drilled anywhere, not the rods, not
-the printed parts, not even the plank, and no joint is permanent: the
-hub is a clamshell, everything else is a slit clamp, so every
-position and stop angle can be reset by loosening a bolt or two.
+the printed parts, not even the plank, and no joint is permanent:
+the hub is a washer-clamped sandwich, the tip brackets are
+clamshells, everything else is a slit clamp, so every position and
+stop angle can be reset by loosening a bolt or two.
 Re-torque the clamps at the start of each season, printed plastic
 relaxes.
+
+## Alternative versions
+
+Everything above is the default machine, and it is complete as
+described. Two alternatives live in the repo, kept current but out
+of the main path:
+
+- Hub clamshell (`stl/hub_front.stl` + `stl/hub_back.stl`, plus 5x
+  M5x35 bolt + nyloc + 2 wide washers each, replacing the M8 stack
+  and the die pass): the pre-sandwich hub, a clamshell that closes
+  over shaft and arms and bolts shut. It needs no rod prep at all,
+  which is the one reason to choose it; the price is about 80 g and
+  three bolts' worth of hardware, and it carries the arms about
+  30 mm higher on the same shaft.
+- The tri variant ([docs/tri_concept.md](docs/tri_concept.md)): the
+  three-arm light-wind sibling of this machine, a parallel line
+  with its own release tags (tri-vX.Y), not a successor. It prints
+  this exact vane assembly a third time and swaps only the hub for
+  a wider three-seat version of the same shell sandwich; `cad/tri/`
+  is its home while it matures, and nothing there changes the
+  machine on this page.
 
 ## Working on the design
 
