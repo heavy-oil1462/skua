@@ -37,40 +37,36 @@ into a tri rotor, and every spare fits both machines.
 
 ## The washer-jaw hub
 
-The hub (`cad/tri/tri_hub.scad`) went through several sizes on
-the way down and landed as small as the job allows: ONE printed
-spacer disc, thinner than the rod. Three full-height slots key
-the arms at 120 degrees, the arms butt the boss circle and stand
-proud of both faces by 0.4 mm each, and two large M8
-fender washers press onto the rods from either side, clamped by
-M8 nylocs on the shaft's die-threaded top end (8 mm rod is
-exactly an M8 thread blank, so a hand die self-aligns and this
-rod is never drilled at all; the lower nut is the shoulder, run
-to the die's thread runout, and the upper one is the clamp).
+The hub is the shell sandwich (`tri_hub_shell` in
+`cad/tri/tri_hub.scad`, the one in the scene): the same design the
+dual runs as its default hub (`cad/hub_shell.scad`), sized for
+three seats at 120 degrees, so the one hub design serves both
+machines the way the one vane assembly does. Two identical thin
+half-shells, each a half-round seat over a web, cradle the arms
+over the full grip; the arms butt the boss circle and stand proud
+of the mating faces by half the clamp gap, and two large M8 fender
+washers press the sandwich together, clamped by M8 nylocs on the
+shaft's die-threaded top end (8 mm rod is exactly an M8 thread
+blank, so a hand die self-aligns and this rod is never drilled at
+all; the lower nut is the shoulder, run to the die's thread
+runout, and the upper one is the clamp). The arms get distributed
+bearing top and bottom, nothing can rattle, and field seasons on
+the dual proved the design out. The webs put a little plastic in
+the clamp path, so the hub nuts join the seasonal re-torque round.
 
-The load path is worth stating: steel washer, aluminum rod, steel
-washer, steel nut. No plastic sits in compression anywhere in
-this joint, so unlike every clamp on the dual it does not relax
-and never needs the seasonal re-torque. The disc only keys: its
-slot flanks carry the arms' horizontal storm bending as bearing
-over 18 mm, the washer faces square the hub on the shaft, and the
-disc prints flat in minutes.
-
-A second variant sits between this and the split hub it replaced,
-modeled alongside it (`tri_hub_shell`, currently the one in the
-scene): two identical thin half-shells, each a 3.6 mm half-seat
-over a 2.4 mm web, cradle the arms over the full grip, and the
-washers clamp the sandwich. The arms get distributed bearing top
-and bottom instead of the washer rim's edge clamp, and nothing
-can ever rattle; the price is those webs putting plastic back in
-the clamp path, so a mild version of the dual's clamp creep
-returns (low stress over a large washer footprint, and a spring
-washer under each nut absorbs what little there is). Same
-hardware, same print-two-of-one-part, 13 mm tall against 7. The
-slot disc is the no-re-torque purist, the shells are the gentler
-cradle; the bench and the water pick between them. The dual has
-since adopted exactly this shell sandwich as its own hub
-(`cad/hub_shell.scad`), sized for two arms.
+An alternative sits alongside it in the same file
+(`tri_hub_disc`): ONE printed spacer disc, thinner than the rod,
+three full-height slots keying the arms, the fender washers
+pressing directly onto the rods from either side. Its load path is
+worth stating: steel washer, aluminum rod, steel washer, steel
+nut. No plastic sits in compression anywhere in that joint, so
+unlike every clamp on the dual it does not relax and never needs
+the seasonal re-torque; the price is that the washer rims
+edge-clamp the arms instead of cradling them, and the slot flanks
+alone carry the arms' horizontal storm bending. Same hardware,
+one part instead of two, 7 mm tall against 13. The sandwich is the
+default; the disc stays modeled for an A/B on the water if the
+re-torque round ever grates.
 
 A structural note, recording a correction: an earlier pass
 rejected male thread on the shaft, claiming the storm case fails
