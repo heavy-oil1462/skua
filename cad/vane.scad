@@ -55,10 +55,7 @@ $fn = 80;
 notch_deg   = vane_swing_deg + stop_wedge_deg;
 notch_depth = stop_wedge_len + 1;
 
-// bottom_notch mirrors the stop notch onto the lower end face for a
-// ring-fin stop (the tri variant); the dual's printable vane keeps
-// its bottom face whole.
-module vane(bottom_notch = false) {
+module vane() {
     sleeve_r = vane_sleeve_od / 2;
     difference() {
         union() {
@@ -91,13 +88,11 @@ module vane(bottom_notch = false) {
         translate([-vane_sleeve_len / 2 - 0.5, 0, sleeve_r])
             rod_bore(rod_free_d, vane_sleeve_len + 1);
 
-        // stop notch, TOP end face (both ends for a ring-fin stop),
-        // centered on the panel side
-        for (m = bottom_notch ? [0, 1] : [0]) mirror([m, 0, 0])
-            translate([vane_sleeve_len / 2 - notch_depth, 0, sleeve_r])
-                rotate([0, 90, 0])
-                    linear_extrude(height = notch_depth + 0.5)
-                        pie(sleeve_r + 1, notch_deg);
+        // stop notch, TOP end face, centered on the panel side
+        translate([vane_sleeve_len / 2 - notch_depth, 0, sleeve_r])
+            rotate([0, 90, 0])
+                linear_extrude(height = notch_depth + 0.5)
+                    pie(sleeve_r + 1, notch_deg);
     }
 }
 

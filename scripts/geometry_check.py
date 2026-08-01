@@ -282,42 +282,6 @@ def main():
           f"washer radius {P['ptfe_washer_od'] / 2} inside the flat"
           " around the stub")
 
-    # --- tri variant option: the keyed stop ring and its pocket
-    #     (ring_pocket = true in tip_bracket.scad; the tri prints
-    #     this bracket variant with the dual's dimensions, so the
-    #     pocket geometry must stay legal even though the dual's top
-    #     is flat) ---
-    pocket_r = P["ring_foot_d"] / 2 + P["fit_tol"]
-    check(ok, P["bracket_w"] / 2 - pocket_r >= 1.5, "tri ring pocket side walls",
-          f"{P['bracket_w'] / 2 - pocket_r:.1f} mm outside the pocket"
-          " (>= 1.5)")
-    check(ok, P["bracket_len"] - P["bracket_stub_x"] - pocket_r >= 2,
-          "tri ring pocket end wall",
-          f"{P['bracket_len'] - P['bracket_stub_x'] - pocket_r:.1f} mm to"
-          " the outboard face (>= 2)")
-    pocket_floor = P["bracket_h"] - P["ring_foot_t"]
-    groove_top = P["bracket_h"] / 2 + P["arm_snug_d"] / 2
-    check(ok, pocket_floor - groove_top >= 3, "tri ring pocket floor",
-          f"{pocket_floor - groove_top:.1f} mm above the arm groove (>= 3)")
-    check(ok, P["bracket_stub_x"] - pocket_r
-              - (P["bracket_peg_x"] + 2) >= 1.5, "tri pegs clear the pocket",
-          f"{P['bracket_stub_x'] - pocket_r - P['bracket_peg_x'] - 2:.1f}"
-          " mm between the pegs and the pocket wall (>= 1.5)")
-    check(ok, 2 <= P["ring_flat_x"] <= P["ring_foot_d"] / 2 - 2,
-          "tri ring D flat keys",
-          f"flat at {P['ring_flat_x']} mm, foot radius"
-          f" {P['ring_foot_d'] / 2} (a real flat, one orientation only)")
-    check(ok, P["stop_wedge_ro"] - P["ring_foot_d"] / 2 <= 1,
-          "tri fin sits on its foot",
-          f"a fin would overhang the foot {P['stop_wedge_ro'] - P['ring_foot_d'] / 2:.1f} mm"
-          " (<= 1: the tri's finned ring lands on the bracket top)")
-    boss_wall = (P["ring_boss_d"] - P["rod_free_d"]) / 2
-    check(ok, 0.8 <= boss_wall and P["ring_boss_d"] <= P["collar_boss_d"],
-          "tri ring boss is a real seat",
-          f"{boss_wall:.1f} mm of seat ring over the free bore (>= 0.8"
-          " printable), inside the old collar-width boss; the tri's"
-          " self-start rides this radius (scripts/tri_study.py)")
-
     # --- up the stub: washer, sleeve, play, cap all fit ---
     seat_top = P["bracket_h"] / 2 + P["ptfe_washer_t"]
     sleeve_top = seat_top + P["vane_sleeve_len"]    # heights above arm axis
