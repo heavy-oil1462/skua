@@ -3,7 +3,8 @@
 What you need at the bench: the printed parts (see the BOM in the
 README), the two 608 bearings, the five rod pieces (1x 145 mm, 2x
 600 mm, 2x 112 mm of 8 mm aluminum), the two PTFE washers (8x14x1,
-the vane thrust seats), an M8x1.25 hand die with its stock, the two
+the vane thrust seats), an M8x1.25 hand die with its stock, a vice
+and the two printed die jig halves to hold the shaft in it, the two
 M8 nylocs and fender washers for the hub, the M3 bolts with nyloc
 nuts, four wood screws, screwdrivers or hex keys to suit, a 13 mm
 wrench or socket for the M8 nuts, and, only if you fit the optional
@@ -49,9 +50,16 @@ end of step 3, with the rotor already in it.
 
 This all happens on the bench, and nothing is drilled. First the one
 rod prep of the build: run the M8x1.25 die 35 mm down the shaft's
-top end. An 8 mm rod is an M8 thread blank, so the die self-aligns;
-a drop of oil and a quarter turn back per turn forward and it cuts
-clean. Then slide the thrust collar (the wide plain one, no wedge)
+top end. Hold the shaft with the printed die jig: lay it into one
+half's groove, close the second half over it (they are the same
+part), and clamp the pair in the vice with the top end standing up
+and the blocks' flat backs against the jaws. The grooves grip the
+rod over their whole length, so the vice can pull properly hard
+without its teeth marking the rod, and like every clamshell in this
+machine the halves must not touch: an even gap between the blocks
+means the rod is gripped. An 8 mm rod is an M8 thread blank, so the
+die self-aligns; a drop of oil and a quarter turn back per turn
+forward and it cuts clean. Then slide the thrust collar (the wide plain one, no wedge)
 onto the shaft from the other end and leave it loose: it cannot pass
 the hub nuts later, so it must be on the shaft now. The small
 single-bolt retainer goes on at the end of this step, at that same

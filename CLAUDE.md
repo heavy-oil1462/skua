@@ -84,7 +84,10 @@ hardware. No electronics — the wind does everything.
   never touch: the clamshell rule, preload on the rods, never on
   face-to-face plastic. The die pass (M8x1.25, hub_shaft_thread) is
   the build's one rod prep — a hand die on an M8 blank, still
-  nothing drilled. The webs put a little plastic in the clamp path,
+  nothing drilled (the printed die jig, die_jig.scad, one part
+  printed twice, holds the shaft in the vice for it: soft jaws that
+  grip the whole groove so the vice teeth never mark the rod). The
+  webs put a little plastic in the clamp path,
   so the hub nuts join the seasonal re-torque round. The tip
   brackets are clamshells split on the plane containing their rod
   axes: lay in the rods, bolt the halves with washered M3s (they

@@ -173,6 +173,32 @@ def main():
           f"{P['hub_shaft_thread']} mm of M8x1.25 vs the {m8_stack:.1f} mm"
           " nut-washer-sandwich-washer-nut stack (>= 1 mm lead)")
 
+    # --- die jig (die_jig.scad, the bench tool for that die pass):
+    #     two identical soft jaws close groove to groove over the
+    #     shaft in the vice. Clamshell rule: the groove is shallower
+    #     than half the rod by half the gap, so the vice preload
+    #     lands on the rod, never on face-to-face plastic ---
+    jig_seat = P["rod_snug_d"] / 2 - P["die_jig_gap"] / 2
+    jig_web = P["die_jig_h"] - jig_seat
+    check(ok, jig_web >= 3, "die jig web behind the groove",
+          f"{jig_web:.1f} mm of jaw under the {jig_seat:.1f} mm groove"
+          " (>= 3: the vice jaw bears on it)")
+    jig_wall = (P["die_jig_w"] - P["rod_snug_d"]) / 2
+    check(ok, jig_wall >= 4, "die jig walls beside the groove",
+          f"{jig_wall:.1f} mm each side of the rod (>= 4)")
+    check(ok, 0.4 <= P["die_jig_gap"] <= 2, "die jig gap",
+          f"{P['die_jig_gap']} mm total: the halves never touch, the"
+          " vice clamps the rod not plastic (0.4 .. 2)")
+    check(ok, P["die_jig_len"] >= 40, "die jig grip length",
+          f"{P['die_jig_len']} mm of groove holds the die's torque by"
+          " friction alone (>= 40: the wide-grip rule, and the jig is"
+          " free to be long)")
+    jig_spare = P["shaft_length"] - P["die_jig_len"] - P["hub_shaft_thread"]
+    check(ok, jig_spare >= 0, "die jig grips below the thread",
+          f"jig {P['die_jig_len']} + thread {P['hub_shaft_thread']} on"
+          f" the {P['shaft_length']} shaft leaves {jig_spare:.0f} mm"
+          " spare (>= 0: the whole die length stands free of the jig)")
+
     # --- vertical stack: shaft and collar working room. The sandwich
     #     hangs its whole stack below the shaft top (top nyloc flush
     #     with the tip of the thread), so the arm axis sits on the
